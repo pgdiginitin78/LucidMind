@@ -286,7 +286,7 @@ export default function ProblemsAndSolutions() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative z-20 flex"
           >
-            <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-brand-blue to-[#040914] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
+            <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem]  bg-gradient-to-b from-[#040914] to-[#4B9AF5] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
               <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 -translate-y-1/2 translate-x-1/3 rounded-full bg-[#00A3FF] opacity-30 blur-[80px]" />
               <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 -translate-x-1/3 translate-y-1/3 rounded-full bg-[#00A3FF] opacity-10 blur-[60px]" />
 

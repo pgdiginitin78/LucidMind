@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -38,6 +39,8 @@ function YoutubeIcon() {
 
 export default function Podcasts() {
   const sectionRef = useRef(null);
+  const location = useLocation();
+  const isStandalone = location.pathname === "/podcasts";
 
   useGSAP(() => {
     gsap.from(".podcasts-headline", {
@@ -62,7 +65,7 @@ export default function Podcasts() {
 
       <section
         ref={sectionRef}
-        className="w-full py-12 px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]"
+        className={`w-full ${isStandalone ? 'pt-32 pb-12' : 'py-12'} px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <WebGLParticleCanvas variant="podcast" />
         <img

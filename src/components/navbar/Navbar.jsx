@@ -7,10 +7,9 @@ import LucidMindTransperentLogo from "../../assets/logo/LucidMindTransperent1.pn
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services", hasDropdown: true },
-  { label: "Insights", href: "/insights" },
-  { label: "Podcasts", href: "/podcasts" },
   { label: "About Us", href: "/about" },
+  { label: "Advisory", href: "/advisory"},
+  { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -42,21 +41,7 @@ export default function Navbar() {
     return () => anim.kill();
   }, []);
 
-  const handleCtaEnter = () => {
-    gsap.to(ctaRef.current, {
-      backgroundPosition: "100% 0%",
-      duration: 0.6,
-      ease: "power2.out",
-    });
-  };
 
-  const handleCtaLeave = () => {
-    gsap.to(ctaRef.current, {
-      backgroundPosition: "0% 0%",
-      duration: 0.6,
-      ease: "power2.out",
-    });
-  };
 
   return (
     <div className="fixed top-0 inset-x-0 z-[1000] pt-3 sm:pt-2 flex justify-center px-3 sm:px-4">

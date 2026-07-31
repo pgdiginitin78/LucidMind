@@ -146,7 +146,15 @@ export default function WebGLParticleCanvas({ variant }) {
 
     function init() {
       // Create high-density particles for rich cinematic cloud + mesh effect
-      const count = Math.min(Math.floor((W * H) / 3200), 280);
+      let density = 3200;
+      let maxCount = 280;
+      
+      if (variant === "minimal") {
+        density = 10000;
+        maxCount = 80;
+      }
+
+      const count = Math.min(Math.floor((W * H) / density), maxCount);
       const centerX = W * 0.5;
       const centerY = H * 0.5;
 

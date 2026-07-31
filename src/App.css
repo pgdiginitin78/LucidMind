@@ -96,4 +96,24 @@
 }
 
 
+b {
+  background: rgba(0, 196, 180, 0.3);
+  border-radius: 99px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 196, 180, 0.55);
+}
 
+
+
+.hero-gradient {
+  background: linear-gradient(
+    90deg,
+    #F8FAFD 0%,
+    #EAF3FC 20%,
+    #CBE6FB 45%,
+    #8BC8F7 65%,
+    #4B9AF5 82%,
+    #2E6EF2 100%
+  );
+}

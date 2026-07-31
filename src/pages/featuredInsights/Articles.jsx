@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -363,6 +364,7 @@ export default function Articles() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const location = useLocation();
 
   useGSAP(() => {
     gsap.from(".articles-headline", {
@@ -386,7 +388,7 @@ export default function Articles() {
     <>
       <section
         ref={sectionRef}
-        className="w-full py-10 px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]"
+        className={`w-full ${location.pathname === '/articles' ? 'pt-32 pb-10' : 'py-10'} px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <img
           src={articlesSectionBg}
