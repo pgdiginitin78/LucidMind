@@ -18,7 +18,7 @@ function HeroSection() {
 
       <div className="absolute top-0 left-0 w-full md:w-[75%] lg:w-[60%] h-full bg-gradient-to-r from-white/95 via-white/80 to-transparent z-10"></div>
 
-      <div className="relative z-20 w-full px-6 mt-20 sm:px-12 md:px-16 lg:px-12 md:w-[60%] lg:w-[60%] 2xl:w-[45%] flex flex-col items-start gap-4 text-left pt-24 md:pt-0 font-['Inter',sans-serif]">
+      <div className="relative z-20 w-full px-6 mt-20 sm:px-12 md:px-16 lg:px-12 2xl:px-24 md:w-[60%] lg:w-[60%] 2xl:w-[45%] flex flex-col items-start gap-4 text-left pt-24 md:pt-0 font-['Inter',sans-serif]">
         <div className="flex flex-col items-start">
           <p className="text-[#009A9A] font-light tracking-[0.2em] uppercase text-xs sm:text-sm md:text-base mb-2">
             Helping Leaders Build

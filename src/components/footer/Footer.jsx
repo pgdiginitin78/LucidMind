@@ -63,25 +63,32 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full relative bg-[#040C1A] pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
+    <footer className="w-full relative bg-[#040C1A] pt-10 xs:pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24 relative z-10">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-7 sm:gap-12 lg:gap-6 mb-12 sm:mb-12">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 sm:gap-10 lg:gap-6 mb-10 sm:mb-12">
           <motion.div
-            className="col-span-2 md:col-span-1"
+            className="col-span-1 xs:col-span-2 md:col-span-1"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
             variants={fadeUp}
             custom={0}
           >
-            <Link to="/" className="inline-block mb-3 sm:mb-2 h-24 w-28">
-              <img src={LucidMindTransperentLogo} />
+            <Link
+              to="/"
+              className="inline-flex items-center mb-4 sm:mb-5 h-14 w-auto sm:h-16 md:h-20 xl:h-28 xl:w-32"
+            >
+              <img
+                src={LucidMindTransperentLogo}
+                alt="Lucidmind logo"
+                className="h-full w-auto max-w-[10rem] object-contain"
+              />
             </Link>
             <p className="text-[#94A3B8] text-sm leading-relaxed mb-5 sm:mb-6 max-w-sm">
               Navigating complexity and building future-ready organisations for
               the AI era.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               {[
                 {
                   href: "https://twitter.com",
@@ -103,7 +110,7 @@ export default function Footer() {
                     color: "#ffffff",
                   }}
                   transition={{ duration: 0.2 }}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#0F2644] flex items-center justify-center text-[#94A3B8]"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#0F2644] flex items-center justify-center text-[#94A3B8] shrink-0"
                 >
                   <svg
                     width="13"
@@ -148,7 +155,7 @@ export default function Footer() {
           ))}
 
           <motion.div
-            className="col-span-2 md:col-span-1"
+            className="col-span-1 xs:col-span-2 md:col-span-1"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
@@ -180,11 +187,11 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <p className="text-[#64748B] text-xs order-2 md:order-1">
+          <p className="text-[#64748B] text-xs order-2 md:order-1 text-center md:text-left">
             &copy; {currentYear} Lucidmind. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 order-1 md:order-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
             <Link
               to="/privacy-policy"
               className="text-[#64748B] text-xs hover:text-white transition-colors"
@@ -209,13 +216,13 @@ export default function Footer() {
 
       <div
         ref={wordmarkRef}
-        className="pointer-events-none select-none absolute left-0 right-0 bottom-[-6%] sm:bottom-[-4%] flex justify-center overflow-hidden"
+        className="pointer-events-none select-none absolute left-0 right-0 bottom-[-6%] sm:bottom-[-4%] flex justify-center overflow-hidden px-4"
         aria-hidden="true"
       >
         <span
           className="font-['Playfair_Display',serif] font-normal leading-none whitespace-nowrap"
           style={{
-            fontSize: "clamp(3.5rem, 20vw, 14rem)",
+            fontSize: "clamp(2.75rem, 18vw, 14rem)",
             color: "transparent",
             WebkitTextStroke: "1px #14243d",
             backgroundImage:
