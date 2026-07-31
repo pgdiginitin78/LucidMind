@@ -64,7 +64,7 @@ export default function Footer() {
 
   return (
     <footer className="w-full relative bg-[#040C1A] pt-10 xs:pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 lg:px-24 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 sm:gap-10 lg:gap-6 mb-10 sm:mb-12">
           <motion.div
             className="col-span-1 xs:col-span-2 md:col-span-1"
