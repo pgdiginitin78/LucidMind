@@ -10,7 +10,6 @@ import Podcasts from "./pages/featuredInsights/Podcasts";
 import Footer from "./components/footer/Footer";
 import About from "./pages/aboutUs/About";
 import ContactUs from "./pages/contactUs/ContactUs";
-
 import "./App.css";
 
 function ScrollToTop() {
