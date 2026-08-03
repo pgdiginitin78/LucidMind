@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
@@ -23,7 +23,8 @@ const BRAND_BLUE = "#2563EB";
 const BRAND_TEAL = "#00C4B4";
 
 export default function Navbar() {
-  const [active, setActive] = useState("Home");
+  const location = useLocation();
+  const active = NAV_LINKS.find(link => link.href === '/' ? location.pathname === '/' : location.pathname.startsWith(link.href))?.label || "";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const logoGlowRef = useRef(null);
@@ -73,7 +74,6 @@ export default function Navbar() {
               >
                 <Link
                   to={item.href}
-                  onClick={() => setActive(item.label)}
                   className={`relative flex items-center gap-1 text-sm cursor-pointer font-medium transition-colors ${
                     isActive
                       ? "text-[#00C4B4]"
@@ -170,7 +170,6 @@ export default function Navbar() {
                   key={item.label}
                   to={item.href}
                   onClick={() => {
-                    setActive(item.label);
                     setMobileOpen(false);
                   }}
                   className={`flex items-center justify-between text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
