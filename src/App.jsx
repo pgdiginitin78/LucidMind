@@ -8,6 +8,7 @@ import Articles from "./pages/featuredInsights/Articles";
 import Podcasts from "./pages/featuredInsights/Podcasts";
 import Footer from "./components/footer/Footer";
 import About from "./pages/aboutUs/About";
+import ContactUs from "./pages/contactUs/ContactUs";
 
 import "./App.css";
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/philosophy" element={<AdvisoryPhilosophy />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/podcasts" element={<Podcasts />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
 
       <Footer />

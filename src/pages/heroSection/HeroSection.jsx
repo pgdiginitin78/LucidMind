@@ -1,6 +1,7 @@
 import React from "react";
-import bgVideo from "../../assets/LucidMindHero.mp4";
+import bgVideo from "../../assets/LucidMindHero4.mp4";
 import Heading from "../../components/ui/Heading";
+import HeroBannerImg from "../../assets/HeroBanner.png";
 
 function HeroSection() {
   return (
@@ -10,11 +11,15 @@ function HeroSection() {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0  w-full h-full object-center object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover object-top z-0"
       >
         <source src={bgVideo} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
+      {/* <img
+        src={HeroBannerImg}
+        alt="Hero Banner"
+        className="absolute inset-0 w-full h-full object-cover object-top z-0"
+      /> */}
 
       <div className="absolute top-0 left-0 w-full md:w-[75%] lg:w-[60%] h-full bg-gradient-to-r from-white/95 via-white/80 to-transparent z-10"></div>
 
@@ -23,7 +28,10 @@ function HeroSection() {
           <p className="text-[#009A9A] font-light tracking-[0.2em] uppercase text-xs sm:text-sm md:text-base mb-2">
             Helping Leaders Build
           </p>
-          <Heading level={1} className="text-5xl md:text-3xl lg:text-[3rem] text-[#0B192C] leading-[1.05] tracking-tight">
+          <Heading
+            level={1}
+            className="text-5xl md:text-3xl lg:text-[3rem] text-[#0B192C] leading-[1.05] tracking-tight"
+          >
             Organisations Ready <br /> for the&nbsp;
             <span className="text-[#009A9A]">AI</span> Era.
           </Heading>
@@ -33,21 +41,22 @@ function HeroSection() {
           AI is changing technology. The real challenge is transforming
           leadership, operating models, and business capabilities.
         </p>
-        <button className="bg-[#009A9A] cursor-pointer text-white flex items-center justify-between gap-3 font-medium py-3 px-6 rounded-full hover:bg-[#007A7A] transition-colors duration-300">
+        <button className="group cursor-pointer flex items-center gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-7 py-3 text-white font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40">
           <span>Schedule a Conversation</span>
-          <div className="w-7 h-7 rounded-full border border-white/50 flex items-center justify-center">
+
+          <div className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-3.5 h-3.5 text-white"
+              className="h-4 w-4"
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                d="M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75"
               />
             </svg>
           </div>
