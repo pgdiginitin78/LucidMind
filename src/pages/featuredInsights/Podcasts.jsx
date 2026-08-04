@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Heading from "../../components/ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import podcastsSectionBg from "../../assets/podcasts_section_bg.png";
+import Antigravity from "./Antigravity";
+import Strands from "./Strands";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,14 +67,33 @@ export default function Podcasts() {
 
       <section
         ref={sectionRef}
-        className={`w-full ${isStandalone ? 'pt-32 pb-12' : 'py-12'} px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
+        className={`w-full ${isStandalone ? "pt-12 pb-12" : "py-12"} px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <WebGLParticleCanvas variant="podcast" />
-        <img
-          src={podcastsSectionBg}
-          alt="Podcasts Section Background"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[1] opacity-80"
-        />
+
+        {/* Antigravity Background Animation */}
+        <div className="absolute inset-0 w-full  h-full pointer-events-none z-0">
+          <Strands
+            colors={["#00C4B4", "#2563EB", "#4B9AF5"]}
+            count={3}
+            speed={0.5}
+            amplitude={1}
+            waviness={1}
+            thickness={0.7}
+            glow={2.6}
+            taper={3}
+            spread={1}
+            intensity={0.6}
+            saturation={2}
+            opacity={1}
+            scale={1.5}
+            glass={false}
+            refraction={1}
+            dispersion={1}
+            glassSize={1}
+            hueShift={0}
+          />
+        </div>
 
         <div className="max-w-[1440px] mx-auto relative" style={{ zIndex: 2 }}>
           <div className="flex flex-col lg:flex-row gap-10 xl:gap-16 items-center">

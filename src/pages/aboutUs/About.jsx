@@ -1,32 +1,38 @@
-import React, { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import {
-  Briefcase,
-  GraduationCap,
+  ArrowUp,
   BadgeCheck,
-  MapPin,
-  Link2,
-  TrendingUp,
-  Users,
-  Sparkles,
-  DollarSign,
-  Trophy,
-  Lightbulb,
-  Target,
-  Globe,
   Bot,
-  Search,
-  X,
-  Menu,
+  Briefcase,
+  CheckCircle2,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ArrowUp,
-  Mail,
-  Send,
-  CheckCircle2,
-  Quote,
+  DollarSign,
+  Globe,
+  GraduationCap,
+  Lightbulb,
+  Link2,
   Loader2,
+  Mail,
+  MapPin,
+  Menu,
+  Quote,
+  Search,
+  Send,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Trophy,
+  Users,
+  X,
 } from "lucide-react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import profileImg from "../../assets/Ravishankar Pingali.png";
 import WebGLParticleCanvas from "../featuredInsights/WebGLParticleCanvas";
 
@@ -47,10 +53,34 @@ const NAV_LINKS = [
 ];
 
 const STATS = [
-  { icon: TrendingUp, value: 27, suffix: "+", label: "Years in the field", note: "Engineer to Managing Director" },
-  { icon: Users, value: 220, suffix: "+", label: "Team scaled", note: "From a 15-person desk" },
-  { icon: DollarSign, value: 100, suffix: "M+", label: "Transformation led", note: "Across BFSI & GCC programs" },
-  { icon: Sparkles, value: 30, suffix: "%", label: "Leadership pipeline built", note: "Through DEI & mentoring" },
+  {
+    icon: TrendingUp,
+    value: 27,
+    suffix: "+",
+    label: "Years in the field",
+    note: "Engineer to Managing Director",
+  },
+  {
+    icon: Users,
+    value: 220,
+    suffix: "+",
+    label: "Team scaled",
+    note: "From a 15-person desk",
+  },
+  {
+    icon: DollarSign,
+    value: 100,
+    suffix: "M+",
+    label: "Transformation led",
+    note: "Across BFSI & GCC programs",
+  },
+  {
+    icon: Sparkles,
+    value: 30,
+    suffix: "%",
+    label: "Leadership pipeline built",
+    note: "Through DEI & mentoring",
+  },
 ];
 
 const EXPERIENCE = [
@@ -148,7 +178,8 @@ const EXPERIENCE = [
       "Secured a marquee UK investment banking client, outperforming top Indian IT competitors.",
       "Grew revenues four times to $8M in 2.5 years while maintaining 34%+ operating margins.",
     ],
-    skills: "People Development & Management, Business Growth Strategies, +5 skills",
+    skills:
+      "People Development & Management, Business Growth Strategies, +5 skills",
   },
   {
     role: "Delivery Manager",
@@ -246,28 +277,82 @@ const TOP_SKILLS = [
 ];
 
 const SKILL_TAGS = [
-  "GCC Strategy", "IT Strategy", "Executive Leadership", "Business Transformation",
-  "Solution Architecture", "P&L Management", "Change Management", "Program Management",
-  "Generative AI", "AI Agents", "Multi-agent Systems", "Emerging Technologies",
-  "Stakeholder Management", "Leadership Development", "Strategic Planning",
-  "E-Commerce", "Product Development", "Business Development", "Organizational Leadership",
+  "GCC Strategy",
+  "IT Strategy",
+  "Executive Leadership",
+  "Business Transformation",
+  "Solution Architecture",
+  "P&L Management",
+  "Change Management",
+  "Program Management",
+  "Generative AI",
+  "AI Agents",
+  "Multi-agent Systems",
+  "Emerging Technologies",
+  "Stakeholder Management",
+  "Leadership Development",
+  "Strategic Planning",
+  "E-Commerce",
+  "Product Development",
+  "Business Development",
+  "Organizational Leadership",
   "Technology Consulting",
 ];
 
 const CERTIFICATIONS = [
-  { name: "Independent Director", issuer: "Indian Institute of Corporate Affairs", year: "Mar 2026" },
-  { name: "Certified ESG Professional Impact Leader", issuer: "Indian Institute of Corporate Affairs", year: "Pursuing" },
-  { name: "Claude Code: A Highly Agentic Coding Assistant", issuer: "DeepLearning.AI", year: "Aug 2025" },
-  { name: "Building and Evaluating Data Agents", issuer: "DeepLearning.AI", year: "Dec 2025" },
-  { name: "MCP: Build Rich-Context AI Apps with Anthropic", issuer: "DeepLearning.AI", year: "May 2025" },
-  { name: "Vibe Coding 101 with Replit", issuer: "DeepLearning.AI", year: "Apr 2025" },
+  {
+    name: "Independent Director",
+    issuer: "Indian Institute of Corporate Affairs",
+    year: "Mar 2026",
+  },
+  {
+    name: "Certified ESG Professional Impact Leader",
+    issuer: "Indian Institute of Corporate Affairs",
+    year: "Pursuing",
+  },
+  {
+    name: "Claude Code: A Highly Agentic Coding Assistant",
+    issuer: "DeepLearning.AI",
+    year: "Aug 2025",
+  },
+  {
+    name: "Building and Evaluating Data Agents",
+    issuer: "DeepLearning.AI",
+    year: "Dec 2025",
+  },
+  {
+    name: "MCP: Build Rich-Context AI Apps with Anthropic",
+    issuer: "DeepLearning.AI",
+    year: "May 2025",
+  },
+  {
+    name: "Vibe Coding 101 with Replit",
+    issuer: "DeepLearning.AI",
+    year: "Apr 2025",
+  },
   { name: "Evaluating AI Agents", issuer: "DeepLearning.AI", year: "Mar 2025" },
   { name: "Reasoning with o1", issuer: "DeepLearning.AI", year: "Feb 2025" },
   { name: "Multi AI Agent Systems", issuer: "CrewAI", year: "2024" },
-  { name: "Agentic AI Fundamentals", issuer: "LinkedIn Learning", year: "Nov 2024" },
-  { name: "Generative AI for Business Leaders", issuer: "LinkedIn Learning", year: "Nov 2024" },
-  { name: "Safe and Reliable AI via Guardrails", issuer: "DeepLearning.AI", year: "Nov 2024" },
-  { name: "Leading Business Transformation in the Age of AI", issuer: "Indian School of Business", year: "Sep 2020" },
+  {
+    name: "Agentic AI Fundamentals",
+    issuer: "LinkedIn Learning",
+    year: "Nov 2024",
+  },
+  {
+    name: "Generative AI for Business Leaders",
+    issuer: "LinkedIn Learning",
+    year: "Nov 2024",
+  },
+  {
+    name: "Safe and Reliable AI via Guardrails",
+    issuer: "DeepLearning.AI",
+    year: "Nov 2024",
+  },
+  {
+    name: "Leading Business Transformation in the Age of AI",
+    issuer: "Indian School of Business",
+    year: "Sep 2020",
+  },
 ];
 
 const LEADERSHIP_IMPACT = [
@@ -279,11 +364,12 @@ const LEADERSHIP_IMPACT = [
   {
     icon: Globe,
     title: "Global Stakeholder Influence | EVP-Level Interface",
-    body: "Shaped company vision and strategic alignment at board level. Secured buy-in for India-originated initiatives changing the narrative from being a \"delivery hub\" to \"innovation engine\". An active voice in industry forums shaping GCC evolution in the AI era.",
+    body: 'Shaped company vision and strategic alignment at board level. Secured buy-in for India-originated initiatives changing the narrative from being a "delivery hub" to "innovation engine". An active voice in industry forums shaping GCC evolution in the AI era.',
   },
   {
     icon: TrendingUp,
-    title: "27-29% YoY Revenue Growth | 26-32% Operating Margins | Built 30% Deeper Leadership Pipeline",
+    title:
+      "27-29% YoY Revenue Growth | 26-32% Operating Margins | Built 30% Deeper Leadership Pipeline",
     body: "Delivered disciplined growth without compromising margins or culture. Scaled profitably while building organizational resilience-zero key-person risk.",
   },
   {
@@ -339,7 +425,7 @@ function useInViewOnce(options) {
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "-40px", ...options }
+      { threshold: 0.15, rootMargin: "-40px", ...options },
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -358,7 +444,7 @@ function useActiveSection(ids) {
         ([entry]) => {
           if (entry.isIntersecting) setActive(id);
         },
-        { threshold: 0.35, rootMargin: "-15% 0px -50% 0px" }
+        { threshold: 0.35, rootMargin: "-15% 0px -50% 0px" },
       );
       observer.observe(node);
       observers.push(observer);
@@ -407,14 +493,25 @@ function Eyebrow({ children }) {
   return (
     <div className="flex items-center gap-2 mb-3">
       <span className="w-6 h-px" style={{ background: TEAL }} />
-      <span className="text-[10px] sm:text-xs font-semibold tracking-[0.28em] uppercase" style={{ color: TEAL }}>
+      <span
+        className="text-[10px] sm:text-xs font-semibold tracking-[0.28em] uppercase"
+        style={{ color: TEAL }}
+      >
         {children}
       </span>
     </div>
   );
 }
 
-function MagneticButton({ children, className = "", onClick, as = "button", href, target, rel }) {
+function MagneticButton({
+  children,
+  className = "",
+  onClick,
+  as = "button",
+  href,
+  target,
+  rel,
+}) {
   const ref = useRef(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
 
@@ -493,7 +590,9 @@ function SkillRow({ skill, index }) {
       >
         {String(count).padStart(2, "0")}
       </span>
-      <span className="text-xs sm:text-sm font-medium text-slate-700">{skill}</span>
+      <span className="text-xs sm:text-sm font-medium text-slate-700">
+        {skill}
+      </span>
       <span className="hidden sm:block flex-1 h-px bg-slate-100 ml-2" />
     </div>
   );
@@ -515,10 +614,15 @@ function StatTile({ stat, index }) {
     >
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: `linear-gradient(135deg, ${TEAL}14, transparent 60%)` }}
+        style={{
+          background: `linear-gradient(135deg, ${TEAL}14, transparent 60%)`,
+        }}
       />
       <div className="relative flex items-start justify-between">
-        <span className="grid place-items-center w-8 h-8 rounded-lg" style={{ background: `${TEAL}1A`, color: TEAL }}>
+        <span
+          className="grid place-items-center w-8 h-8 rounded-lg"
+          style={{ background: `${TEAL}1A`, color: TEAL }}
+        >
           <Icon size={16} strokeWidth={2} />
         </span>
         <span className="text-[9px] font-mono tracking-widest text-white/25">
@@ -529,7 +633,9 @@ function StatTile({ stat, index }) {
         {count}
         {stat.suffix}
       </p>
-      <p className="relative mt-1.5 text-[11px] sm:text-xs font-medium text-white/60">{stat.label}</p>
+      <p className="relative mt-1.5 text-[11px] sm:text-xs font-medium text-white/60">
+        {stat.label}
+      </p>
       <p className="relative mt-0.5 text-[10px] text-white/30">{stat.note}</p>
     </div>
   );
@@ -547,17 +653,24 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
         transition: `opacity 0.55s ease ${Math.min(index, 4) * 0.06}s, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${Math.min(index, 4) * 0.06}s`,
       }}
     >
-      <span className="absolute left-0 top-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center shadow-md shrink-0"
+      <span
+        className="absolute left-0 top-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full grid place-items-center shadow-md shrink-0"
         style={{ background: `linear-gradient(135deg, ${TEAL}, ${BLUE})` }}
       >
         <Briefcase size={14} color="#fff" strokeWidth={2.2} />
       </span>
       {index < EXPERIENCE.length - 1 && (
-        <span className="absolute left-[15px] sm:left-[17px] top-8 sm:top-9 bottom-0 w-px" style={{ background: "linear-gradient(to bottom, #d8dde6, transparent)" }} />
+        <span
+          className="absolute left-[15px] sm:left-[17px] top-8 sm:top-9 bottom-0 w-px"
+          style={{
+            background: "linear-gradient(to bottom, #d8dde6, transparent)",
+          }}
+        />
       )}
       {item.groupLabel && (
         <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-          {item.company} <span className="text-slate-300">·</span> {item.groupLabel}
+          {item.company} <span className="text-slate-300">·</span>{" "}
+          {item.groupLabel}
         </p>
       )}
       <button
@@ -566,55 +679,93 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
       >
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-[#0B1220] leading-snug">{item.role}</h3>
-            <p className="text-xs sm:text-sm font-semibold" style={{ color: TEAL }}>{item.company}</p>
+            <h3 className="text-sm sm:text-base font-bold text-[#0B1220] leading-snug">
+              {item.role}
+            </h3>
+            <p
+              className="text-xs sm:text-sm font-semibold"
+              style={{ color: TEAL }}
+            >
+              {item.company}
+            </p>
           </div>
           <span className="shrink-0 rotate-[-4deg] rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider text-slate-400">
             {item.duration}
           </span>
         </div>
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-slate-400">
-          <span className="inline-flex items-center gap-1"><MapPin size={11} />{item.location}</span>
+          <span className="inline-flex items-center gap-1">
+            <MapPin size={11} />
+            {item.location}
+          </span>
           <span>{item.period}</span>
-          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-500">{item.type}</span>
+          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-500">
+            {item.type}
+          </span>
         </div>
         {item.description && (
-          <p className="mt-2.5 text-xs sm:text-[13px] text-slate-500 leading-relaxed">{item.description}</p>
+          <p className="mt-2.5 text-xs sm:text-[13px] text-slate-500 leading-relaxed">
+            {item.description}
+          </p>
         )}
         {item.points.length > 0 && (
           <div
             className="grid transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]"
-            style={{ gridTemplateRows: isOpen ? "1fr" : "0fr", opacity: isOpen ? 1 : 0 }}
+            style={{
+              gridTemplateRows: isOpen ? "1fr" : "0fr",
+              opacity: isOpen ? 1 : 0,
+            }}
           >
             <div className="overflow-hidden">
               <ul className="mt-3 flex flex-col gap-1.5 border-t border-slate-100 pt-3">
                 {item.points.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[11px] sm:text-xs text-slate-500 leading-relaxed">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full" style={{ background: TEAL }} />
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-[11px] sm:text-xs text-slate-500 leading-relaxed"
+                  >
+                    <span
+                      className="mt-1.5 h-1 w-1 shrink-0 rounded-full"
+                      style={{ background: TEAL }}
+                    />
                     {point}
                   </li>
                 ))}
               </ul>
               {item.skills && (
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  {item.skills.split(",").map((s) => s.trim()).filter(Boolean).map((s) => (
-                    <span
-                      key={s}
-                      className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
-                      style={{ borderColor: `${BLUE}30`, color: BLUE, background: `${BLUE}0A` }}
-                    >
-                      {s}
-                    </span>
-                  ))}
+                  {item.skills
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean)
+                    .map((s) => (
+                      <span
+                        key={s}
+                        className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
+                        style={{
+                          borderColor: `${BLUE}30`,
+                          color: BLUE,
+                          background: `${BLUE}0A`,
+                        }}
+                      >
+                        {s}
+                      </span>
+                    ))}
                 </div>
               )}
             </div>
           </div>
         )}
         {item.points.length > 0 && (
-          <div className="mt-2 flex items-center gap-1 text-[10px] font-semibold" style={{ color: BLUE }}>
+          <div
+            className="mt-2 flex items-center gap-1 text-[10px] font-semibold"
+            style={{ color: BLUE }}
+          >
             {isOpen ? "Hide detail" : "Show detail"}
-            <ChevronDown size={12} className="transition-transform duration-300" style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }} />
+            <ChevronDown
+              size={12}
+              className="transition-transform duration-300"
+              style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+            />
           </div>
         )}
       </button>
@@ -625,13 +776,19 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
 function SkillsPanel() {
   const [query, setQuery] = useState("");
   const filtered = useMemo(
-    () => SKILL_TAGS.filter((s) => s.toLowerCase().includes(query.trim().toLowerCase())),
-    [query]
+    () =>
+      SKILL_TAGS.filter((s) =>
+        s.toLowerCase().includes(query.trim().toLowerCase()),
+      ),
+    [query],
   );
   return (
     <div>
       <div className="relative mb-4">
-        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+        <Search
+          size={14}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+        />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -640,15 +797,22 @@ function SkillsPanel() {
           style={{ "--tw-ring-color": `${TEAL}55` }}
         />
         {query && (
-          <button onClick={() => setQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+          <button
+            onClick={() => setQuery("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+          >
             <X size={13} />
           </button>
         )}
       </div>
       {filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-slate-200 py-6 text-center">
-          <p className="text-xs font-medium text-slate-500">No skills match "{query}"</p>
-          <p className="text-[11px] text-slate-400 mt-1">Try a shorter or different term.</p>
+          <p className="text-xs font-medium text-slate-500">
+            No skills match "{query}"
+          </p>
+          <p className="text-[11px] text-slate-400 mt-1">
+            Try a shorter or different term.
+          </p>
         </div>
       ) : (
         <div className="flex flex-wrap gap-2">
@@ -657,9 +821,19 @@ function SkillsPanel() {
               key={s}
               className="text-[11px] font-medium px-2.5 py-1 rounded-full border cursor-default transition-transform duration-200 hover:-translate-y-0.5"
               style={{
-                borderColor: i % 3 === 0 ? `${TEAL}40` : i % 3 === 1 ? `${BLUE}40` : "#e2e8f0",
+                borderColor:
+                  i % 3 === 0
+                    ? `${TEAL}40`
+                    : i % 3 === 1
+                      ? `${BLUE}40`
+                      : "#e2e8f0",
                 color: i % 3 === 0 ? TEAL : i % 3 === 1 ? BLUE : "#475569",
-                background: i % 3 === 0 ? `${TEAL}0C` : i % 3 === 1 ? `${BLUE}0C` : "#f8fafc",
+                background:
+                  i % 3 === 0
+                    ? `${TEAL}0C`
+                    : i % 3 === 1
+                      ? `${BLUE}0C`
+                      : "#f8fafc",
               }}
             >
               {s}
@@ -682,14 +856,20 @@ function CertificationsGrid() {
     return () => clearTimeout(t);
   }, []);
 
-  const visible = CERTIFICATIONS.slice(page * perPage, page * perPage + perPage);
+  const visible = CERTIFICATIONS.slice(
+    page * perPage,
+    page * perPage + perPage,
+  );
 
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 min-h-[220px]">
         {loading
           ? Array.from({ length: perPage }).map((_, i) => (
-              <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 animate-pulse">
+              <div
+                key={i}
+                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 animate-pulse"
+              >
                 <div className="w-7 h-7 rounded-lg bg-slate-200 shrink-0" />
                 <div className="flex-1 space-y-2">
                   <div className="h-2.5 w-3/4 rounded bg-slate-200" />
@@ -703,13 +883,20 @@ function CertificationsGrid() {
                 className="group flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-transparent hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Tooltip label={`${c.issuer} - ${c.year}`}>
-                  <span className="mt-0.5 grid place-items-center w-7 h-7 rounded-lg shrink-0" style={{ background: `${GOLD}1A`, color: GOLD }}>
+                  <span
+                    className="mt-0.5 grid place-items-center w-7 h-7 rounded-lg shrink-0"
+                    style={{ background: `${GOLD}1A`, color: GOLD }}
+                  >
                     <BadgeCheck size={15} />
                   </span>
                 </Tooltip>
                 <div>
-                  <p className="text-xs font-semibold text-[#0B1220] leading-snug">{c.name}</p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{c.issuer} &middot; {c.year}</p>
+                  <p className="text-xs font-semibold text-[#0B1220] leading-snug">
+                    {c.name}
+                  </p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">
+                    {c.issuer} &middot; {c.year}
+                  </p>
                 </div>
               </div>
             ))}
@@ -728,7 +915,10 @@ function CertificationsGrid() {
               key={i}
               onClick={() => setPage(i)}
               className="h-1.5 rounded-full transition-all duration-300"
-              style={{ width: page === i ? 18 : 6, background: page === i ? TEAL : "#e2e8f0" }}
+              style={{
+                width: page === i ? 18 : 6,
+                background: page === i ? TEAL : "#e2e8f0",
+              }}
             />
           ))}
         </div>
@@ -758,14 +948,34 @@ function PrinciplesCarousel() {
   const Icon = current.icon;
 
   return (
-    <div className="relative rounded-2xl border p-6 sm:p-8 overflow-hidden" style={{ borderColor: `${TEAL}30`, background: `linear-gradient(135deg, ${INK}, #101c33)` }}>
-      <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-20 blur-3xl" style={{ background: TEAL }} />
-      <div key={index} className="relative" style={{ animation: "fadeSlide 0.6s cubic-bezier(0.22,1,0.36,1)" }}>
-        <span className="grid place-items-center w-10 h-10 rounded-xl mb-4" style={{ background: `${TEAL}20`, color: TEAL }}>
+    <div
+      className="relative rounded-2xl border p-6 sm:p-8 overflow-hidden"
+      style={{
+        borderColor: `${TEAL}30`,
+        background: `linear-gradient(135deg, ${INK}, #101c33)`,
+      }}
+    >
+      <div
+        className="absolute -right-10 -top-10 w-40 h-40 rounded-full opacity-20 blur-3xl"
+        style={{ background: TEAL }}
+      />
+      <div
+        key={index}
+        className="relative"
+        style={{ animation: "fadeSlide 0.6s cubic-bezier(0.22,1,0.36,1)" }}
+      >
+        <span
+          className="grid place-items-center w-10 h-10 rounded-xl mb-4"
+          style={{ background: `${TEAL}20`, color: TEAL }}
+        >
           <Icon size={18} />
         </span>
-        <p className="text-white font-bold text-base sm:text-lg leading-snug mb-2 max-w-xl">{current.title}</p>
-        <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-xl">{current.body}</p>
+        <p className="text-white font-bold text-base sm:text-lg leading-snug mb-2 max-w-xl">
+          {current.title}
+        </p>
+        <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-xl">
+          {current.body}
+        </p>
       </div>
       <div className="relative mt-6 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
@@ -774,15 +984,24 @@ function PrinciplesCarousel() {
               key={i}
               onClick={() => setIndex(i)}
               className="h-1.5 rounded-full transition-all duration-300"
-              style={{ width: index === i ? 18 : 6, background: index === i ? TEAL : "rgba(255,255,255,0.2)" }}
+              style={{
+                width: index === i ? 18 : 6,
+                background: index === i ? TEAL : "rgba(255,255,255,0.2)",
+              }}
             />
           ))}
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => go(-1)} className="grid place-items-center w-8 h-8 rounded-lg border border-white/10 text-white/70 hover:bg-white/10 transition-colors">
+          <button
+            onClick={() => go(-1)}
+            className="grid place-items-center w-8 h-8 rounded-lg border border-white/10 text-white/70 hover:bg-white/10 transition-colors"
+          >
             <ChevronLeft size={14} />
           </button>
-          <button onClick={() => go(1)} className="grid place-items-center w-8 h-8 rounded-lg border border-white/10 text-white/70 hover:bg-white/10 transition-colors">
+          <button
+            onClick={() => go(1)}
+            className="grid place-items-center w-8 h-8 rounded-lg border border-white/10 text-white/70 hover:bg-white/10 transition-colors"
+          >
             <ChevronRight size={14} />
           </button>
         </div>
@@ -825,18 +1044,31 @@ function ContactModal({ open, onClose }) {
       />
       <div
         className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl transition-all duration-300"
-        style={{ opacity: open ? 1 : 0, transform: open ? "scale(1) translateY(0)" : "scale(0.95) translateY(12px)" }}
+        style={{
+          opacity: open ? 1 : 0,
+          transform: open
+            ? "scale(1) translateY(0)"
+            : "scale(0.95) translateY(12px)",
+        }}
       >
-        <button onClick={onClose} className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 transition-colors">
+        <button
+          onClick={onClose}
+          className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 transition-colors"
+        >
           <X size={16} />
         </button>
         {status === "success" ? (
           <div className="py-6 text-center">
-            <div className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full" style={{ background: `${TEAL}1A`, color: TEAL }}>
+            <div
+              className="mx-auto mb-3 grid h-12 w-12 place-items-center rounded-full"
+              style={{ background: `${TEAL}1A`, color: TEAL }}
+            >
               <CheckCircle2 size={22} />
             </div>
             <p className="text-sm font-semibold text-[#0B1220]">Message sent</p>
-            <p className="mt-1 text-xs text-slate-500">Thanks for reaching out — expect a reply within a couple of days.</p>
+            <p className="mt-1 text-xs text-slate-500">
+              Thanks for reaching out — expect a reply within a couple of days.
+            </p>
             <button
               onClick={onClose}
               className="mt-5 rounded-full px-4 py-2 text-xs font-semibold text-white transition-opacity hover:opacity-90"
@@ -852,7 +1084,9 @@ function ContactModal({ open, onClose }) {
               <h3 className="text-lg font-bold text-[#0B1220]">Send a note</h3>
             </div>
             <div>
-              <label className="text-[11px] font-medium text-slate-500">Name</label>
+              <label className="text-[11px] font-medium text-slate-500">
+                Name
+              </label>
               <input
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -862,7 +1096,9 @@ function ContactModal({ open, onClose }) {
               />
             </div>
             <div>
-              <label className="text-[11px] font-medium text-slate-500">Email</label>
+              <label className="text-[11px] font-medium text-slate-500">
+                Email
+              </label>
               <input
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -873,7 +1109,9 @@ function ContactModal({ open, onClose }) {
               />
             </div>
             <div>
-              <label className="text-[11px] font-medium text-slate-500">Message</label>
+              <label className="text-[11px] font-medium text-slate-500">
+                Message
+              </label>
               <textarea
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -884,7 +1122,9 @@ function ContactModal({ open, onClose }) {
               />
             </div>
             {status === "error" && (
-              <p className="text-[11px] font-medium text-red-500">Fill in every field before sending.</p>
+              <p className="text-[11px] font-medium text-red-500">
+                Fill in every field before sending.
+              </p>
             )}
             <button
               type="submit"
@@ -892,7 +1132,11 @@ function ContactModal({ open, onClose }) {
               className="mt-1 flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-70"
               style={{ background: `linear-gradient(90deg, ${TEAL}, ${BLUE})` }}
             >
-              {status === "loading" ? <Loader2 size={14} className="animate-spin" /> : <Send size={13} />}
+              {status === "loading" ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Send size={13} />
+              )}
               {status === "loading" ? "Sending" : "Send message"}
             </button>
           </form>
@@ -924,11 +1168,16 @@ function NavBar({ active, onNavigate }) {
         style={{
           background: scrolled ? "rgba(11,18,32,0.85)" : "transparent",
           backdropFilter: scrolled ? "blur(14px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
+          borderBottom: scrolled
+            ? "1px solid rgba(255,255,255,0.08)"
+            : "1px solid transparent",
         }}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3.5">
-          <button onClick={() => handleNavigate("hero")} className="text-sm font-bold text-white tracking-tight">
+          <button
+            onClick={() => handleNavigate("hero")}
+            className="text-sm font-bold text-white tracking-tight"
+          >
             R. Pingali
           </button>
           <nav className="hidden md:flex items-center gap-1">
@@ -937,11 +1186,16 @@ function NavBar({ active, onNavigate }) {
                 key={link.id}
                 onClick={() => handleNavigate(link.id)}
                 className="relative px-3 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors"
-                style={{ color: active === link.id ? "#fff" : "rgba(255,255,255,0.5)" }}
+                style={{
+                  color: active === link.id ? "#fff" : "rgba(255,255,255,0.5)",
+                }}
               >
                 {link.label}
                 {active === link.id && (
-                  <span className="absolute left-3 right-3 -bottom-0.5 h-px" style={{ background: TEAL }} />
+                  <span
+                    className="absolute left-3 right-3 -bottom-0.5 h-px"
+                    style={{ background: TEAL }}
+                  />
                 )}
               </button>
             ))}
@@ -966,11 +1220,19 @@ function NavBar({ active, onNavigate }) {
         />
         <div
           className="absolute right-0 top-0 h-full w-64 bg-[#0B1220] px-6 py-6 shadow-2xl transition-transform duration-400"
-          style={{ transform: drawerOpen ? "translateX(0%)" : "translateX(100%)", transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
+          style={{
+            transform: drawerOpen ? "translateX(0%)" : "translateX(100%)",
+            transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)",
+          }}
         >
           <div className="flex items-center justify-between mb-8">
             <span className="text-sm font-bold text-white">Menu</span>
-            <button onClick={() => setDrawerOpen(false)} className="text-white/60"><X size={18} /></button>
+            <button
+              onClick={() => setDrawerOpen(false)}
+              className="text-white/60"
+            >
+              <X size={18} />
+            </button>
           </div>
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
@@ -978,7 +1240,13 @@ function NavBar({ active, onNavigate }) {
                 key={link.id}
                 onClick={() => handleNavigate(link.id)}
                 className="text-left px-3 py-2.5 rounded-lg text-xs font-medium uppercase tracking-wide transition-colors"
-                style={{ color: active === link.id ? TEAL : "rgba(255,255,255,0.6)", background: active === link.id ? "rgba(255,255,255,0.05)" : "transparent" }}
+                style={{
+                  color: active === link.id ? TEAL : "rgba(255,255,255,0.6)",
+                  background:
+                    active === link.id
+                      ? "rgba(255,255,255,0.05)"
+                      : "transparent",
+                }}
               >
                 {link.label}
               </button>
@@ -1022,7 +1290,9 @@ export default function About() {
       <section
         id="hero"
         className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20 px-4 sm:px-6"
-        style={{ background: `linear-gradient(160deg, ${INK} 0%, #101d38 45%, ${INK} 100%)` }}
+        style={{
+          background: `linear-gradient(160deg, ${INK} 0%, #101d38 45%, ${INK} 100%)`,
+        }}
       >
         <div
           ref={bgRef}
@@ -1034,7 +1304,8 @@ export default function About() {
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
             backgroundSize: "42px 42px",
           }}
         />
@@ -1048,13 +1319,18 @@ export default function About() {
                 <Eyebrow>Executive Profile</Eyebrow>
               </Reveal>
               <Reveal delay={0.06}>
-                <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.08] tracking-tight max-w-2xl" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                <h1
+                  className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.08] tracking-tight max-w-2xl"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
                   Ravishankar Pingali
                 </h1>
               </Reveal>
               <Reveal delay={0.12}>
                 <p className="mt-4 text-sm sm:text-base text-white/65 leading-relaxed max-w-xl">
-                  Building adaptive enterprises. GCC leader, enterprise reinvention specialist, and board advisor turning operating discipline into durable growth.
+                  Building adaptive enterprises. GCC leader, enterprise
+                  reinvention specialist, and board advisor turning operating
+                  discipline into durable growth.
                 </p>
               </Reveal>
               <Reveal delay={0.18}>
@@ -1076,15 +1352,24 @@ export default function About() {
                 </div>
               </Reveal>
             </div>
-            
+
             <Reveal delay={0.15}>
               <div className="w-[180px] md:w-[220px] lg:w-[260px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-2xl mx-auto md:mx-0 bg-[#0B1220]/50">
-                <img src={profileImg} alt="Ravishankar Pingali" className="w-full h-auto object-contain" />
+                <img
+                  src={profileImg}
+                  alt="Ravishankar Pingali"
+                  className="w-full h-auto object-contain"
+                />
               </div>
             </Reveal>
+
+       
           </div>
           <Reveal delay={0.24}>
-            <div id="ledger" className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div
+              id="ledger"
+              className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3"
+            >
               {STATS.map((s, i) => (
                 <StatTile key={s.label} stat={s} index={i} />
               ))}
@@ -1100,29 +1385,59 @@ export default function About() {
               <Eyebrow>Profile</Eyebrow>
               <div className="flex flex-col gap-3 text-sm text-slate-600 leading-relaxed">
                 <p>
-                  Across <strong className="text-[#0B1220]">27+ years</strong> as an engineer, architect, operations leader, business builder, and CEO working across North America, the UK, and India - one pattern stands out: technology rarely fails. What's harder and slower is getting operating models, leadership behaviors, and ways of working to evolve at the same pace.
+                  Across <strong className="text-[#0B1220]">27+ years</strong>{" "}
+                  as an engineer, architect, operations leader, business
+                  builder, and CEO working across North America, the UK, and
+                  India - one pattern stands out: technology rarely fails.
+                  What's harder and slower is getting operating models,
+                  leadership behaviors, and ways of working to evolve at the
+                  same pace.
                 </p>
                 <p>
-                  That gap has defined much of my career, leading enterprise transformation, building and scaling Global Capability Centers, and learning, often the hard way, when to push and when to wait.
+                  That gap has defined much of my career, leading enterprise
+                  transformation, building and scaling Global Capability
+                  Centers, and learning, often the hard way, when to push and
+                  when to wait.
                 </p>
                 <p>
-                  Today, I help organizations become genuinely adaptive, not by chasing the next platform or AI capability, but by building the <strong className="text-[#0B1220]">governance, leadership depth, and operating discipline</strong> that make transformation stick.
+                  Today, I help organizations become genuinely adaptive, not by
+                  chasing the next platform or AI capability, but by building
+                  the{" "}
+                  <strong className="text-[#0B1220]">
+                    governance, leadership depth, and operating discipline
+                  </strong>{" "}
+                  that make transformation stick.
                 </p>
               </div>
 
               <div className="mt-6 pt-6 border-t border-slate-100">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0B1220] mb-4">Leadership Impact</p>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0B1220] mb-4">
+                  Leadership Impact
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {LEADERSHIP_IMPACT.map((item) => {
                     const Icon = item.icon;
                     return (
-                      <div key={item.title} className="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFD] border border-slate-100">
-                        <span className="mt-0.5 p-1.5 rounded-lg shrink-0" style={{ background: `linear-gradient(135deg, ${TEAL}20, ${BLUE}20)`, color: TEAL }}>
+                      <div
+                        key={item.title}
+                        className="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFD] border border-slate-100"
+                      >
+                        <span
+                          className="mt-0.5 p-1.5 rounded-lg shrink-0"
+                          style={{
+                            background: `linear-gradient(135deg, ${TEAL}20, ${BLUE}20)`,
+                            color: TEAL,
+                          }}
+                        >
                           <Icon size={15} />
                         </span>
                         <div>
-                          <p className="text-xs font-semibold text-[#0B1220] mb-0.5 leading-snug">{item.title}</p>
-                          <p className="text-[11px] text-slate-500 leading-relaxed">{item.body}</p>
+                          <p className="text-xs font-semibold text-[#0B1220] mb-0.5 leading-snug">
+                            {item.title}
+                          </p>
+                          <p className="text-[11px] text-slate-500 leading-relaxed">
+                            {item.body}
+                          </p>
                         </div>
                       </div>
                     );
@@ -1132,10 +1447,16 @@ export default function About() {
 
               <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3 text-sm text-slate-600 leading-relaxed">
                 <p>
-                  I stay engaged with the GCC and technology leadership ecosystem through industry forums and executive conversations, sharing lessons from building organizations and exploring what the next generation of GCC leadership should look like in an AI-driven world.
+                  I stay engaged with the GCC and technology leadership
+                  ecosystem through industry forums and executive conversations,
+                  sharing lessons from building organizations and exploring what
+                  the next generation of GCC leadership should look like in an
+                  AI-driven world.
                 </p>
                 <p>
-                  If you're building next-generation GCCs, redesigning enterprise operating models, or evolving your organization for the AI era, I'd welcome the conversation.
+                  If you're building next-generation GCCs, redesigning
+                  enterprise operating models, or evolving your organization for
+                  the AI era, I'd welcome the conversation.
                 </p>
               </div>
             </div>
@@ -1158,7 +1479,10 @@ export default function About() {
         <section id="experience">
           <Reveal>
             <Eyebrow>Record</Eyebrow>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#0B1220] mb-6 tracking-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <h2
+              className="text-xl sm:text-2xl font-bold text-[#0B1220] mb-6 tracking-tight"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
               Career timeline
             </h2>
           </Reveal>
@@ -1180,12 +1504,19 @@ export default function About() {
             <Eyebrow>Education</Eyebrow>
             {EDUCATION.map((e) => (
               <div key={e.degree} className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-xl grid place-items-center shrink-0" style={{ background: `${TEAL}1A` }}>
+                <div
+                  className="w-9 h-9 rounded-xl grid place-items-center shrink-0"
+                  style={{ background: `${TEAL}1A` }}
+                >
                   <GraduationCap size={17} style={{ color: TEAL }} />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[#0B1220] leading-snug">{e.degree}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{e.institution}</p>
+                  <p className="text-sm font-semibold text-[#0B1220] leading-snug">
+                    {e.degree}
+                  </p>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {e.institution}
+                  </p>
                 </div>
               </div>
             ))}
@@ -1211,7 +1542,10 @@ export default function About() {
         <section id="principles">
           <Reveal>
             <Eyebrow>Principles</Eyebrow>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#0B1220] mb-6 tracking-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <h2
+              className="text-xl sm:text-2xl font-bold text-[#0B1220] mb-6 tracking-tight"
+              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+            >
               Operating philosophy
             </h2>
           </Reveal>
@@ -1224,12 +1558,19 @@ export default function About() {
           <Reveal>
             <div
               className="rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5"
-              style={{ background: `linear-gradient(135deg, ${INK}, #101d38)`, border: `1px solid ${TEAL}30` }}
+              style={{
+                background: `linear-gradient(135deg, ${INK}, #101d38)`,
+                border: `1px solid ${TEAL}30`,
+              }}
             >
               <div>
                 <Eyebrow>Let's connect</Eyebrow>
-                <p className="text-white font-bold text-base sm:text-lg leading-snug max-w-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                  Building next-gen GCCs or redesigning enterprise operating models?
+                <p
+                  className="text-white font-bold text-base sm:text-lg leading-snug max-w-sm"
+                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                >
+                  Building next-gen GCCs or redesigning enterprise operating
+                  models?
                 </p>
               </div>
               <div className="flex items-center gap-3 shrink-0">
@@ -1250,7 +1591,9 @@ export default function About() {
                 >
                   <span
                     className="absolute inset-0 rounded-full"
-                    style={{ background: `linear-gradient(90deg, ${TEAL}, ${BLUE})` }}
+                    style={{
+                      background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`,
+                    }}
                   />
                   <span className="relative flex items-center gap-2">
                     <Link2 size={14} />
@@ -1263,15 +1606,15 @@ export default function About() {
         </section>
       </div>
 
-
-
       <button
         onClick={() => scrollTo("hero")}
         className="fixed bottom-6 right-6 z-30 grid place-items-center w-10 h-10 rounded-full text-white shadow-lg transition-all duration-300"
         style={{
           background: `linear-gradient(135deg, ${TEAL}, ${BLUE})`,
           opacity: showTop ? 1 : 0,
-          transform: showTop ? "translateY(0px) scale(1)" : "translateY(12px) scale(0.85)",
+          transform: showTop
+            ? "translateY(0px) scale(1)"
+            : "translateY(12px) scale(0.85)",
           pointerEvents: showTop ? "auto" : "none",
         }}
       >
