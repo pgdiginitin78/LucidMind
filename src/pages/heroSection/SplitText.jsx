@@ -121,12 +121,14 @@ const SplitText = ({
         ScrollTrigger.getAll().forEach(st => {
           if (st.trigger === el) st.kill();
         });
-        try {
-          splitInstance.revert();
-        } catch (_) {
-          /* noop */
+        if (el && el.parentNode && el._rbsplitInstance) {
+          try {
+            splitInstance.revert();
+          } catch (_) {
+            /* noop */
+          }
         }
-        el._rbsplitInstance = null;
+        if (el) el._rbsplitInstance = null;
       };
     },
     {

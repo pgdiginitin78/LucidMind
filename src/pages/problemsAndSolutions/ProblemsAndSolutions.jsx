@@ -199,19 +199,19 @@ export default function ProblemsAndSolutions() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] px-2 py-5 md:py-16 sm:px-12 md:px-16 lg:px-3 2xl:px-12">
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] px-2 py-5 md:py-16 sm:px-12 md:px-1 lg:px-3 2xl:px-12">
       <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
         <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-white/60 blur-[100px]" />
         <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]" />
       </div>
 
-      <div className="relative z-10  max-w-[1220px] 2xl:max-w-[1440px] px-6 sm:px-12 md:px-16 lg:px-12 ">
+      <div className="relative z-10  max-w-[1220px] 2xl:max-w-[1440px] px-6 md:px-7 lg:px-16 lg:px-12 ">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
-          className="flex-1 w-full md:w-1/2"
+          className="flex-1 w-full md:w-1/1"
         >
           <div className="flex flex-col items-start w-full">
             <p className="text-brand-blue font-bold tracking-[0.25em] uppercase text-xs sm:text-sm mb-3">

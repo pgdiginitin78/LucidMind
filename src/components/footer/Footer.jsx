@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LucidMindTransperentLogo from "../../assets/logo/LucidMindTransperent1.png";
+import DotField from "../../pages/heroSection/DotField";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +46,7 @@ export default function Footer() {
       title: "Quick Links",
       links: [
         { name: "Home", path: "/" },
-        { name: "About Us", path: "/about" },
+        { name: "About", path: "/about" },
         { name: "Advisory", path: "/advisory" },
         { name: "Insights", path: "/insights" },
         { name: "Contact", path: "/contact" },
@@ -64,6 +65,22 @@ export default function Footer() {
 
   return (
     <footer className="w-full relative bg-[#040C1A] pt-10 xs:pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
+      <div className="absolute inset-0 w-full h-full z-0">
+        <DotField
+          dotRadius={1.5}
+          dotSpacing={14}
+          bulgeStrength={67}
+          glowRadius={160}
+          sparkle={false}
+          waveAmplitude={0}
+          cursorRadius={500}
+          cursorForce={0.1}
+          bulgeOnly
+          gradientFrom="#00C4B4"
+          gradientTo="#2563EB"
+          glowColor="#00C4B4"
+        />
+      </div>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 lg:px-12 relative z-10">
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 sm:gap-10 lg:gap-6 mb-10 sm:mb-12">
           <motion.div
@@ -84,7 +101,7 @@ export default function Footer() {
                 className="h-full w-auto max-w-[10rem] object-contain"
               />
             </Link>
-            <p className="text-[#94A3B8] text-sm leading-relaxed mb-5 sm:mb-6 max-w-sm">
+            <p className="text-white text-sm leading-relaxed mb-5 sm:mb-6 max-w-sm">
               Navigating complexity and building future-ready organisations for
               the AI era.
             </p>
@@ -110,7 +127,7 @@ export default function Footer() {
                     color: "#ffffff",
                   }}
                   transition={{ duration: 0.2 }}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#0F2644] flex items-center justify-center text-[#94A3B8] shrink-0"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#0F2644] flex items-center justify-center text-white shrink-0"
                 >
                   <svg
                     width="13"
@@ -143,7 +160,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="group relative text-[#94A3B8] text-sm hover:text-white transition-colors inline-block"
+                      className="group relative text-white text-sm  transition-colors inline-block"
                     >
                       {link.name}
                       <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
@@ -166,13 +183,13 @@ export default function Footer() {
               Get in Touch
             </h3>
             <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
-            <p className="text-[#94A3B8] text-sm leading-relaxed mb-5">
+            <p className="text-white text-sm leading-relaxed mb-5">
               Have a question or want to work together? Let's talk.
             </p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-transparent text-white border border-white/20 text-sm font-normal px-5 sm:px-6 py-2.5 rounded-full hover:bg-white hover:text-[#040C1A] transition-colors duration-300 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 border border-white/20 text-sm font-normal px-5 sm:px-6 py-2.5 rounded-full hover:bg-white hover:text-[#040C1A] transition-colors duration-300 w-full sm:w-auto"
               >
                 Contact Us
               </Link>
@@ -187,26 +204,23 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <p className="text-[#64748B] text-xs order-2 md:order-1 text-center md:text-left">
+          <p className="text-white text-xs order-2 md:order-1 text-center md:text-left">
             &copy; {currentYear} Lucidmind. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
             <Link
               to="/privacy-policy"
-              className="text-[#64748B] text-xs hover:text-white transition-colors"
+              className="text-white text-xs  transition-colors"
             >
               Privacy Policy
             </Link>
-            <Link
-              to="/terms"
-              className="text-[#64748B] text-xs hover:text-white transition-colors"
-            >
+            <Link to="/terms" className="text-white text-xs  transition-colors">
               Terms of Service
             </Link>
             <Link
               to="/cookies"
-              className="text-[#64748B] text-xs hover:text-white transition-colors"
+              className="text-white text-xs transition-colors"
             >
               Cookie Policy
             </Link>

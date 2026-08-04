@@ -13,6 +13,7 @@ import "./DotField.css";
 
 const TextType = ({
   text,
+  texts,
   as: Component = "div",
   typingSpeed = 50,
   initialDelay = 0,
@@ -27,6 +28,9 @@ const TextType = ({
   cursorBlinkDuration = 0.5,
   textColors = [],
   variableSpeed,
+  variableSpeedEnabled,
+  variableSpeedMin,
+  variableSpeedMax,
   onSentenceComplete,
   startOnVisible = false,
   reverseMode = false,
@@ -40,9 +44,11 @@ const TextType = ({
   const cursorRef = useRef(null);
   const containerRef = useRef(null);
 
+  const rawText = text || texts || "";
+
   const textArray = useMemo(
-    () => (Array.isArray(text) ? text : [text]),
-    [text],
+    () => (Array.isArray(rawText) ? rawText : [rawText]),
+    [rawText],
   );
 
   const getRandomSpeed = useCallback(() => {

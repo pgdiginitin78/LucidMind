@@ -30,7 +30,7 @@ function HeroSection() {
         />
       </div>
 
-      <SmokeEffect />
+      {/* <SmokeEffect /> */}
 
       {/* Background Theme Overlay: full-bleed on mobile (stacked layout), left-weighted from md up (side-by-side layout) */}
       <div className="absolute inset-0 md:inset-y-0 md:left-0 md:right-auto w-full md:w-[70%] lg:w-[60%] pointer-events-none z-10 bg-gradient-to-b md:bg-gradient-to-r from-[#040914]/95 via-[#040914]/70 md:via-[#040914]/60 to-[#040914]/60 md:to-transparent" />
@@ -68,10 +68,10 @@ function HeroSection() {
               to={{ opacity: 1, y: 0 }}
               threshold={0.1}
               rootMargin="-100px"
-              textAlign="center"
+              textAlign="left"
               onLetterAnimationComplete={handleAnimationComplete}
             >
-              Organisations Ready <br /> for the&nbsp;
+              Organisations Ready <br /> for the{" "}
               <span className="text-[#009A9A]">AI</span> Era.
             </SplitText>
             <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>

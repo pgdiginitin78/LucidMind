@@ -810,19 +810,18 @@ export default function Articles() {
     <>
       <section
         ref={sectionRef}
-        className={` w-full ${location.pathname === "/articles" ? "pt-32 pb-10" : "py-20"} px-6  sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
+        className={` w-full ${location.pathname === "/articles" ? "pt-32 pb-10" : "py-10 pb-20"} px-6  sm:px-12 md:px-6 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <img
           src={articlesSectionBg}
           alt="Articles Section Background"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-[1] opacity-75"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-1 opacity-75"
         />
 
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] bg-gradient-to-r from-[#4B9AF5]/20 via-[#4B9AF5]/10 to-transparent" />
+        {/* Minimal White Overlay from Top-Left */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] bg-gradient-to-br from-white/45 via-white/15 to-transparent" />
 
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] bg-gradient-to-tl from-[#040914]/85 via-[#040914]/30 to-transparent" />
-
-        <div className="max-w-[1460px] mx-auto relative " style={{ zIndex: 2 }}>
+        <div className="max-w-365 mx-auto relative " style={{ zIndex: 2 }}>
           <WebGLParticleCanvas variant="articles" />
           <BentoCardGrid gridRef={gridRef}>
             <GlobalSpotlight
@@ -833,29 +832,29 @@ export default function Articles() {
               glowColor="0, 196, 180"
             />
             <div className="grid items-start">
-              <div className="articles-headline flex-shrink-0 pt-2">
-                <p className="text-white font-semibold tracking-[0.18em] uppercase text-xs mb-3">
+              <div className="articles-headline shrink-0 pt-2">
+                <p className="text-brand-blue font-semibold tracking-[0.18em] uppercase text-xs mb-3">
                   INSIGHTS &amp; PERSPECTIVES
                 </p>
                 <Heading
                   level={2}
                   className="font-['Playfair_Display',serif] font-semibold text-[2.5rem] sm:text-[3rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-white sm:text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
                 >
-                  Thought Leadership
-                  <br />
+                  Thought Leadership<br/>
+             
                   for the{" "}
-                  <span className="text-[#00C4B4] sm:text-[#009A9A] font-['Playfair_Display',serif]">
+                  <span className="text-brand-teal  font-['Playfair_Display',serif]">
                     AI Era.
                   </span>
                 </Heading>
-                <p className="text-white sm:text-black text-sm sm:text-base leading-relaxed mb-7 drop-shadow-md sm:drop-shadow-none">
+                <p className="text-white sm:text-black text-sm sm:text-base leading-relaxed mb-2 drop-shadow-md sm:drop-shadow-none">
                   Expert insights, frameworks and perspectives to help leaders
                   navigate complexity and build future-ready organisations.
                 </p>
               </div>
 
               <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {articles.map((article, idx) => (
+                {articles.slice(0, 4).map((article, idx) => (
                   <ParticleCard
                     key={idx}
                     ref={(el) => (cardsRef.current[idx] = el)}
@@ -868,22 +867,13 @@ export default function Articles() {
                     clickEffect={true}
                     className="magic-bento-card magic-bento-card--border-glow rounded-xl overflow-hidden cursor-pointer group flex flex-col bg-[#09172B]/85 border border-[#00C4B4]/[0.22] shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
                   >
-                    <div className="relative h-[170px] overflow-hidden">
+                    <div className="relative h-44 overflow-hidden">
                       <img
                         src={article.image}
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
-                      <div className="absolute inset-x-3 top-3 flex items-center justify-between z-10">
-                        <span className="bg-[#09172B]/85 backdrop-blur-md border border-[#00C4B4]/40 text-[#00C4B4] text-[9px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full">
-                          {article.tag}
-                        </span>
-                        <span className="text-[#94A3B8] text-[10px] font-medium bg-[#09172B]/75 backdrop-blur-md px-2 py-0.5 rounded-full border border-white/10 flex items-center">
-                          <ClockIcon />
-                          {article.readTime}
-                        </span>
-                      </div>
+                      <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />
                     </div>
                     <div className="flex flex-col flex-1 p-3 z-10">
                       <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-[1rem] leading-[1.25] mb-2 flex-1">

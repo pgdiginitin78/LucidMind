@@ -49,7 +49,7 @@ const philosophies = [
 
 export default function AdvisoryPhilosophy() {
   return (
-    <section className="w-full bg-[#f8fafc] py-10 px-6 sm:px-12 md:px-16 lg:px-12">
+    <section className="w-full bg-[#f8fafc] py-10 px-6 sm:px-12 md:px-6 lg:px-12">
       <div className="max-w-[1220px] 2xl:max-w-[1480px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -69,7 +69,7 @@ export default function AdvisoryPhilosophy() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 xl:gap-8 items-stretch">
           {philosophies.map((item, idx) => (
             <motion.div
               key={idx}
