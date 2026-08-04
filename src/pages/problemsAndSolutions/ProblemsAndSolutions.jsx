@@ -199,7 +199,7 @@ export default function ProblemsAndSolutions() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] px-6 py-16 sm:px-12 md:px-16 lg:px-3 2xl:px-12">
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] px-2 py-5 md:py-16 sm:px-12 md:px-16 lg:px-3 2xl:px-12">
       <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
         <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-white/60 blur-[100px]" />
         <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]" />

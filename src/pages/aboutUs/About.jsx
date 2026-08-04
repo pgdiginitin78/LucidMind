@@ -1362,8 +1362,6 @@ export default function About() {
                 />
               </div>
             </Reveal>
-
-       
           </div>
           <Reveal delay={0.24}>
             <div
@@ -1410,7 +1408,7 @@ export default function About() {
                 </p>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-slate-100">
+              {/* <div className="mt-6 pt-6 border-t border-slate-100">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0B1220] mb-4">
                   Leadership Impact
                 </p>
@@ -1458,12 +1456,12 @@ export default function About() {
                   enterprise operating models, or evolving your organization for
                   the AI era, I'd welcome the conversation.
                 </p>
-              </div>
+              </div> */}
             </div>
           </Reveal>
         </section>
 
-        <section id="top-skills">
+        {/* <section id="top-skills">
           <Reveal>
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-7">
               <Eyebrow>Top Skills</Eyebrow>
@@ -1474,9 +1472,9 @@ export default function About() {
               </div>
             </div>
           </Reveal>
-        </section>
+        </section> */}
 
-        <section id="experience">
+        {/* <section id="experience">
           <Reveal>
             <Eyebrow>Record</Eyebrow>
             <h2
@@ -1603,7 +1601,7 @@ export default function About() {
               </div>
             </div>
           </Reveal>
-        </section>
+        </section> */}
       </div>
 
       <button

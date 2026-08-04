@@ -123,7 +123,7 @@ function FloatingParticles() {
 function SplineRobot() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="relative flex h-full min-h-[260px] w-full justify-center sm:min-h-[360px] lg:min-h-[460px]">
+    <div className="relative flex h-full min-h-[380px] w-full justify-center md:min-h-[360px] lg:min-h-[460px]">
       {loaded && (
         <div
           className="pointer-events-none absolute left-2 top-2 z-20 h-16 w-32 rounded-tl-xl sm:left-4 sm:top-5 sm:h-24 sm:w-56 lg:h-28 lg:w-72"
@@ -195,8 +195,14 @@ function FullScreenLoader({ isVisible }) {
           className="fixed inset-0 z-50 flex items-center justify-center bg-[#050B18]/80 backdrop-blur-sm"
         >
           <div className="flex flex-col items-center gap-4">
-            <Loader2 size={40} className="animate-spin" style={{ color: TEAL }} />
-            <p className="text-sm tracking-widest text-white/70 uppercase">Sending Message...</p>
+            <Loader2
+              size={40}
+              className="animate-spin"
+              style={{ color: TEAL }}
+            />
+            <p className="text-sm tracking-widest text-white/70 uppercase">
+              Sending Message...
+            </p>
           </div>
         </motion.div>
       )}
@@ -209,15 +215,16 @@ const showThemeAlert = (type, title, text) => {
     title,
     text,
     icon: type,
-    background: '#0a1224',
-    color: '#ffffff',
+    background: "#0a1224",
+    color: "#ffffff",
     confirmButtonColor: TEAL,
-    confirmButtonText: 'Okay',
+    confirmButtonText: "Okay",
     customClass: {
-      popup: 'border border-white/10 rounded-2xl',
+      popup: "border border-white/10 rounded-2xl",
       title: 'font-["PlusJakartaSans"]',
-      confirmButton: 'rounded-xl px-8 py-3 font-semibold font-["PlusJakartaSans"] tracking-wide',
-    }
+      confirmButton:
+        'rounded-xl px-8 py-3 font-semibold font-["PlusJakartaSans"] tracking-wide',
+    },
   });
 };
 
@@ -274,10 +281,12 @@ export default function ContactUs() {
 
     console.log("Contact form payload →", payload);
     setStatus("loading");
-    
+
     try {
       // Use relative path in production (Vercel), or localhost in development
-      const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "" : "http://localhost:5000");
+      const API_URL =
+        import.meta.env.VITE_API_URL ||
+        (import.meta.env.PROD ? "" : "http://localhost:5000");
       const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
@@ -288,18 +297,30 @@ export default function ContactUs() {
 
       const result = await response.json();
       setStatus("idle");
-      
+
       if (result.success) {
-        showThemeAlert('success', 'Message Sent!', 'Thank you for reaching out. We will get back to you soon.');
+        showThemeAlert(
+          "success",
+          "Message Sent!",
+          "Thank you for reaching out. We will get back to you soon.",
+        );
         reset();
       } else {
         console.error("Error from backend:", result.message);
-        showThemeAlert('error', 'Failed to Send', 'There was an issue sending your message. Please try again later.');
+        showThemeAlert(
+          "error",
+          "Failed to Send",
+          "There was an issue sending your message. Please try again later.",
+        );
       }
     } catch (error) {
       console.error("Network error:", error);
       setStatus("idle");
-      showThemeAlert('error', 'Network Error', 'Failed to reach the server. Please try again later.');
+      showThemeAlert(
+        "error",
+        "Network Error",
+        "Failed to reach the server. Please try again later.",
+      );
     }
   };
 
@@ -405,7 +426,7 @@ export default function ContactUs() {
               delay: 0.25,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="order-2 flex h-full flex-col gap-5 lg:order-1"
+            className="order-2 hidden md:flex h-full flex-col gap-5 lg:order-1"
           >
             <div
               className="relative flex-1 overflow-hidden rounded-2xl"

@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function WaveformIcon() {
   return (
-    <svg viewBox="0 0 32 16" className="w-6 h-4" fill="none">
+    <svg viewBox="0 0 32 16" className="w-5 h-3 sm:w-6 sm:h-4" fill="none">
       {[2, 6, 10, 14, 18, 22, 26, 30].map((x, i) => (
         <rect
           key={i}
@@ -67,12 +67,11 @@ export default function Podcasts() {
 
       <section
         ref={sectionRef}
-        className={`w-full ${isStandalone ? "pt-12 pb-12" : "py-12"} px-6 sm:px-12 md:px-16 lg:px-12 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
+        className={`w-full ${isStandalone ? "pt-10 pb-10 sm:pt-12 sm:pb-12" : "py-10 sm:py-12"} px-5 sm:px-8 md:px-12 lg:px-16 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <WebGLParticleCanvas variant="podcast" />
 
-        {/* Antigravity Background Animation */}
-        <div className="absolute inset-0 w-full  h-full pointer-events-none z-0">
+        <div className="absolute hidden md:block inset-0 w-full h-full pointer-events-none z-0">
           <Strands
             colors={["#00C4B4", "#2563EB", "#4B9AF5"]}
             count={3}
@@ -96,18 +95,18 @@ export default function Podcasts() {
         </div>
 
         <div className="max-w-[1440px] mx-auto relative" style={{ zIndex: 2 }}>
-          <div className="flex flex-col lg:flex-row gap-10 xl:gap-16 items-center">
-            <div className="podcasts-headline lg:w-[380px] xl:w-[440px] 2xl:w-[500px] flex-shrink-0">
-              <div className="flex items-center gap-2 mb-4">
+          <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 xl:gap-16 items-center">
+            <div className="podcasts-headline w-full lg:w-[380px] xl:w-[440px] 2xl:w-[500px] flex-shrink-0 text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start gap-2 mb-3 sm:mb-4">
                 <WaveformIcon />
-                <p className="text-[#00C4B4] font-semibold tracking-[0.18em] uppercase text-xs">
+                <p className="text-[#00C4B4] font-semibold tracking-[0.15em] sm:tracking-[0.18em] uppercase text-xs">
                   PODCAST
                 </p>
               </div>
 
               <Heading
                 level={2}
-                className="font-['Playfair_Display',serif] font-semibold text-[2.25rem] md:text-[2.75rem] 2xl:text-[3rem] leading-[1.08] tracking-tight text-white mb-5"
+                className="font-['Playfair_Display',serif] font-semibold text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.5rem] xl:text-[2.75rem] 2xl:text-[3rem] leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight text-white mb-4 sm:mb-5"
               >
                 Conversations that
                 <br />
@@ -117,15 +116,15 @@ export default function Podcasts() {
                 </span>
               </Heading>
 
-              <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed mb-6 max-w-sm">
+              <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed mb-5 sm:mb-6 max-w-sm mx-auto lg:mx-0">
                 Candid conversations with global leaders, operators and
                 innovators shaping the future with AI — exploring strategy,
                 transformation, and what it truly means to lead in an
                 intelligent world.
               </p>
 
-              <div className="flex items-center gap-3 mb-8 p-4 rounded-xl bg-white/[0.04] border border-[#00C4B4]/15">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shrink-0">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8 p-3.5 sm:p-4 rounded-xl bg-white/[0.04] border border-[#00C4B4]/15 text-left max-w-sm mx-auto lg:mx-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shrink-0">
                   RP
                 </div>
                 <div>
@@ -142,7 +141,7 @@ export default function Podcasts() {
                 href="https://www.youtube.com/watch?v=yNcLs9dyaDI"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/30 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#FF0000]/20 hover:border-[#FF0000]/60 transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/30 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#FF0000]/20 hover:border-[#FF0000]/60 transition-all duration-200 cursor-pointer w-full sm:w-auto"
               >
                 <YoutubeIcon />
                 Watch on YouTube
@@ -166,16 +165,16 @@ export default function Podcasts() {
                   />
                 </div>
 
-                <div className="px-5 py-4 flex items-center justify-between">
-                  <div>
+                <div className="px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between gap-3">
+                  <div className="min-w-0">
                     <p className="text-[#00C4B4] text-[10px] font-bold tracking-widest uppercase mb-1">
                       PODCAST
                     </p>
-                    <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-base leading-snug">
+                    <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-sm sm:text-base leading-snug truncate">
                       Redefining Productivity in the Age of AI
                     </h3>
                   </div>
-                  <div className="flex items-end gap-[2px] h-7 shrink-0 ml-4 opacity-50">
+                  <div className="hidden sm:flex items-end gap-[2px] h-7 shrink-0 ml-4 opacity-50">
                     {Array.from({ length: 20 }).map((_, i) => {
                       const h = Math.max(
                         4,
