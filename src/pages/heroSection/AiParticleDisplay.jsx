@@ -113,7 +113,7 @@ function AiParticleDisplay() {
         />
       </div>
 
-      <div className="relative w-full flex flex-col items-center text-center mt-2  px-2">
+      {/* <div className="relative w-full flex flex-col items-center text-center mt-2  px-2">
         <h2 className="text-white font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] uppercase leading-tight select-none drop-shadow-md">
           ISN’T THE FUTURE.
         </h2>
@@ -130,7 +130,7 @@ function AiParticleDisplay() {
           
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 sm:w-36 h-[2px] bg-[#00C4B4] shadow-[0_0_15px_3px_rgba(0,196,180,0.9)] rounded-full" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
