@@ -1,14 +1,12 @@
-import React, { useRef } from "react";
-import { useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { useLocation } from "react-router-dom";
 import Heading from "../../components/ui/Heading";
-import WebGLParticleCanvas from "./WebGLParticleCanvas";
-import podcastsSectionBg from "../../assets/podcasts_section_bg.png";
-import Antigravity from "./Antigravity";
 import Strands from "./Strands";
+import WebGLParticleCanvas from "./WebGLParticleCanvas";
 
 gsap.registerPlugin(ScrollTrigger);
 

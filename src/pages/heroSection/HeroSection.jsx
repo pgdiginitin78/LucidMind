@@ -1,10 +1,7 @@
-import Heading from "../../components/ui/Heading";
+import AiParticleDisplay from "./AiParticleDisplay";
 import DotField from "./DotField";
-import SideRays from "./SideRays";
-import SmokeEffect from "./SmokeEffect";
 import SplitText from "./SplitText";
 import TextType from "./TextType";
-import AiParticleDisplay from "./AiParticleDisplay";
 
 function HeroSection() {
   const handleAnimationComplete = () => {
@@ -30,9 +27,6 @@ function HeroSection() {
         />
       </div>
 
-      {/* <SmokeEffect /> */}
-
-      {/* Background Theme Overlay: full-bleed on mobile (stacked layout), left-weighted from md up (side-by-side layout) */}
       <div className="absolute inset-0 md:inset-y-0 md:left-0 md:right-auto w-full md:w-[70%] lg:w-[60%] pointer-events-none z-10 bg-gradient-to-b md:bg-gradient-to-r from-[#040914]/95 via-[#040914]/70 md:via-[#040914]/60 to-[#040914]/60 md:to-transparent" />
 
       <div
@@ -43,14 +37,11 @@ function HeroSection() {
         }}
       />
 
-      {/* Main Hero Container */}
       <div className="relative z-20 w-full max-w-7xl px-5 sm:px-8 md:px-12 lg:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
-        {/* RIGHT SECTION on desktop / TOP on mobile: Giant AI visual */}
         <div className="w-full md:w-[48%] lg:w-[50%] flex items-center justify-center order-first md:order-last scale-75 sm:scale-90 md:scale-100 -mb-6 sm:-mb-4 md:mb-0">
           <AiParticleDisplay />
         </div>
 
-        {/* LEFT SECTION: Copy & CTA */}
         <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
           <div className="flex flex-col items-center md:items-start">
             <p className="text-[#009A9A] font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm md:text-base mb-2">

@@ -819,7 +819,7 @@ export default function Articles() {
         />
 
         {/* Minimal White Overlay from Top-Left */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-[1] bg-gradient-to-br from-white/45 via-white/15 to-transparent" />
+        <div className="absolute inset-0 w-full h-full pointer-events-none z-1 bg-linear-to-br from-white/45 via-white/15 to-transparent" />
 
         <div className="max-w-365 mx-auto relative " style={{ zIndex: 2 }}>
           <WebGLParticleCanvas variant="articles" />
@@ -882,7 +882,7 @@ export default function Articles() {
                       <p className="text-[#94A3B8] text-xs leading-relaxed mb-3">
                         {article.description}
                       </p>
-                      <span className="text-[#00C4B4] text-xs font-semibold tracking-wide inline-flex items-center gap-1 group-hover:text-white transition-colors">
+                      <span className="text-brand-teal text-xs font-semibold tracking-wide inline-flex items-center gap-1 group-hover:text-white transition-colors">
                         Read Article <ArrowRightIcon />
                       </span>
                     </div>
