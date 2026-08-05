@@ -114,11 +114,11 @@ function AiParticleDisplay() {
       </div>
 
       {/* <div className="relative w-full flex flex-col items-center text-center mt-2  px-2">
-        <h2 className="text-white font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] uppercase leading-tight select-none drop-shadow-md">
+        <h2 className="text-[#050B18] font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] uppercase leading-tight select-none drop-shadow-md">
           ISN’T THE FUTURE.
         </h2>
 
-        <p className="mt-2 text-slate-400 font-semibold text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.22em] uppercase select-none">
+        <p className="mt-2 text-[#050B18]/50 font-semibold text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.22em] uppercase select-none">
           IT’S YOUR{" "}
           <span className="text-[#00C4B4] font-bold drop-shadow-[0_0_8px_rgba(0,196,180,0.5)]">
             NEXT ADVANTAGE.

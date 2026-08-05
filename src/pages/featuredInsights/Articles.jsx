@@ -838,7 +838,7 @@ export default function Articles() {
                 </p>
                 <Heading
                   level={2}
-                  className="font-['Playfair_Display',serif] font-semibold text-[2.5rem] sm:text-[3rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-white sm:text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
+                  className="font-['Playfair_Display',serif] font-semibold text-[2.5rem] sm:text-[3rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-[#050B18] sm:text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
                 >
                   Thought Leadership<br/>
              
@@ -847,7 +847,7 @@ export default function Articles() {
                     AI Era.
                   </span>
                 </Heading>
-                <p className="text-white sm:text-black text-sm sm:text-base leading-relaxed mb-2 drop-shadow-md sm:drop-shadow-none">
+                <p className="text-[#050B18] sm:text-black text-sm sm:text-base leading-relaxed mb-2 drop-shadow-md sm:drop-shadow-none">
                   Expert insights, frameworks and perspectives to help leaders
                   navigate complexity and build future-ready organisations.
                 </p>
@@ -865,7 +865,7 @@ export default function Articles() {
                     enableTilt={false}
                     enableMagnetism={false}
                     clickEffect={true}
-                    className="magic-bento-card magic-bento-card--border-glow rounded-xl overflow-hidden cursor-pointer group flex flex-col bg-[#09172B]/85 border border-[#00C4B4]/[0.22] shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+                    className="magic-bento-card magic-bento-card--border-glow rounded-xl overflow-hidden cursor-pointer group flex flex-col bg-white/85 border border-[#00C4B4]/[0.22] shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
                   >
                     <div className="relative h-44 overflow-hidden">
                       <img
@@ -876,13 +876,13 @@ export default function Articles() {
                       <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />
                     </div>
                     <div className="flex flex-col flex-1 p-3 z-10">
-                      <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-[1rem] leading-[1.25] mb-2 flex-1">
+                      <h3 className="text-[#050B18] font-['Playfair_Display',serif] font-semibold text-[1rem] leading-[1.25] mb-2 flex-1">
                         {article.title}
                       </h3>
-                      <p className="text-[#94A3B8] text-xs leading-relaxed mb-3">
+                      <p className="text-[#050B18]/70 text-xs leading-relaxed mb-3">
                         {article.description}
                       </p>
-                      <span className="text-brand-teal text-xs font-semibold tracking-wide inline-flex items-center gap-1 group-hover:text-white transition-colors">
+                      <span className="text-brand-teal text-xs font-semibold tracking-wide inline-flex items-center gap-1 group-hover:text-[#050B18] transition-colors">
                         Read Article <ArrowRightIcon />
                       </span>
                     </div>

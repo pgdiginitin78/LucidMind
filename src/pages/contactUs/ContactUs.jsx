@@ -11,7 +11,7 @@ const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const TEAL = "#00C4B4";
 const BLUE = "#2563EB";
-const INK = "#050B18";
+const INK = "#FFFFFF";
 
 const contactSchema = yup.object({
   name: yup
@@ -128,7 +128,7 @@ function SplineRobot() {
         <div
           className="pointer-events-none absolute left-2 top-2 z-20 h-16 w-32 rounded-tl-xl sm:left-4 sm:top-5 sm:h-24 sm:w-56 lg:h-28 lg:w-72"
           style={{
-            background: `radial-gradient(ellipse 100% 100% at 0% 0%, ${INK} 0%, ${INK} 40%, transparent 95%)`,
+            background: `radial-gradient(ellipse 100% 100% at 0% 0%, white 0%, white 40%, transparent 95%)`,
           }}
         />
       )}
@@ -140,7 +140,7 @@ function SplineRobot() {
           >
             <Loader2 size={26} style={{ color: TEAL }} />
           </motion.div>
-          <p className="text-[10px] uppercase tracking-widest text-white/30 sm:text-[11px]">
+          <p className="text-[10px] uppercase tracking-widest text-[#050B18]/30 sm:text-[11px]">
             Loading…
           </p>
         </div>
@@ -161,7 +161,7 @@ function SplineRobot() {
         <div
           className="pointer-events-none absolute bottom-2 right-10 z-20 h-16 w-32 rounded-br-lg sm:bottom-5 sm:right-4 sm:h-24 sm:w-56 lg:h-32 lg:w-80"
           style={{
-            background: `radial-gradient(ellipse 100% 100% at 100% 100%, ${INK} 0%, ${INK} 45%, transparent 95%)`,
+            background: `radial-gradient(ellipse 100% 100% at 100% 100%, white 0%, white 45%, transparent 95%)`,
           }}
         />
       )}
@@ -174,7 +174,7 @@ function Field({ label, required, error, children }) {
     <div className="flex flex-col gap-1.5">
       <label
         className="text-[10px] font-semibold uppercase tracking-widest sm:text-[11px]"
-        style={{ color: "rgba(255,255,255,0.38)" }}
+        style={{ color: "rgba(5,11,24,0.6)" }}
       >
         {label} {required && "*"}
       </label>
@@ -192,7 +192,7 @@ function FullScreenLoader({ isVisible }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#050B18]/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm"
         >
           <div className="flex flex-col items-center gap-4">
             <Loader2
@@ -200,7 +200,7 @@ function FullScreenLoader({ isVisible }) {
               className="animate-spin"
               style={{ color: TEAL }}
             />
-            <p className="text-sm tracking-widest text-white/70 uppercase">
+            <p className="text-sm tracking-widest text-[#050B18]/70 uppercase">
               Sending Message...
             </p>
           </div>
@@ -215,12 +215,12 @@ const showThemeAlert = (type, title, text) => {
     title,
     text,
     icon: type,
-    background: "#0a1224",
-    color: "#ffffff",
+    background: "#ffffff",
+    color: "#050B18",
     confirmButtonColor: TEAL,
     confirmButtonText: "Okay",
     customClass: {
-      popup: "border border-white/10 rounded-2xl",
+      popup: "border border-[#00C4B4]/20 rounded-2xl",
       title: 'font-["PlusJakartaSans"]',
       confirmButton:
         'rounded-xl px-8 py-3 font-semibold font-["PlusJakartaSans"] tracking-wide',
@@ -327,14 +327,14 @@ export default function ContactUs() {
   const inputStyle = (field) => ({
     background:
       focusedField === field
-        ? "rgba(255,255,255,0.07)"
-        : "rgba(255,255,255,0.03)",
+        ? "rgba(0,196,180,0.03)"
+        : "transparent",
     border: `1.5px solid ${
       errors[field]
         ? "#ef4444"
         : focusedField === field
           ? TEAL + "70"
-          : "rgba(255,255,255,0.10)"
+          : "rgba(0,196,180,0.2)"
     }`,
     boxShadow: focusedField === field ? `0 0 0 3px ${TEAL}18` : "none",
   });
@@ -344,17 +344,12 @@ export default function ContactUs() {
     onFocus: () => setFocusedField(field),
     onBlur: () => setFocusedField(null),
     className:
-      "w-full rounded-[10px] px-3.5 py-2.5 text-[13px] text-white/90 outline-none transition-all duration-200 placeholder:text-white/25 sm:text-[13.5px]",
+      "w-full rounded-[10px] px-3.5 py-2.5 text-[13px] text-[#050B18]/90 outline-none transition-all duration-200 placeholder:text-[#050B18]/25 sm:text-[13.5px]",
     style: inputStyle(field),
   });
 
   return (
-    <section
-      className="relative min-h-screen w-full overflow-hidden"
-      style={{
-        background: `linear-gradient(140deg, ${INK} 0%, #060e1f 55%, #040a16 100%)`,
-      }}
-    >
+    <section className="relative min-h-screen w-full overflow-hidden bg-white">
       <FullScreenLoader isVisible={status === "loading"} />
       <FloatingParticles />
 
@@ -391,7 +386,7 @@ export default function ContactUs() {
               delay: 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.6rem]"
+            className="text-3xl font-bold leading-tight tracking-tight text-[#050B18] sm:text-5xl lg:text-[3.6rem]"
             style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
           >
             Let's Start a{" "}
@@ -410,7 +405,7 @@ export default function ContactUs() {
             initial={{ opacity: 0, y: 14 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.18 }}
-            className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-white/45 sm:max-w-lg sm:text-base"
+            className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-[#050B18]/45 sm:max-w-lg sm:text-base"
           >
             Whether you're navigating an AI transformation, building a GCC, or
             looking for strategic advisory — let's connect.
@@ -429,10 +424,7 @@ export default function ContactUs() {
             className="order-2 hidden md:flex h-full flex-col gap-5 lg:order-1"
           >
             <div
-              className="relative flex-1 overflow-hidden rounded-2xl"
-              style={{
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
+              className="relative flex-1 overflow-hidden rounded-2xl border border-[#00C4B4]/20 shadow-sm"
             >
               <div
                 className="pointer-events-none absolute inset-0 z-0"
@@ -457,12 +449,7 @@ export default function ContactUs() {
             className="order-1 flex h-full flex-col lg:order-2"
           >
             <div
-              className="relative flex flex-1 flex-col overflow-hidden rounded-3xl border p-5 sm:p-7 lg:p-9"
-              style={{
-                background: "rgba(255,255,255,0.025)",
-                borderColor: "rgba(255,255,255,0.09)",
-                backdropFilter: "blur(24px)",
-              }}
+              className="relative flex flex-1 flex-col overflow-hidden rounded-3xl border border-[#00C4B4]/20 p-5 sm:p-7 lg:p-9 shadow-md bg-white"
             >
               <div
                 className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full blur-3xl sm:-right-24 sm:-top-24 sm:h-72 sm:w-72"
@@ -497,14 +484,14 @@ export default function ContactUs() {
                     </div>
                     <h3
                       data-reveal
-                      className="text-lg font-bold text-white sm:text-xl"
+                      className="text-lg font-bold text-[#050B18] sm:text-xl"
                       style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
                     >
                       Message Sent!
                     </h3>
                     <p
                       data-reveal
-                      className="max-w-xs text-sm leading-relaxed text-white/45"
+                      className="max-w-xs text-sm leading-relaxed text-[#050B18]/45"
                     >
                       Thank you for reaching out. We'll get back to you within
                       24 hours.
@@ -538,7 +525,7 @@ export default function ContactUs() {
                         Send a Message
                       </p>
                       <h2
-                        className="text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl"
+                        className="text-lg font-bold leading-snug text-[#050B18] sm:text-xl lg:text-2xl"
                         style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
                       >
                         We'd love to hear from you
@@ -610,7 +597,7 @@ export default function ContactUs() {
                         placeholder="Tell us about your challenge or goal…"
                         rows={5}
                         {...inputProps("message")}
-                        className="w-full resize-none rounded-[10px] px-3.5 py-2.5 text-[13px] text-white/90 outline-none transition-all duration-200 placeholder:text-white/25 sm:text-[13.5px]"
+                        className="w-full resize-none rounded-[10px] px-3.5 py-2.5 text-[13px] text-[#050B18]/90 outline-none transition-all duration-200 placeholder:text-[#050B18]/25 sm:text-[13.5px]"
                       />
                     </Field>
 
@@ -618,7 +605,6 @@ export default function ContactUs() {
                       type="submit"
                       disabled={status === "loading"}
                       whileHover={{ scale: status === "loading" ? 1 : 1.015 }}
-                      whileTap={{ scale: status === "loading" ? 1 : 0.985 }}
                       className="flex w-full items-center justify-center gap-2.5 rounded-xl py-3.5 text-sm font-semibold text-white"
                       style={{
                         background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`,
@@ -641,7 +627,7 @@ export default function ContactUs() {
                       )}
                     </motion.button>
 
-                    <p className="text-center text-[10px] text-white/22 sm:text-[10.5px]">
+                    <p className="text-center text-[10px] text-[#050B18]/22 sm:text-[10.5px]">
                       We respect your privacy. Your information will never be
                       shared.
                     </p>

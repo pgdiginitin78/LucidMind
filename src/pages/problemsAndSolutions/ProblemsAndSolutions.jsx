@@ -258,13 +258,13 @@ export default function ProblemsAndSolutions() {
                 <motion.li
                   variants={itemVariant}
                   key={idx}
-                  className="group flex h-16 cursor-default items-center justify-between border-b border-gray-300/60 last:border-0"
+                  className="group flex h-16 cursor-default items-center justify-between border-b border-[#00C4B4]/20/60 last:border-0"
                 >
                   <div className="flex items-center">
                     <div className="mr-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#E0EBF5] shadow-sm transition-colors duration-300 group-hover:bg-[#009A9A]">
                       <KeyboardArrowRightRoundedIcon
                         fontSize="small"
-                        className="text-[#007070] transition-colors duration-300 group-hover:text-white"
+                        className="text-[#007070] transition-colors duration-300 group-hover:text-[#050B18]"
                       />
                     </div>
                     <span className="text-base font-medium text-[#1c2e4a] transition-colors duration-300 group-hover:text-[#009A9A]">
@@ -291,12 +291,12 @@ export default function ProblemsAndSolutions() {
               <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 -translate-x-1/3 translate-y-1/3 rounded-full bg-[#00A3FF] opacity-10 blur-[60px]" />
 
               <div className="relative z-10 mb-4">
-                <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-white uppercase sm:text-sm">
+                <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#050B18] uppercase sm:text-sm">
                   How
                 </p>
                 <Heading
                   level={2}
-                  className="text-3xl leading-tight tracking-wide text-white sm:text-[1.75rem]"
+                  className="text-3xl leading-tight tracking-wide text-[#050B18] sm:text-[1.75rem]"
                 >
                   <span className="bg-gradient-to-r from-[#00C4B4] to-[#00E5FF] bg-clip-text font-bold text-transparent">
                     LucidMind
@@ -316,20 +316,20 @@ export default function ProblemsAndSolutions() {
                   <motion.li
                     variants={itemVariantRight}
                     key={idx}
-                    className="group flex h-16 cursor-pointer items-center border-b border-white/10 last:border-0"
+                    className="group flex h-16 cursor-pointer items-center border-b border-[#00C4B4]/20 last:border-0"
                   >
                     <span
                       ref={(el) => (solutionRefs.current[idx] = el)}
                       className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-[#00E5FF] shadow-[0_0_8px_1px_rgba(0,229,255,0.7)]"
                     />
 
-                    <div className="relative mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#112240] shadow-[0_0_15px_rgba(0,196,180,0.1)] transition-colors duration-300 group-hover:bg-[#1a365d]">
+                    <div className="relative mr-4 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[#00C4B4]/20 bg-[#112240] shadow-[0_0_15px_rgba(0,196,180,0.1)] transition-colors duration-300 group-hover:bg-[#1a365d]">
                       <div className="absolute inset-0 rounded-full bg-[#00A3FF] opacity-20 blur-md transition-opacity duration-300 group-hover:opacity-40" />
                       <div className="relative z-10">{item.icon}</div>
                     </div>
 
                     <div className="flex-1 pr-4">
-                      <Heading level={3} className="text-sm text-white">
+                      <Heading level={3} className="text-sm text-[#050B18]">
                         {item.title}
                       </Heading>
                       <p className="mt-1 text-xs leading-snug whitespace-pre-line text-blue-100/60">

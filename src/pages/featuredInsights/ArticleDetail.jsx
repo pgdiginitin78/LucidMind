@@ -46,7 +46,7 @@ function renderContent(content) {
     }
     if (block.type === "subheading") {
       return (
-        <h4 key={i} className="text-white font-semibold text-sm mb-1 mt-4">
+        <h4 key={i} className="text-[#050B18] font-semibold text-sm mb-1 mt-4">
           {block.text}
         </h4>
       );
@@ -65,7 +65,7 @@ function renderContent(content) {
     }
     if (block.type === "quote") {
       return (
-        <blockquote key={i} className="border-l-2 border-[#00C4B4] pl-4 italic text-[#94A3B8] text-sm mb-4">
+        <blockquote key={i} className="border-l-2 border-[#00C4B4] pl-4 italic text-[#050B18]/70 text-sm mb-4">
           {block.text}
         </blockquote>
       );
@@ -121,12 +121,12 @@ export default function ArticleDetail({ article, onClose }) {
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#09172B]" />
             <div className="absolute inset-x-4 top-4 flex items-center justify-between">
-              <span className="bg-[#09172B]/85 backdrop-blur-md border border-[#00C4B4]/40 text-[#00C4B4] text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">
+              <span className="bg-white/85 backdrop-blur-md border border-[#00C4B4]/40 text-[#00C4B4] text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">
                 {article.tag}
               </span>
               <button
                 onClick={onClose}
-                className="w-8 h-8 cursor-pointer rounded-full bg-[#09172B]/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/30 transition-colors"
+                className="w-8 h-8 cursor-pointer rounded-full bg-white/80 backdrop-blur-md border border-[#00C4B4]/20 flex items-center justify-center text-[#050B18]/70 hover:text-[#050B18] hover:border-white/30 transition-colors"
               >
                 <CloseIcon />
               </button>
@@ -142,7 +142,7 @@ export default function ArticleDetail({ article, onClose }) {
               <span className="text-[#64748B] text-xs">{article.date}</span>
             </div>
 
-            <h2 className="font-['Playfair_Display',serif] font-bold text-white text-xl sm:text-2xl leading-tight mb-2">
+            <h2 className="font-['Playfair_Display',serif] font-bold text-[#050B18] text-xl sm:text-2xl leading-tight mb-2">
               {article.title}
             </h2>
 
@@ -151,7 +151,7 @@ export default function ArticleDetail({ article, onClose }) {
                 RP
               </div>
               <div>
-                <p className="text-white text-xs font-semibold">{article.author}</p>
+                <p className="text-[#050B18] text-xs font-semibold">{article.author}</p>
                 <p className="text-[#64748B] text-[10px] leading-tight">{article.authorRole}</p>
               </div>
             </div>

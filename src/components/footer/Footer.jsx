@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import LucidMindTransperentLogo from "../../assets/logo/LucidMindTransperent1.png";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos.png";
 import DotField from "../../pages/heroSection/DotField";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -64,7 +64,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="w-full relative bg-[#040C1A] pt-10 xs:pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
+    <footer className="w-full relative bg-white pt-10 xs:pt-12 sm:pt-16 pb-6 sm:pb-8 border-t border-[#00C4B4]/20 font-['PlusJakartaSans',sans-serif] overflow-hidden">
       <div className="absolute inset-0 w-full h-full z-0">
         <DotField
           dotRadius={1.5}
@@ -93,15 +93,15 @@ export default function Footer() {
           >
             <Link
               to="/"
-              className="inline-flex items-center mb-4 sm:mb-5 h-14 w-auto sm:h-16 md:h-20 xl:h-28 xl:w-32"
+              className="inline-flex items-center mb-4 sm:mb-5 h-20 w-auto sm:h-24 md:h-28 xl:h-40 xl:w-72"
             >
               <img
                 src={LucidMindTransperentLogo}
                 alt="Lucidmind logo"
-                className="h-full w-auto max-w-[10rem] object-contain"
+                className="h-full w-auto max-w-[20rem] object-contain"
               />
             </Link>
-            <p className="text-white text-sm leading-relaxed mb-5 sm:mb-6 max-w-sm">
+            <p className="text-[#050B18]/70 text-sm leading-relaxed mb-5 sm:mb-6 max-w-sm">
               Navigating complexity and building future-ready organisations for
               the AI era.
             </p>
@@ -123,11 +123,11 @@ export default function Footer() {
                   rel="noreferrer"
                   whileHover={{
                     y: -2,
-                    borderColor: "#ffffff",
-                    color: "#ffffff",
+                    borderColor: "#0f172a",
+                    color: "#0f172a",
                   }}
                   transition={{ duration: 0.2 }}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#0F2644] flex items-center justify-center text-white shrink-0"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#00C4B4]/20 flex items-center justify-center text-[#050B18]/60 hover:text-[#050B18] shrink-0"
                 >
                   <svg
                     width="13"
@@ -151,7 +151,7 @@ export default function Footer() {
               variants={fadeUp}
               custom={colIdx + 1}
             >
-              <h3 className="text-white text-xs sm:text-sm font-normal tracking-wide mb-3">
+              <h3 className="text-[#050B18] text-xs sm:text-sm font-bold tracking-wide mb-3">
                 {col.title}
               </h3>
               <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
@@ -160,7 +160,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="group relative text-white text-sm  transition-colors inline-block"
+                      className="group relative text-[#050B18]/70 hover:text-[#050B18] text-sm transition-colors inline-block"
                     >
                       {link.name}
                       <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
@@ -179,17 +179,17 @@ export default function Footer() {
             variants={fadeUp}
             custom={3}
           >
-            <h3 className="text-white text-xs sm:text-sm font-normal tracking-wide mb-3">
+            <h3 className="text-[#050B18] text-xs sm:text-sm font-bold tracking-wide mb-3">
               Get in Touch
             </h3>
             <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
-            <p className="text-white text-sm leading-relaxed mb-5">
+            <p className="text-[#050B18]/70 text-sm leading-relaxed mb-5">
               Have a question or want to work together? Let's talk.
             </p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 border border-white/20 text-sm font-normal px-5 sm:px-6 py-2.5 rounded-full hover:bg-white hover:text-[#040C1A] transition-colors duration-300 w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 bg-transparent text-[#050B18]/70 border border-[#00C4B4]/20 text-sm font-normal px-5 sm:px-6 py-2.5 rounded-full hover:bg-white hover:text-[#050B18] transition-colors duration-300 w-full sm:w-auto"
               >
                 Contact Us
               </Link>
@@ -198,29 +198,29 @@ export default function Footer() {
         </div>
 
         <motion.div
-          className="pt-6 sm:pt-8 border-t border-[#0F2644] flex flex-col md:flex-row items-center justify-between gap-4"
+          className="pt-6 sm:pt-8 border-t border-[#00C4B4]/20 flex flex-col md:flex-row items-center justify-between gap-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <p className="text-white text-xs order-2 md:order-1 text-center md:text-left">
+          <p className="text-[#050B18]/60 text-xs order-2 md:order-1 text-center md:text-left">
             &copy; {currentYear} Lucidmind. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
             <Link
               to="/privacy-policy"
-              className="text-white text-xs  transition-colors"
+              className="text-[#050B18]/60 hover:text-[#050B18] text-xs transition-colors"
             >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-white text-xs  transition-colors">
+            <Link to="/terms" className="text-[#050B18]/60 hover:text-[#050B18] text-xs transition-colors">
               Terms of Service
             </Link>
             <Link
               to="/cookies"
-              className="text-white text-xs transition-colors"
+              className="text-[#050B18]/60 hover:text-[#050B18] text-xs transition-colors"
             >
               Cookie Policy
             </Link>
@@ -238,9 +238,9 @@ export default function Footer() {
           style={{
             fontSize: "clamp(2.75rem, 18vw, 14rem)",
             color: "transparent",
-            WebkitTextStroke: "1px #14243d",
+            WebkitTextStroke: "1px rgba(0, 196, 180, 0.3)",
             backgroundImage:
-              "linear-gradient(180deg, #0B1D38 0%, #071120 100%)",
+              "linear-gradient(180deg, rgba(0, 196, 180, 0.25) 0%, rgba(37, 99, 235, 0.25) 100%)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
           }}
@@ -249,7 +249,7 @@ export default function Footer() {
         </span>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#040C1A] via-transparent to-[#040C1A]/60" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white via-transparent to-white/60" />
     </footer>
   );
 }

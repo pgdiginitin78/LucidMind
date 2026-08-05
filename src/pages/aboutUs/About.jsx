@@ -36,7 +36,7 @@ import {
 import profileImg from "../../assets/Ravishankar Pingali.png";
 import WebGLParticleCanvas from "../featuredInsights/WebGLParticleCanvas";
 
-const INK = "#0B1220";
+const INK = "#FFFFFF";
 const TEAL = "#00C4B4";
 const BLUE = "#2563EB";
 const GOLD = "#C9A24B";
@@ -557,7 +557,7 @@ function Tooltip({ label, children }) {
       {children}
       <div
         role="tooltip"
-        className="pointer-events-none absolute left-1/2 bottom-full mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-[#0B1220] px-2.5 py-1.5 text-[10px] font-medium text-white shadow-lg z-30"
+        className="pointer-events-none absolute left-1/2 bottom-full mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-white px-2.5 py-1.5 text-[10px] font-medium text-[#050B18] shadow-lg z-30"
         style={{
           opacity: show ? 1 : 0,
           transform: show ? "translate(-50%, 0px)" : "translate(-50%, 4px)",
@@ -577,7 +577,7 @@ function SkillRow({ skill, index }) {
   return (
     <div
       ref={ref}
-      className="flex items-center gap-3 sm:gap-4 py-2 border-b border-slate-50 last:border-b-0"
+      className="flex items-center gap-3 sm:gap-4 py-2 border-b border-[#00C4B4]/20 last:border-b-0"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateX(0px)" : "translateX(-16px)",
@@ -590,10 +590,10 @@ function SkillRow({ skill, index }) {
       >
         {String(count).padStart(2, "0")}
       </span>
-      <span className="text-xs sm:text-sm font-medium text-slate-700">
+      <span className="text-xs sm:text-sm font-medium text-[#050B18]/80">
         {skill}
       </span>
-      <span className="hidden sm:block flex-1 h-px bg-slate-100 ml-2" />
+      <span className="hidden sm:block flex-1 h-px bg-white ml-2" />
     </div>
   );
 }
@@ -605,7 +605,7 @@ function StatTile({ stat, index }) {
   return (
     <div
       ref={ref}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:p-5 backdrop-blur-sm"
+      className="group relative overflow-hidden rounded-2xl border border-[#00C4B4]/20 bg-white p-4 sm:p-5 backdrop-blur-sm"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0px)" : "translateY(18px)",
@@ -625,18 +625,18 @@ function StatTile({ stat, index }) {
         >
           <Icon size={16} strokeWidth={2} />
         </span>
-        <span className="text-[9px] font-mono tracking-widest text-white/25">
+        <span className="text-[9px] font-mono tracking-widest text-[#050B18]/25">
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
-      <p className="relative mt-3 text-2xl sm:text-3xl font-bold text-white leading-none tabular-nums">
+      <p className="relative mt-3 text-2xl sm:text-3xl font-bold text-[#050B18] leading-none tabular-nums">
         {count}
         {stat.suffix}
       </p>
-      <p className="relative mt-1.5 text-[11px] sm:text-xs font-medium text-white/60">
+      <p className="relative mt-1.5 text-[11px] sm:text-xs font-medium text-[#050B18]/60">
         {stat.label}
       </p>
-      <p className="relative mt-0.5 text-[10px] text-white/30">{stat.note}</p>
+      <p className="relative mt-0.5 text-[10px] text-[#050B18]/30">{stat.note}</p>
     </div>
   );
 }
@@ -668,14 +668,14 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
         />
       )}
       {item.groupLabel && (
-        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-          {item.company} <span className="text-slate-300">·</span>{" "}
+        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#050B18]/70">
+          {item.company} <span className="text-[#050B18]/80">·</span>{" "}
           {item.groupLabel}
         </p>
       )}
       <button
         onClick={item.points.length > 0 ? onToggle : undefined}
-        className={`w-full text-left rounded-2xl border border-slate-100 bg-white p-4 sm:p-5 shadow-sm transition-all duration-300 ${item.points.length > 0 ? "hover:shadow-md hover:-translate-y-0.5 cursor-pointer" : "cursor-default"}`}
+        className={`w-full text-left rounded-2xl border border-[#00C4B4]/20 bg-white p-4 sm:p-5 shadow-sm transition-all duration-300 ${item.points.length > 0 ? "hover:shadow-md hover:-translate-y-0.5 cursor-pointer" : "cursor-default"}`}
       >
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
@@ -689,22 +689,22 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
               {item.company}
             </p>
           </div>
-          <span className="shrink-0 rotate-[-4deg] rounded border border-slate-200 bg-slate-50 px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider text-slate-400">
+          <span className="shrink-0 rotate-[-4deg] rounded border border-[#00C4B4]/20 bg-white px-2 py-0.5 text-[9px] font-mono uppercase tracking-wider text-[#050B18]/70">
             {item.duration}
           </span>
         </div>
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-slate-400">
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-[#050B18]/70">
           <span className="inline-flex items-center gap-1">
             <MapPin size={11} />
             {item.location}
           </span>
           <span>{item.period}</span>
-          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-500">
+          <span className="rounded-full bg-white px-2 py-0.5 text-[#050B18]/60">
             {item.type}
           </span>
         </div>
         {item.description && (
-          <p className="mt-2.5 text-xs sm:text-[13px] text-slate-500 leading-relaxed">
+          <p className="mt-2.5 text-xs sm:text-[13px] text-[#050B18]/60 leading-relaxed">
             {item.description}
           </p>
         )}
@@ -717,11 +717,11 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
             }}
           >
             <div className="overflow-hidden">
-              <ul className="mt-3 flex flex-col gap-1.5 border-t border-slate-100 pt-3">
+              <ul className="mt-3 flex flex-col gap-1.5 border-t border-[#00C4B4]/20 pt-3">
                 {item.points.map((point, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2 text-[11px] sm:text-xs text-slate-500 leading-relaxed"
+                    className="flex items-start gap-2 text-[11px] sm:text-xs text-[#050B18]/60 leading-relaxed"
                   >
                     <span
                       className="mt-1.5 h-1 w-1 shrink-0 rounded-full"
@@ -787,30 +787,30 @@ function SkillsPanel() {
       <div className="relative mb-4">
         <Search
           size={14}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-[#050B18]/70"
         />
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search skills"
-          className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2 pl-9 pr-8 text-xs text-slate-700 outline-none focus:border-transparent focus:ring-2 transition-all"
+          className="w-full rounded-xl border border-[#00C4B4]/20 bg-white py-2 pl-9 pr-8 text-xs text-[#050B18]/80 outline-none focus:border-transparent focus:ring-2 transition-all"
           style={{ "--tw-ring-color": `${TEAL}55` }}
         />
         {query && (
           <button
             onClick={() => setQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#050B18]/70 hover:text-[#050B18]/70"
           >
             <X size={13} />
           </button>
         )}
       </div>
       {filtered.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-200 py-6 text-center">
-          <p className="text-xs font-medium text-slate-500">
+        <div className="rounded-xl border border-dashed border-[#00C4B4]/20 py-6 text-center">
+          <p className="text-xs font-medium text-[#050B18]/60">
             No skills match "{query}"
           </p>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-[#050B18]/70 mt-1">
             Try a shorter or different term.
           </p>
         </div>
@@ -868,19 +868,19 @@ function CertificationsGrid() {
           ? Array.from({ length: perPage }).map((_, i) => (
               <div
                 key={i}
-                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 animate-pulse"
+                className="flex items-start gap-3 p-3 rounded-xl bg-white border border-[#00C4B4]/20 animate-pulse"
               >
-                <div className="w-7 h-7 rounded-lg bg-slate-200 shrink-0" />
+                <div className="w-7 h-7 rounded-lg bg-white shrink-0" />
                 <div className="flex-1 space-y-2">
-                  <div className="h-2.5 w-3/4 rounded bg-slate-200" />
-                  <div className="h-2 w-1/2 rounded bg-slate-200" />
+                  <div className="h-2.5 w-3/4 rounded bg-white" />
+                  <div className="h-2 w-1/2 rounded bg-white" />
                 </div>
               </div>
             ))
           : visible.map((c) => (
               <div
                 key={c.name}
-                className="group flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-transparent hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                className="group flex items-start gap-3 p-3 rounded-xl bg-white border border-[#00C4B4]/20 hover:border-transparent hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
               >
                 <Tooltip label={`${c.issuer} - ${c.year}`}>
                   <span
@@ -894,7 +894,7 @@ function CertificationsGrid() {
                   <p className="text-xs font-semibold text-[#0B1220] leading-snug">
                     {c.name}
                   </p>
-                  <p className="text-[10px] text-slate-400 mt-0.5">
+                  <p className="text-[10px] text-[#050B18]/70 mt-0.5">
                     {c.issuer} &middot; {c.year}
                   </p>
                 </div>
@@ -905,7 +905,7 @@ function CertificationsGrid() {
         <button
           onClick={() => setPage((p) => Math.max(0, p - 1))}
           disabled={page === 0}
-          className="grid place-items-center w-7 h-7 rounded-lg border border-slate-200 text-slate-500 disabled:opacity-30 hover:bg-slate-50 transition-colors"
+          className="grid place-items-center w-7 h-7 rounded-lg border border-[#00C4B4]/20 text-[#050B18]/60 disabled:opacity-30 hover:bg-white transition-colors"
         >
           <ChevronLeft size={14} />
         </button>
@@ -925,7 +925,7 @@ function CertificationsGrid() {
         <button
           onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
           disabled={page === pageCount - 1}
-          className="grid place-items-center w-7 h-7 rounded-lg border border-slate-200 text-slate-500 disabled:opacity-30 hover:bg-slate-50 transition-colors"
+          className="grid place-items-center w-7 h-7 rounded-lg border border-[#00C4B4]/20 text-[#050B18]/60 disabled:opacity-30 hover:bg-white transition-colors"
         >
           <ChevronRight size={14} />
         </button>
@@ -952,7 +952,7 @@ function PrinciplesCarousel() {
       className="relative rounded-2xl border p-6 sm:p-8 overflow-hidden"
       style={{
         borderColor: `${TEAL}30`,
-        background: `linear-gradient(135deg, ${INK}, #101c33)`,
+        background: `white`,
       }}
     >
       <div
@@ -970,10 +970,10 @@ function PrinciplesCarousel() {
         >
           <Icon size={18} />
         </span>
-        <p className="text-white font-bold text-base sm:text-lg leading-snug mb-2 max-w-xl">
+        <p className="text-[#050B18] font-bold text-base sm:text-lg leading-snug mb-2 max-w-xl">
           {current.title}
         </p>
-        <p className="text-white/60 text-xs sm:text-sm leading-relaxed max-w-xl">
+        <p className="text-[#050B18]/60 text-xs sm:text-sm leading-relaxed max-w-xl">
           {current.body}
         </p>
       </div>
@@ -986,7 +986,7 @@ function PrinciplesCarousel() {
               className="h-1.5 rounded-full transition-all duration-300"
               style={{
                 width: index === i ? 18 : 6,
-                background: index === i ? TEAL : "rgba(255,255,255,0.2)",
+                background: index === i ? TEAL : "rgba(0,196,180,0.15)",
               }}
             />
           ))}
@@ -994,13 +994,13 @@ function PrinciplesCarousel() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => go(-1)}
-            className="grid place-items-center w-8 h-8 rounded-lg border border-white/10 text-white/70 hover:bg-white/10 transition-colors"
+            className="grid place-items-center w-8 h-8 rounded-lg border border-[#00C4B4]/20 text-[#050B18]/70 hover:bg-white transition-colors"
           >
             <ChevronLeft size={14} />
           </button>
           <button
             onClick={() => go(1)}
-            className="grid place-items-center w-8 h-8 rounded-lg border border-white/10 text-white/70 hover:bg-white/10 transition-colors"
+            className="grid place-items-center w-8 h-8 rounded-lg border border-[#00C4B4]/20 text-[#050B18]/70 hover:bg-white transition-colors"
           >
             <ChevronRight size={14} />
           </button>
@@ -1039,7 +1039,7 @@ function ContactModal({ open, onClose }) {
     >
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-[#0B1220]/60 backdrop-blur-sm transition-opacity duration-300"
+        className="absolute inset-0 bg-white/60 backdrop-blur-sm transition-opacity duration-300"
         style={{ opacity: open ? 1 : 0 }}
       />
       <div
@@ -1053,7 +1053,7 @@ function ContactModal({ open, onClose }) {
       >
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 transition-colors"
+          className="absolute right-4 top-4 text-[#050B18]/70 hover:text-[#050B18]/70 transition-colors"
         >
           <X size={16} />
         </button>
@@ -1066,7 +1066,7 @@ function ContactModal({ open, onClose }) {
               <CheckCircle2 size={22} />
             </div>
             <p className="text-sm font-semibold text-[#0B1220]">Message sent</p>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-[#050B18]/60">
               Thanks for reaching out — expect a reply within a couple of days.
             </p>
             <button
@@ -1084,39 +1084,39 @@ function ContactModal({ open, onClose }) {
               <h3 className="text-lg font-bold text-[#0B1220]">Send a note</h3>
             </div>
             <div>
-              <label className="text-[11px] font-medium text-slate-500">
+              <label className="text-[11px] font-medium text-[#050B18]/60">
                 Name
               </label>
               <input
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs outline-none focus:ring-2 transition-all"
+                className="mt-1 w-full rounded-lg border border-[#00C4B4]/20 px-3 py-2 text-xs outline-none focus:ring-2 transition-all"
                 style={{ "--tw-ring-color": `${TEAL}55` }}
                 placeholder="Your full name"
               />
             </div>
             <div>
-              <label className="text-[11px] font-medium text-slate-500">
+              <label className="text-[11px] font-medium text-[#050B18]/60">
                 Email
               </label>
               <input
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 type="email"
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs outline-none focus:ring-2 transition-all"
+                className="mt-1 w-full rounded-lg border border-[#00C4B4]/20 px-3 py-2 text-xs outline-none focus:ring-2 transition-all"
                 style={{ "--tw-ring-color": `${TEAL}55` }}
                 placeholder="you@company.com"
               />
             </div>
             <div>
-              <label className="text-[11px] font-medium text-slate-500">
+              <label className="text-[11px] font-medium text-[#050B18]/60">
                 Message
               </label>
               <textarea
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 rows={3}
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs outline-none focus:ring-2 transition-all resize-none"
+                className="mt-1 w-full rounded-lg border border-[#00C4B4]/20 px-3 py-2 text-xs outline-none focus:ring-2 transition-all resize-none"
                 style={{ "--tw-ring-color": `${TEAL}55` }}
                 placeholder="What would you like to discuss?"
               />
@@ -1166,17 +1166,17 @@ function NavBar({ active, onNavigate }) {
       <header
         className="fixed top-0 inset-x-0 z-40 transition-all duration-300"
         style={{
-          background: scrolled ? "rgba(11,18,32,0.85)" : "transparent",
+          background: scrolled ? "rgba(255,255,255,0.85)" : "transparent",
           backdropFilter: scrolled ? "blur(14px)" : "none",
           borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.08)"
+            ? "1px solid rgba(0,196,180,0.15)"
             : "1px solid transparent",
         }}
       >
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3.5">
           <button
             onClick={() => handleNavigate("hero")}
-            className="text-sm font-bold text-white tracking-tight"
+            className="text-sm font-bold text-[#050B18] tracking-tight"
           >
             R. Pingali
           </button>
@@ -1187,7 +1187,7 @@ function NavBar({ active, onNavigate }) {
                 onClick={() => handleNavigate(link.id)}
                 className="relative px-3 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors"
                 style={{
-                  color: active === link.id ? "#fff" : "rgba(255,255,255,0.5)",
+                  color: active === link.id ? TEAL : "rgba(5,11,24,0.6)",
                 }}
               >
                 {link.label}
@@ -1202,7 +1202,7 @@ function NavBar({ active, onNavigate }) {
           </nav>
           <button
             onClick={() => setDrawerOpen(true)}
-            className="md:hidden grid place-items-center w-8 h-8 rounded-lg text-white/80 border border-white/10"
+            className="md:hidden grid place-items-center w-8 h-8 rounded-lg text-[#050B18]/80 border border-[#00C4B4]/20"
           >
             <Menu size={16} />
           </button>
@@ -1219,17 +1219,17 @@ function NavBar({ active, onNavigate }) {
           style={{ opacity: drawerOpen ? 1 : 0 }}
         />
         <div
-          className="absolute right-0 top-0 h-full w-64 bg-[#0B1220] px-6 py-6 shadow-2xl transition-transform duration-400"
+          className="absolute right-0 top-0 h-full w-64 bg-white px-6 py-6 shadow-2xl transition-transform duration-400"
           style={{
             transform: drawerOpen ? "translateX(0%)" : "translateX(100%)",
             transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)",
           }}
         >
           <div className="flex items-center justify-between mb-8">
-            <span className="text-sm font-bold text-white">Menu</span>
+            <span className="text-sm font-bold text-[#050B18]">Menu</span>
             <button
               onClick={() => setDrawerOpen(false)}
-              className="text-white/60"
+              className="text-[#050B18]/60"
             >
               <X size={18} />
             </button>
@@ -1241,10 +1241,10 @@ function NavBar({ active, onNavigate }) {
                 onClick={() => handleNavigate(link.id)}
                 className="text-left px-3 py-2.5 rounded-lg text-xs font-medium uppercase tracking-wide transition-colors"
                 style={{
-                  color: active === link.id ? TEAL : "rgba(255,255,255,0.6)",
+                  color: active === link.id ? TEAL : "rgba(5,11,24,0.6)",
                   background:
                     active === link.id
-                      ? "rgba(255,255,255,0.05)"
+                      ? "rgba(0,196,180,0.05)"
                       : "transparent",
                 }}
               >
@@ -1291,7 +1291,7 @@ export default function About() {
         id="hero"
         className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20 px-4 sm:px-6"
         style={{
-          background: `linear-gradient(160deg, ${INK} 0%, #101d38 45%, ${INK} 100%)`,
+          background: `white`,
         }}
       >
         <div
@@ -1305,7 +1305,7 @@ export default function About() {
           className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+              "linear-gradient(rgba(0,196,180,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,196,180,0.05) 1px, transparent 1px)",
             backgroundSize: "42px 42px",
           }}
         />
@@ -1320,14 +1320,14 @@ export default function About() {
               </Reveal>
               <Reveal delay={0.06}>
                 <h1
-                  className="text-3xl sm:text-5xl font-extrabold text-white leading-[1.08] tracking-tight max-w-2xl"
+                  className="text-3xl sm:text-5xl font-extrabold text-[#050B18] leading-[1.08] tracking-tight max-w-2xl"
                   style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
                   Ravishankar Pingali
                 </h1>
               </Reveal>
               <Reveal delay={0.12}>
-                <p className="mt-4 text-sm sm:text-base text-white/65 leading-relaxed max-w-xl">
+                <p className="mt-4 text-sm sm:text-base text-[#050B18]/65 leading-relaxed max-w-xl">
                   Building adaptive enterprises. GCC leader, enterprise
                   reinvention specialist, and board advisor turning operating
                   discipline into durable growth.
@@ -1335,7 +1335,7 @@ export default function About() {
               </Reveal>
               <Reveal delay={0.18}>
                 <div className="mt-5 flex flex-wrap items-center gap-4">
-                  <span className="inline-flex items-center gap-1.5 text-xs text-white/45">
+                  <span className="inline-flex items-center gap-1.5 text-xs text-[#050B18]/45">
                     <MapPin size={13} style={{ color: TEAL }} />
                     Pune District, Maharashtra, India
                   </span>
@@ -1344,7 +1344,7 @@ export default function About() {
                     href="https://www.linkedin.com/in/ravipingali/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-1.5 rounded-full border border-white/15 text-white/75 hover:text-white hover:border-white/35"
+                    className="inline-flex items-center gap-2 text-xs font-medium px-3.5 py-1.5 rounded-full border border-[#00C4B4]/20 text-[#050B18]/75 hover:text-[#050B18] hover:border-[#00C4B4]/40"
                   >
                     <Link2 size={13} />
                     linkedin.com/in/ravipingali
@@ -1354,7 +1354,7 @@ export default function About() {
             </div>
 
             <Reveal delay={0.15}>
-              <div className="w-[180px] md:w-[220px] lg:w-[260px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-2xl mx-auto md:mx-0 bg-[#0B1220]/50">
+              <div className="w-[180px] md:w-[220px] lg:w-[260px] shrink-0 rounded-2xl overflow-hidden border border-[#00C4B4]/20 shadow-2xl mx-auto md:mx-0 bg-white">
                 <img
                   src={profileImg}
                   alt="Ravishankar Pingali"
@@ -1379,9 +1379,9 @@ export default function About() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col gap-12 sm:gap-16">
         <section id="about">
           <Reveal>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-7">
+            <div className="bg-white rounded-2xl border border-[#00C4B4]/20 shadow-sm p-5 sm:p-7">
               <Eyebrow>Profile</Eyebrow>
-              <div className="flex flex-col gap-3 text-sm text-slate-600 leading-relaxed">
+              <div className="flex flex-col gap-3 text-sm text-[#050B18]/70 leading-relaxed">
                 <p>
                   Across <strong className="text-[#0B1220]">27+ years</strong>{" "}
                   as an engineer, architect, operations leader, business
@@ -1408,7 +1408,7 @@ export default function About() {
                 </p>
               </div>
 
-              {/* <div className="mt-6 pt-6 border-t border-slate-100">
+              {/* <div className="mt-6 pt-6 border-t border-[#00C4B4]/20">
                 <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0B1220] mb-4">
                   Leadership Impact
                 </p>
@@ -1418,7 +1418,7 @@ export default function About() {
                     return (
                       <div
                         key={item.title}
-                        className="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFD] border border-slate-100"
+                        className="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFD] border border-[#00C4B4]/20"
                       >
                         <span
                           className="mt-0.5 p-1.5 rounded-lg shrink-0"
@@ -1433,7 +1433,7 @@ export default function About() {
                           <p className="text-xs font-semibold text-[#0B1220] mb-0.5 leading-snug">
                             {item.title}
                           </p>
-                          <p className="text-[11px] text-slate-500 leading-relaxed">
+                          <p className="text-[11px] text-[#050B18]/60 leading-relaxed">
                             {item.body}
                           </p>
                         </div>
@@ -1443,7 +1443,7 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3 text-sm text-slate-600 leading-relaxed">
+              <div className="mt-6 pt-6 border-t border-[#00C4B4]/20 flex flex-col gap-3 text-sm text-[#050B18]/70 leading-relaxed">
                 <p>
                   I stay engaged with the GCC and technology leadership
                   ecosystem through industry forums and executive conversations,
@@ -1463,7 +1463,7 @@ export default function About() {
 
         {/* <section id="top-skills">
           <Reveal>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-7">
+            <div className="bg-white rounded-2xl border border-[#00C4B4]/20 shadow-sm p-5 sm:p-7">
               <Eyebrow>Top Skills</Eyebrow>
               <div className="flex flex-col gap-1">
                 {TOP_SKILLS.map((s, i) => (
@@ -1498,7 +1498,7 @@ export default function About() {
         </section>
 
         <Reveal>
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+          <div className="bg-white rounded-2xl border border-[#00C4B4]/20 shadow-sm p-5">
             <Eyebrow>Education</Eyebrow>
             {EDUCATION.map((e) => (
               <div key={e.degree} className="flex items-start gap-3">
@@ -1512,7 +1512,7 @@ export default function About() {
                   <p className="text-sm font-semibold text-[#0B1220] leading-snug">
                     {e.degree}
                   </p>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-xs text-[#050B18]/60 mt-0.5">
                     {e.institution}
                   </p>
                 </div>
@@ -1522,7 +1522,7 @@ export default function About() {
         </Reveal>
 
         <Reveal>
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+          <div className="bg-white rounded-2xl border border-[#00C4B4]/20 shadow-sm p-5 sm:p-6">
             <Eyebrow>Skills</Eyebrow>
             <SkillsPanel />
           </div>
@@ -1530,7 +1530,7 @@ export default function About() {
 
         <section id="credentials">
           <Reveal>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+            <div className="bg-white rounded-2xl border border-[#00C4B4]/20 shadow-sm p-5 sm:p-6">
               <Eyebrow>Licenses & Certifications</Eyebrow>
               <CertificationsGrid />
             </div>
@@ -1557,14 +1557,14 @@ export default function About() {
             <div
               className="rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5"
               style={{
-                background: `linear-gradient(135deg, ${INK}, #101d38)`,
+                background: `white`,
                 border: `1px solid ${TEAL}30`,
               }}
             >
               <div>
                 <Eyebrow>Let's connect</Eyebrow>
                 <p
-                  className="text-white font-bold text-base sm:text-lg leading-snug max-w-sm"
+                  className="text-[#050B18] font-bold text-base sm:text-lg leading-snug max-w-sm"
                   style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
                 >
                   Building next-gen GCCs or redesigning enterprise operating
@@ -1574,7 +1574,7 @@ export default function About() {
               <div className="flex items-center gap-3 shrink-0">
                 <MagneticButton
                   onClick={() => setContactOpen(true)}
-                  className="inline-flex items-center gap-2 text-xs font-semibold px-5 py-2.5 rounded-full border border-white/15 text-white hover:border-white/35"
+                  className="inline-flex items-center gap-2 text-xs font-semibold px-5 py-2.5 rounded-full border border-[#00C4B4]/20 text-[#050B18] hover:border-[#00C4B4]/40"
                 >
                   <Mail size={14} />
                   Send a note
@@ -1606,7 +1606,7 @@ export default function About() {
 
       <button
         onClick={() => scrollTo("hero")}
-        className="fixed bottom-6 right-6 z-30 grid place-items-center w-10 h-10 rounded-full text-white shadow-lg transition-all duration-300"
+        className="fixed bottom-6 right-6 z-30 grid place-items-center w-10 h-10 rounded-full text-[#050B18] shadow-lg transition-all duration-300"
         style={{
           background: `linear-gradient(135deg, ${TEAL}, ${BLUE})`,
           opacity: showTop ? 1 : 0,

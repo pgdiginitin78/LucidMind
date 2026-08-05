@@ -60,8 +60,8 @@ export default function Podcasts() {
   }, []);
 
   return (
-    <div className="w-full relative bg-[#040C1A]">
-      <div className="w-full border-t border-[#0F2644]" />
+    <div className="w-full relative bg-white">
+      <div className="w-full border-t border-[#00C4B4]/20" />
 
       <section
         ref={sectionRef}
@@ -104,7 +104,7 @@ export default function Podcasts() {
 
               <Heading
                 level={2}
-                className="font-['Playfair_Display',serif] font-semibold text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.5rem] xl:text-[2.75rem] 2xl:text-[3rem] leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight text-white mb-4 sm:mb-5"
+                className="font-['Playfair_Display',serif] font-semibold text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[2.5rem] xl:text-[2.75rem] 2xl:text-[3rem] leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight text-[#050B18] mb-4 sm:mb-5"
               >
                 Conversations that
                 <br />
@@ -114,22 +114,22 @@ export default function Podcasts() {
                 </span>
               </Heading>
 
-              <p className="text-[#94A3B8] text-sm sm:text-base leading-relaxed mb-5 sm:mb-6 max-w-sm mx-auto lg:mx-0">
+              <p className="text-[#050B18]/70 text-sm sm:text-base leading-relaxed mb-5 sm:mb-6 max-w-sm mx-auto lg:mx-0">
                 Candid conversations with global leaders, operators and
                 innovators shaping the future with AI — exploring strategy,
                 transformation, and what it truly means to lead in an
                 intelligent world.
               </p>
 
-              <div className="flex items-center gap-3 mb-6 sm:mb-8 p-3.5 sm:p-4 rounded-xl bg-white/[0.04] border border-[#00C4B4]/15 text-left max-w-sm mx-auto lg:mx-0">
+              <div className="flex items-center gap-3 mb-6 sm:mb-8 p-3.5 sm:p-4 rounded-xl bg-white border border-[#00C4B4]/20 text-left max-w-sm mx-auto lg:mx-0">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white text-sm font-bold shrink-0">
                   RP
                 </div>
                 <div>
-                  <p className="text-white text-sm font-semibold leading-tight">
+                  <p className="text-[#050B18] text-sm font-semibold leading-tight">
                     Ravishankar Pingali
                   </p>
-                  <p className="text-[#64748B] text-xs leading-snug mt-0.5">
+                  <p className="text-[#050B18]/60 text-xs leading-snug mt-0.5">
                     GCC Leader · Enterprise Reinvention · Board Advisor
                   </p>
                 </div>
@@ -139,7 +139,7 @@ export default function Podcasts() {
                 href="https://www.youtube.com/watch?v=yNcLs9dyaDI"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/30 text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#FF0000]/20 hover:border-[#FF0000]/60 transition-all duration-200 cursor-pointer w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2.5 bg-[#FF0000]/10 border border-[#FF0000]/30 text-[#050B18] text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#FF0000]/20 hover:border-[#FF0000]/60 transition-all duration-200 cursor-pointer w-full sm:w-auto"
               >
                 <YoutubeIcon />
                 Watch on YouTube
@@ -148,8 +148,8 @@ export default function Podcasts() {
 
             <div className="podcast-video-card flex-1 w-full">
               <motion.div
-                className="rounded-2xl overflow-hidden bg-[#09172B]/[0.88] backdrop-blur-lg border border-[#00C4B4]/25 shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
-                whileHover={{ boxShadow: "0 24px 60px rgba(0, 196, 180, 0.2)" }}
+                className="rounded-2xl overflow-hidden bg-white border border-[#00C4B4]/20 shadow-[0_16px_48px_rgba(0,0,0,0.06)]"
+                whileHover={{ boxShadow: "0 24px 60px rgba(0, 196, 180, 0.15)" }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="relative" style={{ paddingTop: "56.25%" }}>
@@ -168,7 +168,7 @@ export default function Podcasts() {
                     <p className="text-[#00C4B4] text-[10px] font-bold tracking-widest uppercase mb-1">
                       PODCAST
                     </p>
-                    <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-sm sm:text-base leading-snug truncate">
+                    <h3 className="text-[#050B18] font-['Playfair_Display',serif] font-semibold text-sm sm:text-base leading-snug truncate">
                       Redefining Productivity in the Age of AI
                     </h3>
                   </div>

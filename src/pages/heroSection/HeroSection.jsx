@@ -4,12 +4,13 @@ import SplitText from "./SplitText";
 import TextType from "./TextType";
 
 function HeroSection() {
+  
   const handleAnimationComplete = () => {
     console.log("All letters have animated!");
   };
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
+    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-white">
       <div className="absolute inset-0 w-full h-full z-0">
         <DotField
           dotRadius={1.5}
@@ -27,13 +28,13 @@ function HeroSection() {
         />
       </div>
 
-      <div className="absolute inset-0 md:inset-y-0 md:left-0 md:right-auto w-full md:w-[70%] lg:w-[60%] pointer-events-none z-10 bg-gradient-to-b md:bg-gradient-to-r from-[#040914]/95 via-[#040914]/70 md:via-[#040914]/60 to-[#040914]/60 md:to-transparent" />
+      <div className="absolute inset-0 md:inset-y-0 md:left-0 md:right-auto w-full md:w-[70%] lg:w-[60%] pointer-events-none z-10 bg-gradient-to-b md:bg-gradient-to-r from-white/95 via-white/70 md:via-white/60 to-white/60 md:to-transparent" />
 
       <div
-        className="absolute top-1/3 sm:top-1/2 -left-16 sm:-left-20 -translate-y-1/2 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] lg:w-[650px] lg:h-[650px] pointer-events-none z-10 opacity-60 sm:opacity-70 blur-[60px] sm:blur-[90px] rounded-full"
+        className="absolute top-1/3 sm:top-1/2 -left-16 sm:-left-20 -translate-y-1/2 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] lg:w-[650px] lg:h-[650px] pointer-events-none z-10 opacity-40 sm:opacity-50 blur-[60px] sm:blur-[90px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle at 30% 50%, rgba(0, 196, 180, 0.22) 0%, rgba(37, 99, 235, 0.12) 50%, transparent 75%)",
+            "radial-gradient(circle at 30% 50%, rgba(0, 196, 180, 0.3) 0%, rgba(37, 99, 235, 0.2) 50%, transparent 75%)",
         }}
       />
 
@@ -50,7 +51,7 @@ function HeroSection() {
 
             <SplitText
               tag="h1"
-              className="text-3xl sm:text-4xl md:text-4xl lg:text-[2.8rem] xl:text-[3.2rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold"
+              className="text-3xl sm:text-4xl md:text-4xl lg:text-[2.8rem] xl:text-[3.2rem] text-[#050B18] leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold"
               delay={50}
               duration={1.25}
               ease="power3.out"
@@ -74,7 +75,7 @@ function HeroSection() {
             ]}
             typingSpeed={75}
             pauseDuration={1500}
-            className="text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-2"
+            className="text-[#050B18]/70 font-medium text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-2"
             showCursor
             cursorCharacter="_"
             texts={[
@@ -90,7 +91,7 @@ function HeroSection() {
           <button className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white text-sm sm:text-base font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto">
             <span>Schedule a Conversation</span>
 
-            <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white shadow-md backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

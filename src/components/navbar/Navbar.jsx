@@ -3,11 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
-import LucidMindTransperentLogo from "../../assets/logo/LucidMindTransperent1.png";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.png";
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
+  { label: "About", href: "/about" },
   { label: "Advisory", href: "/advisory"},
   { label: "Insights", href: "/insights" },
   { label: "Contact", href: "/contact" },
@@ -50,10 +50,10 @@ export default function Navbar() {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative w-full max-w-[1180px] rounded-full border border-white/10 bg-[#050B18]/70 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.35)] flex items-center justify-between gap-2 sm:gap-4 pl-3 pr-2 sm:pl-4 sm:pr-3 py-1"
+        className="relative w-full max-w-[1180px] rounded-full border border-[#00C4B4]/20 bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex items-center justify-between gap-2 sm:gap-4 pl-3 pr-2 sm:pl-4 sm:pr-3 py-1"
       >
         <Link to="/" className="flex items-center gap-2 shrink-0">
-          <span className="relative flex items-center justify-center w-11 h-11 md:w-20 md:h-15">
+          <span className="relative flex items-center justify-center w-11 h-11 md:w-36 md:h-15">
             <img
               src={LucidMindTransperentLogo}
               alt="LucidMind"
@@ -77,7 +77,7 @@ export default function Navbar() {
                   className={`relative flex items-center gap-1 text-sm cursor-pointer font-medium transition-colors ${
                     isActive
                       ? "text-[#00C4B4]"
-                      : "text-white/75 hover:text-white"
+                      : "text-[#050B18]/70 hover:text-[#050B18]"
                   }`}
                 >
                   {item.label}
@@ -111,12 +111,12 @@ export default function Navbar() {
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         className="absolute top-full left-1/2 -translate-x-1/2 pt-4"
                       >
-                        <div className="w-52 rounded-2xl border border-white/10 bg-[#050B18]/95 backdrop-blur-xl shadow-xl p-2">
+                        <div className="w-52 rounded-2xl border border-[#00C4B4]/20 bg-white/95 backdrop-blur-xl shadow-xl p-2">
                           {SERVICES_DROPDOWN.map((sub) => (
                             <Link
                               key={sub.label}
                               to={sub.href}
-                              className="block px-3 py-2 rounded-xl text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                              className="block px-3 py-2 rounded-xl text-sm text-[#050B18]/70 hover:text-[#050B18] hover:bg-white transition-colors"
                             >
                               {sub.label}
                             </Link>
@@ -134,7 +134,7 @@ export default function Navbar() {
         <div className="flex items-center justify-end gap-2 shrink-0">
           <Link
             to="/contact"
-            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-full text-[#040C1A]"
+            className="sm:hidden flex items-center justify-center w-9 h-9 rounded-full text-[#050B18]"
             style={{
               backgroundImage: `linear-gradient(90deg, ${BRAND_TEAL}, ${BRAND_BLUE})`,
             }}
@@ -144,7 +144,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen((v) => !v)}
-            className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full border border-white/10 text-white/80 hover:text-white hover:border-white/30 transition-colors"
+            className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full border border-[#00C4B4]/20 text-[#050B18]/70 hover:text-[#050B18] hover:border-[#00C4B4]/20 transition-colors"
           >
             {mobileOpen ? (
               <X className="w-4 h-4" />
@@ -164,7 +164,7 @@ export default function Navbar() {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="absolute top-[64px] sm:top-[72px] left-3 right-3 lg:hidden"
           >
-            <div className="rounded-3xl border border-white/10 bg-[#050B18]/95 backdrop-blur-xl shadow-xl p-3 flex flex-col gap-1">
+            <div className="rounded-3xl border border-[#00C4B4]/20 bg-white/95 backdrop-blur-xl shadow-xl p-3 flex flex-col gap-1">
               {NAV_LINKS.map((item) => (
                 <Link
                   key={item.label}
@@ -174,8 +174,8 @@ export default function Navbar() {
                   }}
                   className={`flex items-center justify-between text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                     active === item.label
-                      ? "text-[#00C4B4] bg-white/5"
-                      : "text-white/75 hover:text-white hover:bg-white/5"
+                      ? "text-[#00C4B4] bg-white"
+                      : "text-[#050B18]/70 hover:text-[#050B18] hover:bg-white"
                   }`}
                 >
                   {item.label}
