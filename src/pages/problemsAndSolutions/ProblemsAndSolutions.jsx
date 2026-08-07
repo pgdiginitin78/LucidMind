@@ -291,12 +291,12 @@ export default function ProblemsAndSolutions() {
               <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 -translate-x-1/3 translate-y-1/3 rounded-full bg-[#00A3FF] opacity-10 blur-[60px]" />
 
               <div className="relative z-10 mb-4">
-                <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#050B18] uppercase sm:text-sm">
+                <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-white uppercase sm:text-sm">
                   How
                 </p>
                 <Heading
                   level={2}
-                  className="text-3xl leading-tight tracking-wide text-[#050B18] sm:text-[1.75rem]"
+                  className="text-3xl leading-tight tracking-wide text-white sm:text-[1.75rem]"
                 >
                   <span className="bg-gradient-to-r from-[#00C4B4] to-[#00E5FF] bg-clip-text font-bold text-transparent">
                     LucidMind
@@ -329,7 +329,7 @@ export default function ProblemsAndSolutions() {
                     </div>
 
                     <div className="flex-1 pr-4">
-                      <Heading level={3} className="text-sm text-[#050B18]">
+                      <Heading level={3} className="text-sm text-white">
                         {item.title}
                       </Heading>
                       <p className="mt-1 text-xs leading-snug whitespace-pre-line text-blue-100/60">
