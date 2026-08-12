@@ -11,7 +11,6 @@ import {
   Link2,
   Loader2,
   MapPin,
-  Menu,
   Quote,
   Search,
   Send,
@@ -19,7 +18,7 @@ import {
   TrendingUp,
   Trophy,
   Users,
-  X,
+  X
 } from "lucide-react";
 import {
   useCallback,
@@ -255,7 +254,12 @@ const EXPERIENCE = [
   },
 ];
 
-
+const EDUCATION = [
+  {
+    degree: "Bachelor of Engineering (B.E.), Electronics & Telecommunications",
+    institution: "Osmania University",
+  },
+];
 
 const SKILL_TAGS = [
   "GCC Strategy",
@@ -1104,6 +1108,7 @@ function ContactModal({ open, onClose }) {
 
 
 export default function About() {
+  const [openIndex, setOpenIndex] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
   const [showTop, setShowTop] = useState(false);
   const bgRef = useRef(null);
@@ -1253,7 +1258,7 @@ export default function About() {
           </Reveal>
         </section>
 
-        <section id="experience">
+        {/* <section id="experience">
           <Reveal>
             <Eyebrow>Record</Eyebrow>
             <h2
@@ -1380,7 +1385,7 @@ export default function About() {
               </div>
             </div>
           </Reveal>
-        </section>
+        </section> */}
       </div>
 
       <button
