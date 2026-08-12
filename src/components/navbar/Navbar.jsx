@@ -109,11 +109,11 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <KineticMobileNav />
       </div>
 
-      <div className="hidden md:block">
+      <div className="hidden lg:block">
         <motion.div
           initial={{ opacity: 1, y: 0 }}
           animate={{
@@ -130,7 +130,7 @@ export default function Navbar() {
             <img
               src={LucidMindTransperentLogo}
               alt="LucidMind"
-              className="h-9 sm:h-10 xl:h-18.75 2xl:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-9 md:h-14 xl:h-18.75 2xl:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
         </motion.div>

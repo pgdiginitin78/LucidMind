@@ -822,7 +822,7 @@ export default function Articles() {
                 </p>
                 <Heading
                   level={2}
-                  className="font-['Playfair_Display',serif] font-semibold text-[2rem] lg:text-[3rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-brand-blue md:text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
+                  className="font-['Playfair_Display',serif] font-semibold text-[2rem] lg:text-[3rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
                 >
                   Thought Leadership<br/>
              
@@ -831,7 +831,7 @@ export default function Articles() {
                     AI Era.
                   </span>
                 </Heading>
-                <p className="text-brand-blue sm:text-black text-sm lg:text-base leading-relaxed mb-2 drop-shadow-md sm:drop-shadow-none">
+                <p className="text-black text-sm lg:text-base leading-relaxed mb-2 drop-shadow-md sm:drop-shadow-none">
                   Expert insights, frameworks and perspectives to help leaders
                   navigate complexity and build future-ready organisations.
                 </p>

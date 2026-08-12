@@ -148,7 +148,7 @@ export function Component() {
 
   return (
     <div ref={containerRef}>
-      <div className="fixed top-2 left-4 right-4 z-[1001] flex items-center justify-between pointer-events-auto">
+      <div className="fixed top-2 left-4 right-4 z-1001 flex items-center justify-between pointer-events-auto">
         <Link
           to="/"
           className={`flex items-center transition-all duration-300 ${
@@ -158,14 +158,14 @@ export function Component() {
           <img
             src={LucidMindTransperentLogo}
             alt="LucidMind"
-            className="h-14 w-auto object-contain"
+            className="h-14 md:h-16 w-auto object-contain"
           />
         </Link>
         
         <button
           type="button"
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="w-10 h-10 shrink-0 rounded-full border border-[#2563EB]/60 bg-[#030A18]/90 backdrop-blur-xl text-[#00C4FF] shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:border-[#00C4FF] hover:scale-105 active:scale-95"
+          className="w-10 h-10 shrink-0 rounded-full border border-brand-blue/60 bg-[#030A18]/90 backdrop-blur-xl text-[#00C4FF] shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:border-[#00C4FF] hover:scale-105 active:scale-95"
           onClick={toggleMenu}
         >
           {isMenuOpen ? (
@@ -177,14 +177,14 @@ export function Component() {
       </div>
 
       <section className="fullscreen-menu-container">
-        <div data-nav="closed" className="nav-overlay-wrapper fixed inset-0 z-[1000] hidden">
+        <div data-nav="closed" className="nav-overlay-wrapper fixed inset-0 z-1000 hidden">
           <div className="overlay absolute inset-0 bg-black/60 backdrop-blur-md" onClick={closeMenu}></div>
-          <nav className="menu-content absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#030A18] flex flex-col justify-center px-8 sm:px-12 py-10 overflow-hidden shadow-2xl">
+          <nav className="menu-content absolute right-0 top-0 bottom-0 w-full max-w-md bg-linear-to-tr from-[#040914] to-[#4B9AF5] flex flex-col justify-center px-8 sm:px-12 py-10 overflow-hidden shadow-2xl">
 
             <div className="menu-bg absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="backdrop-layer first absolute inset-0 bg-[#0A1936]"></div>
-              <div className="backdrop-layer second absolute inset-0 bg-[#2563EB]"></div>
-              <div className="backdrop-layer absolute inset-0 bg-[#030A18]"></div>
+              <div className="backdrop-layer first absolute inset-0 bg-linear-to-b from-[#4B9AF5] to-[#040914]"></div>
+              <div className="backdrop-layer second absolute inset-0 bg-linear-to-b from-[#040914] to-[#4B9AF5]"></div>
+              <div className="backdrop-layer absolute inset-0 bg-linear-to-b from-[#040914] to-[#4B9AF5]"></div>
 
               <div className="ambient-background-shapes absolute inset-0 pointer-events-none opacity-40">
                 <svg className="bg-shape bg-shape-1 absolute inset-0 w-full h-full opacity-0 transition-opacity duration-300" viewBox="0 0 400 400" fill="none">
@@ -215,29 +215,29 @@ export function Component() {
             </div>
 
             <div className="menu-content-wrapper relative z-10">
-              <ul className="menu-list space-y-6">
+              <ul className="menu-list space-y-8">
                 <li className="menu-list-item" data-shape="1">
-                  <Link to="/" onClick={closeMenu} className="nav-link block text-2xl sm:text-3xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/" onClick={closeMenu} className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">Home</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="2">
-                  <Link to="/about" onClick={closeMenu} className="nav-link block text-2xl sm:text-3xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/about" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">About</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="3">
-                  <Link to="/advisory" onClick={closeMenu} className="nav-link block text-2xl sm:text-3xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/advisory" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">Advisory</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="4">
-                  <Link to="/insights" onClick={closeMenu} className="nav-link block text-2xl sm:text-3xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/insights" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text" data-menu-fade>Insights</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="5">
-                  <Link to="/contact" onClick={closeMenu} className="nav-link block text-2xl sm:text-3xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/contact" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">Contact</p>
                   </Link>
                 </li>

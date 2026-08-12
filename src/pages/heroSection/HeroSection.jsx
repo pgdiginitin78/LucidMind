@@ -37,12 +37,12 @@ function HeroSection() {
         }}
       />
 
-      <div className="relative z-20 w-full max-w-7xl 2xl:max-w-[1660px] px-5 sm:px-8 md:px-12 lg:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
+      <div className="relative z-20 w-full max-w-7xl 2xl:max-w-[1660px] px-5 sm:px-8 md:px-8 lg:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
         <div className="w-full md:w-[48%] lg:w-[50%] flex items-center justify-center order-first md:order-last scale-95 sm:scale-100 md:scale-100 -mb-6 sm:-mb-4 md:mb-0">
           <AiParticleDisplay />
         </div>
 
-        <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
+        <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col md:pt-20 lg:pt-10 items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
           <div className="flex flex-col items-center md:items-start">
             <p className="text-[#009A9A] font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm md:text-base mb-2">
               Helping Leaders Build
@@ -50,7 +50,7 @@ function HeroSection() {
 
             <SplitText
               tag="h1"
-              className="text-[28px] md:text-4xl lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold"
+              className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold"
               delay={50}
               duration={1.25}
               ease="power3.out"
