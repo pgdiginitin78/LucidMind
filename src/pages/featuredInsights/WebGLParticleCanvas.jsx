@@ -10,7 +10,7 @@ export default function WebGLParticleCanvas({ variant }) {
     const gl = canvas.getContext("webgl", {
       alpha: true,
       premultipliedAlpha: false,
-      antialias: true,
+      antialias: false, // disable AA for perf – not needed for particles
     });
     if (!gl) return;
 
@@ -159,11 +159,10 @@ export default function WebGLParticleCanvas({ variant }) {
       const centerY = H * 0.5;
 
       particles = Array.from({ length: count }, (_, i) => {
-        // Orbit radius & angle for clockwise rotation
-        const radius = rand(30, Math.max(W, H) * 0.65);
+        const radius = rand(30, Math.max(W, H) * 0.55); // slightly smaller orbit
         const angle = rand(0, Math.PI * 2);
-        const speed = rand(0.0015, 0.006) * (Math.random() < 0.15 ? -1 : 1); // Clockwise rotation dominant
-        const isMeshNode = i < count * 0.45; // 45% nodes form connection mesh lines
+        const speed = rand(0.001, 0.004) * (Math.random() < 0.15 ? -1 : 1); // slower speeds
+        const isMeshNode = i < count * 0.4; // fewer mesh nodes = fewer line checks
 
         return {
           // Orbit parameters
@@ -199,57 +198,78 @@ export default function WebGLParticleCanvas({ variant }) {
       H = canvas.height = canvas.offsetHeight;
       gl.viewport(0, 0, W, H);
       init();
+      // Pre-allocate typed arrays sized to worst-case after resize
+      const maxMesh = Math.ceil(particles.length * 0.4);
+      const maxLines = maxMesh * maxMesh; // upper bound
+      ptDataBuf = new Float32Array(particles.length * 7);
+      lnDataBuf = new Float32Array(maxLines * 12); // 2 verts * 6 floats
     }
 
+    // Pre-allocated typed arrays (reused each frame to avoid GC churn)
+    let ptDataBuf = new Float32Array(0);
+    let lnDataBuf = new Float32Array(0);
+    let isVisible = true;
+    let isIntersecting = true;
+
+    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    const io = new IntersectionObserver((entries) => {
+      isIntersecting = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    io.observe(canvas);
+
     function draw() {
+      rafId = requestAnimationFrame(draw);
+      if (!isVisible || !isIntersecting) return;
+
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
 
-      const MOUSE_RADIUS = 200;
-      const MAX_LINE_DIST = 140;
+      const MOUSE_RADIUS = 180;
+      const MAX_LINE_DIST = 120;
+      const MOUSE_RADIUS_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
+      const MAX_LINE_DIST_SQ = MAX_LINE_DIST * MAX_LINE_DIST;
 
-      // Update particle positions with Counter-Clockwise (Anticlockwise) Swirl + Orbit + Mouse reaction
+      // Update particle positions
       for (const p of particles) {
-        // Anticlockwise / counter-clockwise rotation update
         p.angle -= p.speed;
         p.pulse += p.pulseSpeed;
 
-        // Base elliptical orbit relative to origin center
         let targetX = p.originX + Math.cos(p.angle) * p.radiusX + Math.sin(p.angle) * p.tilt * 50;
         let targetY = p.originY + Math.sin(p.angle) * p.radiusY;
 
-        // If mouse active, shift orbit center slightly towards mouse (gravitational pull)
         if (mouse.active) {
           const dx = mouse.x - targetX;
           const dy = mouse.y - targetY;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          const distSq = dx * dx + dy * dy;
 
-          if (dist < MOUSE_RADIUS) {
+          if (distSq < MOUSE_RADIUS_SQ) {
+            const dist = Math.sqrt(distSq);
             const pull = (1 - dist / MOUSE_RADIUS);
-            // Dynamic counter-clockwise vortex force around cursor
             const angleToMouse = Math.atan2(dy, dx);
-            const tangentAngle = angleToMouse - Math.PI / 2; // Tangent direction for anticlockwise swirl
+            const tangentAngle = angleToMouse - Math.PI / 2;
 
-            targetX += Math.cos(tangentAngle) * pull * 25 - Math.cos(angleToMouse) * pull * 15;
-            targetY += Math.sin(tangentAngle) * pull * 25 - Math.sin(angleToMouse) * pull * 15;
+            targetX += Math.cos(tangentAngle) * pull * 20 - Math.cos(angleToMouse) * pull * 12;
+            targetY += Math.sin(tangentAngle) * pull * 20 - Math.sin(angleToMouse) * pull * 12;
           }
         }
 
-        // Smooth position lerp
-        p.x += (targetX - p.x) * 0.08;
-        p.y += (targetY - p.y) * 0.08;
+        p.x += (targetX - p.x) * 0.07;
+        p.y += (targetY - p.y) * 0.07;
 
-        // Size and brightness pulse
         const pulseFactor = 0.85 + 0.15 * Math.sin(p.pulse);
         let glowBoost = 1.0;
         let sizeBoost = 1.0;
 
         if (mouse.active) {
-          const distMouse = Math.hypot(mouse.x - p.x, mouse.y - p.y);
-          if (distMouse < MOUSE_RADIUS) {
-            const factor = 1.0 - distMouse / MOUSE_RADIUS;
-            glowBoost = 1.0 + factor * 2.2; // Brighter spotlight near mouse
-            sizeBoost = 1.0 + factor * 1.5; // Larger size near mouse
+          const ddx = mouse.x - p.x;
+          const ddy = mouse.y - p.y;
+          const distMouseSq = ddx * ddx + ddy * ddy;
+          if (distMouseSq < MOUSE_RADIUS_SQ) {
+            const factor = 1.0 - Math.sqrt(distMouseSq) / MOUSE_RADIUS;
+            glowBoost = 1.0 + factor * 2.0;
+            sizeBoost = 1.0 + factor * 1.2;
           }
         }
 
@@ -258,91 +278,95 @@ export default function WebGLParticleCanvas({ variant }) {
       }
 
       /* ── Line Pass (Faint/Subtle Network Mesh Lines) ── */
-      const lnData = [];
+      let lnCount = 0;
       const meshParticles = particles.filter(p => p.isMeshNode);
 
       for (let i = 0; i < meshParticles.length; i++) {
         const p1 = meshParticles[i];
 
-        // Connect nearby mesh nodes
         for (let j = i + 1; j < meshParticles.length; j++) {
           const p2 = meshParticles[j];
           const dx = p1.x - p2.x;
           const dy = p1.y - p2.y;
-          const d = Math.sqrt(dx * dx + dy * dy);
+          const dSq = dx * dx + dy * dy;
 
-          if (d < MAX_LINE_DIST) {
+          if (dSq < MAX_LINE_DIST_SQ) {
+            const d = Math.sqrt(dSq);
             let t = 1 - d / MAX_LINE_DIST;
-            // Line opacity is much less than particle dots (subtle & faint)
-            let alpha = t * t * 0.18;
+            let alpha = t * t * 0.16;
 
-            // Highlight lines near mouse slightly
             if (mouse.active) {
-              const mDist1 = Math.hypot(mouse.x - p1.x, mouse.y - p1.y);
-              const mDist2 = Math.hypot(mouse.x - p2.x, mouse.y - p2.y);
-              if (mDist1 < MOUSE_RADIUS || mDist2 < MOUSE_RADIUS) {
-                alpha *= 1.6;
+              const mDx1 = mouse.x - p1.x, mDy1 = mouse.y - p1.y;
+              const mDx2 = mouse.x - p2.x, mDy2 = mouse.y - p2.y;
+              if (mDx1*mDx1 + mDy1*mDy1 < MOUSE_RADIUS_SQ || mDx2*mDx2 + mDy2*mDy2 < MOUSE_RADIUS_SQ) {
+                alpha *= 1.5;
               }
             }
 
-            alpha = Math.min(0.35, alpha);
+            alpha = Math.min(0.32, alpha);
 
-            const c = [
-              (p1.col[0] + p2.col[0]) * 0.5,
-              (p1.col[1] + p2.col[1]) * 0.5,
-              (p1.col[2] + p2.col[2]) * 0.5,
-            ];
-
-            lnData.push(p1.x, p1.y, c[0], c[1], c[2], alpha);
-            lnData.push(p2.x, p2.y, c[0], c[1], c[2], alpha * 0.4);
+            const c0 = (p1.col[0] + p2.col[0]) * 0.5;
+            const c1 = (p1.col[1] + p2.col[1]) * 0.5;
+            const c2 = (p1.col[2] + p2.col[2]) * 0.5;
+            const base = lnCount * 12;
+            lnDataBuf[base]     = p1.x;  lnDataBuf[base+1]  = p1.y;
+            lnDataBuf[base+2]   = c0;    lnDataBuf[base+3]  = c1;    lnDataBuf[base+4]  = c2;  lnDataBuf[base+5]  = alpha;
+            lnDataBuf[base+6]   = p2.x;  lnDataBuf[base+7]  = p2.y;
+            lnDataBuf[base+8]   = c0;    lnDataBuf[base+9]  = c1;    lnDataBuf[base+10] = c2;  lnDataBuf[base+11] = alpha * 0.4;
+            lnCount++;
           }
         }
 
-        // Mouse connection lines (soft, subtle)
+        // Mouse connection lines
         if (mouse.active) {
           const dx = mouse.x - p1.x;
           const dy = mouse.y - p1.y;
-          const d = Math.sqrt(dx * dx + dy * dy);
+          const dSq2 = dx * dx + dy * dy;
 
-          if (d < MOUSE_RADIUS) {
-            const t = 1 - d / MOUSE_RADIUS;
-            const alpha = t * t * 0.28;
-            lnData.push(mouse.x, mouse.y, p1.col[0], p1.col[1], p1.col[2], alpha);
-            lnData.push(p1.x, p1.y, p1.col[0], p1.col[1], p1.col[2], alpha * 0.3);
+          if (dSq2 < MOUSE_RADIUS_SQ) {
+            const t = 1 - Math.sqrt(dSq2) / MOUSE_RADIUS;
+            const alpha = t * t * 0.25;
+            const base = lnCount * 12;
+            lnDataBuf[base]   = mouse.x; lnDataBuf[base+1] = mouse.y;
+            lnDataBuf[base+2] = p1.col[0]; lnDataBuf[base+3] = p1.col[1]; lnDataBuf[base+4] = p1.col[2]; lnDataBuf[base+5] = alpha;
+            lnDataBuf[base+6] = p1.x;    lnDataBuf[base+7] = p1.y;
+            lnDataBuf[base+8] = p1.col[0]; lnDataBuf[base+9] = p1.col[1]; lnDataBuf[base+10] = p1.col[2]; lnDataBuf[base+11] = alpha * 0.3;
+            lnCount++;
           }
         }
       }
 
-      if (lnData.length) {
+      if (lnCount > 0) {
         gl.useProgram(lnProg);
         gl.uniform2f(lnLoc.res, W, H);
         gl.bindBuffer(gl.ARRAY_BUFFER, lnBuf);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lnData), gl.DYNAMIC_DRAW);
+        gl.bufferData(gl.ARRAY_BUFFER, lnDataBuf.subarray(0, lnCount * 12), gl.DYNAMIC_DRAW);
         const s = 6 * 4;
         gl.enableVertexAttribArray(lnLoc.pos); gl.vertexAttribPointer(lnLoc.pos, 2, gl.FLOAT, false, s, 0);
         gl.enableVertexAttribArray(lnLoc.col); gl.vertexAttribPointer(lnLoc.col, 3, gl.FLOAT, false, s, 2*4);
         gl.enableVertexAttribArray(lnLoc.opa); gl.vertexAttribPointer(lnLoc.opa, 1, gl.FLOAT, false, s, 5*4);
-        gl.drawArrays(gl.LINES, 0, lnData.length / 6);
+        gl.drawArrays(gl.LINES, 0, lnCount * 2);
       }
 
       /* ── Particle Point Pass ── */
-      const ptData = [];
-      for (const p of particles) {
-        ptData.push(p.x, p.y, p.size, p.col[0], p.col[1], p.col[2], p.opa);
+      for (let pi = 0; pi < particles.length; pi++) {
+        const p = particles[pi];
+        const base = pi * 7;
+        ptDataBuf[base]   = p.x;    ptDataBuf[base+1] = p.y;    ptDataBuf[base+2] = p.size;
+        ptDataBuf[base+3] = p.col[0]; ptDataBuf[base+4] = p.col[1]; ptDataBuf[base+5] = p.col[2];
+        ptDataBuf[base+6] = p.opa;
       }
 
       gl.useProgram(ptProg);
       gl.uniform2f(ptLoc.res, W, H);
       gl.bindBuffer(gl.ARRAY_BUFFER, ptBuf);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ptData), gl.DYNAMIC_DRAW);
+      gl.bufferData(gl.ARRAY_BUFFER, ptDataBuf.subarray(0, particles.length * 7), gl.DYNAMIC_DRAW);
       const ps = 7 * 4;
       gl.enableVertexAttribArray(ptLoc.pos); gl.vertexAttribPointer(ptLoc.pos, 2, gl.FLOAT, false, ps, 0);
       gl.enableVertexAttribArray(ptLoc.sz);  gl.vertexAttribPointer(ptLoc.sz,  1, gl.FLOAT, false, ps, 2*4);
       gl.enableVertexAttribArray(ptLoc.col); gl.vertexAttribPointer(ptLoc.col, 3, gl.FLOAT, false, ps, 3*4);
       gl.enableVertexAttribArray(ptLoc.opa); gl.vertexAttribPointer(ptLoc.opa, 1, gl.FLOAT, false, ps, 6*4);
       gl.drawArrays(gl.POINTS, 0, particles.length);
-
-      rafId = requestAnimationFrame(draw);
     }
 
     resize();
@@ -354,8 +378,10 @@ export default function WebGLParticleCanvas({ variant }) {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("visibilitychange", handleVisibility);
       cancelAnimationFrame(rafId);
       ro.disconnect();
+      io.disconnect();
     };
   }, [variant]);
 

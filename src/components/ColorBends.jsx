@@ -22,13 +22,32 @@ export function ColorBends({
 
     let animationFrameId;
     let time = 0;
+    let isVisible = true;
+    let isIntersecting = true;
 
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // cap at 1.5x for perf
+
+    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    const io = new IntersectionObserver((entries) => {
+      isIntersecting = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    io.observe(canvas);
+
+    let resizeTimer;
     const resizeCanvas = () => {
-      const parent = canvas.parentElement;
-      if (parent) {
-        canvas.width = parent.clientWidth || window.innerWidth;
-        canvas.height = parent.clientHeight || window.innerHeight;
-      }
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const parent = canvas.parentElement;
+        if (parent) {
+          canvas.width = (parent.clientWidth || window.innerWidth) * dpr;
+          canvas.height = (parent.clientHeight || window.innerHeight) * dpr;
+          canvas.style.width = `${parent.clientWidth || window.innerWidth}px`;
+          canvas.style.height = `${parent.clientHeight || window.innerHeight}px`;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+      }, 100);
     };
 
     resizeCanvas();
@@ -51,50 +70,53 @@ export function ColorBends({
     const rgb = hexToRgb(color);
 
     const render = () => {
-      time += speed * 0.015;
+      animationFrameId = requestAnimationFrame(render);
+      if (!isVisible || !isIntersecting) return;
+
+      time += speed * 0.012;
       const { width, height } = canvas;
-      ctx.clearRect(0, 0, width, height);
+      const logicalW = width / dpr;
+      const logicalH = height / dpr;
+      ctx.clearRect(0, 0, logicalW, logicalH);
 
       // Base background gradient
-      const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+      const bgGrad = ctx.createLinearGradient(0, 0, logicalW, logicalH);
       bgGrad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05)`);
       bgGrad.addColorStop(0.5, "rgba(10, 15, 30, 0.95)");
       bgGrad.addColorStop(1, "rgba(5, 11, 24, 1)");
       ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, width, height);
+      ctx.fillRect(0, 0, logicalW, logicalH);
 
       ctx.save();
-      ctx.translate(width / 2, height / 2);
+      ctx.translate(logicalW / 2, logicalH / 2);
       ctx.rotate((rotation * Math.PI) / 180);
-      ctx.translate(-width / 2, -height / 2);
+      ctx.translate(-logicalW / 2, -logicalH / 2);
 
-      // Draw multi-layered animated color bend waves
       const numBands = Math.max(3, iterations * 4);
       for (let i = 0; i < numBands; i++) {
         ctx.beginPath();
-        const yOffset = (height / numBands) * i - height * 0.2;
-        const waveAmp = (height * bandWidth) * (1 + Math.sin(time + i) * 0.2);
+        const yOffset = (logicalH / numBands) * i - logicalH * 0.2;
+        const waveAmp = (logicalH * bandWidth) * (1 + Math.sin(time + i) * 0.2);
 
         ctx.moveTo(0, yOffset);
 
-        for (let x = 0; x <= width; x += 15) {
-          const normX = x / width;
+        // Step size 24 = ~60% fewer lineTo calls vs 15, still visually smooth
+        for (let x = 0; x <= logicalW; x += 24) {
+          const normX = x / logicalW;
           const sine1 = Math.sin(normX * Math.PI * 2 * frequency + time + i * 0.8);
           const sine2 = Math.cos(normX * Math.PI * 4 * frequency - time * 0.5 + i);
           const noiseFactor = (Math.sin(normX * 20 + time * 3) * noise * 50);
-          
           const y = yOffset + (sine1 + sine2 * 0.5) * waveAmp + noiseFactor;
           ctx.lineTo(x, y);
         }
 
-        ctx.lineTo(width, height * 1.5);
-        ctx.lineTo(0, height * 1.5);
+        ctx.lineTo(logicalW, logicalH * 1.5);
+        ctx.lineTo(0, logicalH * 1.5);
         ctx.closePath();
 
         const alpha = Math.min(0.8, (intensity * 0.3) / (i * 0.3 + 1));
         const bandGrad = ctx.createLinearGradient(0, yOffset - waveAmp, 0, yOffset + waveAmp * 2);
 
-        // Blend primary color with secondary glowing cyan accents
         const mixR = Math.round(rgb.r * 0.8 + (i % 2 === 0 ? 0 : 40));
         const mixG = Math.round(rgb.g * 0.8 + (i % 2 === 0 ? 150 : 80));
         const mixB = Math.round(rgb.b * 0.8 + 100);
@@ -109,16 +131,13 @@ export function ColorBends({
 
       ctx.restore();
 
-      // Top fade overlay if configured
       if (fadeTop > 0) {
-        const topFade = ctx.createLinearGradient(0, 0, 0, height * fadeTop);
+        const topFade = ctx.createLinearGradient(0, 0, 0, logicalH * fadeTop);
         topFade.addColorStop(0, "rgba(5, 11, 24, 0.4)");
         topFade.addColorStop(1, "rgba(5, 11, 24, 0)");
         ctx.fillStyle = topFade;
-        ctx.fillRect(0, 0, width, height * fadeTop);
+        ctx.fillRect(0, 0, logicalW, logicalH * fadeTop);
       }
-
-      animationFrameId = requestAnimationFrame(render);
     };
 
     render();
@@ -126,12 +145,16 @@ export function ColorBends({
     return () => {
       window.removeEventListener("resize", resizeCanvas);
       cancelAnimationFrame(animationFrameId);
+      clearTimeout(resizeTimer);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [color, speed, frequency, noise, bandWidth, rotation, fadeTop, iterations, intensity]);
 
   return (
     <canvas
       ref={canvasRef}
+      style={{ willChange: "transform" }}
       className={`absolute inset-0 w-full h-full object-cover z-0 ${className}`}
     />
   );

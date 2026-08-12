@@ -96,10 +96,7 @@ const SplitText = ({
               scrollTrigger: {
                 trigger: el,
                 start,
-                end: 'bottom 10%',
-                toggleActions: 'play none play reverse',
-                fastScrollEnd: true,
-                anticipatePin: 0.4
+                toggleActions: 'play none none none',
               },
               onComplete: () => {
                 onCompleteRef.current?.();

@@ -86,23 +86,37 @@ const DotField = memo(({
       mouseRef.current.y = e.pageY - s.offsetY;
     }
 
+    // Update mouse speed in RAF instead of a separate setInterval
     function updateMouseSpeed() {
       const m = mouseRef.current;
       const dx = m.prevX - m.x;
       const dy = m.prevY - m.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const distSq = dx * dx + dy * dy;
+      const dist = distSq > 0 ? Math.sqrt(distSq) : 0;
       m.speed += (dist - m.speed) * 0.5;
       if (m.speed < 0.001) m.speed = 0;
       m.prevX = m.x;
       m.prevY = m.y;
     }
 
-    const speedInterval = setInterval(updateMouseSpeed, 20);
-
     let frameCount = 0;
+    let isVisible = true;
+    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    // Pause when canvas scrolls off screen
+    let isIntersecting = true;
+    const io = new IntersectionObserver((entries) => {
+      isIntersecting = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    io.observe(canvas);
 
     function tick() {
+      rafRef.current = requestAnimationFrame(tick);
+      if (!isVisible || !isIntersecting) return;
+
       frameCount++;
+      updateMouseSpeed(); // moved here from setInterval
       const dots = dotsRef.current;
       const m = mouseRef.current;
       const { w, h } = sizeRef.current;
@@ -186,8 +200,6 @@ const DotField = memo(({
       }
 
       ctx.fill();
-
-      rafRef.current = requestAnimationFrame(tick);
     }
 
     doResize();
@@ -209,11 +221,12 @@ const DotField = memo(({
 
     return () => {
       cancelAnimationFrame(rafRef.current);
-      clearInterval(speedInterval);
       clearTimeout(resizeTimer);
       if (resizeObserver) resizeObserver.disconnect();
+      io.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);
 
@@ -230,6 +243,7 @@ const DotField = memo(({
           inset: 0,
           width: '100%',
           height: '100%',
+          willChange: 'transform',
         }}
       />
     </div>

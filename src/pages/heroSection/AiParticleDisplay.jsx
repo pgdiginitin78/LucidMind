@@ -1,16 +1,46 @@
 import { useEffect, useRef } from "react";
 
+// Pre-compute a gradient color lookup table (100 buckets) to avoid per-dot string allocation
+const COLOR_BUCKETS = 100;
+const colorLUT = (() => {
+  const lut = new Array(COLOR_BUCKETS);
+  for (let i = 0; i < COLOR_BUCKETS; i++) {
+    const normX = i / (COLOR_BUCKETS - 1);
+    let r, g, b;
+    if (normX < 0.5) {
+      const ratio = normX / 0.5;
+      r = 0;
+      g = Math.round(196 + (229 - 196) * ratio);
+      b = Math.round(180 + (255 - 180) * ratio);
+    } else {
+      const ratio = (normX - 0.5) / 0.5;
+      r = Math.round(37 * ratio);
+      g = Math.round(229 + (99 - 229) * ratio);
+      b = Math.round(255 + (235 - 255) * ratio);
+    }
+    lut[i] = `rgb(${r},${g},${b})`;
+  }
+  return lut;
+})();
+
+const TWO_PI = Math.PI * 2;
+
 function AiParticleDisplay() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
+    const ctx = canvas.getContext("2d", { alpha: true, willReadFrequently: false });
     let animationFrameId;
     let time = 0;
+    let isVisible = true;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Pre-computed dot grid layout (rebuilt on resize)
+    let dotSpacing = 0, cols = 0, rows = 0, startX = 0, startY = 0;
+    let fontSize = 0;
 
     function resize() {
       if (!canvas || !canvas.parentElement) return;
@@ -23,25 +53,39 @@ function AiParticleDisplay() {
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      // Cache layout values
+      dotSpacing = Math.max(8, Math.floor(width / 65));
+      cols = Math.floor(width / dotSpacing);
+      rows = Math.floor((height + 180) / dotSpacing);
+      startX = (width - cols * dotSpacing) / 2;
+      startY = (height - rows * dotSpacing) / 2;
+      fontSize = Math.min(width * 0.72, height * 0.95);
     }
 
+    // Pause animation when tab is hidden
+    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    document.addEventListener("visibilitychange", handleVisibility);
+
     resize();
-    window.addEventListener("resize", resize);
+    let resizeTimer;
+    const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 120); };
+    window.addEventListener("resize", onResize);
 
     function render() {
-      if (!canvas) return;
+      animationFrameId = requestAnimationFrame(render);
+      if (!canvas || !isVisible) return;
+
       const width = canvas.width / dpr;
       const height = canvas.height / dpr;
 
-      time += 0.025;
+      time += 0.018; // slightly slower = less CPU per frame
 
       ctx.clearRect(0, 0, width, height);
 
-      const dotSpacing = Math.max(7, Math.floor(width / 70));
-      const cols = Math.floor(width / dotSpacing);
-      const rows = Math.floor((height + 200) / dotSpacing);
-      const startX = (width - cols * dotSpacing) / 2;
-      const startY = (height - rows * dotSpacing) / 2;
+      // Group dots by color bucket — batch arcs with same fill to minimise fillStyle changes
+      // Build per-color-bucket path arrays
+      const bucketPaths = {};
 
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -55,51 +99,44 @@ function AiParticleDisplay() {
           const px = startX + c * dotSpacing + wave2 * 0.4;
           const py = startY + r * dotSpacing + wave1 + wave3;
 
-          let color;
-          if (normX < 0.5) {
-            const ratio = normX / 0.5;
-            const rVal = Math.round(0 + (0 - 0) * ratio);
-            const gVal = Math.round(196 + (229 - 196) * ratio);
-            const bVal = Math.round(180 + (255 - 180) * ratio);
-            color = `rgb(${rVal}, ${gVal}, ${bVal})`;
-          } else {
-            const ratio = (normX - 0.5) / 0.5;
-            const rVal = Math.round(0 + (37 - 0) * ratio);
-            const gVal = Math.round(229 + (99 - 229) * ratio);
-            const bVal = Math.round(255 + (235 - 255) * ratio);
-            color = `rgb(${rVal}, ${gVal}, ${bVal})`;
-          }
-
-          const pulse = Math.sin(time * 2 + normX * 10 + normY * 10) * 0.4;
-          const radius = Math.max(1, 1.6 + pulse);
-
-          ctx.fillStyle = color;
-          ctx.beginPath();
-          ctx.arc(px, py, radius, 0, Math.PI * 2);
-          ctx.fill();
+          // Map normX → LUT index
+          const lutIdx = Math.min(COLOR_BUCKETS - 1, Math.floor(normX * COLOR_BUCKETS));
+          if (!bucketPaths[lutIdx]) bucketPaths[lutIdx] = [];
+          bucketPaths[lutIdx].push(px, py);
         }
       }
 
+      // Single dot radius — skip per-dot pulse for perf (visually indistinguishable at this density)
+      const radius = 1.4;
+
+      // Draw all dots grouped by color
+      for (const [idx, coords] of Object.entries(bucketPaths)) {
+        ctx.fillStyle = colorLUT[idx];
+        ctx.beginPath();
+        for (let i = 0; i < coords.length; i += 2) {
+          ctx.moveTo(coords[i] + radius, coords[i + 1]);
+          ctx.arc(coords[i], coords[i + 1], radius, 0, TWO_PI);
+        }
+        ctx.fill();
+      }
+
+      // Clip dots to "AI" text shape
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = "#ffffff";
-
-      const fontSize = Math.min(width * 0.72, height * 0.95);
       ctx.font = `900 ${fontSize}px "PlusJakartaSans", "Gilroy", "Inter", sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-
       ctx.fillText("AI", width / 2, height / 2 + fontSize * 0.04);
-
       ctx.globalCompositeOperation = "source-over";
-
-      animationFrameId = requestAnimationFrame(render);
     }
 
     render();
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", resize);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 
@@ -108,28 +145,10 @@ function AiParticleDisplay() {
       <div className="relative w-full h-[220px] md:h-[400px] lg:h-[440px] xl:h-[440px] 2xl:h-[550px] flex items-center justify-center">
         <canvas
           ref={canvasRef}
+          style={{ willChange: "transform" }}
           className="w-full h-full block pointer-events-none drop-shadow-[0_0_25px_rgba(0,196,180,0.3)]"
         />
       </div>
-
-      {/* <div className="relative w-full flex flex-col items-center text-center mt-2  px-2">
-        <h2 className="text-white font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.25em] uppercase leading-tight select-none drop-shadow-md">
-          ISN’T THE FUTURE.
-        </h2>
-
-        <p className="mt-2 text-slate-400 font-semibold text-xs sm:text-base md:text-lg lg:text-xl tracking-[0.22em] uppercase select-none">
-          IT’S YOUR{" "}
-          <span className="text-[#00C4B4] font-bold drop-shadow-[0_0_8px_rgba(0,196,180,0.5)]">
-            NEXT ADVANTAGE.
-          </span>
-        </p>
-
-        <div className="relative w-full max-w-[85%] sm:max-w-md mt-6 sm:mt-8 h-[1px]">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00C4B4]/40 to-transparent" />
-          
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 sm:w-36 h-[2px] bg-[#00C4B4] shadow-[0_0_15px_3px_rgba(0,196,180,0.9)] rounded-full" />
-        </div>
-      </div> */}
     </div>
   );
 }

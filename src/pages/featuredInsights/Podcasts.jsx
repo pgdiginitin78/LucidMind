@@ -217,12 +217,12 @@ export default function Podcasts() {
                   return (
                     <motion.div
                       key={podcast.id}
-                      initial={{ opacity: 0, x: -70, scale: 0.96 }}
+                      initial={{ opacity: 0, x: -40, scale: 0.97 }}
                       whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                      viewport={{ once: false, amount: 0.2 }}
+                      viewport={{ once: true, amount: 0.2 }}
                       transition={{
-                        duration: 0.1,
-                        delay: index * 0.1,
+                        duration: 0.4,
+                        delay: index * 0.07,
                         ease: [0.16, 1, 0.3, 1],
                       }}
                       onClick={() => handleSelectPodcast(index)}

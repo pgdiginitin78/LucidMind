@@ -189,13 +189,13 @@ export default function ProblemsAndSolutions() {
   };
 
   const itemVariant = {
-    hidden: { opacity: 0, x: -16 },
-    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } },
+    hidden: { opacity: 0, x: -12 },
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 200, damping: 20 } },
   };
 
   const itemVariantRight = {
-    hidden: { opacity: 0, x: 16 },
-    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } },
+    hidden: { opacity: 0, x: 12 },
+    show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 200, damping: 20 } },
   };
 
   return (
@@ -209,7 +209,7 @@ export default function ProblemsAndSolutions() {
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="flex-1 w-full md:w-1/1"
         >
@@ -236,7 +236,7 @@ export default function ProblemsAndSolutions() {
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative z-20 flex flex-col justify-center rounded-[1.5rem] border border-[#009A9A]/15 bg-white/70 p-6 shadow-[0_20px_50px_rgba(11,25,44,0.08)] backdrop-blur-sm sm:p-8"
             >
@@ -251,7 +251,7 @@ export default function ProblemsAndSolutions() {
                 variants={listVariant}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, amount: 0.15 }}
+                viewport={{ once: true, amount: 0.15 }}
                 className="w-full"
               >
                 {problems.map((item, idx) => (
@@ -282,7 +282,7 @@ export default function ProblemsAndSolutions() {
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               className="relative z-20 flex"
             >
@@ -309,7 +309,7 @@ export default function ProblemsAndSolutions() {
                   variants={listVariant}
                   initial="hidden"
                   whileInView="show"
-                  viewport={{ once: false, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.15 }}
                   className="relative z-10"
                 >
                   {solutions.map((item, idx) => (
