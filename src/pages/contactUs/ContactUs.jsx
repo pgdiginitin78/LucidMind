@@ -64,52 +64,25 @@ function useInViewOnce() {
 }
 
 function FloatingParticles() {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const nodes = containerRef.current
-      ? containerRef.current.querySelectorAll("[data-particle]")
-      : [];
-    const tweens = [];
-    nodes.forEach((node) => {
-      const duration = Math.random() * 9 + 6;
-      const delay = Math.random() * 4;
-      const tween = gsap.to(node, {
-        y: "+=18",
-        x: "+=8",
-        opacity: 0.35,
-        duration: duration / 2,
-        delay,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-      tweens.push(tween);
-    });
-    return () => tweens.forEach((t) => t.kill());
-  }, []);
-
   const particles = useMemo(
     () =>
-      Array.from({ length: 14 }, (_, i) => ({
+      Array.from({ length: 8 }, (_, i) => ({
         id: i,
         x: ((i * 37 + 13) % 95) + 2,
         y: ((i * 23 + 7) % 90) + 5,
         size: (i % 3) + 1.2,
         color: i % 2 === 0 ? TEAL : BLUE,
+        duration: 6 + (i % 4) * 2,
+        delay: (i * 0.6) % 3,
       })),
     [],
   );
 
   return (
-    <div
-      ref={containerRef}
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {particles.map((p) => (
         <div
           key={p.id}
-          data-particle
           className="absolute rounded-full opacity-20"
           style={{
             left: `${p.x}%`,
@@ -117,9 +90,17 @@ function FloatingParticles() {
             width: p.size,
             height: p.size,
             background: p.color,
+            willChange: 'transform',
+            animation: `floatParticle ${p.duration}s ${p.delay}s ease-in-out infinite alternate`,
           }}
         />
       ))}
+      <style>{`
+        @keyframes floatParticle {
+          from { transform: translate(0, 0); }
+          to   { transform: translate(8px, 18px); }
+        }
+      `}</style>
     </div>
   );
 }
@@ -138,12 +119,7 @@ function SplineRobot() {
       )}
       {!loaded && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "linear" }}
-          >
-            <Loader2 size={26} style={{ color: TEAL }} />
-          </motion.div>
+          <Loader2 size={26} style={{ color: TEAL }} className="animate-spin" />
           <p className="text-[10px] uppercase tracking-widest text-white/30 sm:text-[11px]">
             Loading…
           </p>

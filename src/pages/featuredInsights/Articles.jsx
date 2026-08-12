@@ -784,7 +784,7 @@ export default function Articles() {
         scrollTrigger: {
           trigger: ".articles-headline",
           start: "top 90%",
-          toggleActions: "play none play reverse",
+          toggleActions: "play none none none",
         },
       }
     );
@@ -804,7 +804,7 @@ export default function Articles() {
             scrollTrigger: {
               trigger: card,
               start: "top 88%",
-              toggleActions: "play none play reverse",
+              toggleActions: "play none none none",
             },
           }
         );
