@@ -217,9 +217,16 @@ export default function Podcasts() {
                   return (
                     <motion.div
                       key={podcast.id}
+                      initial={{ opacity: 0, x: -70, scale: 0.96 }}
+                      whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                      viewport={{ once: false, amount: 0.2 }}
+                      transition={{
+                        duration: 0.1,
+                        delay: index * 0.1,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
                       onClick={() => handleSelectPodcast(index)}
-                      whileHover={{ x: isActive ? 0 : 5 }}
-                      transition={{ duration: 0.2 }}
+                      whileHover={{ x: isActive ? 0 : 6, scale: 1.01 }}
                       className={`cursor-pointer rounded-lg flex items-center gap-3 px-3 py-2.5 group transition-all duration-300 ${
                         isActive
                           ? "bg-[linear-gradient(135deg,rgba(0,196,180,0.18)_0%,rgba(37,99,235,0.12)_100%)] border border-[#00C4B4]/45 shadow-[0_4px_24px_rgba(0,196,180,0.15),inset_0_1px_0_rgba(255,255,255,0.06)]"

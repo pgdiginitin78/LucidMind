@@ -85,7 +85,6 @@ function HomePage() {
 function App() {
   const location = useLocation();
   const lenisRef = useRef(null);
-
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.0,
