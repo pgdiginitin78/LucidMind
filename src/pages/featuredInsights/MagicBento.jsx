@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useState, forwardRef } from 'react';
+import { useRef, useEffect, useCallback, useState, forwardRef } from 'react';
 import { gsap } from 'gsap';
 import './MagicBento.css';
 
@@ -429,6 +429,7 @@ export const BentoCardGrid = ({ children, gridRef, className = '' }) => (
   </div>
 );
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useMobileDetection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -446,17 +447,10 @@ export const useMobileDetection = () => {
 
 const MagicBento = ({
   children,
-  textAutoHide = false,
-  enableStars = true,
   enableSpotlight = true,
-  enableBorderGlow = true,
   disableAnimations = false,
   spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS,
-  particleCount = DEFAULT_PARTICLE_COUNT,
-  enableTilt = false,
   glowColor = DEFAULT_GLOW_COLOR,
-  clickEffect = true,
-  enableMagnetism = true
 }) => {
   const gridRef = useRef(null);
   const isMobile = useMobileDetection();

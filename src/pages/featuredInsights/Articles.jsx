@@ -773,21 +773,43 @@ export default function Articles() {
   const isMobile = useMobileDetection();
 
   useGSAP(() => {
-    gsap.from(".articles-headline", {
-      opacity: 0,
-      x: -50,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-    });
-    gsap.from(cardsRef.current, {
-      opacity: 0,
-      y: 60,
-      stagger: 0.15,
-      duration: 0.9,
-      ease: "power3.out",
-      scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-    });
+    gsap.fromTo(
+      ".articles-headline",
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".articles-headline",
+          start: "top 90%",
+          toggleActions: "play none play reverse",
+        },
+      }
+    );
+
+    const cards = (cardsRef.current || []).filter(Boolean);
+    if (cards.length > 0) {
+      cards.forEach((card, index) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: (index % 3) * 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 88%",
+              toggleActions: "play none play reverse",
+            },
+          }
+        );
+      });
+    }
   }, []);
 
   return (

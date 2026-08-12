@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
-import { Suspense, lazy, useEffect, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import * as yup from "yup";
@@ -89,13 +89,17 @@ function FloatingParticles() {
     return () => tweens.forEach((t) => t.kill());
   }, []);
 
-  const particles = Array.from({ length: 14 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2.5 + 1,
-    color: i % 2 === 0 ? TEAL : BLUE,
-  }));
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 14 }, (_, i) => ({
+        id: i,
+        x: ((i * 37 + 13) % 95) + 2,
+        y: ((i * 23 + 7) % 90) + 5,
+        size: (i % 3) + 1.2,
+        color: i % 2 === 0 ? TEAL : BLUE,
+      })),
+    [],
+  );
 
   return (
     <div

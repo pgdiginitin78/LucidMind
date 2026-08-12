@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function CloseIcon() {
@@ -18,14 +18,6 @@ function ClockIcon() {
   );
 }
 
-const Section = ({ title, children }) => (
-  <div className="mb-6">
-    <h3 className="text-[#00C4B4] font-['Playfair_Display',serif] font-semibold text-lg mb-2 leading-snug">
-      {title}
-    </h3>
-    <div className="text-[#CBD5E1] text-sm leading-relaxed space-y-2">{children}</div>
-  </div>
-);
 
 function renderContent(content) {
   if (!content) return null;

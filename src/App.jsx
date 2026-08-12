@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "./components/navbar/Navbar";
 import HeroSection from "./pages/heroSection/HeroSection";
 import ProblemsAndSolutions from "./pages/problemsAndSolutions/ProblemsAndSolutions";
@@ -12,21 +15,54 @@ import About from "./pages/aboutUs/About";
 import ContactUs from "./pages/contactUs/ContactUs";
 import "./App.css";
 
-function ScrollToTop() {
+gsap.registerPlugin(ScrollTrigger);
+
+function ScrollToTop({ lenisRef }) {
   const { pathname } = useLocation();
+
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [pathname]);
+    if (
+      typeof window !== "undefined" &&
+      "scrollRestoration" in window.history
+    ) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo(0, 0);
+    lenisRef.current?.scrollTo(0, { immediate: true });
+
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+      lenisRef.current?.scrollTo(0, { immediate: true });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [lenisRef]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    lenisRef.current?.scrollTo(0, { immediate: true });
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 250);
+
+    return () => clearTimeout(timer);
+  }, [pathname, lenisRef]);
+
   return null;
 }
 
 function PageWrapper({ children }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -15 }}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
+      exit={{ opacity: 0, y: -16 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full h-full"
     >
       {children}
@@ -48,24 +84,136 @@ function HomePage() {
 
 function App() {
   const location = useLocation();
+  const lenisRef = useRef(null);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.0,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+    lenisRef.current = lenis;
+
+    lenis.on("scroll", () => {
+      ScrollTrigger.update();
+    });
+
+    const updateTicker = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0);
+
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 300);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      gsap.ticker.remove(updateTicker);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen overflow-x-hidden">
-      <ScrollToTop />
+      <ScrollToTop lenisRef={lenisRef} />
       <Navbar />
-      
-      <AnimatePresence mode="wait">
+
+      <AnimatePresence
+        mode="wait"
+        onExitComplete={() => {
+          window.scrollTo(0, 0);
+          lenisRef.current?.scrollTo(0, { immediate: true });
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 150);
+        }}
+      >
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
-          <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-          <Route path="/hero" element={<PageWrapper><HeroSection /></PageWrapper>} />
-          <Route path="/problems" element={<PageWrapper><ProblemsAndSolutions /></PageWrapper>} />
-          <Route path="/advisory" element={<PageWrapper><AdvisoryPhilosophy /></PageWrapper>} />
-          <Route path="/philosophy" element={<PageWrapper><AdvisoryPhilosophy /></PageWrapper>} />
-          <Route path="/insights" element={<PageWrapper><Articles /></PageWrapper>} />
-          <Route path="/articles" element={<PageWrapper><Articles /></PageWrapper>} />
-          <Route path="/podcasts" element={<PageWrapper><Podcasts /></PageWrapper>} />
-          <Route path="/contact" element={<PageWrapper><ContactUs /></PageWrapper>} />
+          <Route
+            path="/"
+            element={
+              <PageWrapper>
+                <HomePage />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/about"
+            element={
+              <PageWrapper>
+                <About />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/hero"
+            element={
+              <PageWrapper>
+                <HeroSection />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/problems"
+            element={
+              <PageWrapper>
+                <ProblemsAndSolutions />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/advisory"
+            element={
+              <PageWrapper>
+                <AdvisoryPhilosophy />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/philosophy"
+            element={
+              <PageWrapper>
+                <AdvisoryPhilosophy />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/insights"
+            element={
+              <PageWrapper>
+                <Articles />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/articles"
+            element={
+              <PageWrapper>
+                <Articles />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/podcasts"
+            element={
+              <PageWrapper>
+                <Podcasts />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <PageWrapper>
+                <ContactUs />
+              </PageWrapper>
+            }
+          />
         </Routes>
       </AnimatePresence>
 

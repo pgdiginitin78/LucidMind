@@ -23,9 +23,10 @@ const SplitText = ({
   onLetterAnimationComplete
 }) => {
   const ref = useRef(null);
-  const animationCompletedRef = useRef(false);
   const onCompleteRef = useRef(onLetterAnimationComplete);
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState(
+    () => typeof document !== "undefined" && document?.fonts?.status === "loaded"
+  );
 
   // Keep callback ref updated
   useEffect(() => {
@@ -33,10 +34,8 @@ const SplitText = ({
   }, [onLetterAnimationComplete]);
 
   useEffect(() => {
-    if (document.fonts.status === 'loaded') {
-      setFontsLoaded(true);
-    } else {
-      document.fonts.ready.then(() => {
+    if (document?.fonts?.status !== "loaded") {
+      document?.fonts?.ready?.then(() => {
         setFontsLoaded(true);
       });
     }
@@ -45,14 +44,12 @@ const SplitText = ({
   useGSAP(
     () => {
       if (!ref.current || (!text && !children) || !fontsLoaded) return;
-      // Prevent re-animation if already completed
-      if (animationCompletedRef.current) return;
       const el = ref.current;
 
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
-        } catch (_) {
+        } catch {
           /* noop */
         }
         el._rbsplitInstance = null;
@@ -99,12 +96,12 @@ const SplitText = ({
               scrollTrigger: {
                 trigger: el,
                 start,
-                once: true,
+                end: 'bottom 10%',
+                toggleActions: 'play none play reverse',
                 fastScrollEnd: true,
                 anticipatePin: 0.4
               },
               onComplete: () => {
-                animationCompletedRef.current = true;
                 onCompleteRef.current?.();
               },
               willChange: 'transform, opacity',
@@ -124,7 +121,7 @@ const SplitText = ({
         if (el && el.parentNode && el._rbsplitInstance) {
           try {
             splitInstance.revert();
-          } catch (_) {
+          } catch {
             /* noop */
           }
         }

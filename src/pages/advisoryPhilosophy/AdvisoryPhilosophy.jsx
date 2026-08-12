@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import LightbulbRoundedIcon from "@mui/icons-material/LightbulbRounded";
 import SettingsSuggestRoundedIcon from "@mui/icons-material/SettingsSuggestRounded";
@@ -54,7 +53,7 @@ export default function AdvisoryPhilosophy() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-start mb-7 md:mb-10"
         >
@@ -75,7 +74,7 @@ export default function AdvisoryPhilosophy() {
               key={idx}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: false, amount: 0.15 }}
               transition={{ duration: 0.7, delay: idx * 0.15, ease: "easeOut" }}
               className="h-full"
             >

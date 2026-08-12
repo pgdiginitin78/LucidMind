@@ -87,7 +87,7 @@ export default function Footer() {
             className="col-span-2 lg:col-span-1"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: false, amount: 0.15 }}
             variants={fadeUp}
             custom={0}
           >
@@ -147,7 +147,7 @@ export default function Footer() {
               key={col.title}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: false, amount: 0.15 }}
               variants={fadeUp}
               custom={colIdx + 1}
             >
@@ -175,7 +175,7 @@ export default function Footer() {
             className="col-span-2  md:col-span-1"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: false, amount: 0.15 }}
             variants={fadeUp}
             custom={3}
           >
@@ -201,7 +201,7 @@ export default function Footer() {
           className="pt-6 sm:pt-8 border-t border-[#0F2644] flex flex-col md:flex-row items-center justify-between gap-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p className="text-white text-xs order-2 md:order-1 text-center md:text-left 2xl:text-sm">

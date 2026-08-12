@@ -1,26 +1,21 @@
 import {
   ArrowUp,
   BadgeCheck,
-  Bot,
   Briefcase,
   CheckCircle2,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   DollarSign,
-  Globe,
-  GraduationCap,
   Lightbulb,
   Link2,
   Loader2,
-  Mail,
   MapPin,
   Menu,
   Quote,
   Search,
   Send,
   Sparkles,
-  Target,
   TrendingUp,
   Trophy,
   Users,
@@ -40,7 +35,6 @@ const INK = "#0B1220";
 const TEAL = "#00C4B4";
 const BLUE = "#2563EB";
 const GOLD = "#C9A24B";
-const PAPER = "#F6F7FB";
 
 const NAV_LINKS = [
   { id: "hero", label: "Overview" },
@@ -261,20 +255,7 @@ const EXPERIENCE = [
   },
 ];
 
-const EDUCATION = [
-  {
-    degree: "Bachelor of Engineering, Electrical Engineering",
-    institution: "Savitribai Phule Pune University",
-  },
-];
 
-const TOP_SKILLS = [
-  "Global Capability Center Leadership",
-  "AI Strategy & Enterprise Adoption",
-  "Enterprise Transformation & Change Management",
-  "Cross-Cultural & Distributed Team Leadership",
-  "P&L Management & Business Operations",
-];
 
 const SKILL_TAGS = [
   "GCC Strategy",
@@ -355,34 +336,7 @@ const CERTIFICATIONS = [
   },
 ];
 
-const LEADERSHIP_IMPACT = [
-  {
-    icon: Target,
-    title: "Board Member | Wurth IT India",
-    body: "Scaled the Tech GCC from 15 → 220+ associates, steadily transforming from a tech support unit into a strategic business & technology partner. Demonstrated the governance discipline necessary in sustaining transformation, not just enabling it.",
-  },
-  {
-    icon: Globe,
-    title: "Global Stakeholder Influence | EVP-Level Interface",
-    body: 'Shaped company vision and strategic alignment at board level. Secured buy-in for India-originated initiatives changing the narrative from being a "delivery hub" to "innovation engine". An active voice in industry forums shaping GCC evolution in the AI era.',
-  },
-  {
-    icon: TrendingUp,
-    title:
-      "27-29% YoY Revenue Growth | 26-32% Operating Margins | Built 30% Deeper Leadership Pipeline",
-    body: "Delivered disciplined growth without compromising margins or culture. Scaled profitably while building organizational resilience-zero key-person risk.",
-  },
-  {
-    icon: Bot,
-    title: "AI, Automation & Low-Code Leadership",
-    body: "Deployed intelligent automation and AI across enterprise workflows as revenue driver (10%+ incremental) and efficiency drivers.",
-  },
-  {
-    icon: DollarSign,
-    title: "$100M+ | Enterprise Transformation | Fortune 500",
-    body: "Led large-scale transformation programs across Financial Services and Insurance, navigating the complexity of operating model change at enterprise scale.",
-  },
-];
+
 
 const PRINCIPLES = [
   {
@@ -422,14 +376,15 @@ function useInViewOnce(options) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          observer.disconnect();
+        } else if (entry.boundingClientRect.top > 0) {
+          setInView(false);
         }
       },
-      { threshold: 0.15, rootMargin: "-40px", ...options },
+      { threshold: 0.05, rootMargin: "0px", ...options },
     );
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [options]);
   return [ref, inView];
 }
 
@@ -570,7 +525,7 @@ function Tooltip({ label, children }) {
   );
 }
 
-function SkillRow({ skill, index }) {
+export function SkillRow({ skill, index }) {
   const [ref, inView] = useInViewOnce();
   const count = useCountUp(index + 1, inView, 900);
   const color = index % 2 === 0 ? TEAL : BLUE;
@@ -641,7 +596,7 @@ function StatTile({ stat, index }) {
   );
 }
 
-function TimelineEntry({ item, index, isOpen, onToggle }) {
+export function TimelineEntry({ item, index, isOpen, onToggle }) {
   const [ref, inView] = useInViewOnce();
   return (
     <div
@@ -773,7 +728,7 @@ function TimelineEntry({ item, index, isOpen, onToggle }) {
   );
 }
 
-function SkillsPanel() {
+export function SkillsPanel() {
   const [query, setQuery] = useState("");
   const filtered = useMemo(
     () =>
@@ -845,7 +800,7 @@ function SkillsPanel() {
   );
 }
 
-function CertificationsGrid() {
+export function CertificationsGrid() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const perPage = 4;
@@ -934,7 +889,7 @@ function CertificationsGrid() {
   );
 }
 
-function PrinciplesCarousel() {
+export function PrinciplesCarousel() {
   const [index, setIndex] = useState(0);
   const total = PRINCIPLES.length;
 
@@ -1259,7 +1214,6 @@ function NavBar({ active, onNavigate }) {
 }
 
 export default function About() {
-  const [openIndex, setOpenIndex] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
   const [showTop, setShowTop] = useState(false);
   const bgRef = useRef(null);
