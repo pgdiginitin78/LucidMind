@@ -148,33 +148,35 @@ export function Component() {
 
   return (
     <div ref={containerRef}>
-      <div className="fixed top-2 left-4 right-4 z-1001 flex items-center justify-between pointer-events-auto">
-        <Link
-          to="/"
-          className={`flex items-center transition-all duration-300 ${
-            showLogo ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
-          }`}
-        >
-          <img
-            src={LucidMindTransperentLogo}
-            alt="LucidMind"
-            className="h-14 md:h-16 w-auto object-contain"
-          />
-        </Link>
-        
-        <button
-          type="button"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="w-10 h-10 shrink-0 rounded-full border border-brand-blue/60 bg-[#030A18]/90 backdrop-blur-xl text-[#00C4FF] shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:border-[#00C4FF] hover:scale-105 active:scale-95"
-          onClick={toggleMenu}
-        >
-          {isMenuOpen ? (
-            <X className="w-5 h-5 text-[#00C4FF]" />
-          ) : (
-            <Menu className="w-5 h-5 text-[#00C4FF]" />
-          )}
-        </button>
-      </div>
+      <header className="fixed top-0 left-0 right-0 z-[1001] w-full pointer-events-none">
+        <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between pt-3 sm:pt-4 pointer-events-auto">
+          <Link
+            to="/"
+            className={`flex items-center transition-all duration-300 ${
+              showLogo ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+            }`}
+          >
+            <img
+              src={LucidMindTransperentLogo}
+              alt="LucidMind"
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+            />
+          </Link>
+          
+          <button
+            type="button"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="w-10 h-10 shrink-0 rounded-full border border-brand-blue/60 bg-[#030A18]/90 backdrop-blur-xl text-[#00C4FF] shadow-lg flex items-center justify-center cursor-pointer transition-all duration-300 hover:border-[#00C4FF] hover:scale-105 active:scale-95"
+            onClick={toggleMenu}
+          >
+            {isMenuOpen ? (
+              <X className="w-5 h-5 text-[#00C4FF]" />
+            ) : (
+              <Menu className="w-5 h-5 text-[#00C4FF]" />
+            )}
+          </button>
+        </div>
+      </header>
 
       <section className="fullscreen-menu-container">
         <div data-nav="closed" className="nav-overlay-wrapper fixed inset-0 z-1000 hidden">

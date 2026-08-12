@@ -816,7 +816,7 @@ export default function Articles() {
     <>
       <section
         ref={sectionRef}
-        className={` w-full ${location.pathname === "/articles" ? "pt-32 pb-10" : "py-10 pb-20"} px-6  sm:px-12 md:px-6 lg:px-12 xl:px-16 2xl:px-2 relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
+        className={`w-full ${location.pathname === "/articles" ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-20"} relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <img
           src={articlesSectionBg}
@@ -824,10 +824,9 @@ export default function Articles() {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-1 opacity-75"
         />
 
-        {/* Minimal White Overlay from Top-Left */}
         <div className="absolute inset-0 w-full h-full pointer-events-none z-1 bg-linear-to-br from-white/45 via-white/15 to-transparent" />
 
-        <div className="max-w-365 2xl:max-w-[1520px] mx-auto relative " style={{ zIndex: 2 }}>
+        <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative" style={{ zIndex: 2 }}>
           <WebGLParticleCanvas variant="articles" />
           <BentoCardGrid gridRef={gridRef}>
             <GlobalSpotlight

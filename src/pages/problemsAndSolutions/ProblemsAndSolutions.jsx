@@ -199,13 +199,13 @@ export default function ProblemsAndSolutions() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] px-2 py-5 md:py-16 sm:px-12 md:px-1 lg:px-3 2xl:px-12">
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] py-12 sm:py-16 md:py-20">
       <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
         <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-white/60 blur-[100px]" />
         <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]" />
       </div>
 
-      <div className="relative z-10  max-w-[1220px]  px-2 md:px-7 lg:px-16 lg:px-12 2xl:px-8">
+      <div className="relative z-10 w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}

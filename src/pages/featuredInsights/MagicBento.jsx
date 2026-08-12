@@ -328,7 +328,6 @@ export const GlobalSpotlight = ({
     document.body.appendChild(spotlight);
     spotlightRef.current = spotlight;
 
-    // RAF throttle: only process one mousemove per animation frame
     let rafId = null;
     let pendingX = 0, pendingY = 0;
 
@@ -351,7 +350,6 @@ export const GlobalSpotlight = ({
         return;
       }
 
-      // Move spotlight via direct style (no gsap tween overhead for position)
       spotlightRef.current.style.left = e.clientX + 'px';
       spotlightRef.current.style.top = e.clientY + 'px';
 
@@ -383,7 +381,6 @@ export const GlobalSpotlight = ({
             ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
             : 0;
 
-      // Single combined tween instead of two
       gsap.to(spotlightRef.current, {
         opacity: targetOpacity,
         duration: targetOpacity > 0 ? 0.2 : 0.5,
@@ -429,7 +426,6 @@ export const BentoCardGrid = ({ children, gridRef, className = '' }) => (
   </div>
 );
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useMobileDetection = () => {
   const [isMobile, setIsMobile] = useState(false);
 

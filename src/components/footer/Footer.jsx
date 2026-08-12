@@ -81,7 +81,7 @@ export default function Footer() {
           glowColor="#00C4B4"
         />
       </div>
-      <div className="max-w-[1540px] mx-auto px-4 sm:px-6 md:px-12 lg:px-12 2xl:px-2 relative z-10">
+      <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 sm:gap-10 lg:gap-6 mb-10 sm:mb-12">
           <motion.div
             className="col-span-2 lg:col-span-1"

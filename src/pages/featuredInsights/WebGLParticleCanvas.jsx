@@ -10,14 +10,13 @@ export default function WebGLParticleCanvas({ variant }) {
     const gl = canvas.getContext("webgl", {
       alpha: true,
       premultipliedAlpha: false,
-      antialias: false, // disable AA for perf – not needed for particles
+      antialias: false,
     });
     if (!gl) return;
 
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    /* ── Shaders for Glowing Particles ── */
     const VERT = `
       attribute vec2 a_pos;
       attribute float a_sz;
@@ -49,7 +48,6 @@ export default function WebGLParticleCanvas({ variant }) {
       }
     `;
 
-    /* ── Shaders for Network Lines ── */
     const LVERT = `
       attribute vec2 a_pos;
       attribute vec3 a_col;
@@ -102,9 +100,6 @@ export default function WebGLParticleCanvas({ variant }) {
       opa: gl.getAttribLocation(lnProg, "a_opa"),
     };
 
-    // Color definitions
-    // Blue #2563EB = [0.145, 0.388, 0.922]
-    // Teal #00C4B4 = [0.000, 0.769, 0.706]
     const BLUE = [0.145, 0.388, 0.922];
     const TEAL = [0.000, 0.769, 0.706];
 
@@ -116,7 +111,6 @@ export default function WebGLParticleCanvas({ variant }) {
     const ptBuf = gl.createBuffer();
     const lnBuf = gl.createBuffer();
 
-    // Mouse state
     const mouse = { x: -1000, y: -1000, active: false };
 
     function handleMouseMove(e) {
@@ -145,7 +139,6 @@ export default function WebGLParticleCanvas({ variant }) {
     function rand(a, b) { return Math.random() * (b - a) + a; }
 
     function init() {
-      // Create high-density particles for rich cinematic cloud + mesh effect
       let density = 3200;
       let maxCount = 280;
       
@@ -159,28 +152,25 @@ export default function WebGLParticleCanvas({ variant }) {
       const centerY = H * 0.5;
 
       particles = Array.from({ length: count }, (_, i) => {
-        const radius = rand(30, Math.max(W, H) * 0.55); // slightly smaller orbit
+        const radius = rand(30, Math.max(W, H) * 0.55);
         const angle = rand(0, Math.PI * 2);
-        const speed = rand(0.001, 0.004) * (Math.random() < 0.15 ? -1 : 1); // slower speeds
-        const isMeshNode = i < count * 0.4; // fewer mesh nodes = fewer line checks
+        const speed = rand(0.001, 0.004) * (Math.random() < 0.15 ? -1 : 1);
+        const isMeshNode = i < count * 0.4;
 
         return {
-          // Orbit parameters
           originX: centerX + rand(-W * 0.25, W * 0.25),
           originY: centerY + rand(-H * 0.2, H * 0.2),
           radiusX: radius,
-          radiusY: radius * rand(0.55, 0.85), // Elliptical orbit
+          radiusY: radius * rand(0.55, 0.85),
           angle,
           speed,
           tilt: rand(-0.4, 0.4),
 
-          // Current calculated position
           x: 0,
           y: 0,
           vx: 0,
           vy: 0,
 
-          // Visual properties
           baseSize: isMeshNode ? rand(5, 10) : rand(2, 4.5),
           size: 0,
           isMeshNode,
@@ -198,14 +188,12 @@ export default function WebGLParticleCanvas({ variant }) {
       H = canvas.height = canvas.offsetHeight;
       gl.viewport(0, 0, W, H);
       init();
-      // Pre-allocate typed arrays sized to worst-case after resize
       const maxMesh = Math.ceil(particles.length * 0.4);
-      const maxLines = maxMesh * maxMesh; // upper bound
+      const maxLines = maxMesh * maxMesh;
       ptDataBuf = new Float32Array(particles.length * 7);
-      lnDataBuf = new Float32Array(maxLines * 12); // 2 verts * 6 floats
+      lnDataBuf = new Float32Array(maxLines * 12);
     }
 
-    // Pre-allocated typed arrays (reused each frame to avoid GC churn)
     let ptDataBuf = new Float32Array(0);
     let lnDataBuf = new Float32Array(0);
     let isVisible = true;
@@ -231,7 +219,6 @@ export default function WebGLParticleCanvas({ variant }) {
       const MOUSE_RADIUS_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
       const MAX_LINE_DIST_SQ = MAX_LINE_DIST * MAX_LINE_DIST;
 
-      // Update particle positions
       for (const p of particles) {
         p.angle -= p.speed;
         p.pulse += p.pulseSpeed;
@@ -277,7 +264,6 @@ export default function WebGLParticleCanvas({ variant }) {
         p.opa = Math.min(1.0, p.baseOpa * pulseFactor * glowBoost);
       }
 
-      /* ── Line Pass (Faint/Subtle Network Mesh Lines) ── */
       let lnCount = 0;
       const meshParticles = particles.filter(p => p.isMeshNode);
 
@@ -317,7 +303,6 @@ export default function WebGLParticleCanvas({ variant }) {
           }
         }
 
-        // Mouse connection lines
         if (mouse.active) {
           const dx = mouse.x - p1.x;
           const dy = mouse.y - p1.y;
@@ -348,7 +333,6 @@ export default function WebGLParticleCanvas({ variant }) {
         gl.drawArrays(gl.LINES, 0, lnCount * 2);
       }
 
-      /* ── Particle Point Pass ── */
       for (let pi = 0; pi < particles.length; pi++) {
         const p = particles[pi];
         const base = pi * 7;

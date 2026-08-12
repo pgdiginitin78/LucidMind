@@ -28,7 +28,6 @@ const SplitText = ({
     () => typeof document !== "undefined" && document?.fonts?.status === "loaded"
   );
 
-  // Keep callback ref updated
   useEffect(() => {
     onCompleteRef.current = onLetterAnimationComplete;
   }, [onLetterAnimationComplete]);
@@ -49,9 +48,7 @@ const SplitText = ({
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
-        } catch {
-          /* noop */
-        }
+        } catch {}
         el._rbsplitInstance = null;
       }
 
@@ -118,9 +115,7 @@ const SplitText = ({
         if (el && el.parentNode && el._rbsplitInstance) {
           try {
             splitInstance.revert();
-          } catch {
-            /* noop */
-          }
+          } catch {}
         }
         if (el) el._rbsplitInstance = null;
       };

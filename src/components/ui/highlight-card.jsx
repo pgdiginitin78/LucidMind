@@ -28,7 +28,6 @@ const HighlightCard = ({ title, description, icon }) => {
               </div>
             </div>
 
-            {/* <Heading level={3} className="mb-4 text-2xl bg-gradient-to-r from-brand-blue via-brand-teal to-brand-blue bg-clip-text text-transparent transform group-hover:scale-105 transition-transform duration-300"> */}
             <Heading
               level={3}
               className="mb-4 text-xl text-brand-blue  transform group-hover:scale-105 transition-transform duration-300"

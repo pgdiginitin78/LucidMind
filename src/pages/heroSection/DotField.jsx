@@ -86,7 +86,6 @@ const DotField = memo(({
       mouseRef.current.y = e.pageY - s.offsetY;
     }
 
-    // Update mouse speed in RAF instead of a separate setInterval
     function updateMouseSpeed() {
       const m = mouseRef.current;
       const dx = m.prevX - m.x;
@@ -104,7 +103,6 @@ const DotField = memo(({
     const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
     document.addEventListener("visibilitychange", handleVisibility);
 
-    // Pause when canvas scrolls off screen
     let isIntersecting = true;
     const io = new IntersectionObserver((entries) => {
       isIntersecting = entries[0].isIntersecting;
@@ -116,7 +114,7 @@ const DotField = memo(({
       if (!isVisible || !isIntersecting) return;
 
       frameCount++;
-      updateMouseSpeed(); // moved here from setInterval
+      updateMouseSpeed();
       const dots = dotsRef.current;
       const m = mouseRef.current;
       const { w, h } = sizeRef.current;

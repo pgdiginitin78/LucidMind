@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 
-// Pre-compute a gradient color lookup table (100 buckets) to avoid per-dot string allocation
 const COLOR_BUCKETS = 100;
 const colorLUT = (() => {
   const lut = new Array(COLOR_BUCKETS);
@@ -38,7 +37,6 @@ function AiParticleDisplay() {
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Pre-computed dot grid layout (rebuilt on resize)
     let dotSpacing = 0, cols = 0, rows = 0, startX = 0, startY = 0;
     let fontSize = 0;
 
@@ -54,7 +52,6 @@ function AiParticleDisplay() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Cache layout values
       dotSpacing = Math.max(8, Math.floor(width / 65));
       cols = Math.floor(width / dotSpacing);
       rows = Math.floor((height + 180) / dotSpacing);
@@ -63,7 +60,6 @@ function AiParticleDisplay() {
       fontSize = Math.min(width * 0.72, height * 0.95);
     }
 
-    // Pause animation when tab is hidden
     const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
     document.addEventListener("visibilitychange", handleVisibility);
 
@@ -79,12 +75,10 @@ function AiParticleDisplay() {
       const width = canvas.width / dpr;
       const height = canvas.height / dpr;
 
-      time += 0.018; // slightly slower = less CPU per frame
+      time += 0.018;
 
       ctx.clearRect(0, 0, width, height);
 
-      // Group dots by color bucket — batch arcs with same fill to minimise fillStyle changes
-      // Build per-color-bucket path arrays
       const bucketPaths = {};
 
       for (let r = 0; r < rows; r++) {
@@ -99,17 +93,14 @@ function AiParticleDisplay() {
           const px = startX + c * dotSpacing + wave2 * 0.4;
           const py = startY + r * dotSpacing + wave1 + wave3;
 
-          // Map normX → LUT index
           const lutIdx = Math.min(COLOR_BUCKETS - 1, Math.floor(normX * COLOR_BUCKETS));
           if (!bucketPaths[lutIdx]) bucketPaths[lutIdx] = [];
           bucketPaths[lutIdx].push(px, py);
         }
       }
 
-      // Single dot radius — skip per-dot pulse for perf (visually indistinguishable at this density)
       const radius = 1.4;
 
-      // Draw all dots grouped by color
       for (const [idx, coords] of Object.entries(bucketPaths)) {
         ctx.fillStyle = colorLUT[idx];
         ctx.beginPath();
@@ -120,7 +111,6 @@ function AiParticleDisplay() {
         ctx.fill();
       }
 
-      // Clip dots to "AI" text shape
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = "#ffffff";
       ctx.font = `900 ${fontSize}px "PlusJakartaSans", "Gilroy", "Inter", sans-serif`;

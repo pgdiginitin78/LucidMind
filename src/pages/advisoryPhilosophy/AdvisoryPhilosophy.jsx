@@ -48,8 +48,8 @@ const philosophies = [
 
 export default function AdvisoryPhilosophy() {
   return (
-    <section className="w-full bg-[#f8fafc] py-10 px-6 sm:px-12 md:px-6 lg:px-12 xl:px-16 2xl:px-8">
-      <div className="max-w-[1220px] 2xl:max-w-[1520px] mx-auto">
+    <section className="w-full bg-[#f8fafc] py-12 sm:py-16 md:py-20">
+      <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

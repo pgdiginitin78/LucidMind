@@ -25,7 +25,7 @@ export function ColorBends({
     let isVisible = true;
     let isIntersecting = true;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5); // cap at 1.5x for perf
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
     const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
     document.addEventListener("visibilitychange", handleVisibility);
@@ -53,7 +53,6 @@ export function ColorBends({
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Convert hex color to RGB
     const hexToRgb = (hex) => {
       let c = hex.replace("#", "");
       if (c.length === 3) {
@@ -79,7 +78,6 @@ export function ColorBends({
       const logicalH = height / dpr;
       ctx.clearRect(0, 0, logicalW, logicalH);
 
-      // Base background gradient
       const bgGrad = ctx.createLinearGradient(0, 0, logicalW, logicalH);
       bgGrad.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.05)`);
       bgGrad.addColorStop(0.5, "rgba(10, 15, 30, 0.95)");
@@ -100,7 +98,6 @@ export function ColorBends({
 
         ctx.moveTo(0, yOffset);
 
-        // Step size 24 = ~60% fewer lineTo calls vs 15, still visually smooth
         for (let x = 0; x <= logicalW; x += 24) {
           const normX = x / logicalW;
           const sine1 = Math.sin(normX * Math.PI * 2 * frequency + time + i * 0.8);

@@ -1101,117 +1101,7 @@ function ContactModal({ open, onClose }) {
   );
 }
 
-function NavBar({ active, onNavigate }) {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleNavigate = (id) => {
-    onNavigate(id);
-    setDrawerOpen(false);
-  };
-
-  return (
-    <>
-      <header
-        className="fixed top-0 inset-x-0 z-40 transition-all duration-300"
-        style={{
-          background: scrolled ? "rgba(11,18,32,0.85)" : "transparent",
-          backdropFilter: scrolled ? "blur(14px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.08)"
-            : "1px solid transparent",
-        }}
-      >
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-3.5">
-          <button
-            onClick={() => handleNavigate("hero")}
-            className="text-sm font-bold text-white tracking-tight"
-          >
-            R. Pingali
-          </button>
-          <nav className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavigate(link.id)}
-                className="relative px-3 py-1.5 text-[11px] font-medium tracking-wide uppercase transition-colors"
-                style={{
-                  color: active === link.id ? "#fff" : "rgba(255,255,255,0.5)",
-                }}
-              >
-                {link.label}
-                {active === link.id && (
-                  <span
-                    className="absolute left-3 right-3 -bottom-0.5 h-px"
-                    style={{ background: TEAL }}
-                  />
-                )}
-              </button>
-            ))}
-          </nav>
-          <button
-            onClick={() => setDrawerOpen(true)}
-            className="md:hidden grid place-items-center w-8 h-8 rounded-lg text-white/80 border border-white/10"
-          >
-            <Menu size={16} />
-          </button>
-        </div>
-      </header>
-
-      <div
-        className="fixed inset-0 z-50 md:hidden"
-        style={{ pointerEvents: drawerOpen ? "auto" : "none" }}
-      >
-        <div
-          onClick={() => setDrawerOpen(false)}
-          className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-          style={{ opacity: drawerOpen ? 1 : 0 }}
-        />
-        <div
-          className="absolute right-0 top-0 h-full w-64 bg-[#0B1220] px-6 py-6 shadow-2xl transition-transform duration-400"
-          style={{
-            transform: drawerOpen ? "translateX(0%)" : "translateX(100%)",
-            transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)",
-          }}
-        >
-          <div className="flex items-center justify-between mb-8">
-            <span className="text-sm font-bold text-white">Menu</span>
-            <button
-              onClick={() => setDrawerOpen(false)}
-              className="text-white/60"
-            >
-              <X size={18} />
-            </button>
-          </div>
-          <div className="flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleNavigate(link.id)}
-                className="text-left px-3 py-2.5 rounded-lg text-xs font-medium uppercase tracking-wide transition-colors"
-                style={{
-                  color: active === link.id ? TEAL : "rgba(255,255,255,0.6)",
-                  background:
-                    active === link.id
-                      ? "rgba(255,255,255,0.05)"
-                      : "transparent",
-                }}
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
 
 export default function About() {
   const [contactOpen, setContactOpen] = useState(false);
@@ -1239,11 +1129,9 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-[#F6F7FB] scroll-smooth">
-      <NavBar active={active} onNavigate={scrollTo} />
-
       <section
         id="hero"
-        className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20 px-4 sm:px-6"
+        className="relative overflow-hidden pt-28 sm:pt-36 pb-16 sm:pb-20"
         style={{
           background: `linear-gradient(160deg, ${INK} 0%, #101d38 45%, ${INK} 100%)`,
         }}
@@ -1266,7 +1154,7 @@ export default function About() {
         <div className="absolute inset-0 pointer-events-none z-[1]">
           <WebGLParticleCanvas variant="minimal" />
         </div>
-        <div className="relative max-w-5xl mx-auto z-10">
+        <div className="relative w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 z-10">
           <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-8 md:gap-12">
             <div>
               <Reveal>
@@ -1330,7 +1218,7 @@ export default function About() {
         </div>
       </section>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col gap-12 sm:gap-16">
+      <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 py-12 sm:py-16 flex flex-col gap-12 sm:gap-16">
         <section id="about">
           <Reveal>
             <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-7">
@@ -1361,74 +1249,11 @@ export default function About() {
                   that make transformation stick.
                 </p>
               </div>
-
-              {/* <div className="mt-6 pt-6 border-t border-slate-100">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0B1220] mb-4">
-                  Leadership Impact
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {LEADERSHIP_IMPACT.map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div
-                        key={item.title}
-                        className="flex items-start gap-3 p-3 rounded-xl bg-[#F8FAFD] border border-slate-100"
-                      >
-                        <span
-                          className="mt-0.5 p-1.5 rounded-lg shrink-0"
-                          style={{
-                            background: `linear-gradient(135deg, ${TEAL}20, ${BLUE}20)`,
-                            color: TEAL,
-                          }}
-                        >
-                          <Icon size={15} />
-                        </span>
-                        <div>
-                          <p className="text-xs font-semibold text-[#0B1220] mb-0.5 leading-snug">
-                            {item.title}
-                          </p>
-                          <p className="text-[11px] text-slate-500 leading-relaxed">
-                            {item.body}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3 text-sm text-slate-600 leading-relaxed">
-                <p>
-                  I stay engaged with the GCC and technology leadership
-                  ecosystem through industry forums and executive conversations,
-                  sharing lessons from building organizations and exploring what
-                  the next generation of GCC leadership should look like in an
-                  AI-driven world.
-                </p>
-                <p>
-                  If you're building next-generation GCCs, redesigning
-                  enterprise operating models, or evolving your organization for
-                  the AI era, I'd welcome the conversation.
-                </p>
-              </div> */}
             </div>
           </Reveal>
         </section>
 
-        {/* <section id="top-skills">
-          <Reveal>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-7">
-              <Eyebrow>Top Skills</Eyebrow>
-              <div className="flex flex-col gap-1">
-                {TOP_SKILLS.map((s, i) => (
-                  <SkillRow key={s} skill={s} index={i} />
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        </section> */}
-
-        {/* <section id="experience">
+        <section id="experience">
           <Reveal>
             <Eyebrow>Record</Eyebrow>
             <h2
@@ -1555,7 +1380,7 @@ export default function About() {
               </div>
             </div>
           </Reveal>
-        </section> */}
+        </section>
       </div>
 
       <button

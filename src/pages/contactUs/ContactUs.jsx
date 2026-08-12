@@ -263,7 +263,6 @@ export default function ContactUs() {
     setStatus("loading");
 
     try {
-      // Use relative path in production (Vercel), or localhost in development
       const API_URL =
         import.meta.env.VITE_API_URL ||
         (import.meta.env.PROD ? "" : "http://localhost:5000");
@@ -345,7 +344,7 @@ export default function ContactUs() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-[1300px] px-4 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24 lg:px-14 lg:pt-28">
+      <div className="relative z-10 w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 pt-24 sm:pt-32 pb-14 sm:pb-20">
         <div ref={headerRef} className="mb-10 text-center sm:mb-14">
           <motion.div
             initial={{ opacity: 0, y: -10 }}

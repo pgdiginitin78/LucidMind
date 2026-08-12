@@ -16,7 +16,6 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Border glow effect */
 .magic-bento-card--border-glow::after {
   content: '';
   position: absolute;
@@ -84,7 +83,6 @@
     0 0 30px rgba(0, 196, 180, 0.15);
 }
 
-/* Global spotlight styles */
 .global-spotlight {
   mix-blend-mode: screen;
   will-change: transform, opacity, left, top;

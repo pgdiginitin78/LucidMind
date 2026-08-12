@@ -183,10 +183,10 @@ export default function Podcasts() {
       <div className="w-full h-[1.5px] bg-[linear-gradient(90deg,transparent_0%,#00C4B4_35%,#0EA5E9_65%,transparent_100%)]" />
       <section
         ref={sectionRef}
-        className={`w-full ${isStandalone ? "pt-8 pb-10 sm:pt-10 sm:pb-14" : "py-8 sm:py-10 md:py-12"} px-4 sm:px-8 md:px-5 lg:px-16 2xl:px-2 relative font-['PlusJakartaSans',sans-serif]`}
+        className={`w-full ${isStandalone ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-20"} relative font-['PlusJakartaSans',sans-serif]`}
       >
         <WebGLParticleCanvas variant="podcast" />
-        <div className="max-w-[1440px] 2xl:max-w-[1520px] mx-auto relative z-[2]">
+        <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
           <div className="podcasts-headline mb-6 sm:mb-8 text-center lg:text-left">
             <div className="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-full bg-[#00C4B4]/10 border border-[#00C4B4]/25">
               <WaveformIcon />
