@@ -1,19 +1,19 @@
-import { useEffect, useRef } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+import { useEffect, useRef } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import "./App.css";
+import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import HeroSection from "./pages/heroSection/HeroSection";
-import ProblemsAndSolutions from "./pages/problemsAndSolutions/ProblemsAndSolutions";
+import About from "./pages/aboutUs/About";
 import AdvisoryPhilosophy from "./pages/advisoryPhilosophy/AdvisoryPhilosophy";
+import ContactUs from "./pages/contactUs/ContactUs";
 import Articles from "./pages/featuredInsights/Articles";
 import Podcasts from "./pages/featuredInsights/Podcasts";
-import Footer from "./components/footer/Footer";
-import About from "./pages/aboutUs/About";
-import ContactUs from "./pages/contactUs/ContactUs";
-import "./App.css";
+import HeroSection from "./pages/heroSection/HeroSection";
+import ProblemsAndSolutions from "./pages/problemsAndSolutions/ProblemsAndSolutions";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -157,54 +157,7 @@ function App() {
               </PageWrapper>
             }
           />
-          <Route
-            path="/problems"
-            element={
-              <PageWrapper>
-                <ProblemsAndSolutions />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/advisory"
-            element={
-              <PageWrapper>
-                <AdvisoryPhilosophy />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/philosophy"
-            element={
-              <PageWrapper>
-                <AdvisoryPhilosophy />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/insights"
-            element={
-              <PageWrapper>
-                <Articles />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/articles"
-            element={
-              <PageWrapper>
-                <Articles />
-              </PageWrapper>
-            }
-          />
-          <Route
-            path="/podcasts"
-            element={
-              <PageWrapper>
-                <Podcasts />
-              </PageWrapper>
-            }
-          />
+
           <Route
             path="/contact"
             element={
