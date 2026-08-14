@@ -3,7 +3,6 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,43 +10,13 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const OAuth2 = google.auth.OAuth2;
-
-const createTransporter = async () => {
-  const oauth2Client = new OAuth2(
-    process.env.OAUTH_CLIENT_ID,
-    process.env.OAUTH_CLIENT_SECRET,
-    "https://developers.google.com/oauthplayground",
-  );
-
-  oauth2Client.setCredentials({
-    refresh_token: process.env.OAUTH_REFRESH_TOKEN,
-  });
-
-  const accessToken = await new Promise((resolve, reject) => {
-    oauth2Client.getAccessToken((err, token) => {
-      if (err) {
-        console.error("Error creating access token:", err);
-        reject("Failed to create access token");
-      }
-      resolve(token);
-    });
-  });
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      type: "OAuth2",
-      user: process.env.SMTP_USER,
-      accessToken,
-      clientId: process.env.OAUTH_CLIENT_ID,
-      clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
-    },
-  });
-
-  return transporter;
-};
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_APP_PASSWORD,
+  },
+});
 
 app.post("/api/contact", async (req, res) => {
   const { name, email, phone, company, subject, message } = req.body;
@@ -59,10 +28,10 @@ app.post("/api/contact", async (req, res) => {
       to: process.env.RECEIVER_EMAIL,
       subject: `LucidMind Contact Form: ${subject}`,
       text: `Name: ${name}
-            Email: ${email}
-            Phone: ${phone || "N/A"}
-            Company: ${company || "N/A"}
-            Message:${message}`,
+Email: ${email}
+Phone: ${phone || "N/A"}
+Company: ${company || "N/A"}
+Message: ${message}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
           <h2 style="color: #0f172a; border-bottom: 2px solid #00C4B4; padding-bottom: 10px;">LucidMind Contact Form</h2>
@@ -81,12 +50,9 @@ app.post("/api/contact", async (req, res) => {
       `,
     };
 
-    const transporter = await createTransporter();
     await transporter.sendMail(mailOptions);
 
-    res
-      .status(200)
-      .json({ success: true, message: "Message sent successfully" });
+    res.status(200).json({ success: true, message: "Message sent successfully" });
   } catch (error) {
     console.error("Error sending email:", error);
     res.status(500).json({
@@ -97,7 +63,7 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
