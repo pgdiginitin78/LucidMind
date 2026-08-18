@@ -8,6 +8,7 @@ import "./App.css";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import About from "./pages/aboutUs/About";
+import Advisory from "./pages/advisory/Advisory";
 import AdvisoryPhilosophy from "./pages/advisoryPhilosophy/AdvisoryPhilosophy";
 import ContactUs from "./pages/contactUs/ContactUs";
 import Articles from "./pages/featuredInsights/Articles";
@@ -146,6 +147,14 @@ function App() {
             element={
               <PageWrapper>
                 <About />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/advisory"
+            element={
+              <PageWrapper>
+                <Advisory />
               </PageWrapper>
             }
           />
