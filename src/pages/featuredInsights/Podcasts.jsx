@@ -211,7 +211,7 @@ export default function Podcasts() {
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 xl:gap-8 items-start">
             <div className="w-full md:w-[300px] xl:w-[420px] 2xl:w-[440px] flex-shrink-0">
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-3.5">
                 {podcastsList.map((podcast, index) => {
                   const isActive = selectedPodcast === index;
                   return (
@@ -353,7 +353,7 @@ export default function Podcasts() {
                         
                         </div>
                         <div className="h-px w-full mb-3 bg-[linear-gradient(90deg,rgba(0,196,180,0.3),rgba(37,99,235,0.15),transparent)]" />
-                        <div className="space-y-2 text-xs  2xl:text-base text-white/55 leading-relaxed max-h-37.5 sm:max-h-45 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#00C4B4]/20 scrollbar-track-transparent" data-lenis-prevent={true} >
+                        {/* <div className="space-y-2 text-xs  2xl:text-base text-white/55 leading-relaxed max-h-37.5 sm:max-h-45 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#00C4B4]/20 scrollbar-track-transparent" data-lenis-prevent={true} >
                           {current.description.map((para, i) => (
                             <p key={i} className="whitespace-pre-line">
                               {para}
@@ -375,7 +375,7 @@ export default function Podcasts() {
                               }`}
                             />
                           ))}
-                        </div>
+                        </div> */}
                       </motion.div>
                     )}
                   </div>

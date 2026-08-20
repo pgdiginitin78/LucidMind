@@ -13,6 +13,10 @@ import {
   BentoCardGrid,
   useMobileDetection,
 } from "./MagicBento";
+import FromManagingToMaking from "../../assets/articles/The Mindset Shift.png";
+import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.png";
+import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.png";
+import MyLensForEvaluatingAnyEmergingTechnology from "../../assets/articles/My Lens For Evaluating Any Emerging Technology.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,10 +28,9 @@ const articles = [
     author: "Ravishankar Pingali",
     authorRole:
       "Building Adaptive Enterprises | GCC Leader | Enterprise Reinvention | Board Advisor",
-    title: "From Managing to Making: The Mindset Shift",
+    title: "From Managing to Making : The Mindset Shift",
     description: "For much of my recent career, I focused on managing",
-    image:
-      "https://media.licdn.com/dms/image/v2/D4D12AQEGa84Lo3CPoA/article-cover_image-shrink_423_752/B4DZm9_jvSJcAU-/0/1759829183949?e=1787184000&v=beta&t=dxvs3erh4GkEvIhHWZpxMmjNd7hJot2JGCFbHKyuNJo",
+    image: FromManagingToMaking,
     content: [
       {
         type: "paragraph",
@@ -101,8 +104,7 @@ const articles = [
     title: "Three Programming Revolutions, Three Leadership Principles",
     description:
       "Over the past 26 years in tech, I've watched coding evolve in ways none of us could have predicted.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D4D12AQG-CfrS0So1qg/article-cover_image-shrink_423_752/B4DZlxfH_4JEAU-/0/1758545618607?e=1787184000&v=beta&t=yQog4r6TvaE13qc4-SPPhpRtEkK3SHRvg2lJ_0Znn84",
+    image: ThreeProgrammingRevolutions,
     content: [
       {
         type: "paragraph",
@@ -195,11 +197,10 @@ const articles = [
     author: "Ravishankar Pingali",
     authorRole:
       "Building Adaptive Enterprises | GCC Leader | Enterprise Reinvention | Board Advisor",
-    title: "Mentorship in the Age of AI: Why Your Humanity Isn't Obsolete",
+    title: "Mentorship in the Age of AI : Why Your Humanity Isn't Obsolete",
     description:
       "All through my career, I have found myself existing between two colliding worlds: the never-ending acceleration of technology and the timeless tale of human potential.",
-    image:
-      "https://media.licdn.com/dms/image/v2/D4D12AQGVE09Z1Kmf-g/article-cover_image-shrink_180_320/B4DZin44AMGgAY-/0/1755163366813?e=1787184000&v=beta&t=y1Mk-K55inLaorCVw8B1I499DcfgZMsQz3mhkeSrPyM",
+    image: MentorshipinTheAgeofAI,
     content: [
       {
         type: "paragraph",
@@ -295,8 +296,7 @@ const articles = [
     title: "My Lens For Evaluating Any Emerging Technology",
     description:
       'But amidst all the "next big thing" technology hype cycles, how do we, as leaders responsible for sustainable growth, cut through?',
-    image:
-      "https://media.licdn.com/dms/image/v2/D4D12AQFKa7TWej8TdQ/article-cover_image-shrink_423_752/B4DZbt_pjeG8Ac-/0/1747749610907?e=1787184000&v=beta&t=wkOE5SuRPNAqPIwLNNjb9DLmiu6n_BAwKUcfkTx1bHE",
+    image: MyLensForEvaluatingAnyEmergingTechnology,
     content: [
       {
         type: "paragraph",
@@ -786,7 +786,7 @@ export default function Articles() {
           start: "top 90%",
           toggleActions: "play none none none",
         },
-      }
+      },
     );
 
     const cards = (cardsRef.current || []).filter(Boolean);
@@ -806,7 +806,7 @@ export default function Articles() {
               start: "top 88%",
               toggleActions: "play none none none",
             },
-          }
+          },
         );
       });
     }
@@ -826,7 +826,10 @@ export default function Articles() {
 
         <div className="absolute inset-0 w-full h-full pointer-events-none z-1 bg-linear-to-br from-white/45 via-white/15 to-transparent" />
 
-        <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative" style={{ zIndex: 2 }}>
+        <div
+          className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative"
+          style={{ zIndex: 2 }}
+        >
           <WebGLParticleCanvas variant="articles" />
           <BentoCardGrid gridRef={gridRef}>
             <GlobalSpotlight
@@ -845,8 +848,8 @@ export default function Articles() {
                   level={2}
                   className="font-['Playfair_Display',serif] font-semibold text-[2rem] lg:text-[3rem] lg:text-[3.25rem] leading-[1.05] tracking-tight text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
                 >
-                  Thought Leadership<br/>
-             
+                  Thought Leadership
+                  <br />
                   for the{" "}
                   <span className="text-brand-teal  font-['Playfair_Display',serif]">
                     AI Era.

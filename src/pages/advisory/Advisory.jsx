@@ -876,3 +876,154 @@ export default function Advisory() {
     </div>
   );
 }
+
+
+// import React, { useMemo, useRef } from "react";
+// import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+
+// import brainIcon from "../assets/ai-icons/brain.svg";
+// import robotIcon from "../assets/ai-icons/robot.svg";
+// import chipIcon from "../assets/ai-icons/chip.svg";
+// import networkIcon from "../assets/ai-icons/network.svg";
+// import sparkleIcon from "../assets/ai-icons/sparkle.svg";
+// import dataIcon from "../assets/ai-icons/data.svg";
+
+// const DEFAULT_ICONS = [brainIcon, robotIcon, chipIcon, networkIcon, sparkleIcon, dataIcon];
+
+// const ICON_COUNT = 22;
+// const REPEL_RADIUS = 220;
+// const REPEL_STRENGTH = 40;
+
+// function randomBetween(min, max) {
+//   return Math.random() * (max - min) + min;
+// }
+
+// function generateIcons(iconSources) {
+//   return Array.from({ length: ICON_COUNT }, (_, index) => {
+//     const src = iconSources[index % iconSources.length];
+//     return {
+//       id: index,
+//       src,
+//       size: randomBetween(24, 48),
+//       startX: randomBetween(0, 100),
+//       startY: randomBetween(0, 100),
+//       driftX: randomBetween(-50, 50),
+//       driftY: randomBetween(-70, 70),
+//       duration: randomBetween(10, 22),
+//       delay: randomBetween(0, 6),
+//       rotate: randomBetween(-20, 20),
+//       opacity: randomBetween(0.25, 0.7),
+//     };
+//   });
+// }
+
+// function FloatingIcon({ icon, mouseX, mouseY }) {
+//   const { src, size, startX, startY, driftX, driftY, duration, delay, rotate, opacity } = icon;
+//   const ref = useRef(null);
+
+//   const offsetX = useTransform([mouseX, mouseY], ([mx, my]) => {
+//     const node = ref.current;
+//     if (!node) return 0;
+//     const rect = node.getBoundingClientRect();
+//     const cx = rect.left + rect.width / 2;
+//     const cy = rect.top + rect.height / 2;
+//     const dx = cx - mx;
+//     const dy = cy - my;
+//     const dist = Math.sqrt(dx * dx + dy * dy);
+//     if (dist > REPEL_RADIUS || dist === 0) return 0;
+//     const force = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH;
+//     return (dx / dist) * force;
+//   });
+
+//   const offsetY = useTransform([mouseX, mouseY], ([mx, my]) => {
+//     const node = ref.current;
+//     if (!node) return 0;
+//     const rect = node.getBoundingClientRect();
+//     const cx = rect.left + rect.width / 2;
+//     const cy = rect.top + rect.height / 2;
+//     const dx = cx - mx;
+//     const dy = cy - my;
+//     const dist = Math.sqrt(dx * dx + dy * dy);
+//     if (dist > REPEL_RADIUS || dist === 0) return 0;
+//     const force = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH;
+//     return (dy / dist) * force;
+//   });
+
+//   const springX = useSpring(offsetX, { stiffness: 150, damping: 15 });
+//   const springY = useSpring(offsetY, { stiffness: 150, damping: 15 });
+
+//   return (
+//     <motion.div
+//       ref={ref}
+//       className="absolute"
+//       style={{
+//         left: `${startX}%`,
+//         top: `${startY}%`,
+//         opacity,
+//         x: springX,
+//         y: springY,
+//       }}
+//     >
+//       <motion.div
+//         animate={{
+//           x: [0, driftX, -driftX * 0.6, 0],
+//           y: [0, driftY, -driftY * 0.6, 0],
+//           rotate: [0, rotate, -rotate, 0],
+//         }}
+//         transition={{
+//           duration,
+//           delay,
+//           repeat: Infinity,
+//           ease: "easeInOut",
+//         }}
+//       >
+//         <img src={src} alt="" width={size} height={size} draggable={false} />
+//       </motion.div>
+//     </motion.div>
+//   );
+// }
+
+// export default function FloatingIconsHero({
+//   title = "Intelligence, in motion",
+//   subtitle = "AI systems that think, adapt, and respond in real time.",
+//   iconSources = DEFAULT_ICONS,
+// }) {
+//   const icons = useMemo(() => generateIcons(iconSources), [iconSources]);
+//   const mouseX = useMotionValue(-1000);
+//   const mouseY = useMotionValue(-1000);
+
+//   const handleMouseMove = (event) => {
+//     mouseX.set(event.clientX);
+//     mouseY.set(event.clientY);
+//   };
+
+//   const handleMouseLeave = () => {
+//     mouseX.set(-1000);
+//     mouseY.set(-1000);
+//   };
+
+//   return (
+//     <section
+//       className="relative h-screen w-full overflow-hidden bg-slate-950"
+//       onMouseMove={handleMouseMove}
+//       onMouseLeave={handleMouseLeave}
+//     >
+//       <div className="absolute inset-0">
+//         {icons.map((icon) => (
+//           <FloatingIcon key={icon.id} icon={icon} mouseX={mouseX} mouseY={mouseY} />
+//         ))}
+//       </div>
+
+//       <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/40 to-slate-950" />
+
+//       <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6 text-center">
+//         <h1 className="max-w-3xl text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+//           {title}
+//         </h1>
+//         <p className="mt-6 max-w-xl text-base text-slate-300 sm:text-lg">
+//           {subtitle}
+//         </p>
+//       </div>
+//     </section>
+//   );
+// }
