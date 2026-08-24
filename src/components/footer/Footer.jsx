@@ -232,13 +232,13 @@ export default function Footer() {
 
       <div
         ref={wordmarkRef}
-        className="pointer-events-none select-none absolute left-0 right-0 bottom-[-2%] sm:bottom-[-1%] md:bottom-0 lg:bottom-[-2%] z-[5] flex justify-center overflow-hidden px-4"
+        className="pointer-events-none select-none absolute left-0 right-0 bottom-0 sm:bottom-[-1%] md:bottom-0 lg:bottom-[-2%] z-[5] flex justify-center overflow-hidden px-4"
         aria-hidden="true"
       >
         <span
           className="font-['Playfair_Display',serif] font-normal leading-none whitespace-nowrap"
           style={{
-            fontSize: "clamp(2.75rem, 18vw, 14rem)",
+            fontSize: "clamp(2.5rem, 18vw, 11.5rem)",
             color: "transparent",
             WebkitTextStroke: "1px rgba(0, 196, 180, 0.4)",
             backgroundImage:

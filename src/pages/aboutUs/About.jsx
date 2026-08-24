@@ -28,6 +28,7 @@ import {
   useState,
 } from "react";
 import profileImg from "../../assets/Ravishankar Pingali.png";
+import profileImgWebP from "../../assets/Ravishankar Pingali.webp";
 import WebGLParticleCanvas from "../featuredInsights/WebGLParticleCanvas";
 
 const INK = "#0B1220";
@@ -339,8 +340,6 @@ const CERTIFICATIONS = [
     year: "Sep 2020",
   },
 ];
-
-
 
 const PRINCIPLES = [
   {
@@ -1105,8 +1104,6 @@ function ContactModal({ open, onClose }) {
   );
 }
 
-
-
 export default function About() {
   const [openIndex, setOpenIndex] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
@@ -1202,11 +1199,18 @@ export default function About() {
 
             <Reveal delay={0.15}>
               <div className="w-[180px] md:w-[220px] lg:w-[260px] shrink-0 rounded-2xl overflow-hidden border border-white/10 shadow-2xl mx-auto md:mx-0 bg-[#0B1220]/50">
-                <img
-                  src={profileImg}
-                  alt="Ravishankar Pingali"
-                  className="w-full h-auto object-contain"
-                />
+                <picture>
+                  <source srcSet={profileImgWebP} type="image/webp" />
+                  <img
+                    src={profileImg}
+                    alt="Ravishankar Pingali"
+                    loading="lazy"
+                    decoding="async"
+                    width={260}
+                    height={320}
+                    className="w-full h-auto object-contain"
+                  />
+                </picture>
               </div>
             </Reveal>
           </div>

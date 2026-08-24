@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
@@ -24,25 +24,14 @@ const SplitText = ({
 }) => {
   const ref = useRef(null);
   const onCompleteRef = useRef(onLetterAnimationComplete);
-  const [fontsLoaded, setFontsLoaded] = useState(
-    () => typeof document !== "undefined" && document?.fonts?.status === "loaded"
-  );
 
   useEffect(() => {
     onCompleteRef.current = onLetterAnimationComplete;
   }, [onLetterAnimationComplete]);
 
-  useEffect(() => {
-    if (document?.fonts?.status !== "loaded") {
-      document?.fonts?.ready?.then(() => {
-        setFontsLoaded(true);
-      });
-    }
-  }, []);
-
   useGSAP(
     () => {
-      if (!ref.current || (!text && !children) || !fontsLoaded) return;
+      if (!ref.current || (!text && !children)) return;
       const el = ref.current;
 
       if (el._rbsplitInstance) {
@@ -132,7 +121,6 @@ const SplitText = ({
         JSON.stringify(to),
         threshold,
         rootMargin,
-        fontsLoaded
       ],
       scope: ref
     }
@@ -141,11 +129,11 @@ const SplitText = ({
   const renderTag = () => {
     const style = {
       textAlign,
-      overflow: 'hidden',
+
+      overflow: 'visible',
       display: 'inline-block',
       whiteSpace: 'normal',
       wordWrap: 'break-word',
-      willChange: 'transform, opacity'
     };
     const classes = `split-parent ${className}`;
     const Tag = tag || 'p';

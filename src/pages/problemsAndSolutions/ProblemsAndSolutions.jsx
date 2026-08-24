@@ -1,8 +1,22 @@
 import { useRef, useEffect } from "react";
-import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import Heading from "../../components/ui/Heading";
+
+function ChevronRightIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      width="20"
+      height="20"
+      aria-hidden="true"
+    >
+      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+    </svg>
+  );
+}
 
 const problems = [
   "AI without a roadmap",
@@ -262,10 +276,7 @@ export default function ProblemsAndSolutions() {
                   >
                     <div className="flex items-center">
                       <div className="mr-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#E0EBF5] shadow-sm transition-colors duration-300 group-hover:bg-[#009A9A]">
-                        <KeyboardArrowRightRoundedIcon
-                          fontSize="small"
-                          className="text-[#007070] transition-colors duration-300 group-hover:text-white"
-                        />
+                        <ChevronRightIcon className="text-[#007070] transition-colors duration-300 group-hover:text-white" />
                       </div>
                       <span className="text-sm lg:text-base font-medium text-[#1c2e4a] transition-colors duration-300 group-hover:text-[#009A9A]">
                         {item}
@@ -338,7 +349,7 @@ export default function ProblemsAndSolutions() {
                       </div>
 
                       <div className="flex-shrink-0 text-blue-400/40 transition-colors group-hover:text-[#00C4B4]">
-                        <KeyboardArrowRightRoundedIcon fontSize="small" />
+                        <ChevronRightIcon />
                       </div>
                     </motion.li>
                   ))}

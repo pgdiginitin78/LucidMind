@@ -16,15 +16,13 @@ export function Component() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setShowLogo(false);
-      } else {
-        setShowLogo(true);
-      }
+
+      const shouldHide = window.scrollY > 50;
+      setShowLogo((prev) => (prev === shouldHide ? !shouldHide : prev));
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

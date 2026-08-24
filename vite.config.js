@@ -19,4 +19,57 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    target: "es2020",
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/react/") ||
+              id.includes("node_modules/react-dom/") ||
+              id.includes("node_modules/react-router-dom/") ||
+              id.includes("node_modules/scheduler/")) {
+            return "vendor-react";
+          }
+          if (id.includes("node_modules/framer-motion/")) {
+            return "vendor-framer";
+          }
+          if (id.includes("node_modules/gsap/") ||
+              id.includes("node_modules/@gsap/")) {
+            return "vendor-gsap";
+          }
+          if (id.includes("node_modules/lenis/")) {
+            return "vendor-lenis";
+          }
+          if (id.includes("node_modules/@mui/") ||
+              id.includes("node_modules/@emotion/")) {
+            return "vendor-mui";
+          }
+          if (id.includes("node_modules/three/") ||
+              id.includes("node_modules/ogl/") ||
+              id.includes("node_modules/@react-three/") ||
+              id.includes("node_modules/@splinetool/") ||
+              id.includes("node_modules/webgl-fluid/")) {
+            return "vendor-3d";
+          }
+          if (id.includes("node_modules/react-hook-form/") ||
+              id.includes("node_modules/@hookform/") ||
+              id.includes("node_modules/yup/") ||
+              id.includes("node_modules/sweetalert2/")) {
+            return "vendor-form";
+          }
+          if (id.includes("node_modules/lucide-react/")) {
+            return "vendor-icons";
+          }
+          if (id.includes("node_modules/react-icons/")) {
+            return "vendor-icons";
+          }
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ["framer-motion", "gsap", "lenis", "react-router-dom"],
+    exclude: ["three", "ogl", "@react-three/fiber", "@splinetool/react-spline", "@splinetool/runtime", "webgl-fluid"],
+  },
 });

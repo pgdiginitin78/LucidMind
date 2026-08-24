@@ -70,10 +70,11 @@ export default function Navbar() {
   const lastScrollY = useRef(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+
     if (latest > 50) {
-      setShowLogo(false);
+      setShowLogo((prev) => (prev ? false : prev));
     } else {
-      setShowLogo(true);
+      setShowLogo((prev) => (!prev ? true : prev));
     }
 
     if (latest > 120) {

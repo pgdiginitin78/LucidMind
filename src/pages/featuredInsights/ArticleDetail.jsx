@@ -18,7 +18,6 @@ function ClockIcon() {
   );
 }
 
-
 function renderContent(content) {
   if (!content) return null;
   return content.map((block, i) => {

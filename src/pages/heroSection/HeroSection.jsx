@@ -4,10 +4,6 @@ import SplitText from "./SplitText";
 import TextType from "./TextType";
 
 function HeroSection() {
-  const handleAnimationComplete = () => {
-    console.log("All letters have animated!");
-  };
-
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
       <div className="absolute inset-0 w-full h-full z-0">
@@ -60,7 +56,6 @@ function HeroSection() {
               threshold={0.1}
               rootMargin="0px"
               textAlign="left"
-              onLetterAnimationComplete={handleAnimationComplete}
             >
               Organisations Ready <br /> for the{" "}
               <span className="text-[#009A9A]">AI</span> Era.

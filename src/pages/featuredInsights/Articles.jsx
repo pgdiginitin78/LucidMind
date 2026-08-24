@@ -7,16 +7,17 @@ import Heading from "../../components/ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import ArticleDetail from "./ArticleDetail";
 import articlesSectionBg from "../../assets/articles_section_bg.png";
+import articlesSectionBgWebP from "../../assets/articles_section_bg.webp";
 import {
   ParticleCard,
   GlobalSpotlight,
   BentoCardGrid,
   useMobileDetection,
 } from "./MagicBento";
-import FromManagingToMaking from "../../assets/articles/The Mindset Shift.png";
-import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.png";
-import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.png";
-import MyLensForEvaluatingAnyEmergingTechnology from "../../assets/articles/My Lens For Evaluating Any Emerging Technology.png";
+import FromManagingToMaking from "../../assets/articles/The Mindset Shift.webp";
+import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.webp";
+import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.webp";
+import MyLensForEvaluatingAnyEmergingTechnology from "../../assets/articles/My Lens For Evaluating Any Emerging Technology.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -818,11 +819,20 @@ export default function Articles() {
         ref={sectionRef}
         className={`w-full ${location.pathname === "/articles" ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-20"} relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
-        <img
-          src={articlesSectionBg}
-          alt="Articles Section Background"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-1 opacity-75"
-        />
+        
+        <picture>
+          <source srcSet={articlesSectionBgWebP} type="image/webp" />
+          <img
+            src={articlesSectionBg}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            width={1400}
+            height={900}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none z-1 opacity-75"
+          />
+        </picture>
 
         <div className="absolute inset-0 w-full h-full pointer-events-none z-1 bg-linear-to-br from-white/45 via-white/15 to-transparent" />
 
@@ -879,6 +889,10 @@ export default function Articles() {
                       <img
                         src={article.image}
                         alt={article.title}
+                        loading="lazy"
+                        decoding="async"
+                        width={700}
+                        height={400}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />

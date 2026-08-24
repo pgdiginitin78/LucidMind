@@ -511,7 +511,7 @@ export default function Advisory() {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
-            {/* Card 1 */}
+            
             <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full">
               <div>
                 <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] mb-3.5">
@@ -807,7 +807,6 @@ export default function Advisory() {
 
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#00C4B4]/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
-          {/* Quote Content on Left */}
           <div className="relative z-10 max-w-full md:max-w-[55%] lg:max-w-[58%] my-4">
             <span className="text-4xl sm:text-5xl font-serif text-[#00C4B4] block mb-1 leading-none">
               “
@@ -876,7 +875,6 @@ export default function Advisory() {
     </div>
   );
 }
-
 
 // import React, { useMemo, useRef } from "react";
 // import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";

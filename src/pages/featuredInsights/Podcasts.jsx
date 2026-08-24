@@ -1,11 +1,15 @@
+
+
 import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Play } from "lucide-react";
 import Heading from "../../components/ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
+import CapacityVsCapability from "../../assets/podcastThumbnails/Capacity vs Capability.jpeg"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,13 +37,13 @@ export default function Podcasts() {
   const location = useLocation();
   const isStandalone = location.pathname === "/podcasts";
   const [selectedPodcast, setSelectedPodcast] = useState(0);
-  const [isVideoLoading, setIsVideoLoading] = useState(true);
 
   const handleSelectPodcast = (index) => {
-    if (index !== selectedPodcast) {
-      setIsVideoLoading(true);
-      setSelectedPodcast(index);
-    }
+    setSelectedPodcast(index);
+  };
+
+  const handlePlayClick = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const podcastsList = [
@@ -47,7 +51,8 @@ export default function Podcasts() {
       id: 1,
       title: "Capacity vs Capability",
       episode: "Ep. 01",
-      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7450826841654927361?compact=1",
+      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7455569461186641920?compact=1",
+      thumbnail: CapacityVsCapability,
       description: [
         "I've been in close conversations with GCC leaders, and something feels different.",
         "Earlier, the conversations were clearer, how fast we can scale, how efficiently we can deliver. Now, the questions are less straightforward. What are we really building toward?",
@@ -62,6 +67,7 @@ export default function Podcasts() {
       title: "Evolving or Just Getting Better?",
       episode: "Ep. 02",
       src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7461680789940789248?compact=1",
+      thumbnail: "/images/podcasts/ep2-thumbnail.jpg",
       description: [
         "Five episodes. One consistent question.",
         "Are GCCs truly evolving or just getting better at the same thing?",
@@ -79,6 +85,7 @@ export default function Podcasts() {
       title: "Executing Tasks vs Influencing Strategy",
       episode: "Ep. 03",
       src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7460225596988473345?compact=1",
+      thumbnail: "/images/podcasts/ep3-thumbnail.jpg",
       description: [
         "In almost every GCC conversation I've been part of, headcount growth is still the moment people lean forward.",
         "And I understand why. It's visible. It's easy to report. It feels like progress.",
@@ -94,6 +101,7 @@ export default function Podcasts() {
       title: "AI and the Exposure of Value",
       episode: "Ep. 04",
       src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7457048215339782144?compact=1",
+      thumbnail: "/images/podcasts/ep4-thumbnail.jpg",
       description: [
         "In my conversations with GCC leaders, nobody's saying AI has reduced their workload. If anything, the pace has increased.",
         "But the type of work that still needs a human in it — that's changing fast.",
@@ -109,7 +117,8 @@ export default function Podcasts() {
       id: 5,
       title: "Trust and Relevance Over Capacity",
       episode: "Ep. 05",
-      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7455569461186641920?compact=1",
+      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7450826841654927361?compact=1",
+      thumbnail: "/images/podcasts/ep5-thumbnail.jpg",
       description: [
         "Capacity got GCCs to where they are. It may not be enough to keep them there.",
         "For years, the model was clear — scale fast, deliver consistently, expand the footprint. And to be fair, that approach created real, measurable value.",
@@ -126,6 +135,7 @@ export default function Podcasts() {
       title: "Volume vs Influence",
       episode: "Ep. 06",
       src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7454499198260973570?compact=1",
+      thumbnail: "/images/podcasts/ep6-thumbnail.jpg",
       description: [
         "Growth in GCCs is no longer one-dimensional.",
         "For years, success was simple to define — how fast we could scale, how many teams we could build, how much we could deliver.",
@@ -277,107 +287,40 @@ export default function Podcasts() {
                   transition={{ duration: 0.35, ease: "easeOut" }}
                   className="rounded-xl overflow-hidden bg-white/[0.04] border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md"
                 >
-                  <div className="relative w-full pt-[52%]  lg:pt-[42%]">
-                    {isVideoLoading && (
-                      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-[linear-gradient(135deg,rgba(0,196,180,0.08)_0%,rgba(37,99,235,0.08)_100%)]">
-                        <div className="flex items-end gap-1.5 h-10">
-                          {[
-                            0.4, 0.9, 0.6, 1, 0.7, 0.85, 0.5, 0.95, 0.65, 0.8,
-                          ].map((h, i) => (
-                            <div
-                              key={i}
-                              className={`w-1.5 rounded-full bg-[linear-gradient(180deg,#00C4B4,#2563EB)] opacity-50 animate-[pulse_1.2s_ease-in-out_infinite_alternate] h-[${Math.round(h * 100)}%] [animation-delay:${i * 0.1}s]`}
-                            />
-                          ))}
-                        </div>
-                        <p className="text-xs font-semibold text-[#00C4B4]/80 tracking-widest uppercase animate-pulse">
-                          Loading Podcast\u2026
-                        </p>
-                        <div className="flex flex-col gap-2 w-40 mt-1">
-                          <div className="h-1.5 rounded-full animate-pulse bg-[#00C4B4]/15" />
-                          <div className="h-1.5 rounded-full animate-pulse w-4/5 mx-auto bg-[#00C4B4]/10" />
-                        </div>
-                      </div>
-                    )}
-                    <iframe
-                      src={current.src}
-                      title={current.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      onLoad={() => setIsVideoLoading(false)}
-                      className={`absolute inset-0 w-full h-full border-none transition-opacity duration-500 ${isVideoLoading ? "opacity-0" : "opacity-100"}`}
+                  <div
+                    onClick={() => handlePlayClick(current.src)}
+                    className="relative w-full pt-[52%] lg:pt-[42%] xl:pt-[50%] cursor-pointer group/thumb"
+                  >
+                    <img
+                      src={current.thumbnail}
+                      alt={current.title}
+                      loading="lazy"
+                      decoding="async"
+                      width={700}
+                      height={400}
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,12,26,0.15)_0%,rgba(4,12,26,0.55)_100%)] transition-opacity duration-300 group-hover/thumb:bg-[rgba(4,12,26,0.65)]" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-[linear-gradient(135deg,#00C4B4,#2563EB)] shadow-[0_8px_28px_rgba(0,196,180,0.45)] transition-transform duration-300 group-hover/thumb:scale-110">
+                        <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-white ml-0.5" />
+                      </div>
+                    </div>
+                    <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-[#00C4B4] px-2.5 py-1 rounded-full bg-[#040C1A]/70 border border-[#00C4B4]/25 backdrop-blur-sm">
+                      <WaveformIcon />
+                      {current.episode}
+                    </span>
                   </div>
                   <div className="px-4 sm:px-5 py-4 border-t border-white/[0.07] bg-[linear-gradient(180deg,rgba(255,255,255,0.03)_0%,transparent_100%)]">
-                    {isVideoLoading ? (
-                      <div className="animate-pulse space-y-3">
-                        <div className="flex items-center gap-2">
-                          <div className="h-5 w-16 rounded-full bg-[#00C4B4]/[0.12]" />
-                          <div className="h-4 w-20 rounded-full bg-white/[0.06]" />
-                        </div>
-                        <div className="h-6 w-3/4 rounded-lg bg-white/[0.08]" />
-                        <div className="h-px w-full my-3 bg-[#00C4B4]/10" />
-                        <div className="space-y-2">
-                          <div className="h-3 rounded-full w-full bg-white/[0.06]" />
-                          <div className="h-3 rounded-full w-5/6 bg-white/[0.04]" />
-                          <div className="h-3 rounded-full w-4/5 bg-white/[0.06]" />
-                        </div>
-                        <div className="flex gap-1.5 pt-3 border-t border-[#00C4B4]/[0.08]">
-                          {[...Array(6)].map((_, i) => (
-                            <div
-                              key={i}
-                              className="w-2 h-2 rounded-full bg-white/[0.08]"
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
-                      >
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-1.5 mb-1.5">
-                              <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-[#00C4B4] px-2.5 py-1 rounded-full bg-[#00C4B4]/[0.12] border border-[#00C4B4]/20">
-                                <WaveformIcon />
-                                {current.episode}
-                              </span>
-                              
-                            </div>
-                            <h3 className="font-['Playfair_Display',serif] font-bold text-white text-base sm:text-lg 2xl:text-2xl leading-snug">
-                              {current.title}
-                            </h3>
-                          </div>
-                        
-                        </div>
-                        <div className="h-px w-full mb-3 bg-[linear-gradient(90deg,rgba(0,196,180,0.3),rgba(37,99,235,0.15),transparent)]" />
-                        {/* <div className="space-y-2 text-xs  2xl:text-base text-white/55 leading-relaxed max-h-37.5 sm:max-h-45 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#00C4B4]/20 scrollbar-track-transparent" data-lenis-prevent={true} >
-                          {current.description.map((para, i) => (
-                            <p key={i} className="whitespace-pre-line">
-                              {para}
-                            </p>
-                          ))}
-                        </div>
-                        <div className="flex items-center gap-1.5 mt-3 pt-3 border-t border-white/[0.07]">
-                          <span className="text-[10px] text-white/30 font-medium mr-1">
-                            {selectedPodcast + 1} / {podcastsList.length}
-                          </span>
-                          {podcastsList.map((_, i) => (
-                            <button
-                              key={i}
-                              onClick={() => handleSelectPodcast(i)}
-                              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                                i === selectedPodcast
-                                  ? "w-5 h-2 bg-[linear-gradient(90deg,#00C4B4,#4B9AF5)] shadow-[0_0_8px_rgba(0,196,180,0.5)]"
-                                  : "w-2 h-2 bg-white/[0.15]"
-                              }`}
-                            />
-                          ))}
-                        </div> */}
-                      </motion.div>
-                    )}
+                    <motion.div
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                    >
+                      <h3 className="font-['Playfair_Display',serif] font-bold text-white text-base sm:text-lg 2xl:text-2xl leading-snug">
+                        {current.title}
+                      </h3>
+                    </motion.div>
                   </div>
                 </motion.div>
               </AnimatePresence>

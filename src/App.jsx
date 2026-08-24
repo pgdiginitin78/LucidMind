@@ -1,22 +1,28 @@
 import { AnimatePresence, motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
-import About from "./pages/aboutUs/About";
-import Advisory from "./pages/advisory/Advisory";
-import AdvisoryPhilosophy from "./pages/advisoryPhilosophy/AdvisoryPhilosophy";
-import ContactUs from "./pages/contactUs/ContactUs";
-import Articles from "./pages/featuredInsights/Articles";
-import Podcasts from "./pages/featuredInsights/Podcasts";
 import HeroSection from "./pages/heroSection/HeroSection";
-import ProblemsAndSolutions from "./pages/problemsAndSolutions/ProblemsAndSolutions";
 
-gsap.registerPlugin(ScrollTrigger);
+const ProblemsAndSolutions = lazy(() =>
+  import("./pages/problemsAndSolutions/ProblemsAndSolutions")
+);
+const AdvisoryPhilosophy = lazy(() =>
+  import("./pages/advisoryPhilosophy/AdvisoryPhilosophy")
+);
+const Articles = lazy(() => import("./pages/featuredInsights/Articles"));
+const Podcasts = lazy(() => import("./pages/featuredInsights/Podcasts"));
+
+const About = lazy(() => import("./pages/aboutUs/About"));
+const Advisory = lazy(() => import("./pages/advisory/Advisory"));
+const ContactUs = lazy(() => import("./pages/contactUs/ContactUs"));
+
+const SectionFallback = () => (
+  <div style={{ minHeight: "100px" }} aria-hidden="true" />
+);
 
 function ScrollToTop({ lenisRef }) {
   const { pathname } = useLocation();
@@ -47,9 +53,12 @@ function ScrollToTop({ lenisRef }) {
     window.scrollTo(0, 0);
     lenisRef.current?.scrollTo(0, { immediate: true });
 
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 250);
+    let timer;
+    import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+      timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 150);
+    });
 
     return () => clearTimeout(timer);
   }, [pathname, lenisRef]);
@@ -74,11 +83,21 @@ function PageWrapper({ children }) {
 function HomePage() {
   return (
     <>
+      
       <HeroSection />
-      <ProblemsAndSolutions />
-      <AdvisoryPhilosophy />
-      <Articles />
-      <Podcasts />
+
+      <Suspense fallback={<SectionFallback />}>
+        <ProblemsAndSolutions />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <AdvisoryPhilosophy />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Articles />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Podcasts />
+      </Suspense>
     </>
   );
 }
@@ -86,6 +105,7 @@ function HomePage() {
 function App() {
   const location = useLocation();
   const lenisRef = useRef(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.0,
@@ -95,24 +115,34 @@ function App() {
     });
     lenisRef.current = lenis;
 
-    lenis.on("scroll", () => {
-      ScrollTrigger.update();
+    import("gsap").then(({ default: gsap }) => {
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        lenis.on("scroll", () => {
+          ScrollTrigger.update();
+        });
+
+        const updateTicker = (time) => {
+          lenis.raf(time * 1000);
+        };
+
+        gsap.ticker.add(updateTicker);
+        gsap.ticker.lagSmoothing(0);
+
+        const refreshTimer = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 200);
+
+        lenis._gsapCleanup = () => {
+          clearTimeout(refreshTimer);
+          gsap.ticker.remove(updateTicker);
+        };
+      });
     });
 
-    const updateTicker = (time) => {
-      lenis.raf(time * 1000);
-    };
-
-    gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
-
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 300);
-
     return () => {
-      clearTimeout(refreshTimer);
-      gsap.ticker.remove(updateTicker);
+      lenis._gsapCleanup?.();
       lenis.destroy();
       lenisRef.current = null;
     };
@@ -128,9 +158,11 @@ function App() {
         onExitComplete={() => {
           window.scrollTo(0, 0);
           lenisRef.current?.scrollTo(0, { immediate: true });
-          setTimeout(() => {
-            ScrollTrigger.refresh();
-          }, 150);
+          import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 100);
+          });
         }}
       >
         <Routes location={location} key={location.pathname}>
@@ -146,7 +178,9 @@ function App() {
             path="/about"
             element={
               <PageWrapper>
-                <About />
+                <Suspense fallback={<SectionFallback />}>
+                  <About />
+                </Suspense>
               </PageWrapper>
             }
           />
@@ -154,7 +188,9 @@ function App() {
             path="/advisory"
             element={
               <PageWrapper>
-                <Advisory />
+                <Suspense fallback={<SectionFallback />}>
+                  <Advisory />
+                </Suspense>
               </PageWrapper>
             }
           />
@@ -166,12 +202,13 @@ function App() {
               </PageWrapper>
             }
           />
-
           <Route
             path="/contact"
             element={
               <PageWrapper>
-                <ContactUs />
+                <Suspense fallback={<SectionFallback />}>
+                  <ContactUs />
+                </Suspense>
               </PageWrapper>
             }
           />

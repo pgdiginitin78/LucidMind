@@ -107,6 +107,8 @@ export default function WebGLParticleCanvas({ variant }) {
       ? [TEAL, TEAL, TEAL, BLUE, TEAL]
       : [BLUE, BLUE, BLUE, TEAL, BLUE];
 
+    const isMobileDevice = window.matchMedia('(pointer: coarse)').matches;
+
     let W = 0, H = 0, particles = [], rafId;
     const ptBuf = gl.createBuffer();
     const lnBuf = gl.createBuffer();
@@ -140,11 +142,12 @@ export default function WebGLParticleCanvas({ variant }) {
 
     function init() {
       let density = 3200;
-      let maxCount = 280;
+      
+      let maxCount = isMobileDevice ? 60 : 280;
       
       if (variant === "minimal") {
         density = 10000;
-        maxCount = 80;
+        maxCount = isMobileDevice ? 30 : 80;
       }
 
       const count = Math.min(Math.floor((W * H) / density), maxCount);
@@ -356,10 +359,15 @@ export default function WebGLParticleCanvas({ variant }) {
     resize();
     draw();
 
-    const ro = new ResizeObserver(resize);
+    let roTimer;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(roTimer);
+      roTimer = setTimeout(resize, 150);
+    });
     ro.observe(canvas);
 
     return () => {
+      clearTimeout(roTimer);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("visibilitychange", handleVisibility);
