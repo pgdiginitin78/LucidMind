@@ -1,0 +1,7 @@
+# LucidMind
+
+LucidMind helps organisations build leadership, operating models and AI capabilities needed for the AI era.
+
+## Website
+
+- https://lucid-mind-ten.vercel.app/

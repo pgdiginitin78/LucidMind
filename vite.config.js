@@ -21,6 +21,7 @@ export default defineConfig({
   },
   build: {
     target: "es2022",
+    modulePreload: false,
     cssMinify: true,
     minify: "esbuild",
     chunkSizeWarningLimit: 1000,

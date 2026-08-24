@@ -105,10 +105,12 @@ function App() {
     });
     lenisRef.current = lenis;
 
+    let isMounted = true;
     let updateTicker = null;
 
     import("gsap").then(({ default: gsap }) => {
       import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        if (!isMounted) return;
         gsap.registerPlugin(ScrollTrigger);
 
         lenis.on("scroll", () => {
@@ -129,6 +131,7 @@ function App() {
     });
 
     return () => {
+      isMounted = false;
       lenis._gsapCleanup?.();
       lenis.destroy();
       lenisRef.current = null;
