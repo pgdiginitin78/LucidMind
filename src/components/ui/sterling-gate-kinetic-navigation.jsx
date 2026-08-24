@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { Menu, X } from "lucide-react";
 import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.webp";
+import LucidMindTransperentLogoMobile from "../../assets/logo/Lucid-mind-logos1-mobile.webp";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase);
@@ -158,10 +159,14 @@ export function Component() {
             }`}
           >
             <img
-              src={LucidMindTransperentLogo}
+              src={LucidMindTransperentLogoMobile}
+              srcSet={`${LucidMindTransperentLogoMobile} 200w, ${LucidMindTransperentLogo} 400w`}
+              sizes="(max-width: 768px) 160px, 200px"
               alt="LucidMind"
               width={160}
               height={64}
+              fetchPriority="high"
+              decoding="async"
               className="h-10 sm:h-12 md:h-14 w-auto object-contain"
             />
           </Link>

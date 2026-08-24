@@ -17,9 +17,10 @@ export const PageTransitionProvider = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
+    setIsReady(false);
     const timer = setTimeout(() => {
       setIsReady(true);
-    }, 2000);
+    }, 1500);
     return () => clearTimeout(timer);
   }, [location.pathname]);
 

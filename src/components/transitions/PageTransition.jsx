@@ -3,9 +3,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePageReady, PageTransitionProvider } from "./PageTransitionContext";
 import { usePrefersReducedMotion } from "../../lib/usePrefersReducedMotion";
 
+let isInitialPageLoad = true;
+
 function PageTransitionInner({ skeleton, children, animationType = "fade" }) {
-  const { isReady } = usePageReady();
+  const { isReady, setReady } = usePageReady();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [isInitial] = React.useState(isInitialPageLoad);
+
+  React.useEffect(() => {
+    if (isInitialPageLoad) {
+      isInitialPageLoad = false;
+      setReady(true);
+    }
+  }, [setReady]);
 
   // Define entrance animations
   const pageVariants = {
@@ -28,6 +38,16 @@ function PageTransitionInner({ skeleton, children, animationType = "fade" }) {
   };
 
   const selectedVariant = prefersReducedMotion ? pageVariants.fade : (pageVariants[animationType] || pageVariants.fade);
+
+  if (isInitial) {
+    return (
+      <div className="relative w-full min-h-screen">
+        <div className="w-full h-full">
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full min-h-screen">

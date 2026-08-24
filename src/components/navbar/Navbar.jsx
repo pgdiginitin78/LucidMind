@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu } from "lucide-react";
 import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.min.webp";
+import LucidMindTransperentLogoMobile from "../../assets/logo/Lucid-mind-logos1-mobile.webp";
 import { cn } from "../../lib/utils";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
@@ -118,7 +119,6 @@ export default function Navbar() {
 
       <div className="hidden lg:block">
         <motion.div
-          initial={{ opacity: 1, y: 0 }}
           animate={{
             opacity: showLogo ? 1 : 0,
             y: showLogo ? 0 : -10,
@@ -131,10 +131,14 @@ export default function Navbar() {
         >
           <Link to="/" className="flex items-center group">
             <img
-              src={LucidMindTransperentLogo}
+              src={LucidMindTransperentLogoMobile}
+              srcSet={`${LucidMindTransperentLogoMobile} 200w, ${LucidMindTransperentLogo} 400w`}
+              sizes="(max-width: 768px) 160px, 200px"
               alt="LucidMind"
               width={200}
               height={80}
+              fetchPriority="high"
+              decoding="async"
               className="h-9 md:h-14 xl:h-18.75 2xl:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>
