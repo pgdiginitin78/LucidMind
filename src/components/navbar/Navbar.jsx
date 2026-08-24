@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu } from "lucide-react";
-import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.png";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.webp";
 import { cn } from "../../lib/utils";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
@@ -45,6 +45,8 @@ export default function Navbar() {
   const [rightOffset, setRightOffset] = useState(0);
   const isManuallyExpanded = useRef(false);
   const expandScrollY = useRef(0);
+  const isCollapsedRef = useRef(false);
+  const showLogoRef = useRef(true);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -62,38 +64,37 @@ export default function Navbar() {
   useEffect(() => {
     const handleResize = () => updateRightOffset();
     handleResize();
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, [updateRightOffset]);
 
   const { scrollY } = useScroll();
-  const lastScrollY = useRef(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-
-    if (latest > 50) {
-      setShowLogo((prev) => (prev ? false : prev));
-    } else {
-      setShowLogo((prev) => (!prev ? true : prev));
+    const shouldShow = latest <= 50;
+    if (showLogoRef.current !== shouldShow) {
+      showLogoRef.current = shouldShow;
+      setShowLogo(shouldShow);
     }
 
     if (latest > 120) {
-      if (!isCollapsed) {
+      if (!isCollapsedRef.current) {
         if (!isManuallyExpanded.current) {
+          isCollapsedRef.current = true;
           setIsCollapsed(true);
         } else if (Math.abs(latest - expandScrollY.current) > 30) {
           isManuallyExpanded.current = false;
+          isCollapsedRef.current = true;
           setIsCollapsed(true);
         }
       }
     } else if (latest <= 20) {
       isManuallyExpanded.current = false;
-      if (isCollapsed) {
+      if (isCollapsedRef.current) {
+        isCollapsedRef.current = false;
         setIsCollapsed(false);
       }
     }
-
-    lastScrollY.current = latest;
   });
 
   const handleNavClick = (e) => {
@@ -102,6 +103,7 @@ export default function Navbar() {
       e.stopPropagation();
       isManuallyExpanded.current = true;
       expandScrollY.current = window.scrollY;
+      isCollapsedRef.current = false;
       setIsCollapsed(false);
     }
   };
@@ -131,6 +133,8 @@ export default function Navbar() {
             <img
               src={LucidMindTransperentLogo}
               alt="LucidMind"
+              width={200}
+              height={80}
               className="h-9 md:h-14 xl:h-18.75 2xl:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </Link>

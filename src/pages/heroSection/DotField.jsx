@@ -1,12 +1,11 @@
 import { useEffect, useRef, memo } from 'react';
-
 import './DotField.css';
 
 const TWO_PI = Math.PI * 2;
 
 const DotField = memo(({
   dotRadius = 1.5,
-  dotSpacing = 14,
+  dotSpacing = 16,
   cursorRadius = 300,
   cursorForce = 0.1,
   bulgeOnly = true,
@@ -31,7 +30,8 @@ const DotField = memo(({
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d', { alpha: true });
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     let resizeTimer;
 
     function resize() {
@@ -40,6 +40,7 @@ const DotField = memo(({
     }
 
     function doResize() {
+      if (!canvas.parentElement) return;
       const rect = canvas.parentElement.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
@@ -62,7 +63,8 @@ const DotField = memo(({
 
     function buildDots(w, h) {
       const p = propsRef.current;
-      const step = p.dotRadius + p.dotSpacing;
+      const effectiveSpacing = isMobile ? Math.max(22, p.dotSpacing * 1.5) : p.dotSpacing;
+      const step = p.dotRadius + effectiveSpacing;
       const cols = Math.floor(w / step);
       const rows = Math.floor(h / step);
       const padX = (w % step) / 2;
@@ -182,19 +184,8 @@ const DotField = memo(({
           drawX += Math.cos(d.ay * 0.03 + t * 0.7) * p.waveAmplitude * 0.5;
         }
 
-        if (p.sparkle) {
-          const hash = ((i * 2654435761) ^ (frameCount >> 3)) >>> 0;
-          if ((hash % 100) < 3) {
-            ctx.moveTo(drawX + rad * 1.8, drawY);
-            ctx.arc(drawX, drawY, rad * 1.8, 0, TWO_PI);
-          } else {
-            ctx.moveTo(drawX + rad, drawY);
-            ctx.arc(drawX, drawY, rad, 0, TWO_PI);
-          }
-        } else {
-          ctx.moveTo(drawX + rad, drawY);
-          ctx.arc(drawX, drawY, rad, 0, TWO_PI);
-        }
+        ctx.moveTo(drawX + rad, drawY);
+        ctx.arc(drawX, drawY, rad, 0, TWO_PI);
       }
 
       ctx.fill();

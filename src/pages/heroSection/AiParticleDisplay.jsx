@@ -34,7 +34,9 @@ function AiParticleDisplay() {
     let animationFrameId;
     let time = 0;
     let isVisible = true;
+    let isIntersecting = true;
 
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     let dotSpacing = 0, cols = 0, rows = 0, startX = 0, startY = 0;
@@ -52,7 +54,8 @@ function AiParticleDisplay() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      dotSpacing = Math.max(8, Math.floor(width / 65));
+      const baseSpacing = isMobile ? Math.max(12, Math.floor(width / 45)) : Math.max(8, Math.floor(width / 65));
+      dotSpacing = baseSpacing;
       cols = Math.floor(width / dotSpacing);
       rows = Math.floor((height + 180) / dotSpacing);
       startX = (width - cols * dotSpacing) / 2;
@@ -60,17 +63,30 @@ function AiParticleDisplay() {
       fontSize = Math.min(width * 0.72, height * 0.95);
     }
 
-    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    const handleVisibility = () => {
+      isVisible = document.visibilityState === "visible";
+    };
     document.addEventListener("visibilitychange", handleVisibility);
+
+    const io = new IntersectionObserver((entries) => {
+      isIntersecting = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    io.observe(canvas);
 
     resize();
     let resizeTimer;
-    const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(resize, 120); };
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 150);
+    };
     window.addEventListener("resize", onResize);
+
+    const bucketCoords = Array.from({ length: COLOR_BUCKETS }, () => []);
+    const radius = 1.4;
 
     function render() {
       animationFrameId = requestAnimationFrame(render);
-      if (!canvas || !isVisible) return;
+      if (!canvas || !isVisible || !isIntersecting) return;
 
       const width = canvas.width / dpr;
       const height = canvas.height / dpr;
@@ -79,7 +95,9 @@ function AiParticleDisplay() {
 
       ctx.clearRect(0, 0, width, height);
 
-      const bucketPaths = {};
+      for (let i = 0; i < COLOR_BUCKETS; i++) {
+        bucketCoords[i].length = 0;
+      }
 
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -94,14 +112,14 @@ function AiParticleDisplay() {
           const py = startY + r * dotSpacing + wave1 + wave3;
 
           const lutIdx = Math.min(COLOR_BUCKETS - 1, Math.floor(normX * COLOR_BUCKETS));
-          if (!bucketPaths[lutIdx]) bucketPaths[lutIdx] = [];
-          bucketPaths[lutIdx].push(px, py);
+          bucketCoords[lutIdx].push(px, py);
         }
       }
 
-      const radius = 1.4;
+      for (let idx = 0; idx < COLOR_BUCKETS; idx++) {
+        const coords = bucketCoords[idx];
+        if (!coords.length) continue;
 
-      for (const [idx, coords] of Object.entries(bucketPaths)) {
         ctx.fillStyle = colorLUT[idx];
         ctx.beginPath();
         for (let i = 0; i < coords.length; i += 2) {
@@ -127,6 +145,7 @@ function AiParticleDisplay() {
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", handleVisibility);
+      io.disconnect();
     };
   }, []);
 

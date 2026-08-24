@@ -10,16 +10,16 @@ const SplitText = ({
   text,
   children,
   className = '',
-  delay = 50,
-  duration = 1.25,
+  delay = 20,
+  duration = 0.9,
   ease = 'power3.out',
   splitType = 'chars',
-  from = { opacity: 0, y: 40 },
+  from = { opacity: 0, y: 30 },
   to = { opacity: 1, y: 0 },
   threshold = 0.1,
-  rootMargin = '-100px',
-  textAlign = 'center',
-  tag = 'p',
+  rootMargin = '0px',
+  textAlign = 'left',
+  tag = 'h1',
   onLetterAnimationComplete
 }) => {
   const ref = useRef(null);
@@ -61,24 +61,29 @@ const SplitText = ({
         if (!targets) targets = self.chars || self.words || self.lines;
       };
 
-      const splitInstance = new GSAPSplitText(el, {
-        type: splitType,
-        smartWrap: true,
-        autoSplit: splitType === 'lines',
-        linesClass: 'split-line',
-        wordsClass: 'split-word',
-        charsClass: 'split-char',
-        reduceWhiteSpace: false,
-        onSplit: self => {
-          assignTargets(self);
-          const tween = gsap.fromTo(
-            targets,
-            { ...from },
-            {
-              ...to,
+      let splitInstance = null;
+
+      const rafId = requestAnimationFrame(() => {
+        if (!el || !el.parentNode) return;
+
+        splitInstance = new GSAPSplitText(el, {
+          type: splitType,
+          smartWrap: true,
+          autoSplit: splitType === 'lines',
+          linesClass: 'split-line',
+          wordsClass: 'split-word',
+          charsClass: 'split-char',
+          reduceWhiteSpace: false,
+          onSplit: self => {
+            assignTargets(self);
+            if (!targets || !targets.length) return;
+
+            const tween = gsap.from(targets, {
+              ...from,
               duration,
               ease,
-              stagger: delay / 1000,
+              stagger: (delay || 20) / 1000,
+              immediateRender: false,
               scrollTrigger: {
                 trigger: el,
                 start,
@@ -88,22 +93,23 @@ const SplitText = ({
                 onCompleteRef.current?.();
               },
               willChange: 'transform, opacity',
-              force3D: true
-            }
-          );
-          return tween;
-        }
+              force3D: true,
+            });
+            return tween;
+          }
+        });
+
+        el._rbsplitInstance = splitInstance;
       });
 
-      el._rbsplitInstance = splitInstance;
-
       return () => {
+        cancelAnimationFrame(rafId);
         ScrollTrigger.getAll().forEach(st => {
           if (st.trigger === el) st.kill();
         });
         if (el && el.parentNode && el._rbsplitInstance) {
           try {
-            splitInstance.revert();
+            el._rbsplitInstance.revert();
           } catch {}
         }
         if (el) el._rbsplitInstance = null;
@@ -126,25 +132,23 @@ const SplitText = ({
     }
   );
 
-  const renderTag = () => {
-    const style = {
-      textAlign,
-
-      overflow: 'visible',
-      display: 'inline-block',
-      whiteSpace: 'normal',
-      wordWrap: 'break-word',
-    };
-    const classes = `split-parent ${className}`;
-    const Tag = tag || 'p';
-
-    return (
-      <Tag ref={ref} style={style} className={classes}>
-        {children || text}
-      </Tag>
-    );
+  const style = {
+    textAlign,
+    overflow: 'visible',
+    display: 'inline-block',
+    whiteSpace: 'normal',
+    wordWrap: 'break-word',
+    opacity: 1,
+    visibility: 'visible',
   };
-  return renderTag();
+  const classes = `split-parent ${className}`;
+  const Tag = tag || 'p';
+
+  return (
+    <Tag ref={ref} style={style} className={classes}>
+      {children || text}
+    </Tag>
+  );
 };
 
 export default SplitText;

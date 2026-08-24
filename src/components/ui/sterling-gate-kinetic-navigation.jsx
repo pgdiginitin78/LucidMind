@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { Menu, X } from "lucide-react";
-import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.png";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.webp";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase);
@@ -13,12 +13,15 @@ export function Component() {
   const containerRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLogo, setShowLogo] = useState(true);
+  const showLogoRef = useRef(true);
 
   useEffect(() => {
     const handleScroll = () => {
-
-      const shouldHide = window.scrollY > 50;
-      setShowLogo((prev) => (prev === shouldHide ? !shouldHide : prev));
+      const shouldShow = window.scrollY <= 50;
+      if (showLogoRef.current !== shouldShow) {
+        showLogoRef.current = shouldShow;
+        setShowLogo(shouldShow);
+      }
     };
 
     handleScroll();
@@ -157,6 +160,8 @@ export function Component() {
             <img
               src={LucidMindTransperentLogo}
               alt="LucidMind"
+              width={160}
+              height={64}
               className="h-10 sm:h-12 md:h-14 w-auto object-contain"
             />
           </Link>
@@ -222,22 +227,22 @@ export function Component() {
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="2">
-                  <Link to="/about" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/about" onClick={closeMenu} className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">About</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="3">
-                  <Link to="/advisory" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/advisory" onClick={closeMenu} className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">Advisory</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="4">
-                  <Link to="/insights" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/insights" onClick={closeMenu} className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text" data-menu-fade>Insights</p>
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="5">
-                  <Link to="/contact" onClick={closeMenu} className="nav-link block text-2xl  font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
+                  <Link to="/contact" onClick={closeMenu} className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors">
                     <p className="nav-link-text">Contact</p>
                   </Link>
                 </li>

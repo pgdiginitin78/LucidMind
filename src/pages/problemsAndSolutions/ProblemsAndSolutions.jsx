@@ -135,43 +135,61 @@ const TiltCard = ({ children, className }) => {
     ).matches;
     if (reduceMotion) return;
 
-    const onMouseMove = (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -4;
-      const rotateY = ((x - centerX) / centerX) * 4;
+    let cachedRect = null;
+    let rafId = null;
 
+    const onMouseEnter = () => {
+      cachedRect = card.getBoundingClientRect();
+      gsap.to(card, { scale: 1.02, duration: 0.35, ease: "power2.out" });
+    };
+
+    const onMouseMove = (e) => {
+      if (rafId) return;
+      const clientX = e.clientX;
+      const clientY = e.clientY;
+
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        if (!cachedRect) cachedRect = card.getBoundingClientRect();
+        const rect = cachedRect;
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        gsap.to(card, {
+          rotateX,
+          rotateY,
+          transformPerspective: 1000,
+          duration: 0.25,
+          ease: "power2.out",
+        });
+      });
+    };
+
+    const onMouseLeave = () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+      cachedRect = null;
       gsap.to(card, {
-        rotateX,
-        rotateY,
-        transformPerspective: 1000,
+        scale: 1,
+        rotateX: 0,
+        rotateY: 0,
         duration: 0.4,
         ease: "power2.out",
       });
     };
 
-    const onMouseEnter = () => {
-      gsap.to(card, { scale: 1.02, duration: 0.5, ease: "back.out(1.5)" });
-    };
-
-    const onMouseLeave = () => {
-      gsap.to(card, {
-        scale: 1,
-        rotateX: 0,
-        rotateY: 0,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-    };
-
-    card.addEventListener("mousemove", onMouseMove);
+    card.addEventListener("mousemove", onMouseMove, { passive: true });
     card.addEventListener("mouseenter", onMouseEnter);
     card.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       card.removeEventListener("mousemove", onMouseMove);
       card.removeEventListener("mouseenter", onMouseEnter);
       card.removeEventListener("mouseleave", onMouseLeave);
@@ -198,7 +216,7 @@ export default function ProblemsAndSolutions() {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.2 },
+      transition: { staggerChildren: 0.1, delayChildren: 0.15 },
     },
   };
 
@@ -224,7 +242,7 @@ export default function ProblemsAndSolutions() {
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex-1 w-full md:w-1/1"
         >
           <div className="flex flex-col items-start w-full">
@@ -245,13 +263,13 @@ export default function ProblemsAndSolutions() {
         <div className="w-full mx-auto">
           <div
             ref={gridRef}
-            className="relative grid grid-cols-1 items-stretch gap-y-6 md:grid-cols-2 md:gap-x-5 lg:gap-x-14  "
+            className="relative grid grid-cols-1 items-stretch gap-y-6 md:grid-cols-2 md:gap-x-5 lg:gap-x-14"
           >
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative z-20 flex flex-col justify-center rounded-[1.5rem] border border-[#009A9A]/15 bg-white/70 p-6 shadow-[0_20px_50px_rgba(11,25,44,0.08)] backdrop-blur-sm sm:p-8"
             >
               <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#007070] uppercase sm:text-sm">
@@ -294,10 +312,10 @@ export default function ProblemsAndSolutions() {
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative z-20 flex"
             >
-              <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem]  bg-gradient-to-b from-[#040914] to-[#4B9AF5] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
+              <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#040914] to-[#4B9AF5] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
                 <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 -translate-y-1/2 translate-x-1/3 rounded-full bg-[#00A3FF] opacity-30 blur-[80px]" />
                 <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 -translate-x-1/3 translate-y-1/3 rounded-full bg-[#00A3FF] opacity-10 blur-[60px]" />
 

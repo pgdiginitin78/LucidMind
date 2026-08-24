@@ -21,7 +21,7 @@ const Advisory = lazy(() => import("./pages/advisory/Advisory"));
 const ContactUs = lazy(() => import("./pages/contactUs/ContactUs"));
 
 const SectionFallback = () => (
-  <div style={{ minHeight: "100px" }} aria-hidden="true" />
+  <div style={{ minHeight: "80px" }} aria-hidden="true" />
 );
 
 function ScrollToTop({ lenisRef }) {
@@ -52,15 +52,6 @@ function ScrollToTop({ lenisRef }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     lenisRef.current?.scrollTo(0, { immediate: true });
-
-    let timer;
-    import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-      timer = setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 150);
-    });
-
-    return () => clearTimeout(timer);
   }, [pathname, lenisRef]);
 
   return null;
@@ -69,10 +60,10 @@ function ScrollToTop({ lenisRef }) {
 function PageWrapper({ children }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -16 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className="w-full h-full"
     >
       {children}
@@ -83,7 +74,6 @@ function PageWrapper({ children }) {
 function HomePage() {
   return (
     <>
-      
       <HeroSection />
 
       <Suspense fallback={<SectionFallback />}>
@@ -108,12 +98,14 @@ function App() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false,
     });
     lenisRef.current = lenis;
+
+    let updateTicker = null;
 
     import("gsap").then(({ default: gsap }) => {
       import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
@@ -123,20 +115,15 @@ function App() {
           ScrollTrigger.update();
         });
 
-        const updateTicker = (time) => {
+        updateTicker = (time) => {
           lenis.raf(time * 1000);
         };
 
         gsap.ticker.add(updateTicker);
         gsap.ticker.lagSmoothing(0);
 
-        const refreshTimer = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 200);
-
         lenis._gsapCleanup = () => {
-          clearTimeout(refreshTimer);
-          gsap.ticker.remove(updateTicker);
+          if (updateTicker) gsap.ticker.remove(updateTicker);
         };
       });
     });
@@ -158,11 +145,6 @@ function App() {
         onExitComplete={() => {
           window.scrollTo(0, 0);
           lenisRef.current?.scrollTo(0, { immediate: true });
-          import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
-            setTimeout(() => {
-              ScrollTrigger.refresh();
-            }, 100);
-          });
         }}
       >
         <Routes location={location} key={location.pathname}>

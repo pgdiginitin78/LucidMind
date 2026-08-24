@@ -1,23 +1,12 @@
-/**
- * optimize-images.mjs
- * Converts PNG/JPG assets to WebP format using sharp.
- * Run: node scripts/optimize-images.mjs
- */
-
 import sharp from 'sharp';
-import { existsSync, mkdirSync } from 'fs';
-import { join, dirname, basename, extname } from 'path';
+import { existsSync, mkdirSync, statSync } from 'fs';
+import { join, dirname, basename } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, '..');
 
-function ensureDir(dir) {
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-}
-
 const tasks = [
-  // Section backgrounds — very large, huge savings with WebP
   {
     input: join(projectRoot, 'src/assets/articles_section_bg.png'),
     output: join(projectRoot, 'src/assets/articles_section_bg.webp'),
@@ -28,7 +17,6 @@ const tasks = [
     output: join(projectRoot, 'src/assets/podcasts_section_bg.webp'),
     options: { width: 1400, quality: 82 }
   },
-  // Article card images — displayed at ~350-600px wide
   {
     input: join(projectRoot, 'src/assets/articles/Building Teams.png'),
     output: join(projectRoot, 'src/assets/articles/Building Teams.webp'),
@@ -79,6 +67,36 @@ const tasks = [
     output: join(projectRoot, 'src/assets/articles/The Triad of Transformation.webp'),
     options: { width: 700, quality: 85 }
   },
+  {
+    input: join(projectRoot, 'src/assets/podcastThumbnails/Capacity vs Capability.jpeg'),
+    output: join(projectRoot, 'src/assets/podcastThumbnails/Capacity vs Capability.webp'),
+    options: { width: 750, quality: 80 }
+  },
+  {
+    input: join(projectRoot, 'src/assets/podcastThumbnails/AI Removing A Layer.jpeg'),
+    output: join(projectRoot, 'src/assets/podcastThumbnails/AI Removing A Layer.webp'),
+    options: { width: 750, quality: 80 }
+  },
+  {
+    input: join(projectRoot, 'src/assets/podcastThumbnails/Execution To Influence.jpeg'),
+    output: join(projectRoot, 'src/assets/podcastThumbnails/Execution To Influence.webp'),
+    options: { width: 750, quality: 80 }
+  },
+  {
+    input: join(projectRoot, 'src/assets/podcastThumbnails/Gcc.jpeg'),
+    output: join(projectRoot, 'src/assets/podcastThumbnails/Gcc.webp'),
+    options: { width: 750, quality: 80 }
+  },
+  {
+    input: join(projectRoot, 'src/assets/logo/Lucid-mind-logos.png'),
+    output: join(projectRoot, 'src/assets/logo/Lucid-mind-logos.webp'),
+    options: { width: 360, quality: 90 }
+  },
+  {
+    input: join(projectRoot, 'src/assets/logo/Lucid-mind-logos1.png'),
+    output: join(projectRoot, 'src/assets/logo/Lucid-mind-logos1.webp'),
+    options: { width: 400, quality: 90 }
+  }
 ];
 
 let successCount = 0;
@@ -86,7 +104,6 @@ let errorCount = 0;
 
 for (const task of tasks) {
   if (!existsSync(task.input)) {
-    console.warn(`⚠️  Skipping (not found): ${task.input}`);
     continue;
   }
 
@@ -101,18 +118,14 @@ for (const task of tasks) {
 
     await pipeline.webp({ quality: task.options.quality || 85 }).toFile(task.output);
 
-    const inputSize = (await import('fs')).statSync(task.input).size;
-    const outputSize = (await import('fs')).statSync(task.output).size;
+    const inputSize = statSync(task.input).size;
+    const outputSize = statSync(task.output).size;
     const savings = (((inputSize - outputSize) / inputSize) * 100).toFixed(1);
 
-    console.log(`✅ ${basename(task.input)}`);
-    console.log(`   ${(inputSize / 1024).toFixed(0)} KB → ${(outputSize / 1024).toFixed(0)} KB  (${savings}% smaller)`);
+    console.log(`${basename(task.input)}: ${(inputSize / 1024).toFixed(0)} KB -> ${(outputSize / 1024).toFixed(0)} KB (${savings}% smaller)`);
     successCount++;
   } catch (err) {
-    console.error(`❌ Failed: ${basename(task.input)} — ${err.message}`);
+    console.error(`Failed ${basename(task.input)}: ${err.message}`);
     errorCount++;
   }
 }
-
-console.log(`\n─────────────────────────────`);
-console.log(`Done: ${successCount} converted, ${errorCount} failed`);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos.png";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos.webp";
 import DotField from "../../pages/heroSection/DotField";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,11 +20,12 @@ export default function Footer() {
         {
           opacity: 1,
           y: 0,
-          duration: 1.4,
+          duration: 1.2,
           ease: "power3.out",
           scrollTrigger: {
             trigger: wordmarkRef.current,
-            start: "top 90%",
+            start: "top 95%",
+            toggleActions: "play none none none",
           },
         },
       );
@@ -37,7 +38,7 @@ export default function Footer() {
     visible: (i = 0) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, delay: i * 0.08, ease: "easeOut" },
+      transition: { duration: 0.4, delay: i * 0.06, ease: "easeOut" },
     }),
   };
 
@@ -65,10 +66,10 @@ export default function Footer() {
 
   return (
     <footer className="w-full relative bg-[#040C1A] pt-10 xs:pt-12 lg:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
-      <div className="absolute inset-0 w-full h-full z-0">
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <DotField
           dotRadius={1.5}
-          dotSpacing={14}
+          dotSpacing={20}
           bulgeStrength={67}
           glowRadius={160}
           sparkle={false}
@@ -87,17 +88,21 @@ export default function Footer() {
             className="col-span-2 lg:col-span-1"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             custom={0}
           >
-              <Link
+            <Link
               to="/"
               className="inline-flex items-center mb-4 sm:mb-5 h-20 w-auto sm:h-24 md:h-28 xl:h-40 xl:w-72"
             >
               <img
                 src={LucidMindTransperentLogo}
                 alt="Lucidmind logo"
+                width={320}
+                height={128}
+                loading="lazy"
+                decoding="async"
                 className="h-full w-auto max-w-[20rem] object-contain"
               />
             </Link>
@@ -147,7 +152,7 @@ export default function Footer() {
               key={col.title}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
               custom={colIdx + 1}
             >
@@ -160,7 +165,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <Link
                       to={link.path}
-                      className="group relative text-white text-sm 2xl:text-base  transition-colors inline-block"
+                      className="group relative text-white text-sm 2xl:text-base transition-colors inline-block"
                     >
                       {link.name}
                       <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
@@ -172,10 +177,10 @@ export default function Footer() {
           ))}
 
           <motion.div
-            className="col-span-2  md:col-span-1"
+            className="col-span-2 md:col-span-1"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             custom={3}
           >
@@ -201,7 +206,7 @@ export default function Footer() {
           className="pt-6 sm:pt-8 border-t border-[#0F2644] flex flex-col md:flex-row items-center justify-between gap-4"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: false, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p className="text-white text-xs order-2 md:order-1 text-center md:text-left 2xl:text-sm">
@@ -211,11 +216,11 @@ export default function Footer() {
           <div className="flex flex-wrap items-center 2xl:text-sm justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
             <Link
               to="/privacy-policy"
-              className="text-white text-xs 2xl:text-sm  transition-colors"
+              className="text-white text-xs 2xl:text-sm transition-colors"
             >
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-white text-xs 2xl:text-sm  transition-colors">
+            <Link to="/terms" className="text-white text-xs 2xl:text-sm transition-colors">
               Terms of Service
             </Link>
             <Link

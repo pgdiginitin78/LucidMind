@@ -6,10 +6,10 @@ import TextType from "./TextType";
 function HeroSection() {
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
-      <div className="absolute inset-0 w-full h-full z-0">
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <DotField
           dotRadius={1.5}
-          dotSpacing={14}
+          dotSpacing={16}
           bulgeStrength={67}
           glowRadius={160}
           sparkle={false}
@@ -39,19 +39,19 @@ function HeroSection() {
         </div>
 
         <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col md:pt-20 lg:pt-10 items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-center md:items-start w-full">
             <p className="text-[#009A9A] font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm md:text-base mb-2">
               Helping Leaders Build
             </p>
 
             <SplitText
               tag="h1"
-              className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold"
-              delay={50}
-              duration={1.25}
+              className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold min-h-[70px] sm:min-h-[90px] md:min-h-[120px]"
+              delay={20}
+              duration={0.9}
               ease="power3.out"
               splitType="chars"
-              from={{ opacity: 0, y: 40 }}
+              from={{ opacity: 0.2, y: 20 }}
               to={{ opacity: 1, y: 0 }}
               threshold={0.1}
               rootMargin="0px"

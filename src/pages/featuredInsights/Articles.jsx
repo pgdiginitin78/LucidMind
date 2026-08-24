@@ -792,24 +792,22 @@ export default function Articles() {
 
     const cards = (cardsRef.current || []).filter(Boolean);
     if (cards.length > 0) {
-      cards.forEach((card, index) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: (index % 3) * 0.08,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: gridRef.current || cards[0],
+            start: "top 88%",
+            toggleActions: "play none none none",
           },
-        );
-      });
+        },
+      );
     }
   }, []);
 

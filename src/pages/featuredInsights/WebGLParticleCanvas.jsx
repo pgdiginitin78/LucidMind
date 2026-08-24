@@ -11,6 +11,7 @@ export default function WebGLParticleCanvas({ variant }) {
       alpha: true,
       premultipliedAlpha: false,
       antialias: false,
+      powerPreference: "low-power",
     });
     if (!gl) return;
 
@@ -114,10 +115,19 @@ export default function WebGLParticleCanvas({ variant }) {
     const lnBuf = gl.createBuffer();
 
     const mouse = { x: -1000, y: -1000, active: false };
+    let cachedRect = null;
+
+    function updateCachedRect() {
+      if (canvas) {
+        cachedRect = canvas.getBoundingClientRect();
+      }
+    }
 
     function handleMouseMove(e) {
-      const rect = canvas.getBoundingClientRect();
+      if (!cachedRect) updateCachedRect();
+      const rect = cachedRect;
       if (
+        rect &&
         e.clientX >= rect.left &&
         e.clientX <= rect.right &&
         e.clientY >= rect.top &&
@@ -135,19 +145,19 @@ export default function WebGLParticleCanvas({ variant }) {
       mouse.active = false;
     }
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("scroll", updateCachedRect, { passive: true });
 
     function rand(a, b) { return Math.random() * (b - a) + a; }
 
     function init() {
-      let density = 3200;
-      
-      let maxCount = isMobileDevice ? 60 : 280;
+      let density = 3600;
+      let maxCount = isMobileDevice ? 45 : 180;
       
       if (variant === "minimal") {
         density = 10000;
-        maxCount = isMobileDevice ? 30 : 80;
+        maxCount = isMobileDevice ? 20 : 60;
       }
 
       const count = Math.min(Math.floor((W * H) / density), maxCount);
@@ -158,7 +168,7 @@ export default function WebGLParticleCanvas({ variant }) {
         const radius = rand(30, Math.max(W, H) * 0.55);
         const angle = rand(0, Math.PI * 2);
         const speed = rand(0.001, 0.004) * (Math.random() < 0.15 ? -1 : 1);
-        const isMeshNode = i < count * 0.4;
+        const isMeshNode = i < count * 0.35;
 
         return {
           originX: centerX + rand(-W * 0.25, W * 0.25),
@@ -174,11 +184,11 @@ export default function WebGLParticleCanvas({ variant }) {
           vx: 0,
           vy: 0,
 
-          baseSize: isMeshNode ? rand(5, 10) : rand(2, 4.5),
+          baseSize: isMeshNode ? rand(4.5, 8) : rand(2, 4),
           size: 0,
           isMeshNode,
           col: pool[Math.floor(Math.random() * pool.length)],
-          baseOpa: isMeshNode ? rand(0.45, 0.85) : rand(0.2, 0.5),
+          baseOpa: isMeshNode ? rand(0.4, 0.75) : rand(0.2, 0.45),
           opa: 0,
           pulse: rand(0, Math.PI * 2),
           pulseSpeed: rand(0.01, 0.03),
@@ -187,11 +197,13 @@ export default function WebGLParticleCanvas({ variant }) {
     }
 
     function resize() {
+      if (!canvas) return;
       W = canvas.width = canvas.offsetWidth;
       H = canvas.height = canvas.offsetHeight;
       gl.viewport(0, 0, W, H);
+      updateCachedRect();
       init();
-      const maxMesh = Math.ceil(particles.length * 0.4);
+      const maxMesh = Math.ceil(particles.length * 0.35);
       const maxLines = maxMesh * maxMesh;
       ptDataBuf = new Float32Array(particles.length * 7);
       lnDataBuf = new Float32Array(maxLines * 12);
@@ -207,6 +219,7 @@ export default function WebGLParticleCanvas({ variant }) {
 
     const io = new IntersectionObserver((entries) => {
       isIntersecting = entries[0].isIntersecting;
+      if (isIntersecting) updateCachedRect();
     }, { threshold: 0 });
     io.observe(canvas);
 
@@ -217,12 +230,13 @@ export default function WebGLParticleCanvas({ variant }) {
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);
 
-      const MOUSE_RADIUS = 180;
-      const MAX_LINE_DIST = 120;
+      const MOUSE_RADIUS = 160;
+      const MAX_LINE_DIST = 100;
       const MOUSE_RADIUS_SQ = MOUSE_RADIUS * MOUSE_RADIUS;
       const MAX_LINE_DIST_SQ = MAX_LINE_DIST * MAX_LINE_DIST;
 
-      for (const p of particles) {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
         p.angle -= p.speed;
         p.pulse += p.pulseSpeed;
 
@@ -282,17 +296,17 @@ export default function WebGLParticleCanvas({ variant }) {
           if (dSq < MAX_LINE_DIST_SQ) {
             const d = Math.sqrt(dSq);
             let t = 1 - d / MAX_LINE_DIST;
-            let alpha = t * t * 0.16;
+            let alpha = t * t * 0.14;
 
             if (mouse.active) {
               const mDx1 = mouse.x - p1.x, mDy1 = mouse.y - p1.y;
               const mDx2 = mouse.x - p2.x, mDy2 = mouse.y - p2.y;
               if (mDx1*mDx1 + mDy1*mDy1 < MOUSE_RADIUS_SQ || mDx2*mDx2 + mDy2*mDy2 < MOUSE_RADIUS_SQ) {
-                alpha *= 1.5;
+                alpha *= 1.4;
               }
             }
 
-            alpha = Math.min(0.32, alpha);
+            alpha = Math.min(0.28, alpha);
 
             const c0 = (p1.col[0] + p2.col[0]) * 0.5;
             const c1 = (p1.col[1] + p2.col[1]) * 0.5;
@@ -313,7 +327,7 @@ export default function WebGLParticleCanvas({ variant }) {
 
           if (dSq2 < MOUSE_RADIUS_SQ) {
             const t = 1 - Math.sqrt(dSq2) / MOUSE_RADIUS;
-            const alpha = t * t * 0.25;
+            const alpha = t * t * 0.22;
             const base = lnCount * 12;
             lnDataBuf[base]   = mouse.x; lnDataBuf[base+1] = mouse.y;
             lnDataBuf[base+2] = p1.col[0]; lnDataBuf[base+3] = p1.col[1]; lnDataBuf[base+4] = p1.col[2]; lnDataBuf[base+5] = alpha;
@@ -370,6 +384,7 @@ export default function WebGLParticleCanvas({ variant }) {
       clearTimeout(roTimer);
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("scroll", updateCachedRect);
       document.removeEventListener("visibilitychange", handleVisibility);
       cancelAnimationFrame(rafId);
       ro.disconnect();
