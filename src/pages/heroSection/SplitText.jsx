@@ -1,10 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
+gsap.registerPlugin(GSAPSplitText, useGSAP);
 
 const SplitText = ({
   text,
@@ -84,18 +83,23 @@ const SplitText = ({
               duration,
               ease,
               stagger: (delay || 20) / 1000,
-              immediateRender: false,
-              scrollTrigger: {
-                trigger: el,
-                start,
-                toggleActions: 'play none none none',
-              },
+              immediateRender: false, paused: true,
+              
               onComplete: () => {
                 onCompleteRef.current?.();
               },
               willChange: 'transform, opacity',
               force3D: true,
             });
+
+            const io = new IntersectionObserver((entries) => {
+              if(entries[0].isIntersecting) {
+                tween.play();
+                io.disconnect();
+              }
+            }, { threshold: 0.1 });
+            io.observe(el);
+            el._rbIo = io;
           }
         });
 
@@ -108,9 +112,7 @@ const SplitText = ({
       return () => {
         clearTimeout(timeoutId);
         if (tween) tween.kill();
-        ScrollTrigger.getAll().forEach(st => {
-          if (st.trigger === el) st.kill();
-        });
+        if (el && el._rbIo) { el._rbIo.disconnect(); el._rbIo = null; }
         if (el && el.parentNode && el._rbsplitInstance) {
           try {
             el._rbsplitInstance.revert();

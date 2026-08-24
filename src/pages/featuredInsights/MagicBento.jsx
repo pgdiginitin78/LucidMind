@@ -1,5 +1,4 @@
 import { useRef, useEffect, useCallback, useState, forwardRef } from 'react';
-import { gsap } from 'gsap';
 import './MagicBento.css';
 
 const DEFAULT_PARTICLE_COUNT = 10;
@@ -30,16 +29,6 @@ const calculateSpotlightValues = (radius) => ({
   fadeDistance: radius * 0.75
 });
 
-const updateCardGlowProperties = (card, mouseX, mouseY, glow, radius, rect) => {
-  const relativeX = ((mouseX - rect.left) / rect.width) * 100;
-  const relativeY = ((mouseY - rect.top) / rect.height) * 100;
-
-  card.style.setProperty('--glow-x', `${relativeX}%`);
-  card.style.setProperty('--glow-y', `${relativeY}%`);
-  card.style.setProperty('--glow-intensity', glow.toString());
-  card.style.setProperty('--glow-radius', `${radius}px`);
-};
-
 export const ParticleCard = forwardRef(({
   children,
   className = '',
@@ -58,7 +47,6 @@ export const ParticleCard = forwardRef(({
   const isHoveredRef = useRef(false);
   const memoizedParticles = useRef([]);
   const particlesInitialized = useRef(false);
-  const magnetismAnimationRef = useRef(null);
   const cachedRectRef = useRef(null);
 
   const setRef = useCallback((node) => {
@@ -83,18 +71,12 @@ export const ParticleCard = forwardRef(({
   const clearAllParticles = useCallback(() => {
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
-    magnetismAnimationRef.current?.kill();
 
     particlesRef.current.forEach((particle) => {
-      gsap.to(particle, {
-        scale: 0,
-        opacity: 0,
-        duration: 0.25,
-        ease: 'power2.in',
-        onComplete: () => {
-          particle.parentNode?.removeChild(particle);
-        }
-      });
+      particle.style.transition = 'transform 0.25s ease-in, opacity 0.25s ease-in';
+      particle.style.transform = 'scale(0)';
+      particle.style.opacity = '0';
+      setTimeout(() => { particle.parentNode?.removeChild(particle); }, 250);
     });
     particlesRef.current = [];
   }, []);
@@ -114,16 +96,15 @@ export const ParticleCard = forwardRef(({
         cardRef.current.appendChild(clone);
         particlesRef.current.push(clone);
 
-        gsap.fromTo(clone, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(1.5)' });
+        clone.style.transition = 'transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s';
+        clone.style.transform = 'scale(1)';
+        clone.style.opacity = '1';
 
-        gsap.to(clone, {
-          x: (Math.random() - 0.5) * 60,
-          y: (Math.random() - 0.5) * 60,
-          duration: 2 + Math.random() * 2,
-          ease: 'power1.inOut',
-          yoyo: true,
-          repeat: 1
-        });
+        setTimeout(() => {
+          if (!clone.parentNode) return;
+          clone.style.transition = 'transform ' + (2 + Math.random() * 2) + 's ease-in-out';
+          clone.style.transform = 'translate(' + ((Math.random() - 0.5) * 60) + 'px, ' + ((Math.random() - 0.5) * 60) + 'px) scale(1)';
+        }, 50);
       }, index * 80);
 
       timeoutsRef.current.push(timeoutId);
@@ -149,13 +130,8 @@ export const ParticleCard = forwardRef(({
       animateParticles();
 
       if (enableTilt) {
-        gsap.to(element, {
-          rotateX: 4,
-          rotateY: 4,
-          duration: 0.3,
-          ease: 'power2.out',
-          transformPerspective: 1000
-        });
+        element.style.transition = 'transform 0.3s ease-out';
+        element.style.transform = 'perspective(1000px) rotateX(4deg) rotateY(4deg)';
       }
     };
 
@@ -168,22 +144,9 @@ export const ParticleCard = forwardRef(({
       }
       clearAllParticles();
 
-      if (enableTilt) {
-        gsap.to(element, {
-          rotateX: 0,
-          rotateY: 0,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
-      }
-
-      if (enableMagnetism) {
-        gsap.to(element, {
-          x: 0,
-          y: 0,
-          duration: 0.3,
-          ease: 'power2.out'
-        });
+      if (enableTilt || enableMagnetism) {
+        element.style.transition = 'transform 0.3s ease-out';
+        element.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translate(0px, 0px)';
       }
     };
 
@@ -205,29 +168,20 @@ export const ParticleCard = forwardRef(({
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
+        element.style.transition = 'transform 0.15s ease-out';
+        let transformStr = '';
         if (enableTilt) {
           const rotateX = ((y - centerY) / centerY) * -6;
           const rotateY = ((x - centerX) / centerX) * 6;
-
-          gsap.to(element, {
-            rotateX,
-            rotateY,
-            duration: 0.15,
-            ease: 'power2.out',
-            transformPerspective: 1000
-          });
+          transformStr += 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) ';
         }
-
         if (enableMagnetism) {
           const magnetX = (x - centerX) * 0.04;
           const magnetY = (y - centerY) * 0.04;
-
-          magnetismAnimationRef.current = gsap.to(element, {
-            x: magnetX,
-            y: magnetY,
-            duration: 0.25,
-            ease: 'power2.out'
-          });
+          transformStr += 'translate(' + magnetX + 'px, ' + magnetY + 'px)';
+        }
+        if (transformStr) {
+          element.style.transform = transformStr;
         }
       });
     };
@@ -264,21 +218,18 @@ export const ParticleCard = forwardRef(({
         top: ${y - maxDistance}px;
         pointer-events: none;
         z-index: 1000;
+        transform: scale(0);
+        opacity: 1;
       `;
 
       element.appendChild(ripple);
 
-      gsap.fromTo(
-        ripple,
-        { scale: 0, opacity: 1 },
-        {
-          scale: 1,
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power2.out',
-          onComplete: () => ripple.remove()
-        }
-      );
+      setTimeout(() => {
+        ripple.style.transition = 'transform 0.7s ease-out, opacity 0.7s ease-out';
+        ripple.style.transform = 'scale(1)';
+        ripple.style.opacity = '0';
+        setTimeout(() => ripple.remove(), 700);
+      }, 10);
     };
 
     element.addEventListener('mouseenter', handleMouseEnter);

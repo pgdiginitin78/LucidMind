@@ -1,6 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AnimatePresence, motion } from "framer-motion";
-import gsap from "gsap";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -240,17 +239,15 @@ export default function ContactUs() {
 
   useEffect(() => {
     if (status === "success" && successRef.current) {
-      gsap.fromTo(
-        successRef.current.querySelectorAll("[data-reveal]"),
-        { opacity: 0, y: 10 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power3.out",
-        },
-      );
+      Array.from(successRef.current.querySelectorAll("[data-reveal]")).forEach((el, i) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(10px)";
+        el.style.transition = `opacity 0.5s ease-out ${i * 0.08}s, transform 0.5s ease-out ${i * 0.08}s`;
+        setTimeout(() => {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        }, 50);
+      });
     }
   }, [status]);
 

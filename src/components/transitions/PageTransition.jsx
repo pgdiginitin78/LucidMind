@@ -17,7 +17,6 @@ function PageTransitionInner({ skeleton, children, animationType = "fade" }) {
     }
   }, [setReady]);
 
-  // Define entrance animations
   const pageVariants = {
     fade: {
       hidden: { opacity: 0 },
@@ -50,8 +49,8 @@ function PageTransitionInner({ skeleton, children, animationType = "fade" }) {
   }
 
   return (
-    <div className="relative w-full min-h-screen">
-      {/* Skeleton Overlay - exits when page is ready */}
+    <div className="relative w-full min-h-screen overflow-hidden">
+ 
       <AnimatePresence>
         {!isReady && (
           <motion.div
@@ -70,7 +69,6 @@ function PageTransitionInner({ skeleton, children, animationType = "fade" }) {
         )}
       </AnimatePresence>
 
-      {/* Actual Page - visibly hidden until ready, then animates in */}
       <motion.div
         className="w-full h-full"
         initial="hidden"

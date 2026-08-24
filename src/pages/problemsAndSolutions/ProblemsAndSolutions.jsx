@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
 import Heading from "../../components/ui/Heading";
 
 function ChevronRightIcon({ className }) {

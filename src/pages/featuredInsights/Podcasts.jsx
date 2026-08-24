@@ -1,17 +1,11 @@
-
-
-import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Play } from "lucide-react";
 import Heading from "../../components/ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import CapacityVsCapability from "../../assets/podcastThumbnails/Capacity vs Capability.min.webp";
-
-gsap.registerPlugin(ScrollTrigger);
+import GCCImage from "../../assets/podcastThumbnails/Gcc.webp";
 
 function WaveformIcon({ active = false }) {
   return (
@@ -66,8 +60,8 @@ export default function Podcasts() {
       id: 2,
       title: "Evolving or Just Getting Better?",
       episode: "Ep. 02",
-      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7461680789940789248?compact=1",
-      thumbnail: "/images/podcasts/ep2-thumbnail.jpg",
+      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7450826841654927361?compact=1",
+      thumbnail: GCCImage,
       description: [
         "Five episodes. One consistent question.",
         "Are GCCs truly evolving or just getting better at the same thing?",
@@ -117,7 +111,7 @@ export default function Podcasts() {
       id: 5,
       title: "Trust and Relevance Over Capacity",
       episode: "Ep. 05",
-      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7450826841654927361?compact=1",
+      src: "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7461680789940789248?compact=1",
       thumbnail: "/images/podcasts/ep5-thumbnail.jpg",
       description: [
         "Capacity got GCCs to where they are. It may not be enough to keep them there.",
@@ -164,7 +158,7 @@ export default function Podcasts() {
       >
         <WebGLParticleCanvas variant="podcast" />
         <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
@@ -250,7 +244,7 @@ export default function Podcasts() {
               </div>
             </div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -275,7 +269,6 @@ export default function Podcasts() {
                       alt={current.title}
                       loading="lazy"
                       decoding="async"
-       
                       className="absolute inset-0 w-full h-full object-"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,12,26,0.15)_0%,rgba(4,12,26,0.55)_100%)] transition-opacity duration-300 group-hover/thumb:bg-[rgba(4,12,26,0.65)]" />

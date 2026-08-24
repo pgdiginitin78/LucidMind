@@ -1,36 +1,15 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos.min.webp";
 import DotField from "../../pages/heroSection/DotField";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const wordmarkRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        wordmarkRef.current,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: wordmarkRef.current,
-            start: "top 95%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
-    });
-    return () => ctx.revert();
+    // GSAP removed
   }, []);
 
   const fadeUp = {
@@ -238,8 +217,12 @@ export default function Footer() {
 
       <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#040C1A]/40 via-transparent to-transparent" />
 
-      <div
+      <motion.div
         ref={wordmarkRef}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: "some" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
         className="pointer-events-none select-none absolute left-0 right-0 bottom-0 sm:bottom-[-1%] md:bottom-0 lg:bottom-[-2%] z-[5] flex justify-center overflow-hidden px-4"
         aria-hidden="true"
       >
@@ -257,7 +240,7 @@ export default function Footer() {
         >
           Lucidmind
         </span>
-      </div>
+      </motion.div>
     </footer>
   );
 }

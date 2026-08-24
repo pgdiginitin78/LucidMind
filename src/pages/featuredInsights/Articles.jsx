@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.min.webp";
@@ -18,8 +16,6 @@ import {
   useMobileDetection,
 } from "./MagicBento";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const articles = [
   {

@@ -9,10 +9,9 @@ function HeroSection() {
   const { setReady } = usePageReady();
   
   useEffect(() => {
-    // The HeroSection has no large critical images (particle effects use canvas),
-    // so we can mark it ready immediately when it mounts.
     setReady(true);
   }, [setReady]);
+  
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
