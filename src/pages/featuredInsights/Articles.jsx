@@ -1,25 +1,23 @@
-import { useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { useGSAP } from "@gsap/react";
+import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Heading from "../../components/ui/Heading";
-import WebGLParticleCanvas from "./WebGLParticleCanvas";
-import ArticleDetail from "./ArticleDetail";
-import articlesSectionBg from "../../assets/articles_section_bg.png";
-import articlesSectionBgWebP from "../../assets/articles_section_bg.webp";
-import {
-  ParticleCard,
-  GlobalSpotlight,
-  BentoCardGrid,
-  useMobileDetection,
-} from "./MagicBento";
-import FromManagingToMaking from "../../assets/articles/The Mindset Shift.min.webp";
-import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.min.webp";
+import { useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.min.webp";
 import MyLensForEvaluatingAnyEmergingTechnology from "../../assets/articles/My Lens For Evaluating Any Emerging Technology.min.webp";
-import TheNextEvolutionInAI from "../../assets/articles/The Next Evolution in AI.webp";
-import TheTriadOfTransformation from "../../assets/articles/The Triad of Transformation.webp";
+import FromManagingToMaking from "../../assets/articles/The Mindset Shift.min.webp";
+import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.min.webp";
+import articlesSectionBg from "../../assets/articles_section_bg.png";
+import articlesSectionBgWebP from "../../assets/articles_section_bg.webp";
+import Heading from "../../components/ui/Heading";
+import ArticleDetail from "./ArticleDetail";
+import {
+  BentoCardGrid,
+  GlobalSpotlight,
+  ParticleCard,
+  useMobileDetection,
+} from "./MagicBento";
+import WebGLParticleCanvas from "./WebGLParticleCanvas";
 
 gsap.registerPlugin(ScrollTrigger);
 
