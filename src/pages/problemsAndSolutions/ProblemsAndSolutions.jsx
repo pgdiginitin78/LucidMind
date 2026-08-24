@@ -125,85 +125,14 @@ const solutions = [
 ];
 
 const TiltCard = ({ children, className }) => {
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (reduceMotion) return;
-
-    let cachedRect = null;
-    let rafId = null;
-
-    const onMouseEnter = () => {
-      cachedRect = card.getBoundingClientRect();
-      gsap.to(card, { scale: 1.02, duration: 0.35, ease: "power2.out" });
-    };
-
-    const onMouseMove = (e) => {
-      if (rafId) return;
-      const clientX = e.clientX;
-      const clientY = e.clientY;
-
-      rafId = requestAnimationFrame(() => {
-        rafId = null;
-        if (!cachedRect) cachedRect = card.getBoundingClientRect();
-        const rect = cachedRect;
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -4;
-        const rotateY = ((x - centerX) / centerX) * 4;
-
-        gsap.to(card, {
-          rotateX,
-          rotateY,
-          transformPerspective: 1000,
-          duration: 0.25,
-          ease: "power2.out",
-        });
-      });
-    };
-
-    const onMouseLeave = () => {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-      cachedRect = null;
-      gsap.to(card, {
-        scale: 1,
-        rotateX: 0,
-        rotateY: 0,
-        duration: 0.4,
-        ease: "power2.out",
-      });
-    };
-
-    card.addEventListener("mousemove", onMouseMove, { passive: true });
-    card.addEventListener("mouseenter", onMouseEnter);
-    card.addEventListener("mouseleave", onMouseLeave);
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      card.removeEventListener("mousemove", onMouseMove);
-      card.removeEventListener("mouseenter", onMouseEnter);
-      card.removeEventListener("mouseleave", onMouseLeave);
-    };
-  }, []);
-
   return (
-    <div
-      ref={cardRef}
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
       className={className}
-      style={{ transformStyle: "preserve-3d" }}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
 

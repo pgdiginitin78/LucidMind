@@ -151,39 +151,6 @@ export default function Podcasts() {
 
   const current = podcastsList[selectedPodcast];
 
-  useGSAP(() => {
-    gsap.fromTo(
-      ".podcasts-headline",
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".podcasts-headline",
-          start: "top 90%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-    gsap.fromTo(
-      ".podcast-video-card",
-      { opacity: 0, y: 50 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".podcast-video-card",
-          start: "top 88%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-  }, []);
-
   return (
     <div className="w-full relative bg-[#040C1A]">
       <div className="w-full border-t border-[#0F2644]" />
@@ -197,7 +164,13 @@ export default function Podcasts() {
       >
         <WebGLParticleCanvas variant="podcast" />
         <div className="w-full max-w-7xl 2xl:max-w-[1660px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
-          <div className="podcasts-headline mb-6 sm:mb-8 text-center lg:text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-6 sm:mb-8 text-center lg:text-left"
+          >
             <div className="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-full bg-[#00C4B4]/10 border border-[#00C4B4]/25">
               <WaveformIcon />
               <p className="text-[#00C4B4] font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
@@ -217,7 +190,7 @@ export default function Podcasts() {
               Candid insights from Ravishankar Pingali on leadership, AI, and
               the future of Global Capability Centres.
             </p>
-          </div>
+          </motion.div>
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-6 xl:gap-8 items-start">
             <div className="w-full md:w-[300px] xl:w-[420px] 2xl:w-[440px] flex-shrink-0">
@@ -277,7 +250,13 @@ export default function Podcasts() {
               </div>
             </div>
 
-            <div className="podcast-video-card flex-1 w-full lg:sticky lg:top-24 min-w-0">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="flex-1 w-full lg:sticky lg:top-24 min-w-0"
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedPodcast}
@@ -296,9 +275,8 @@ export default function Podcasts() {
                       alt={current.title}
                       loading="lazy"
                       decoding="async"
-                      width={700}
-                      height={400}
-                      className="absolute inset-0 w-full h-full object-cover"
+       
+                      className="absolute inset-0 w-full h-full object-"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,12,26,0.15)_0%,rgba(4,12,26,0.55)_100%)] transition-opacity duration-300 group-hover/thumb:bg-[rgba(4,12,26,0.65)]" />
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -324,7 +302,7 @@ export default function Podcasts() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

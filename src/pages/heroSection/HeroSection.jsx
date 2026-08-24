@@ -53,43 +53,16 @@ function HeroSection() {
               Helping Leaders Build
             </p>
 
-            <SplitText
-              tag="h1"
-              className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold h-[70px] sm:h-[90px] md:h-[120px] xl:h-[140px] 2xl:h-[180px] w-full"
-              delay={20}
-              duration={0.9}
-              ease="power3.out"
-              splitType="chars"
-              from={{ opacity: 0.2, y: 20 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="0px"
-              textAlign="left"
-            >
+            <h1 className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold w-full">
               Organisations Ready <br /> for the{" "}
               <span className="text-[#009A9A]">AI</span> Era.
-            </SplitText>
+            </h1>
             <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>
           </div>
 
-          <TextType
-            text={[
-              "AI is changing technology. The real challenge is transforming leadership, operating models, and business capabilities.",
-            ]}
-            typingSpeed={75}
-            pauseDuration={1500}
-            className="text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-2"
-            showCursor
-            cursorCharacter="_"
-            texts={[
-              "AI is changing technology. The real challenge is transforming leadership, operating models, and business capabilities.",
-            ]}
-            deletingSpeed={50}
-            variableSpeedEnabled={false}
-            variableSpeedMin={60}
-            variableSpeedMax={120}
-            cursorBlinkDuration={0.5}
-          />
+          <p className="text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-2">
+            AI is changing technology. The real challenge is transforming leadership, operating models, and business capabilities.
+          </p>
 
           <button className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white text-sm sm:text-base font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto">
             <span>Schedule a Conversation</span>

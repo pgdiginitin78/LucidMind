@@ -775,43 +775,7 @@ export default function Articles() {
   const location = useLocation();
   const isMobile = useMobileDetection();
 
-  useGSAP(() => {
-    gsap.fromTo(
-      ".articles-headline",
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".articles-headline",
-          start: "top 90%",
-          toggleActions: "play none none none",
-        },
-      },
-    );
 
-    const cards = (cardsRef.current || []).filter(Boolean);
-    if (cards.length > 0) {
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: gridRef.current || cards[0],
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
-    }
-  }, []);
 
   return (
     <>
@@ -850,7 +814,13 @@ export default function Articles() {
               glowColor="0, 196, 180"
             />
             <div className="grid items-start">
-              <div className="articles-headline shrink-0 pt-2">
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="shrink-0 pt-2"
+              >
                 <p className="text-brand-blue font-semibold tracking-[0.18em] uppercase text-xs mb-3">
                   INSIGHTS &amp; PERSPECTIVES
                 </p>
@@ -869,46 +839,53 @@ export default function Articles() {
                   Expert insights, frameworks and perspectives to help leaders
                   navigate complexity and build future-ready organisations.
                 </p>
-              </div>
+              </motion.div>
 
               <div className="md:flex-1 grid grid-cols-1  md:grid-cols-3 xl:grid-cols-4 gap-4 2xl:px-12">
                 {articles.slice(0, 4).map((article, idx) => (
-                  <ParticleCard
+                  <motion.div
                     key={idx}
-                    ref={(el) => (cardsRef.current[idx] = el)}
-                    onClick={() => setSelectedArticle(article)}
-                    disableAnimations={isMobile}
-                    particleCount={12}
-                    glowColor="0, 196, 180"
-                    enableTilt={false}
-                    enableMagnetism={false}
-                    clickEffect={true}
-                    className="magic-bento-card magic-bento-card--border-glow rounded-xl overflow-hidden cursor-pointer group flex flex-col h-full bg-[#09172B]/85 border border-[#00C4B4]/[0.22] shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 0.7, delay: idx * 0.08, ease: "easeOut" }}
+                    className="h-full"
                   >
-                    <div className="relative h-44 2xl:h-48 overflow-hidden shrink-0">
-                      <img
-                        src={article.image}
-                        alt={article.title}
-                        loading="lazy"
-                        decoding="async"
-                        width={700}
-                        height={400}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />
-                    </div>
-                    <div className="flex flex-col flex-1 p-3 z-10">
-                      <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-[1rem] 2xl:text-[1.3rem] leading-[1.25] mb-2">
-                        {article.title}
-                      </h3>
-                      <p className="text-[#94A3B8] text-xs 2xl:text-sm leading-relaxed mb-4 flex-1">
-                        {article.description}
-                      </p>
-                      <span className="text-brand-teal text-xs 2xl:text-base font-semibold tracking-wide inline-flex items-center gap-1 group-hover:text-white transition-colors mt-auto">
-                        Read Article <ArrowRightIcon />
-                      </span>
-                    </div>
-                  </ParticleCard>
+                    <ParticleCard
+                      onClick={() => setSelectedArticle(article)}
+                      disableAnimations={isMobile}
+                      particleCount={12}
+                      glowColor="0, 196, 180"
+                      enableTilt={false}
+                      enableMagnetism={false}
+                      clickEffect={true}
+                      className="magic-bento-card magic-bento-card--border-glow rounded-xl overflow-hidden cursor-pointer group flex flex-col h-full bg-[#09172B]/85 border border-[#00C4B4]/[0.22] shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+                    >
+                      <div className="relative h-44 2xl:h-48 overflow-hidden shrink-0">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          loading="lazy"
+                          decoding="async"
+                          width={700}
+                          height={400}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />
+                      </div>
+                      <div className="flex flex-col flex-1 p-3 z-10">
+                        <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-[1rem] 2xl:text-[1.3rem] leading-[1.25] mb-2">
+                          {article.title}
+                        </h3>
+                        <p className="text-[#94A3B8] text-xs 2xl:text-sm leading-relaxed mb-4 flex-1">
+                          {article.description}
+                        </p>
+                        <span className="text-brand-teal text-xs 2xl:text-base font-semibold tracking-wide inline-flex items-center gap-1 group-hover:text-white transition-colors mt-auto">
+                          Read Article <ArrowRightIcon />
+                        </span>
+                      </div>
+                    </ParticleCard>
+                  </motion.div>
                 ))}
               </div>
             </div>
