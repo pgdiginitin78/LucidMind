@@ -3,6 +3,11 @@ import Lenis from "lenis";
 import { lazy, Suspense, useEffect, useRef } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
+import { PageTransition } from "./components/transitions/PageTransition";
+import { HomeSkeleton } from "./components/skeletons/HomeSkeleton";
+import { AboutSkeleton } from "./components/skeletons/AboutSkeleton";
+import { AdvisorySkeleton } from "./components/skeletons/AdvisorySkeleton";
+import { ContactUsSkeleton } from "./components/skeletons/ContactUsSkeleton";
 import Footer from "./components/footer/Footer";
 import Navbar from "./components/navbar/Navbar";
 import HeroSection from "./pages/heroSection/HeroSection";
@@ -154,47 +159,47 @@ function App() {
           <Route
             path="/"
             element={
-              <PageWrapper>
+              <PageTransition skeleton={<HomeSkeleton />} animationType="topToBottom">
                 <HomePage />
-              </PageWrapper>
+              </PageTransition>
             }
           />
           <Route
             path="/about"
             element={
-              <PageWrapper>
+              <PageTransition skeleton={<AboutSkeleton />} animationType="topToBottom">
                 <Suspense fallback={<SectionFallback />}>
                   <About />
                 </Suspense>
-              </PageWrapper>
+              </PageTransition>
             }
           />
           <Route
             path="/advisory"
             element={
-              <PageWrapper>
+              <PageTransition skeleton={<AdvisorySkeleton />} animationType="topToBottom">
                 <Suspense fallback={<SectionFallback />}>
                   <Advisory />
                 </Suspense>
-              </PageWrapper>
+              </PageTransition>
             }
           />
           <Route
             path="/hero"
             element={
-              <PageWrapper>
+              <PageTransition skeleton={<HomeSkeleton />} animationType="topToBottom">
                 <HeroSection />
-              </PageWrapper>
+              </PageTransition>
             }
           />
           <Route
             path="/contact"
             element={
-              <PageWrapper>
+              <PageTransition skeleton={<ContactUsSkeleton />} animationType="topToBottom">
                 <Suspense fallback={<SectionFallback />}>
                   <ContactUs />
                 </Suspense>
-              </PageWrapper>
+              </PageTransition>
             }
           />
         </Routes>

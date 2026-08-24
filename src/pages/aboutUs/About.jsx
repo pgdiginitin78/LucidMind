@@ -1104,7 +1104,10 @@ function ContactModal({ open, onClose }) {
   );
 }
 
+import { usePageReady } from "../../components/transitions/PageTransitionContext";
+
 export default function About() {
+  const { setReady } = usePageReady();
   const [openIndex, setOpenIndex] = useState(0);
   const [contactOpen, setContactOpen] = useState(false);
   const [showTop, setShowTop] = useState(false);
@@ -1202,12 +1205,19 @@ export default function About() {
                 <picture>
                   <source srcSet={profileImgWebP} type="image/webp" />
                   <img
+                    ref={(img) => {
+                      if (img && img.complete) {
+                        setReady(true);
+                      }
+                    }}
                     src={profileImg}
                     alt="Ravishankar Pingali"
-                    loading="lazy"
                     decoding="async"
                     width={260}
                     height={320}
+                    fetchPriority="high"
+                    onLoad={() => setReady(true)}
+                    onError={() => setReady(true)}
                     className="w-full h-auto object-contain"
                   />
                 </picture>

@@ -208,11 +208,18 @@ const showThemeAlert = (type, title, text) => {
   });
 };
 
+import { usePageReady } from "../../components/transitions/PageTransitionContext";
+
 export default function ContactUs() {
+  const { setReady } = usePageReady();
   const [status, setStatus] = useState("idle");
   const [focusedField, setFocusedField] = useState(null);
   const [headerRef, headerInView] = useInViewOnce();
   const successRef = useRef(null);
+
+  useEffect(() => {
+    setReady(true);
+  }, [setReady]);
 
   const {
     register,
