@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { Play } from "lucide-react";
 import Heading from "../../components/ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
-import CapacityVsCapability from "../../assets/podcastThumbnails/Capacity vs Capability.webp";
+import CapacityVsCapability from "../../assets/podcastThumbnails/Capacity vs Capability.min.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 

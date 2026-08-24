@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos.webp";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos.min.webp";
 import DotField from "../../pages/heroSection/DotField";
 
 gsap.registerPlugin(ScrollTrigger);

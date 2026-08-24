@@ -138,7 +138,14 @@ export const ParticleCard = forwardRef(({
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
-      cachedRectRef.current = element.getBoundingClientRect();
+      const rect = element.getBoundingClientRect();
+      cachedRectRef.current = {
+        left: rect.left,
+        top: rect.top,
+        width: rect.width,
+        height: rect.height,
+        absoluteTop: rect.top + window.scrollY
+      };
       animateParticles();
 
       if (enableTilt) {
@@ -191,9 +198,10 @@ export const ParticleCard = forwardRef(({
         moveRafId = null;
         if (!cachedRectRef.current || !isHoveredRef.current) return;
         const rect = cachedRectRef.current;
+        const currentTop = rect.absoluteTop - window.scrollY;
 
         const x = clientX - rect.left;
-        const y = clientY - rect.top;
+        const y = clientY - currentTop;
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
@@ -228,9 +236,15 @@ export const ParticleCard = forwardRef(({
       if (onClick) onClick(e);
       if (!clickEffect) return;
 
-      const rect = cachedRectRef.current || element.getBoundingClientRect();
+      let rect = cachedRectRef.current;
+      if (!rect) {
+        const r = element.getBoundingClientRect();
+        rect = { left: r.left, absoluteTop: r.top + window.scrollY, width: r.width, height: r.height };
+      }
+      
+      const currentTop = rect.absoluteTop - window.scrollY;
       const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const y = e.clientY - currentTop;
 
       const maxDistance = Math.max(
         Math.hypot(x, y),
@@ -342,12 +356,33 @@ export const GlobalSpotlight = ({
 
     const updateAllRects = () => {
       if (!grid) return;
-      cachedSectionRect = grid.getBoundingClientRect();
+      const sectionRect = grid.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      
+      cachedSectionRect = {
+        left: sectionRect.left,
+        top: sectionRect.top,
+        right: sectionRect.right,
+        bottom: sectionRect.bottom,
+        width: sectionRect.width,
+        height: sectionRect.height,
+        absoluteTop: sectionRect.top + scrollY
+      };
+
       const cards = grid.querySelectorAll('.magic-bento-card');
-      cachedCardRects = Array.from(cards).map(card => ({
-        el: card,
-        rect: card.getBoundingClientRect()
-      }));
+      cachedCardRects = Array.from(cards).map(card => {
+        const rect = card.getBoundingClientRect();
+        return {
+          el: card,
+          rect: {
+            left: rect.left,
+            top: rect.top,
+            width: rect.width,
+            height: rect.height,
+            absoluteTop: rect.top + scrollY
+          }
+        };
+      });
     };
 
     const resizeObserver = new ResizeObserver(updateAllRects);
@@ -361,14 +396,18 @@ export const GlobalSpotlight = ({
         updateAllRects();
       }
 
+      const scrollY = window.scrollY;
       const rect = cachedSectionRect;
       if (!rect) return;
+      
+      const currentSectionTop = rect.absoluteTop - scrollY;
+      const currentSectionBottom = currentSectionTop + rect.height;
 
       const mouseInside =
         pendingX >= rect.left &&
         pendingX <= rect.right &&
-        pendingY >= rect.top &&
-        pendingY <= rect.bottom;
+        pendingY >= currentSectionTop &&
+        pendingY <= currentSectionBottom;
 
       if (!mouseInside) {
         if (isInside) {
@@ -387,8 +426,10 @@ export const GlobalSpotlight = ({
       const { proximity, fadeDistance } = calculateSpotlightValues(spotlightRadius);
 
       cachedCardRects.forEach(({ el, rect: cardRect }) => {
+        const currentCardTop = cardRect.absoluteTop - scrollY;
         const centerX = cardRect.left + cardRect.width / 2;
-        const centerY = cardRect.top + cardRect.height / 2;
+        const centerY = currentCardTop + cardRect.height / 2;
+        
         const distance =
           Math.hypot(pendingX - centerX, pendingY - centerY) - Math.max(cardRect.width, cardRect.height) / 2;
         const effectiveDistance = Math.max(0, distance);
@@ -399,7 +440,14 @@ export const GlobalSpotlight = ({
         } else if (effectiveDistance <= fadeDistance) {
           glowIntensity = (fadeDistance - effectiveDistance) / (fadeDistance - proximity);
         }
-        updateCardGlowProperties(el, pendingX, pendingY, glowIntensity, spotlightRadius, cardRect);
+        
+        const relativeX = ((pendingX - cardRect.left) / cardRect.width) * 100;
+        const relativeY = ((pendingY - currentCardTop) / cardRect.height) * 100;
+
+        el.style.setProperty('--glow-x', `${relativeX}%`);
+        el.style.setProperty('--glow-y', `${relativeY}%`);
+        el.style.setProperty('--glow-intensity', glowIntensity.toString());
+        el.style.setProperty('--glow-radius', `${spotlightRadius}px`);
       });
     };
 
@@ -426,14 +474,12 @@ export const GlobalSpotlight = ({
     grid.addEventListener('mouseenter', handleMouseEnter);
     grid.addEventListener('mouseleave', handleMouseLeave);
     grid.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('scroll', updateAllRects, { passive: true });
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
       grid.removeEventListener('mouseenter', handleMouseEnter);
       grid.removeEventListener('mouseleave', handleMouseLeave);
       grid.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', updateAllRects);
       resizeObserver.disconnect();
       spotlightRef.current?.parentNode?.removeChild(spotlightRef.current);
     };

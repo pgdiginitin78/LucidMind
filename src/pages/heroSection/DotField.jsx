@@ -101,19 +101,33 @@ const DotField = memo(({
     }
 
     let frameCount = 0;
+    let isIntersecting = true;
     let isVisible = true;
-    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    
+    const checkAndTick = () => {
+      if (isVisible && isIntersecting && !rafRef.current) {
+        tick();
+      }
+    };
+
+    const handleVisibility = () => {
+      isVisible = document.visibilityState === "visible";
+      checkAndTick();
+    };
     document.addEventListener("visibilitychange", handleVisibility);
 
-    let isIntersecting = true;
     const io = new IntersectionObserver((entries) => {
       isIntersecting = entries[0].isIntersecting;
+      checkAndTick();
     }, { threshold: 0 });
     io.observe(canvas);
-
+    
     function tick() {
+      if (!isVisible || !isIntersecting) {
+        rafRef.current = null;
+        return;
+      }
       rafRef.current = requestAnimationFrame(tick);
-      if (!isVisible || !isIntersecting) return;
 
       frameCount++;
       updateMouseSpeed();

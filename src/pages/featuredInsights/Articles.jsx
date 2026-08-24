@@ -14,10 +14,12 @@ import {
   BentoCardGrid,
   useMobileDetection,
 } from "./MagicBento";
-import FromManagingToMaking from "../../assets/articles/The Mindset Shift.webp";
-import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.webp";
-import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.webp";
-import MyLensForEvaluatingAnyEmergingTechnology from "../../assets/articles/My Lens For Evaluating Any Emerging Technology.webp";
+import FromManagingToMaking from "../../assets/articles/The Mindset Shift.min.webp";
+import ThreeProgrammingRevolutions from "../../assets/articles/Three Programming Revolutions.min.webp";
+import MentorshipinTheAgeofAI from "../../assets/articles/Mentorship in the Age of AI.min.webp";
+import MyLensForEvaluatingAnyEmergingTechnology from "../../assets/articles/My Lens For Evaluating Any Emerging Technology.min.webp";
+import TheNextEvolutionInAI from "../../assets/articles/The Next Evolution in AI.webp";
+import TheTriadOfTransformation from "../../assets/articles/The Triad of Transformation.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 

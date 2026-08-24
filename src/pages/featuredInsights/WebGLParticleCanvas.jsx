@@ -214,18 +214,33 @@ export default function WebGLParticleCanvas({ variant }) {
     let isVisible = true;
     let isIntersecting = true;
 
-    const handleVisibility = () => { isVisible = document.visibilityState === "visible"; };
+    const checkAndDraw = () => {
+      if (isVisible && isIntersecting && !rafId) {
+        draw();
+      }
+    };
+
+    const handleVisibility = () => {
+      isVisible = document.visibilityState === "visible";
+      checkAndDraw();
+    };
     document.addEventListener("visibilitychange", handleVisibility);
 
     const io = new IntersectionObserver((entries) => {
       isIntersecting = entries[0].isIntersecting;
-      if (isIntersecting) updateCachedRect();
+      if (isIntersecting) {
+        updateCachedRect();
+        checkAndDraw();
+      }
     }, { threshold: 0 });
     io.observe(canvas);
 
     function draw() {
+      if (!isVisible || !isIntersecting) {
+        rafId = null;
+        return;
+      }
       rafId = requestAnimationFrame(draw);
-      if (!isVisible || !isIntersecting) return;
 
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT);

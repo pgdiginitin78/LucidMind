@@ -63,13 +63,21 @@ function AiParticleDisplay() {
       fontSize = Math.min(width * 0.72, height * 0.95);
     }
 
+    const checkAndRender = () => {
+      if (isVisible && isIntersecting && !animationFrameId) {
+        render();
+      }
+    };
+
     const handleVisibility = () => {
       isVisible = document.visibilityState === "visible";
+      checkAndRender();
     };
     document.addEventListener("visibilitychange", handleVisibility);
 
     const io = new IntersectionObserver((entries) => {
       isIntersecting = entries[0].isIntersecting;
+      checkAndRender();
     }, { threshold: 0 });
     io.observe(canvas);
 
@@ -85,8 +93,11 @@ function AiParticleDisplay() {
     const radius = 1.4;
 
     function render() {
+      if (!canvas || !isVisible || !isIntersecting) {
+        animationFrameId = null;
+        return;
+      }
       animationFrameId = requestAnimationFrame(render);
-      if (!canvas || !isVisible || !isIntersecting) return;
 
       const width = canvas.width / dpr;
       const height = canvas.height / dpr;
@@ -138,7 +149,7 @@ function AiParticleDisplay() {
       ctx.globalCompositeOperation = "source-over";
     }
 
-    render();
+    checkAndRender();
 
     return () => {
       cancelAnimationFrame(animationFrameId);

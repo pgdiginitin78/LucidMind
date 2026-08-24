@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu } from "lucide-react";
-import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.webp";
+import LucidMindTransperentLogo from "../../assets/logo/Lucid-mind-logos1.min.webp";
 import { cn } from "../../lib/utils";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";

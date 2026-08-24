@@ -62,44 +62,52 @@ const SplitText = ({
       };
 
       let splitInstance = null;
-      if (!el || !el.parentNode) return;
+      let tween = null;
+      
+      const initGSAP = () => {
+        if (!el || !el.parentNode) return;
 
-      splitInstance = new GSAPSplitText(el, {
-        type: splitType,
-        smartWrap: true,
-        autoSplit: splitType === 'lines',
-        linesClass: 'split-line',
-        wordsClass: 'split-word',
-        charsClass: 'split-char',
-        reduceWhiteSpace: false,
-        onSplit: self => {
-          assignTargets(self);
-          if (!targets || !targets.length) return;
+        splitInstance = new GSAPSplitText(el, {
+          type: splitType,
+          smartWrap: true,
+          autoSplit: splitType === 'lines',
+          linesClass: 'split-line',
+          wordsClass: 'split-word',
+          charsClass: 'split-char',
+          reduceWhiteSpace: false,
+          onSplit: self => {
+            assignTargets(self);
+            if (!targets || !targets.length) return;
 
-          const tween = gsap.from(targets, {
-            ...from,
-            duration,
-            ease,
-            stagger: (delay || 20) / 1000,
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: el,
-              start,
-              toggleActions: 'play none none none',
-            },
-            onComplete: () => {
-              onCompleteRef.current?.();
-            },
-            willChange: 'transform, opacity',
-            force3D: true,
-          });
-          return tween;
-        }
-      });
+            tween = gsap.from(targets, {
+              ...from,
+              duration,
+              ease,
+              stagger: (delay || 20) / 1000,
+              immediateRender: false,
+              scrollTrigger: {
+                trigger: el,
+                start,
+                toggleActions: 'play none none none',
+              },
+              onComplete: () => {
+                onCompleteRef.current?.();
+              },
+              willChange: 'transform, opacity',
+              force3D: true,
+            });
+          }
+        });
 
-      el._rbsplitInstance = splitInstance;
+        el._rbsplitInstance = splitInstance;
+      };
+
+      // Delay initialization to avoid blocking first paint (LCP optimization)
+      const timeoutId = setTimeout(initGSAP, 10);
 
       return () => {
+        clearTimeout(timeoutId);
+        if (tween) tween.kill();
         ScrollTrigger.getAll().forEach(st => {
           if (st.trigger === el) st.kill();
         });

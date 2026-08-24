@@ -46,7 +46,7 @@ function HeroSection() {
 
             <SplitText
               tag="h1"
-              className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold min-h-[70px] sm:min-h-[90px] md:min-h-[120px]"
+              className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold h-[70px] sm:h-[90px] md:h-[120px] xl:h-[140px] 2xl:h-[180px] w-full"
               delay={20}
               duration={0.9}
               ease="power3.out"
