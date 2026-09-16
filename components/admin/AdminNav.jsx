@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Briefcase,
@@ -26,6 +26,7 @@ const NAV_TABS = [
 
 export default function AdminNav() {
   const pathname = usePathname();
+  const router = useRouter();
   const [showLogo, setShowLogo] = useState(true);
   const showLogoRef = useRef(true);
   const { scrollY } = useScroll();
@@ -43,11 +44,9 @@ export default function AdminNav() {
     try {
       localStorage.removeItem("lucidmind_token");
       localStorage.removeItem("lucidmind_user");
-    } catch {
-      // ignore
-    }
+    } catch {}
     window.dispatchEvent(new Event("lucidmind_auth_change"));
-    window.location.href = "/";
+    router.push("/");
   };
 
   return (

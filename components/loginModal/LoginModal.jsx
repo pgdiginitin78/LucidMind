@@ -135,8 +135,6 @@ export default function LoginModal({ open, handleClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [loggedInUser, setLoggedInUser] = useState("");
 
   const handleLoginDetails = async (data) => {
     setIsLoading(true);
@@ -165,26 +163,9 @@ export default function LoginModal({ open, handleClose }) {
       localStorage.setItem("lucidmind_token", result.token);
       localStorage.setItem("lucidmind_user", JSON.stringify(result.user));
       window.dispatchEvent(new Event("lucidmind_auth_change"));
-      setLoggedInUser(result?.user?.username || "Admin");
-      setIsSuccess(true);
-
-      if (typeof window !== "undefined" && window.__lenis) {
-        window.__lenis.scrollTo(0, {
-          duration: 0.9,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        });
-      } else if (typeof window !== "undefined") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-
-      setTimeout(() => {
-        router.push("/admin");
-        setTimeout(() => {
-          reset();
-          handleClose();
-          setIsSuccess(false);
-        }, 300);
-      }, 750);
+      reset();
+      router.push("/admin");
+      handleClose();
     } catch {
       setLoginError("Cannot connect to server. Make sure the backend is running.");
     } finally {
@@ -204,96 +185,12 @@ export default function LoginModal({ open, handleClose }) {
           backgroundColor: "rgba(5, 15, 35, 0.65)",
         },
       }}
-      disableScrollLock={false}
+      disableScrollLock={true}
     >
       <Box sx={style}>
-        <AnimatePresence mode="wait">
-          {isSuccess ? (
+        <AnimatePresence>
+          {open && (
             <motion.div
-              key="success-screen"
-              initial={{ opacity: 0, scale: 0.9, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              style={{
-                padding: "clamp(36px, 6vw, 52px) clamp(24px, 5vw, 36px)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
-                position: "relative",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  top: "-40px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: "240px",
-                  height: "240px",
-                  background:
-                    "radial-gradient(circle, rgba(0,196,255,0.2) 0%, transparent 70%)",
-                  pointerEvents: "none",
-                }}
-              />
-
-              <motion.div
-                initial={{ scale: 0, rotate: -20 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 18,
-                  delay: 0.05,
-                }}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-[#2563EB]/30 to-[#00C4FF]/30 border border-[#00C4FF]/60 flex items-center justify-center mb-5 shadow-[0_0_35px_rgba(0,196,255,0.4)]"
-              >
-                <CheckCircle2 className="w-9 h-9 sm:w-11 sm:h-11 text-[#00C4FF]" />
-              </motion.div>
-
-              <motion.h3
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.3 }}
-                className="text-xl sm:text-2xl font-bold text-white mb-2"
-                style={{
-                  fontFamily:
-                    "var(--font-plus-jakarta, PlusJakartaSans, sans-serif)",
-                }}
-              >
-                Access Granted
-              </motion.h3>
-
-              <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.22, duration: 0.3 }}
-                className="text-white/70 text-xs sm:text-sm max-w-xs mb-6 leading-relaxed"
-                style={{
-                  fontFamily:
-                    "var(--font-plus-jakarta, PlusJakartaSans, sans-serif)",
-                }}
-              >
-                Welcome back,{" "}
-                <span className="text-[#00C4FF] font-semibold capitalize">
-                  {loggedInUser || "Admin"}
-                </span>
-                . Navigating to your dashboard...
-              </motion.p>
-
-              <div className="w-56 h-1.5 bg-white/10 rounded-full overflow-hidden relative shadow-inner">
-                <motion.div
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "0%" }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="h-full w-full bg-gradient-to-r from-[#2563EB] via-[#00C4FF] to-[#34D399] rounded-full"
-                />
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="form-screen"
               initial={{ opacity: 0, scale: 0.88, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.88, y: 24 }}
@@ -414,7 +311,11 @@ export default function LoginModal({ open, handleClose }) {
                 </div>
 
                 <form
-                  onSubmit={handleSubmit(handleLoginDetails)}
+                  action="javascript:void(0);"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSubmit(handleLoginDetails)(e);
+                  }}
                   className="flex flex-col gap-4 sm:gap-5"
                 >
                   <InputField
@@ -571,7 +472,14 @@ export default function LoginModal({ open, handleClose }) {
                   )}
 
                   <div className="mt-1">
-                    <ShimmerButton type="submit" disabled={isLoading}>
+                    <ShimmerButton
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleSubmit(handleLoginDetails)(e);
+                      }}
+                      disabled={isLoading}
+                    >
                       {isLoading ? (
                         <>
                           <Loader2 className="animate-spin" size={16} />

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
 
@@ -91,23 +91,14 @@ export default function ClientLayout({ children }) {
       <ScrollToTop lenisRef={lenisRef} />
       {!isAdminRoute && <Navbar />}
 
-      <AnimatePresence
-        mode="wait"
-        onExitComplete={() => {
-          window.scrollTo(0, 0);
-          lenisRef.current?.scrollTo(0, { immediate: true });
-        }}
+      <motion.div
+        key={pathname}
+        initial={false}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
       >
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+        {children}
+      </motion.div>
 
       {!isAdminRoute && <Footer />}
     </div>

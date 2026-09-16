@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ShieldAlert, Loader2 } from "lucide-react";
-import { motion } from "framer-motion";
 
 export default function AdminGuard({ children }) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState("loading");
 
   useEffect(() => {
+    setMounted(true);
     const verifyAuth = () => {
       try {
         const token = localStorage.getItem("lucidmind_token");
@@ -47,20 +48,15 @@ export default function AdminGuard({ children }) {
     };
   }, [router]);
 
-  if (status === "loading") {
+  if (!mounted || status === "loading") {
     return (
       <div className="min-h-screen bg-[#070e1e] flex flex-col items-center justify-center text-white px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-          className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/[0.04] border border-white/10 shadow-2xl"
-        >
+        <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/[0.04] border border-white/10 shadow-2xl">
           <Loader2 className="animate-spin text-[#00C4FF]" size={22} />
           <span className="text-sm font-medium tracking-wide text-white/80">
             Verifying Admin Access...
           </span>
-        </motion.div>
+        </div>
       </div>
     );
   }
@@ -87,13 +83,5 @@ export default function AdminGuard({ children }) {
     );
   }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+  return children;
 }
