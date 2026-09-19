@@ -2,6 +2,8 @@
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Heading from "../../ui/Heading";
+import LucidMindHELPSImg from "./images/LucidMindHELPS.webp"
+
 
 function ChevronRightIcon({ className }) {
   return (
@@ -244,9 +246,16 @@ export default function ProblemsAndSolutions() {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="relative z-20 flex"
             >
-              <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] bg-gradient-to-b from-[#040914] to-[#4B9AF5] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
-                <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 -translate-y-1/2 translate-x-1/3 rounded-full bg-[#00A3FF] opacity-30 blur-[80px]" />
-                <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 -translate-x-1/3 translate-y-1/3 rounded-full bg-[#00A3FF] opacity-10 blur-[60px]" />
+              <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] bg-[#040914] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
+                <div className="pointer-events-none absolute inset-0 z-0">
+                  <img
+                    src={LucidMindHELPSImg.src || LucidMindHELPSImg}
+                    alt="LucidMind HELPS Background"
+                    className="h-full w-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#040914]/85 via-[#040914]/60 to-[#040914]/25" />
+                  <div className="absolute inset-0 bg-[#040914]/20" />
+                </div>
 
                 <div className="relative z-10 mb-4">
                   <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-white uppercase sm:text-sm">
@@ -262,7 +271,6 @@ export default function ProblemsAndSolutions() {
                     HELPS
                   </Heading>
                 </div>
-
                 <motion.ul
                   variants={listVariant}
                   initial="hidden"

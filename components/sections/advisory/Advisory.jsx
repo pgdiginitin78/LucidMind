@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
-const AdvisoryImg1 = "/assets/advisory/advisoryImg1.png";
+const AdvisoryImg1 = "/assets/advisory/advisoryImg1.webp";
 const AINeuralVideo = "/assets/advisory/AINeural.mp4";
 
 export const TargetSvg = () => {

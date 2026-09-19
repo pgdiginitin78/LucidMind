@@ -43,10 +43,12 @@ const DotField = memo(({
     }
 
     function doResize() {
-      if (!canvas.parentElement) return;
+      if (!canvas || !canvas.parentElement) return;
       const rect = canvas.parentElement.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
+      const w = Math.floor(rect.width);
+      const h = Math.floor(rect.height);
+
+      if (w === 0 || h === 0) return;
 
       canvas.width = w * dpr;
       canvas.height = h * dpr;
@@ -54,12 +56,7 @@ const DotField = memo(({
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      sizeRef.current = {
-        w,
-        h,
-        offsetX: rect.left + window.scrollX,
-        offsetY: rect.top + window.scrollY,
-      };
+      sizeRef.current = { w, h };
 
       buildDots(w, h);
     }
@@ -85,10 +82,40 @@ const DotField = memo(({
       dotsRef.current = dots;
     }
 
+    let lastClientX = -9999;
+    let lastClientY = -9999;
+
+    function updateMousePos(clientX, clientY) {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      const pad = propsRef.current.cursorRadius || 500;
+      if (
+        x >= -pad &&
+        x <= sizeRef.current.w + pad &&
+        y >= -pad &&
+        y <= sizeRef.current.h + pad
+      ) {
+        mouseRef.current.x = x;
+        mouseRef.current.y = y;
+      } else {
+        mouseRef.current.x = -9999;
+        mouseRef.current.y = -9999;
+      }
+    }
+
     function onMouseMove(e) {
-      const s = sizeRef.current;
-      mouseRef.current.x = e.pageX - s.offsetX;
-      mouseRef.current.y = e.pageY - s.offsetY;
+      lastClientX = e.clientX;
+      lastClientY = e.clientY;
+      updateMousePos(e.clientX, e.clientY);
+    }
+
+    function onScroll() {
+      if (lastClientX !== -9999) {
+        updateMousePos(lastClientX, lastClientY);
+      }
     }
 
     function updateMouseSpeed() {
@@ -121,7 +148,12 @@ const DotField = memo(({
 
     const io = new IntersectionObserver((entries) => {
       isIntersecting = entries[0].isIntersecting;
-      checkAndTick();
+      if (isIntersecting) {
+        if (sizeRef.current.w === 0 || sizeRef.current.h === 0 || dotsRef.current.length === 0) {
+          doResize();
+        }
+        checkAndTick();
+      }
     }, { threshold: 0 });
     io.observe(canvas);
     
@@ -211,6 +243,7 @@ const DotField = memo(({
     doResize();
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     let resizeObserver;
     if (typeof window !== 'undefined' && window.ResizeObserver && canvas.parentElement) {
@@ -232,6 +265,7 @@ const DotField = memo(({
       io.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('scroll', onScroll);
       document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, []);

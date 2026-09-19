@@ -3,10 +3,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import AiParticleDisplay from "./AiParticleDisplay";
 import DotField from "./DotField";
-import SplitText from "./SplitText";
-import TextType from "./TextType";
 import { usePageReady } from "../../transitions/PageTransitionContext";
-
 function HeroSection() {
   const { setReady } = usePageReady();
 

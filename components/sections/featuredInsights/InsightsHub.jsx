@@ -1,8 +1,11 @@
 "use client";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Layers } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Clock, Search, ArrowUpRight, Sparkles, BookOpen, Layers } from "lucide-react";
 import ArticleDetail from "./ArticleDetail";
+import InsightsAllBannerImage from "./images/InsightsAllBannerImage.webp";
+import InsightsAllMobileBanner from "./images/InsightsAllMobileBanner.webp";
 
 export default function InsightsHub() {
   const [articles, setArticles] = useState([]);
@@ -21,7 +24,7 @@ export default function InsightsHub() {
       .then((data) => {
         if (isMounted && data?.blogs && Array.isArray(data.blogs)) {
           const activeBlogs = data.blogs.filter(
-            (b) => b.isActive !== false && b.isPublished !== false
+            (b) => b.isActive !== false && b.isPublished !== false,
           );
           const normalized = activeBlogs.map((b, idx) => ({
             id: b._id || b.id || idx + 1,
@@ -34,13 +37,17 @@ export default function InsightsHub() {
               b.authorRole ||
               "Building Adaptive Enterprises | GCC Leader | Board Advisor",
             description: b.excerpt || b.description || "",
-            image: encodeURI(b.image || b.coverImage || "/assets/articles/The Mindset Shift.webp"),
+            image: encodeURI(
+              b.image ||
+                b.coverImage ||
+                "/assets/articles/The Mindset Shift.webp",
+            ),
             content: b.rawContent || b.content || [],
           }));
           setArticles(normalized);
         }
       })
-      .catch(() => { })
+      .catch(() => {})
       .finally(() => {
         if (isMounted) setLoading(false);
       });
@@ -49,8 +56,6 @@ export default function InsightsHub() {
       isMounted = false;
     };
   }, []);
-
- 
 
   const filteredArticles = useMemo(() => {
     return articles.filter((article) => {
@@ -76,60 +81,65 @@ export default function InsightsHub() {
     : filteredArticles;
 
   return (
-    <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-['PlusJakartaSans',sans-serif] selection:bg-[#00C4B4]/30 selection:text-white pt-28 sm:pt-36 pb-20 sm:pb-28 overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[420px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0, 196, 180, 0.16) 0%, rgba(37, 99, 235, 0.12) 40%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-1/3 -left-32 w-96 h-96 pointer-events-none rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(0, 196, 180, 0.08) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-2/3 -right-32 w-96 h-96 pointer-events-none rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+    <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-['PlusJakartaSans',sans-serif] selection:bg-[#00C4B4]/30 selection:text-white pb-20 sm:pb-28 overflow-hidden">
+      <section className="relative w-full overflow-hidden flex items-end md:items-center pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 lg:pb-24 mb-12 sm:mb-16 min-h-[580px] sm:min-h-[640px] lg:min-h-[700px] xl:min-h-[760px]">
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <Image
+            src={InsightsAllBannerImage}
+            alt="Insights on Scaling Enterprise AI & Adaptive Leadership"
+            fill
+            priority
+            sizes="100vw"
+            className="hidden md:block object-cover object-right"
+          />
+          <Image
+            src={InsightsAllMobileBanner}
+            alt="Insights on Scaling Enterprise AI & Adaptive Leadership"
+            fill
+            priority
+            sizes="100vw"
+            className="block md:hidden object-cover object-center"
+          />
+
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#040914] from-15% via-[#040914]/90 via-38% md:via-[#040914]/70 md:via-48% to-transparent" />
+          <div className="hidden md:block absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-[#040914] to-transparent" />
+
+          <div className="block md:hidden absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#040914]/70 to-transparent" />
+          <div className="block md:hidden absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-[#040914] via-[#040914]/90 to-transparent" />
+        </div>
+
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
+          <header className="relative max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px]">
+            <div className="absolute -inset-4 sm:-inset-6 -z-10 rounded-3xl bg-[#040914]/30 md:bg-gradient-to-r md:from-[#040914]/70 md:via-[#040914]/40 md:to-transparent backdrop-blur-[1px] pointer-events-none" />
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-5xl font-extrabold font-['Playfair_Display',serif] tracking-tight text-white leading-[1.16] mb-3 sm:mb-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+            >
+              Insights on Scaling{" "}
+              <span className="bg-gradient-to-r from-[#00E5FF] via-[#00C4B4] to-[#38BDF8] bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(0,196,180,0.4)]">
+                Enterprise AI
+              </span>{" "}
+              &amp; Adaptive Leadership
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed max-w-sm sm:max-w-md md:max-w-[400px] lg:max-w-[460px] font-normal drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
+            >
+              Explore all executive essays, frameworks, and strategic
+              reflections for technology and GCC leaders navigating operating
+              model reinvention.
+            </motion.p>
+          </header>
+        </div>
+      </section>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
-        <header className="max-w-7xl mb-12 sm:mb-16">
-   
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-['Playfair_Display',serif] tracking-tight text-white leading-[1.1] mb-5"
-          >
-            Insights on Scaling{" "}
-            <span className="bg-gradient-to-r from-[#00C4B4] via-[#38bdf8] to-[#2563EB] bg-clip-text text-transparent">
-              Enterprise AI
-            </span>{" "}
-            &amp; Adaptive Leadership
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-7xl font-normal"
-          >
-            Explore all executive essays, frameworks, and strategic reflections
-            for technology and GCC leaders navigating operating model
-            reinvention.
-          </motion.p>
-        </header>
-
         {loading ? (
           <div className="py-14 flex flex-col items-center justify-center">
             <div className="w-10 h-10 border-2 border-[#00C4B4] border-t-transparent rounded-full animate-spin mb-4" />
@@ -142,7 +152,9 @@ export default function InsightsHub() {
             <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
               <Layers size={22} />
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">No matching insights</h3>
+            <h3 className="text-lg font-bold text-white mb-2">
+              No matching insights
+            </h3>
             <p className="text-xs text-slate-400 mb-5">
               No publications matched your current filter or search criteria.
             </p>
@@ -173,23 +185,23 @@ export default function InsightsHub() {
                     alt={featuredArticle.title}
                     loading="lazy"
                     onError={(e) => {
-                      e.currentTarget.src = "/assets/articles/The%20Mindset%20Shift.webp";
+                      e.currentTarget.src =
+                        "/assets/articles/The%20Mindset%20Shift.webp";
                     }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-transparent to-transparent lg:hidden" />
-
                 </div>
 
                 <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                   <div>
                     <div className="flex flex-wrap justify-end gap-3 text-xs text-slate-400 mb-4">
-
-                      {featuredArticle.date && <span>{featuredArticle.date}</span>}
-
+                      {featuredArticle.date && (
+                        <span>{featuredArticle.date}</span>
+                      )}
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl lg:text-3xl xl:text-4xl font-bold font-['Playfair_Display',serif] text-white leading-tight mb-4 group-hover:text-[#00C4B4] transition-colors">
+                    <h2 className="text-2xl sm:text-3xl lg:text-3xl  font-bold font-['Playfair_Display',serif] text-white leading-tight mb-4 group-hover:text-[#00C4B4] transition-colors">
                       {featuredArticle.title}
                     </h2>
 
@@ -198,7 +210,7 @@ export default function InsightsHub() {
                     </p>
                   </div>
 
-                  <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between gap-4">
+                  <div className="pt-6 border-t border-white/[0.08] gap-4">
                     <div className="flex items-center gap-3 min-w-0">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white text-sm shrink-0 shadow-[0_0_12px_rgba(0,196,180,0.3)]">
                         RP
@@ -213,12 +225,14 @@ export default function InsightsHub() {
                       </div>
                     </div>
 
-                    <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold text-xs tracking-wide transition-all shrink-0">
-                      <span>Read Essay</span>
-                      <ArrowUpRight
-                        size={14}
-                        className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                      />
+                    <div className="flex justify-end">
+                      <div className="inline-flex items-center gap-1.5 px-4 mt-2 2xl:mt-4 py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold text-xs tracking-wide transition-all shrink-0">
+                        <span>Read Essay</span>
+                        <ArrowUpRight
+                          size={14}
+                          className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -242,12 +256,12 @@ export default function InsightsHub() {
                       alt={article.title}
                       loading="lazy"
                       onError={(e) => {
-                        e.currentTarget.src = "/assets/articles/The%20Mindset%20Shift.webp";
+                        e.currentTarget.src =
+                          "/assets/articles/The%20Mindset%20Shift.webp";
                       }}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/30 to-transparent" />
-
                   </div>
 
                   <div className="p-5 sm:p-6 flex flex-col flex-1">

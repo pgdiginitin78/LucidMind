@@ -1,30 +1,31 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { cn } from "@/lib/utils";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import { Avatar, Divider, MenuItem, Menu as MuiMenu } from "@mui/material";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import {
-  Menu,
-  LayoutDashboard as DashboardIcon,
-  Briefcase as BriefcaseIcon,
   BookOpen as BookOpenIcon,
+  Briefcase as BriefcaseIcon,
+  LayoutDashboard as DashboardIcon,
+  Menu,
   Mic as MicIcon,
 } from "lucide-react";
-const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1.min.webp";
-const LucidMindTransperentLogoMobile =
-  "/assets/logo/Lucid-mind-logos1-mobile.webp";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
-import { Avatar, Menu as MuiMenu, MenuItem, Divider } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import LogoutIcon from "@mui/icons-material/Logout";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1-bright.webp";
+const LucidMindTransperentLogoPng = "/assets/logo/Lucid-mind-logos1.png";
 
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Advisory", href: "/advisory" },
+  // { name: "Services", href: "/services" },
   { name: "Insights", href: "/insights" },
   { name: "Contact", href: "/contact" },
 ];
@@ -189,19 +190,18 @@ export default function Navbar() {
         >
           <Link href="/" className="flex items-center group">
             <img
-              src={LucidMindTransperentLogoMobile}
-              srcSet={`${LucidMindTransperentLogoMobile} 200w, ${LucidMindTransperentLogo} 400w`}
-              sizes="(max-width: 768px) 160px, 200px"
+              src={LucidMindTransperentLogo}
+              srcSet={`${LucidMindTransperentLogo} 1000w, ${LucidMindTransperentLogoPng} 1000w`}
+              sizes="(max-width: 768px) 180px, 240px"
               alt="LucidMind"
-              width={200}
-              height={80}
+              width={240}
+              height={96}
               fetchPriority="high"
               decoding="async"
-              className="h-9 md:h-14 xl:h-18.75 2xl:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-8 sm:h-9 md:h-20 2xl:h-22.5 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter brightness-110 contrast-105 drop-shadow-[0_0_14px_rgba(0,196,255,0.4)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
             />
           </Link>
         </motion.div>
-
         <div className="fixed top-5 2xl:top-8 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
           <motion.nav
             ref={navRef}

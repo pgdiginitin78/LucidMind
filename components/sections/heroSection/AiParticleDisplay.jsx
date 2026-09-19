@@ -9,14 +9,14 @@ const colorLUT = (() => {
     let r, g, b;
     if (normX < 0.5) {
       const ratio = normX / 0.5;
-      r = 0;
-      g = Math.round(196 + (229 - 196) * ratio);
-      b = Math.round(180 + (255 - 180) * ratio);
+      r = Math.round(105 + (60 - 105) * ratio);
+      g = Math.round(150 + (205 - 150) * ratio);
+      b = Math.round(255 + (255 - 255) * ratio);
     } else {
       const ratio = (normX - 0.5) / 0.5;
-      r = Math.round(37 * ratio);
-      g = Math.round(229 + (99 - 229) * ratio);
-      b = Math.round(255 + (235 - 255) * ratio);
+      r = Math.round(60 + (0 - 60) * ratio);
+      g = Math.round(205 + (245 - 205) * ratio);
+      b = Math.round(255 + (240 - 255) * ratio);
     }
     lut[i] = `rgb(${r},${g},${b})`;
   }
@@ -103,7 +103,7 @@ function AiParticleDisplay() {
     window.addEventListener("resize", onResize);
 
     const bucketCoords = Array.from({ length: COLOR_BUCKETS }, () => []);
-    const radius = 1.4;
+    const radius = 1.6;
 
     function render() {
       if (!canvas || !isVisible || !isIntersecting) {
@@ -182,7 +182,7 @@ function AiParticleDisplay() {
         <canvas
           ref={canvasRef}
           style={{ willChange: "transform" }}
-          className="w-full h-full block pointer-events-none drop-shadow-[0_0_25px_rgba(0,196,180,0.3)]"
+          className="w-full h-full block pointer-events-none drop-shadow-[0_0_20px_rgba(0,245,240,0.35)] drop-shadow-[0_0_35px_rgba(105,150,255,0.25)]"
         />
       </div>
     </div>

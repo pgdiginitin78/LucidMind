@@ -4,8 +4,8 @@ import Link from "next/link";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { Menu, X } from "lucide-react";
-const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1.webp";
-const LucidMindTransperentLogoMobile = "/assets/logo/Lucid-mind-logos1-mobile.webp";
+const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1-bright.webp";
+const LucidMindTransperentLogoMobile = "/assets/logo/Lucid-mind-logos1.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(CustomEase);
@@ -203,7 +203,7 @@ export function Component() {
               height={64}
               fetchPriority="high"
               decoding="async"
-              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+              className="h-14 md:h-16 w-auto object-contain"
             />
           </Link>
 

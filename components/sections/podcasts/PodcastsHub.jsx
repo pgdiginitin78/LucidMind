@@ -1,19 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Play,
-  Mic,
-  Radio,
-  Volume2,
-  ArrowUpRight,
-  Sparkles,
-  Disc,
-  Headphones,
-  CheckCircle2,
-  X,
-} from "lucide-react";
 import { usePageReady } from "@/components/transitions/PageTransitionContext";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Headphones, Mic, Play, X } from "lucide-react";
+import Image from "next/image";
+import PodcastHeroBanner from "./images/PodcastHeroBanner.webp";
+import PodcastHeroBannerMobile from "./images/PodcastHeroBannerMobile.webp";
 
 export default function PodcastsHub() {
   const { setReady } = usePageReady();
@@ -36,14 +28,18 @@ export default function PodcastsHub() {
       .then((data) => {
         if (isMounted && data?.podcasts && Array.isArray(data.podcasts)) {
           const activeList = data.podcasts.filter(
-            (p) => p.isActive !== false && p.isPublished !== false
+            (p) => p.isActive !== false && p.isPublished !== false,
           );
           const normalized = activeList.map((p, idx) => ({
             id: p._id || p.id || idx + 1,
             title: p.title || "",
             episode: p.episode || `Ep. 0${idx + 1}`,
             src: p.src || p.audioUrl || "",
-            thumbnail: p.thumbnail || p.coverImage || p.image || "/assets/podcastThumbnails/Capacity vs Capability.min.webp",
+            thumbnail:
+              p.thumbnail ||
+              p.coverImage ||
+              p.image ||
+              "/assets/podcastThumbnails/Capacity vs Capability.min.webp",
             description: Array.isArray(p.description)
               ? p.description
               : p.description
@@ -56,7 +52,7 @@ export default function PodcastsHub() {
           }
         }
       })
-      .catch(() => { })
+      .catch(() => {})
       .finally(() => {
         if (isMounted) setLoading(false);
       });
@@ -73,64 +69,59 @@ export default function PodcastsHub() {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-[#030914] text-slate-100 font-['PlusJakartaSans',sans-serif] selection:bg-[#00C4B4]/30 selection:text-white pt-28 sm:pt-36 pb-24 sm:pb-32 overflow-hidden">
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1400px] h-[500px] pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(0, 196, 180, 0.18) 0%, rgba(37, 99, 235, 0.14) 45%, transparent 75%)",
-          }}
-        />
-        <div
-          className="absolute top-1/4 -left-40 w-[500px] h-[500px] pointer-events-none rounded-full blur-[140px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(0, 196, 180, 0.1) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-1/2 -right-40 w-[500px] h-[500px] pointer-events-none rounded-full blur-[140px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%)",
-          }}
-        />
-      </div>
+    <div className="relative w-full min-h-screen bg-[#030914] text-slate-100 font-['PlusJakartaSans',sans-serif] selection:bg-[#00C4B4]/30 selection:text-white pb-24 sm:pb-32 overflow-hidden">
+      <section className="relative w-full overflow-hidden flex items-center pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24 lg:pb-28 mb-10 sm:mb-14 min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] xl:min-h-[720px]">
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <Image
+            src={PodcastHeroBanner}
+            alt="Conversations on Enterprise AI & Scale"
+            fill
+            priority
+            sizes="100vw"
+            className="hidden md:block object-cover object-right md:object-center"
+          />
+          <Image
+            src={PodcastHeroBannerMobile}
+            alt="Conversations on Enterprise AI & Scale"
+            fill
+            priority
+            sizes="100vw"
+            className="block md:hidden object-cover object-center"
+          />
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#030914] via-[#030914]/70 lg:via-[#030914]/25 to-transparent" />
+          <div className="block md:hidden absolute inset-0 bg-gradient-to-b from-[#030914]/30 via-transparent to-[#030914]/70" />
+          <div className="absolute inset-x-0 bottom-0 h-16 sm:h-32 bg-gradient-to-t from-[#030914] to-transparent" />
+        </div>
+
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-8">
+          <header className="max-w-2xl lg:max-w-xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-4xl md:text-5xl  font-extrabold font-['Playfair_Display',serif] tracking-tight text-white leading-[1.1] mb-4"
+            >
+              Conversations on{" "}
+              <span className="bg-gradient-to-r from-[#00E5FF] via-[#00C4B4] to-[#38BDF8] bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(0,196,180,0.4)]">
+                Enterprise AI &amp; Scale
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-normal"
+            >
+              Strategic, unscripted reflections from Ravishankar Pingali on how
+              global capability centres and enterprise leaders navigate the
+              shift from volume to influence.
+            </motion.p>
+          </header>
+        </div>
+      </section>
 
       <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-8">
-        <header className="mb-12 sm:mb-16">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-white/[0.08]">
-            <div className="max-w-3xl">
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-['Playfair_Display',serif] tracking-tight text-white leading-[1.1] mb-4"
-              >
-                Conversations on{" "}
-                <span className="bg-gradient-to-r from-[#00C4B4] via-[#38bdf8] to-[#2563EB] bg-clip-text text-transparent">
-                  Enterprise AI &amp; Scale
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-4xl font-normal"
-              >
-                Strategic, unscripted reflections from Ravishankar Pingali on how
-                global capability centres and enterprise leaders navigate the shift
-                from volume to influence.
-              </motion.p>
-            </div>
-
-
-          </div>
-        </header>
-
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center">
             <div className="w-10 h-10 border-2 border-[#00C4B4] border-t-transparent rounded-full animate-spin mb-4" />
@@ -150,7 +141,7 @@ export default function PodcastsHub() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#00C4B4]/15 via-transparent to-transparent pointer-events-none rounded-full blur-3xl" />
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-5 flex flex-col items-center sm:flex-row lg:flex-col gap-6">
-                    <div className="relative group cursor-pointer w-full max-w-[540px] aspect-video sm:aspect-square lg:aspect-[4/3] rounded overflow-hidden border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
+                    <div className="relative group cursor-pointer w-full max-w-[640px] aspect-video  lg:aspect-[4/3] rounded overflow-hidden border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
                       <img
                         src={encodeURI(activeEpisode.thumbnail)}
                         alt={activeEpisode.title}
@@ -169,12 +160,7 @@ export default function PodcastsHub() {
                           <Play size={28} className="fill-white ml-1" />
                         </div>
                       </div>
-                      <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-[#00C4B4]/40 text-[#00C4B4] text-xs font-bold font-mono">
-                        {activeEpisode.episode}
-                      </div>
                     </div>
-
-
                   </div>
 
                   <div className="lg:col-span-7 flex flex-col justify-between">
@@ -184,12 +170,19 @@ export default function PodcastsHub() {
                       </h2>
 
                       <div className="space-y-3 mb-6">
-                        {activeEpisode.description.slice(0, 4).map((line, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            <span className="text-[#00C4B4] mt-1 shrink-0 font-bold">•</span>
-                            <span>{line.replace(/^✅\s*/, "")}</span>
-                          </div>
-                        ))}
+                        {activeEpisode.description
+                          .slice(0, 4)
+                          .map((line, idx) => (
+                            <div
+                              key={idx}
+                              className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed"
+                            >
+                              <span className="text-[#00C4B4] mt-1 shrink-0 font-bold">
+                                •
+                              </span>
+                              <span>{line.replace(/^✅\s*/, "")}</span>
+                            </div>
+                          ))}
                       </div>
                     </div>
 
@@ -246,10 +239,11 @@ export default function PodcastsHub() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.1 }}
                       transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-                      className={`group rounded-2xl bg-[#061226]/85 border transition-all duration-300 flex flex-col h-full overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${isSelected
+                      className={`group rounded-2xl bg-[#061226]/85 border transition-all duration-300 flex flex-col h-full overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${
+                        isSelected
                           ? "border-[#00C4B4]/60 shadow-[0_0_24px_rgba(0,196,180,0.25)]"
                           : "border-white/[0.09] hover:border-[#00C4B4]/50 hover:shadow-[0_16px_40px_rgba(0,196,180,0.15)]"
-                        }`}
+                      }`}
                     >
                       <div className="relative aspect-video overflow-hidden shrink-0">
                         <img
@@ -263,11 +257,7 @@ export default function PodcastsHub() {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#061226] via-black/30 to-transparent" />
-                        <div className="absolute top-3 left-3 flex items-center gap-2">
-                          <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[#00C4B4] font-mono text-xs font-bold border border-[#00C4B4]/30">
-                            {podcast.episode}
-                          </span>
-                        </div>
+
                         <button
                           type="button"
                           onClick={() => openPlayer(podcast)}
@@ -282,7 +272,9 @@ export default function PodcastsHub() {
                       <div className="p-5 sm:p-6 flex flex-col flex-1">
                         <div className="flex items-center gap-2 text-xs text-slate-400 mb-2">
                           <Headphones size={13} className="text-[#00C4B4]" />
-                          <span className="font-mono">Executive Audio Dialogue</span>
+                          <span className="font-mono">
+                            Executive Audio Dialogue
+                          </span>
                         </div>
 
                         <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
@@ -291,7 +283,10 @@ export default function PodcastsHub() {
 
                         <div className="space-y-2 mb-6 flex-1">
                           {podcast.description.slice(0, 2).map((item, i) => (
-                            <p key={i} className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                            <p
+                              key={i}
+                              className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                            >
                               {item.replace(/^✅\s*/, "")}
                             </p>
                           ))}
