@@ -18,8 +18,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
 
-const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1-bright.webp";
-const LucidMindTransperentLogoPng = "/assets/logo/Lucid-mind-logos1.png";
+const LucidMindTransperentLogo = "/assets/logo/LucidMindLogo.svg";
+const LucidMindTransperentLogoPng = "/assets/logo/LucidMindLogo.svg";
 
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
@@ -198,7 +198,7 @@ export default function Navbar() {
               height={96}
               fetchPriority="high"
               decoding="async"
-              className="h-8 sm:h-9 md:h-20 2xl:h-22.5 w-auto object-contain transition-transform duration-300 group-hover:scale-105 filter brightness-110 contrast-105 drop-shadow-[0_0_14px_rgba(0,196,255,0.4)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]"
+              className="h-8 sm:h-9 md:h-20 2xl:h-22.5 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
             />
           </Link>
         </motion.div>
