@@ -2,7 +2,7 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-const LucidMindTransperentLogo = "/assets/logo/LucidMindLogo.svg";
+const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 import DotField from "../sections/heroSection/DotField";
 import LoginModal from "../loginModal/LoginModal";
 

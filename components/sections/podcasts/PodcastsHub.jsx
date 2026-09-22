@@ -141,7 +141,7 @@ export default function PodcastsHub() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#00C4B4]/15 via-transparent to-transparent pointer-events-none rounded-full blur-3xl" />
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-5 flex flex-col items-center sm:flex-row lg:flex-col gap-6">
-                    <div className="relative group cursor-pointer w-full max-w-[640px] aspect-video  lg:aspect-[4/3] rounded overflow-hidden border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
+                    <div className="relative group cursor-pointer w-full max-w-[640px] aspect-video rounded lg:aspect-[4/3]  overflow-hidden ">
                       <img
                         src={encodeURI(activeEpisode.thumbnail)}
                         alt={activeEpisode.title}
@@ -149,9 +149,9 @@ export default function PodcastsHub() {
                           e.currentTarget.src =
                             "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
                         }}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-full inset-0 rounded object-contain group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" /> */}
                       <div
                         onClick={() => openPlayer(activeEpisode)}
                         className="absolute inset-0 flex items-center justify-center"
@@ -165,11 +165,11 @@ export default function PodcastsHub() {
 
                   <div className="lg:col-span-7 flex flex-col justify-between">
                     <div>
-                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-4">
+                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-2">
                         {activeEpisode.title}
                       </h2>
 
-                      <div className="space-y-3 mb-6">
+                      <div className="space-y-3 mb-3">
                         {activeEpisode.description
                           .slice(0, 4)
                           .map((line, idx) => (
@@ -186,7 +186,7 @@ export default function PodcastsHub() {
                       </div>
                     </div>
 
-                    <div className="pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
+                    <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white text-xs shadow-[0_0_12px_rgba(0,196,180,0.3)]">
                           RP

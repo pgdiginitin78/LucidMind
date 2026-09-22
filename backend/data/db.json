@@ -1015,15 +1015,18 @@
       "episode": "Ep. 01",
       "src": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7455569461186641920?compact=1",
       "audioUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7455569461186641920?compact=1",
-      "thumbnail": "/assets/podcastThumbnails/Capacity vs Capability.min.webp",
-      "coverImage": "/assets/podcastThumbnails/Capacity vs Capability.min.webp",
+      "thumbnail": "/assets/podcastThumbnails/Capacity vs Capability.webp",
+      "coverImage": "/assets/podcastThumbnails/Capacity vs Capability.webp",
       "duration": "18 mins",
       "host": "Ravishankar Pingali",
       "guest": "GCC Leaders",
       "description": "I've been in close conversations with GCC leaders, and something feels different.\n\nEarlier, the conversations were clearer, how fast we can scale, how efficiently we can deliver. Now, the questions are less straightforward. What are we really building toward?\n\nScale got GCCs a seat at the table. Capability will decide whether they stay there.\n\nThat's the shift I'm unpacking in this series, one many leaders are already navigating, even if it's not always articulated directly.\n\nWe'll get into:\n✅ Capacity vs Capability\n✅ Why this tension is growing now\n✅ What AI is actually changing\n✅ What leadership needs to rethink\n\nBecause the next phase of GCCs won't be defined by how fast they grow, but by how indispensable they become.",
       "isPublished": true,
       "createdAt": "2026-09-10T00:00:00.000Z",
-      "order": 1
+      "order": 1,
+      "image": "/uploads/1789983827662-capacity_vs_capability.jpeg",
+      "isActive": true,
+      "updatedAt": "2026-09-21T11:53:44.432Z"
     },
     {
       "_id": "pod_2",

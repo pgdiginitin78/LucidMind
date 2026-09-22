@@ -14,7 +14,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import ExecutiveThinkingLeftImg from "./images/executive_thinking_left.webp";
 import GlobeCurvedRightImg from "./images/globe_curved_right.webp";
-import HeroBannerBg from "./images/NewHeroBanner.webp";
+import HeroBannerBg from "./images/NewHeroBanner.png";
 import NewHeroBannerMobile from "./images/NewHeroBanner_mobile.webp";
 import NewHeroBannerTablet from "./images/NewHeroBanner_tablet.webp";
 import Section4MountainPeak from "./images/section4_mountain_summit.webp";
@@ -22,9 +22,9 @@ import Section5FullBg from "./images/SectionFiveBg.webp";
 import TheFounderSectionBg from "./images/TheFounderSectionBg.webp";
 import TheFounderSectionBgMobile from "./images/TheFounderSectionBg_mobile.webp";
 import TheFounderSectionBgTablet from "./images/TheFounderSectionBg_tablet.webp";
-import PillarBuildImg from "./images/SecondBlockImage.webp";
-import PillarDeliverImg from "./images/ThirdBlockImage.webp";
-import PillarThinkImg from "./images/FirstBlockImage.webp";
+import PillarBuildImg from "./images/Create capability.png";
+import PillarDeliverImg from "./images/Create impact.png";
+import PillarThinkImg from "./images/Create clarity.png";
 import HeroBgSectionUnknown from "./images/HeroBgSectionUnknown.webp";
 import AboutUsSecondSectionBanner from "./images/AboutUsSecondSectionBanner.webp";
 
@@ -622,7 +622,7 @@ export default function AboutUs() {
               <br />
               better outcomes begin with better thinking.
             </motion.p>
-            <motion.p
+            {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.22 }}
@@ -630,7 +630,7 @@ export default function AboutUs() {
               In a world where AI, automation and emerging technologies are
               changing the way organisations operate, the challenge is no longer
               access to technology.
-            </motion.p>
+            </motion.p> */}
           </div>
         </motion.div>
       </section>
@@ -651,9 +651,7 @@ export default function AboutUs() {
         <div className="max-w-[1640px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center relative z-10">
           <Reveal className="lg:col-span-5" variants={fadeLeft}>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold text-[#1D63B8] leading-[1.12] tracking-tight">
-              The harder
-              <br />
-              questions are
+              Why We Exist
             </h2>
             <p className="mt-4 sm:mt-6 text-xs sm:text-sm xl:text-[15px] text-[#475569] leading-relaxed max-w-md">
               LucidMind exists to help leaders answer these questions with
@@ -672,36 +670,44 @@ export default function AboutUs() {
                 icon: <IconRefresh className="text-[#1D63B8]" />,
                 title: "What",
                 sub: "should we change?",
-                podBg: "bg-gradient-to-br from-[#2563EB]/25 via-[#3B82F6]/15 to-white/75",
+                podBg:
+                  "bg-gradient-to-br from-[#2563EB]/25 via-[#3B82F6]/15 to-white/75",
                 podBorder: "border-[#3B82F6]/50 hover:border-[#2563EB]",
-                podShadow: "shadow-[0_6px_20px_rgba(37,99,235,0.28),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
+                podShadow:
+                  "shadow-[0_6px_20px_rgba(37,99,235,0.28),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
               },
               {
                 num: "02",
                 icon: <IconLightbulb className="text-[#B45309]" />,
                 title: "Why",
                 sub: "should we change it?",
-                podBg: "bg-gradient-to-br from-[#F59E0B]/30 via-[#FBBF24]/18 to-white/75",
+                podBg:
+                  "bg-gradient-to-br from-[#F59E0B]/30 via-[#FBBF24]/18 to-white/75",
                 podBorder: "border-[#F59E0B]/60 hover:border-[#D97706]",
-                podShadow: "shadow-[0_6px_20px_rgba(245,158,11,0.32),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
+                podShadow:
+                  "shadow-[0_6px_20px_rgba(245,158,11,0.32),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
               },
               {
                 num: "03",
                 icon: <IconCrosshair className="text-[#0F766E]" />,
                 title: "Where",
                 sub: "should we focus first?",
-                podBg: "bg-gradient-to-br from-[#00C4B4]/30 via-[#2DD4BF]/18 to-white/75",
+                podBg:
+                  "bg-gradient-to-br from-[#00C4B4]/30 via-[#2DD4BF]/18 to-white/75",
                 podBorder: "border-[#00C4B4]/60 hover:border-[#0D9488]",
-                podShadow: "shadow-[0_6px_20px_rgba(13,148,136,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
+                podShadow:
+                  "shadow-[0_6px_20px_rgba(13,148,136,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
               },
               {
                 num: "04",
                 icon: <IconBarChart className="text-[#6D28D9]" />,
-                title: null,
-                sub: "And how do we turn that intent into measurable business impact?",
-                podBg: "bg-gradient-to-br from-[#8B5CF6]/30 via-[#A78BFA]/18 to-white/75",
+                title: "How",
+                sub: "Do we turn that intent into measurable business impact?",
+                podBg:
+                  "bg-gradient-to-br from-[#8B5CF6]/30 via-[#A78BFA]/18 to-white/75",
                 podBorder: "border-[#8B5CF6]/60 hover:border-[#7C3AED]",
-                podShadow: "shadow-[0_6px_20px_rgba(124,58,237,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
+                podShadow:
+                  "shadow-[0_6px_20px_rgba(124,58,237,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
               },
             ].map((card, i) => (
               <Reveal
@@ -1055,8 +1061,8 @@ export default function AboutUs() {
                         priority
                         className="object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-white from-10% via-white/80 via-30% to-transparent to-60% pointer-events-none" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/80 from-0% via-white/30 via-30% to-transparent to-50% pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-white from-10% via-white/50 via-30% to-transparent to-60% pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/80 from-0% via-white/40 via-30% to-transparent to-50% pointer-events-none" />
                     </div>
                   </div>
                 </Reveal>
@@ -1096,7 +1102,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="relative w-full min-h-[55vh] sm:min-h-[65vh] xl:min-h-[75vh] flex items-center overflow-hidden py-16 sm:py-20 xl:py-24">
+      {/* <section className="relative w-full min-h-[55vh] sm:min-h-[65vh] xl:min-h-[75vh] flex items-center overflow-hidden py-16 sm:py-20 xl:py-24">
         <div className="absolute inset-0 z-0">
           <Image
             src={EarthHorizonImg}
@@ -1135,7 +1141,7 @@ export default function AboutUs() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </section> */}
 
       <section className="relative w-full bg-[#070D1B] py-12 sm:py-16 md:py-20 xl:py-28 px-4 sm:px-8 md:px-12 xl:px-20">
         <div className="max-w-7xl mx-auto">

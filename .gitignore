@@ -29,3 +29,5 @@ backend/.env
 out
 scratch
 query
+*.zip
+deploy_build/

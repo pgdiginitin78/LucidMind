@@ -40,14 +40,14 @@ export default function AdminDashboard() {
   }, []);
 
   const SECTIONS = [
-    {
-      title: "Services & Advisory",
-      description:
-        "Manage LucidMind enterprise AI capabilities, transformation phases, problem statements, and key deliverables.",
-      href: "/admin/services",
-      count: counts.services,
-      icon: Briefcase,
-    },
+    // {
+    //   title: "Services & Advisory",
+    //   description:
+    //     "Manage LucidMind enterprise AI capabilities, transformation phases, problem statements, and key deliverables.",
+    //   href: "/admin/services",
+    //   count: counts.services,
+    //   icon: Briefcase,
+    // },
     {
       title: "Articles & Insights",
       description:
@@ -95,24 +95,11 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="px-4 py-3 rounded-2xl bg-[#040C1A]/80 border border-[#00C4FF]/20 flex items-center gap-3 text-xs shadow-inner">
-              <div className="w-8 h-8 rounded-xl bg-[#00C4FF]/10 border border-[#00C4FF]/30 flex items-center justify-center text-[#00C4FF]">
-                <Database size={16} />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-semibold text-white flex items-center gap-1.5">
-                  Database Connected
-                  <CheckCircle2 size={12} className="text-[#00C4FF]" />
-                </span>
-                <span className="text-white/40 text-[11px]">Synced with live content</span>
-              </div>
-            </div>
-          </div>
+   
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {SECTIONS.map((sec, idx) => {
           const Icon = sec.icon;
           return (

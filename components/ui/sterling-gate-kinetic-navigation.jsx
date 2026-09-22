@@ -375,15 +375,35 @@ export function Component() {
                   </Link>
                 </li>
                 <li className="menu-list-item" data-shape="4">
-                  <Link
-                    href="/insights"
-                    onClick={closeMenu}
-                    className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors"
-                  >
-                    <p className="nav-link-text" data-menu-fade>
-                      Insights
-                    </p>
-                  </Link>
+                  <div className="space-y-2">
+                    <Link
+                      href="/insights"
+                      onClick={closeMenu}
+                      className="nav-link block text-2xl font-bold text-white/90 hover:text-[#00C4FF] transition-colors"
+                    >
+                      <p className="nav-link-text" data-menu-fade>
+                        Insights
+                      </p>
+                    </Link>
+                    <div className="pl-3 flex flex-col gap-2 pt-1 border-l-2 border-[#00C4FF]/30">
+                      <Link
+                        href="/insights#blogs"
+                        onClick={closeMenu}
+                        className="text-sm font-semibold text-white/70 hover:text-[#00C4FF] transition-colors flex items-center gap-2"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#00C4FF]" />
+                        <span>Blogs</span>
+                      </Link>
+                      <Link
+                        href="/insights#podcasts"
+                        onClick={closeMenu}
+                        className="text-sm font-semibold text-white/70 hover:text-[#00C4FF] transition-colors flex items-center gap-2"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#00C4FF]" />
+                        <span>Videos</span>
+                      </Link>
+                    </div>
+                  </div>
                 </li>
                 <li className="menu-list-item" data-shape="5">
                   <Link

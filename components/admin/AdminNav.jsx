@@ -1,25 +1,24 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import {
+  BookOpen,
+  Briefcase,
+  LayoutDashboard,
+  LogOut,
+  Mic
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  LayoutDashboard,
-  Briefcase,
-  BookOpen,
-  Mic,
-  ArrowUpRight,
-  LogOut,
-  ShieldCheck,
-} from "lucide-react";
-const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1.min.webp";
-const LucidMindTransperentLogoMobile =
-  "/assets/logo/Lucid-mind-logos1-mobile.webp";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
+const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
+const LucidMindTransperentLogoMobile =
+  "/assets/logo/LucidMind logo 2.svg";
+
 const NAV_TABS = [
   { name: "Overview", href: "/admin", icon: LayoutDashboard },
-  { name: "Services", href: "/admin/services", icon: Briefcase },
+  // { name: "Services", href: "/admin/services", icon: Briefcase },
   { name: "Blogs", href: "/admin/blogs", icon: BookOpen },
   { name: "Podcasts", href: "/admin/podcasts", icon: Mic },
 ];
@@ -52,7 +51,7 @@ export default function AdminNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#070e1e]/85 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-16 sm:h-22">
 
           <div className="flex items-center gap-3">
             <motion.div
@@ -76,7 +75,7 @@ export default function AdminNav() {
                   height={80}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-9 md:h-14 xl:h-18.75 2xl:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-9 md:h-14 xl:h-18.75 2xl:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </Link>
             </motion.div>

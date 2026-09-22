@@ -4,13 +4,15 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import { Avatar, Divider, MenuItem, Menu as MuiMenu } from "@mui/material";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import {
   BookOpen as BookOpenIcon,
   Briefcase as BriefcaseIcon,
+  ChevronDown,
   LayoutDashboard as DashboardIcon,
   Menu,
   Mic as MicIcon,
+  Video as VideoIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,15 +20,30 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
 
-const LucidMindTransperentLogo = "/assets/logo/LucidMindLogo.svg";
-const LucidMindTransperentLogoPng = "/assets/logo/LucidMindLogo.svg";
+const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
+const LucidMindTransperentLogoPng = "/assets/logo/LucidMind logo 2.svg";
 
 const NAV_ITEMS = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Advisory", href: "/advisory" },
   // { name: "Services", href: "/services" },
-  { name: "Insights", href: "/insights" },
+  {
+    name: "Insights",
+    href: "/insights",
+    dropdown: [
+      {
+        name: "Blogs",
+        href: "/insights#blogs",
+        description: "Executive essays & frameworks",
+      },
+      {
+        name: "Videos",
+        href: "/insights#podcasts",
+        description: "Podcasts & video conversations",
+      },
+    ],
+  },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -111,6 +128,37 @@ export default function Navbar() {
     setProfileAnchorEl(null);
     router.push(path);
   };
+
+  const [insightsDropdownOpen, setInsightsDropdownOpen] = useState(false);
+  const dropdownTimeoutRef = useRef(null);
+
+  const handleMouseEnterInsights = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setInsightsDropdownOpen(true);
+  };
+
+  const handleMouseLeaveInsights = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setInsightsDropdownOpen(false);
+    }, 200);
+  };
+
+  const handleInsightsOptionClick = (href) => {
+    setInsightsDropdownOpen(false);
+    if (currentPath === "/insights") {
+      const hash = href.split("#")[1];
+      if (hash) {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      }
+    }
+    router.push(href);
+  };
+
+
 
   const updateRightOffset = useCallback(() => {
     const containerWidth = window.innerWidth;
@@ -198,7 +246,7 @@ export default function Navbar() {
               height={96}
               fetchPriority="high"
               decoding="async"
-              className="h-8 sm:h-9 md:h-20 2xl:h-22.5 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+              className="h-8 sm:h-9 md:h-20 2xl:h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
             />
           </Link>
         </motion.div>
@@ -222,9 +270,10 @@ export default function Navbar() {
             whileTap={isCollapsed ? { scale: 0.95 } : {}}
             onClick={handleNavClick}
             className={cn(
-              "relative flex items-center px-4 2xl:px-6 overflow-hidden rounded-full border border-[#2563EB]/70 bg-[#0D1F3C]/70 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.35),0_0_20px_rgba(37,99,235,0.12)] h-12 2xl:h-16 transition-colors duration-300",
-              isCollapsed &&
-                "cursor-pointer justify-center !px-0 hover:border-[#00C4FF] hover:shadow-[0_0_25px_rgba(0,196,255,0.35)]",
+              "relative flex items-center px-4 2xl:px-6 rounded-full border border-[#2563EB]/70 bg-[#0D1F3C]/70 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.35),0_0_20px_rgba(37,99,235,0.12)] h-12 2xl:h-16 transition-colors duration-300",
+              isCollapsed
+                ? "overflow-hidden cursor-pointer justify-center !px-0 hover:border-[#00C4FF] hover:shadow-[0_0_25px_rgba(0,196,255,0.35)]"
+                : "overflow-visible",
             )}
           >
             <motion.div
@@ -238,18 +287,24 @@ export default function Navbar() {
                   item.href === "/"
                     ? currentPath === "/"
                     : currentPath.startsWith(item.href);
+                const hasDropdown = Boolean(item.dropdown);
 
                 return (
                   <motion.div
                     key={item.name}
                     variants={itemVariants}
                     animate={!isCollapsed ? "expanded" : "collapsed"}
+                    className="relative"
+                    onMouseEnter={hasDropdown ? handleMouseEnterInsights : undefined}
+                    onMouseLeave={hasDropdown ? handleMouseLeaveInsights : undefined}
                   >
                     <Link
                       href={item.href}
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
                       className={cn(
-                        "relative text-sm 2xl:text-xl font-medium transition-all duration-300 px-3.5 2xl:px-6 py-1.5 2xl:py-2.5 rounded-full flex items-center justify-center whitespace-nowrap",
+                        "relative text-sm 2xl:text-xl font-medium transition-all duration-300 px-3.5 2xl:px-6 py-1.5 2xl:py-2.5 rounded-full flex items-center justify-center whitespace-nowrap gap-1",
                         isActive
                           ? "text-[#00C4FF] font-semibold bg-[#2563EB]/25 border border-[#00C4FF]/40 shadow-[0_0_12px_rgba(0,196,255,0.2)]"
                           : "text-white/80 hover:text-[#00C4FF] hover:bg-white/[0.06]",
@@ -265,7 +320,62 @@ export default function Navbar() {
                           damping: 20,
                         }}
                       />
+                      {hasDropdown && (
+                        <ChevronDown
+                          size={13}
+                          className={cn(
+                            "transition-transform duration-300 ml-0.5",
+                            insightsDropdownOpen
+                              ? "rotate-180 text-[#00C4FF]"
+                              : "text-white/50",
+                          )}
+                        />
+                      )}
                     </Link>
+
+                    {hasDropdown && (
+                      <AnimatePresence>
+                        {insightsDropdownOpen && !isCollapsed && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                            transition={{ duration: 0.18, ease: "easeOut" }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 z-[100] min-w-[220px]"
+                          >
+                            <div className="rounded-2xl bg-[#071328]/95 border border-[#00C4FF]/30 backdrop-blur-2xl p-1.5 shadow-[0_20px_48px_rgba(0,0,0,0.85),0_0_20px_rgba(0,196,255,0.18)] flex flex-col gap-1">
+                              {item.dropdown.map((sub) => (
+                                <Link
+                                  key={sub.name}
+                                  href={sub.href}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleInsightsOptionClick(sub.href);
+                                  }}
+                                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-white/90 hover:text-white hover:bg-white/[0.07] border border-transparent hover:border-[#00C4FF]/25 transition-all group/item"
+                                >
+                                  <div className="w-7 h-7 rounded-lg bg-[#2563EB]/20 border border-[#00C4FF]/30 flex items-center justify-center text-[#00C4FF] group-hover/item:scale-105 group-hover/item:shadow-[0_0_10px_rgba(0,196,255,0.4)] transition-all">
+                                    {sub.name === "Blogs" ? (
+                                      <BookOpenIcon size={14} />
+                                    ) : (
+                                      <VideoIcon size={14} />
+                                    )}
+                                  </div>
+                                  <div className="flex flex-col text-left">
+                                    <span className="text-xs font-bold leading-tight group-hover/item:text-[#00C4FF] transition-colors">
+                                      {sub.name}
+                                    </span>
+                                    <span className="text-[10px] text-white/50 font-normal leading-tight mt-0.5">
+                                      {sub.description}
+                                    </span>
+                                  </div>
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
                   </motion.div>
                 );
               })}

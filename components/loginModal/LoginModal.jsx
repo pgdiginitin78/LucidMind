@@ -16,9 +16,9 @@ const API_BASE_URL =
   (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_URL) ||
   "";
 
-const LucidMindTransperentLogo = "/assets/logo/Lucid-mind-logos1.min.webp";
+const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 const LucidMindTransperentLogoMobile =
-  "/assets/logo/Lucid-mind-logos1-mobile.webp";
+  "/assets/logo/LucidMind logo 2.svg";
 
 const style = {
   position: "absolute",
@@ -259,7 +259,7 @@ export default function LoginModal({ open, handleClose }) {
                   <X size={15} />
                 </button>
 
-                <div className="flex flex-col items-center mb-6 sm:mb-8">
+                <div className="flex flex-col items-center mb-6 sm:mb-4">
                   <img
                     src={LucidMindTransperentLogoMobile}
                     srcSet={`${LucidMindTransperentLogoMobile} 200w, ${LucidMindTransperentLogo} 400w`}
@@ -269,7 +269,7 @@ export default function LoginModal({ open, handleClose }) {
                     height={72}
                     fetchPriority="high"
                     decoding="async"
-                    className="h-10 sm:h-12 w-auto object-contain mb-4 sm:mb-5"
+                    className="h-10 md:h-32 w-auto object-contain mb-3 sm:mb-2"
                   />
                   <h2
                     id="login-modal-title"
@@ -283,22 +283,9 @@ export default function LoginModal({ open, handleClose }) {
                       letterSpacing: "-0.01em",
                     }}
                   >
-                    Welcome Back
+                    Welcome Admin
                   </h2>
-                  <p
-                    style={{
-                      fontFamily:
-                        "var(--font-plus-jakarta, PlusJakartaSans, sans-serif)",
-                      fontWeight: 400,
-                      fontSize: "clamp(0.78rem, 2.2vw, 0.875rem)",
-                      color: "rgba(255,255,255,0.45)",
-                      marginTop: "6px",
-                      marginBottom: 0,
-                      letterSpacing: "0.01em",
-                    }}
-                  >
-                    Sign in to your LucidMind account
-                  </p>
+               
                   <div
                     style={{
                       width: "40px",
