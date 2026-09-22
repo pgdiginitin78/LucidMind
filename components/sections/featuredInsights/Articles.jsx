@@ -117,12 +117,12 @@ export default function Articles() {
                   transition={{ duration: 0.8, ease: "easeOut" }}
                   className="shrink-0 pt-2"
                 >
-                  <p className="text-brand-blue font-semibold tracking-[0.18em] uppercase text-xs mb-3">
+                  <p className="text-brand-blue font-semibold tracking-[0.18em] uppercase text-xs mb-2">
                     INSIGHTS &amp; PERSPECTIVES
                   </p>
                   <Heading
                     level={2}
-                    className="font-['Playfair_Display',serif] font-semibold text-[2rem] lg:text-[3rem] lg:text-[3rem] leading-[1.05] tracking-tight text-[#0B192C] mb-5 drop-shadow-md sm:drop-shadow-none"
+                    className="font-['Playfair_Display',serif] font-semibold text-[2rem] lg:text-[3rem] lg:text-[3rem] leading-[1.05] tracking-tight text-[#0B192C] mb-2 drop-shadow-md sm:drop-shadow-none"
                   >
                     Thought Leadership
                     <br />
@@ -131,7 +131,7 @@ export default function Articles() {
                       AI Era.
                     </span>
                   </Heading>
-                  <p className="text-black text-sm sm:text-base lg:text-base leading-relaxed max-w-[100%] md:max-w-[80%] lg:max-w-[700px] mb-2 drop-shadow-md sm:drop-shadow-none">
+                  <p className="text-black text-sm sm:text-base lg:text-base leading-relaxed max-w-[100%] md:max-w-[80%] lg:max-w-[900px] mb-3 drop-shadow-md sm:drop-shadow-none">
                     Expert insights, frameworks and perspectives to help leaders
                     navigate complexity and build future-ready organisations.
                   </p>

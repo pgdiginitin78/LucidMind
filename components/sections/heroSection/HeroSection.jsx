@@ -59,8 +59,8 @@ function HeroSection() {
           </div>
 
           <p className="text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-2">
-            AI is changing technology. The real challenge is transforming
-            leadership, operating models, and business capabilities.
+            {/* AI is changing technology. The real challenge is */}
+            Transforming leadership, operating models, and business capabilities.
           </p>
 
           <Link

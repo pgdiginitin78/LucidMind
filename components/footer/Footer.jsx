@@ -2,7 +2,7 @@
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
+const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 4.svg";
 import DotField from "../sections/heroSection/DotField";
 import LoginModal from "../loginModal/LoginModal";
 
@@ -198,14 +198,7 @@ export default function Footer() {
                         <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-[#00C4FF] transition-all duration-300 group-hover:w-full" />
                       </Link>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={() => setLoginModal(true)}
-                        className="group relative text-white text-sm 2xl:text-base transition-colors inline-block cursor-pointer text-left hover:text-[#00C4FF]"
-                      >
-                        Login
-                        <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full group-hover:bg-[#00C4FF]" />
-                      </button>
+                      ""
                     )}
                   </li>
                 )}
@@ -347,5 +340,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-

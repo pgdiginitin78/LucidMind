@@ -121,21 +121,21 @@ export default function AdvisoryPhilosophy() {
           <div>
             <div className="w-12 h-1 bg-[#1D4ED8] rounded-full mb-3" />
             <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0B1528] tracking-tight leading-tight">
-              Our Advisory <span className="text-[#2563EB]">Philosophy</span>
+              Our <span className="text-[#2563EB]">Philosophy</span>
             </h2>
             <p className="text-[#526484] text-base sm:text-lg font-normal mt-1.5">
               From Strategy to Execution. From Execution to Impact.
             </p>
           </div>
 
-          <div className="flex items-center gap-3.5 pb-1 self-start sm:self-auto">
+          {/* <div className="flex items-center gap-3.5 pb-1 self-start sm:self-auto">
             <div className="w-[1.5px] h-10 bg-blue-300/70" />
             <div className="text-[11px] font-bold tracking-[0.22em] text-[#8392A5] uppercase leading-[1.35] flex flex-col items-start select-none">
               <span>IDEAS</span>
               <span>PEOPLE</span>
               <span>REAL IMPACT</span>
             </div>
-          </div>
+          </div> */}
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 items-stretch 2xl:px-8">
