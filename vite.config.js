@@ -20,7 +20,6 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {
-      // Inject env vars at build time so NEXT_PUBLIC_API_URL works in production
       'process.env.NEXT_PUBLIC_API_URL': JSON.stringify(env.NEXT_PUBLIC_API_URL || ''),
       'process.env.NEXT_PUBLIC_PAYLOAD_SECRET': JSON.stringify(env.NEXT_PUBLIC_PAYLOAD_SECRET || ''),
     },

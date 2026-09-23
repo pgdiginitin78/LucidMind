@@ -1,6 +1,4 @@
 "use client";
-/* global process */
-"use client";
 import InputField from "@/common/formFields/InputField";
 import { Box, InputAdornment, Modal } from "@mui/material";
 import { LockIcon, UserIcon, X, Loader2, Eye, EyeOff, CheckCircle2 } from "lucide-react";
@@ -11,10 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "@/lib/navigation";
 import { encryptPayload } from "@/lib/crypto";
-
-const API_BASE_URL =
-  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_URL) ||
-  "";
+import { API_BASE_URL } from "@/lib/api";
 
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 const LucidMindTransperentLogoMobile =

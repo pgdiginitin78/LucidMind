@@ -23,8 +23,8 @@ import InputArea from "@/common/formFields/InputArea";
 import CommonTableNew from "@/common/table/CommonTable";
 import ImageUploadField from "@/common/formFields/ImageUploadField";
 
-const API_BASE_URL =
-  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_API_URL) || "";
+import { API_BASE_URL } from "@/lib/api";
+
 
 const getHeaders = () => {
   const token =
