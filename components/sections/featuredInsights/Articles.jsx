@@ -12,6 +12,7 @@ import {
   useMobileDetection,
 } from "./MagicBento";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
+import { API_BASE_URL } from "@/lib/api";
 
 function ArrowRightIcon() {
   return (
@@ -42,7 +43,7 @@ export default function Articles() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/blogs")
+    fetch(`${API_BASE_URL}/api/blogs`)
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();

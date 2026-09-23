@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import ArticleDetail from "./ArticleDetail";
 import InsightsAllBannerImage from "./images/InsightsAllBannerImage.webp";
 import InsightsAllMobileBanner from "./images/InsightsAllMobileBanner.webp";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function InsightsHub() {
   const [articles, setArticles] = useState([]);
@@ -57,7 +58,7 @@ export default function InsightsHub() {
   // Fetch blogs
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/blogs")
+    fetch(`${API_BASE_URL}/api/blogs`)
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();
@@ -101,7 +102,7 @@ export default function InsightsHub() {
   // Fetch podcasts
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/podcasts")
+    fetch(`${API_BASE_URL}/api/podcasts`)
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();

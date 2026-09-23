@@ -6,6 +6,7 @@ import { ArrowUpRight, Headphones, Mic, Play, X } from "lucide-react";
 import Image from "@/common/Image";
 import PodcastHeroBanner from "./images/PodcastHeroBanner.webp";
 import PodcastHeroBannerMobile from "./images/PodcastHeroBannerMobile.webp";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function PodcastsHub() {
   const { setReady } = usePageReady();
@@ -20,7 +21,7 @@ export default function PodcastsHub() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/podcasts")
+    fetch(`${API_BASE_URL}/api/podcasts`)
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();

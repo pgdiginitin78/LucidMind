@@ -7,6 +7,7 @@ import Heading from "../../ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import Image from "@/common/Image";
 import PodcastBannerImg from "./images/PodcastBanner.webp";
+import { API_BASE_URL } from "@/lib/api";
 
 function WaveformIcon({ active = false }) {
   return (
@@ -36,7 +37,7 @@ export default function Podcasts() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch("/api/podcasts")
+    fetch(`${API_BASE_URL}/api/podcasts`)
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();

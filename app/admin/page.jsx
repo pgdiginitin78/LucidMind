@@ -13,6 +13,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { API_BASE_URL } from "@/lib/api";
 
 export default function AdminDashboard() {
   const [counts, setCounts] = useState({ services: 4, blogs: 2, podcasts: 4 });
@@ -21,9 +22,9 @@ export default function AdminDashboard() {
     const fetchCounts = async () => {
       try {
         const [srvRes, blogRes, podRes] = await Promise.all([
-          fetch("/api/services").then((r) => r.json()).catch(() => null),
-          fetch("/api/blogs").then((r) => r.json()).catch(() => null),
-          fetch("/api/podcasts").then((r) => r.json()).catch(() => null),
+          fetch(`${API_BASE_URL}/api/services`).then((r) => r.json()).catch(() => null),
+          fetch(`${API_BASE_URL}/api/blogs`).then((r) => r.json()).catch(() => null),
+          fetch(`${API_BASE_URL}/api/podcasts`).then((r) => r.json()).catch(() => null),
         ]);
 
         setCounts({
