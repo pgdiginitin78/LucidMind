@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import AiParticleDisplay from "./AiParticleDisplay";
 import DotField from "./DotField";
 import { usePageReady } from "../../transitions/PageTransitionContext";

@@ -1,8 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, Link } from "@/lib/navigation";
 const articlesSectionBgWebP = "/assets/articles_section_bg.webp";
 import Heading from "../../ui/Heading";
 import ArticleDetail from "./ArticleDetail";
@@ -83,23 +82,21 @@ export default function Articles() {
         className={`w-full ${pathname === "/articles" || pathname === "/insights" ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-10"} relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
       >
         <img
-            src={articlesSectionBgWebP}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            decoding="async"
-            width={1400}
-            height={900}
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none z-1 opacity-75"
-          />
+          src={articlesSectionBgWebP}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          width={1400}
+          height={900}
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none z-1 opacity-75"
+        />
 
         <div className="absolute inset-0 w-full h-full pointer-events-none z-1 bg-linear-to-br from-white/45 via-white/15 to-transparent" />
 
         <WebGLParticleCanvas variant="articles" />
 
-        <div
-          className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]"
-        >
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
           <BentoCardGrid gridRef={gridRef}>
             <GlobalSpotlight
               gridRef={gridRef}

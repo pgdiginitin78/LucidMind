@@ -196,4 +196,56 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-export default { getAllBlogs, getBlogBySlug, createBlog, updateBlog, deleteBlog };
+const publishBlog = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isPublished } = req.body;
+    if (mongoose.connection.readyState === 1) {
+      const blog = await Blog.findByIdAndUpdate(
+        id,
+        { isPublished: Boolean(isPublished) },
+        { new: true }
+      );
+      if (!blog) return res.status(404).json({ message: 'Blog not found' });
+      return res.status(200).json({ message: 'Blog publish status updated', blog });
+    }
+    const blogs = getLocalBlogs();
+    const idx = blogs.findIndex((b) => b._id === id || b.id === id);
+    if (idx === -1) return res.status(404).json({ message: 'Blog not found' });
+    blogs[idx].isPublished = Boolean(isPublished);
+    blogs[idx].updatedAt = new Date().toISOString();
+    saveLocalBlogs(blogs);
+    return res.status(200).json({ message: 'Blog publish status updated', blog: blogs[idx] });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+const reorderBlogs = async (req, res) => {
+  try {
+    const orderedIds = req.body.orderedIds || req.body.blogs?.map((b) => b._id || b.id);
+    if (!orderedIds || !Array.isArray(orderedIds)) {
+      return res.status(400).json({ message: 'orderedIds array is required' });
+    }
+    const current = getLocalBlogs();
+    const map = new Map(current.map((b) => [String(b._id || b.id), b]));
+    const reordered = [];
+    orderedIds.forEach((id, idx) => {
+      const item = map.get(String(id));
+      if (item) {
+        reordered.push({ ...item, order: idx + 1 });
+        map.delete(String(id));
+      }
+    });
+    for (const rem of map.values()) {
+      reordered.push({ ...rem, order: reordered.length + 1 });
+    }
+    saveLocalBlogs(reordered);
+    return res.status(200).json({ message: 'Articles reordered', blogs: reordered });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export default { getAllBlogs, getBlogBySlug, createBlog, updateBlog, deleteBlog, publishBlog, reorderBlogs };
+

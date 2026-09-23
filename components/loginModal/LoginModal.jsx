@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { encryptPayload } from "@/lib/crypto";
 
 const API_BASE_URL =

@@ -185,4 +185,56 @@ const deletePodcast = async (req, res) => {
   }
 };
 
-export default { getAllPodcasts, getPodcastById, createPodcast, updatePodcast, deletePodcast };
+const publishPodcast = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { isPublished } = req.body;
+    if (mongoose.connection.readyState === 1) {
+      const podcast = await Podcast.findByIdAndUpdate(
+        id,
+        { isPublished: Boolean(isPublished) },
+        { new: true }
+      );
+      if (!podcast) return res.status(404).json({ message: 'Podcast not found' });
+      return res.status(200).json({ message: 'Podcast publish status updated', podcast });
+    }
+    const podcasts = getLocalPodcasts();
+    const idx = podcasts.findIndex((p) => p._id === id || p.id === id);
+    if (idx === -1) return res.status(404).json({ message: 'Podcast not found' });
+    podcasts[idx].isPublished = Boolean(isPublished);
+    podcasts[idx].updatedAt = new Date().toISOString();
+    saveLocalPodcasts(podcasts);
+    return res.status(200).json({ message: 'Podcast publish status updated', podcast: podcasts[idx] });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};
+
+const reorderPodcasts = async (req, res) => {
+  try {
+    const orderedIds = req.body.orderedIds || req.body.podcasts?.map((p) => p._id || p.id);
+    if (!orderedIds || !Array.isArray(orderedIds)) {
+      return res.status(400).json({ message: 'orderedIds array is required' });
+    }
+    const current = getLocalPodcasts();
+    const map = new Map(current.map((p) => [String(p._id || p.id), p]));
+    const reordered = [];
+    orderedIds.forEach((id, idx) => {
+      const item = map.get(String(id));
+      if (item) {
+        reordered.push({ ...item, order: idx + 1 });
+        map.delete(String(id));
+      }
+    });
+    for (const rem of map.values()) {
+      reordered.push({ ...rem, order: reordered.length + 1 });
+    }
+    saveLocalPodcasts(reordered);
+    return res.status(200).json({ message: 'Podcasts reordered', podcasts: reordered });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export default { getAllPodcasts, getPodcastById, createPodcast, updatePodcast, deletePodcast, publishPodcast, reorderPodcasts };
+

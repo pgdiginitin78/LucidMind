@@ -11,8 +11,8 @@ import {
   Video,
   X,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "@/common/Image";
+import { Link } from "@/lib/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import ArticleDetail from "./ArticleDetail";

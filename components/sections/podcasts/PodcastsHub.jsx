@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { usePageReady } from "@/components/transitions/PageTransitionContext";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Headphones, Mic, Play, X } from "lucide-react";
-import Image from "next/image";
+import Image from "@/common/Image";
 import PodcastHeroBanner from "./images/PodcastHeroBanner.webp";
 import PodcastHeroBannerMobile from "./images/PodcastHeroBannerMobile.webp";
 

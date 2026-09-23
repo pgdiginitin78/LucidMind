@@ -171,4 +171,31 @@ const deleteService = async (req, res) => {
   }
 };
 
-export default { getAllServices, createService, updateService, deleteService };
+const reorderServices = async (req, res) => {
+  try {
+    const orderedIds = req.body.orderedIds || req.body.services?.map((s) => s._id || s.id);
+    if (!orderedIds || !Array.isArray(orderedIds)) {
+      return res.status(400).json({ message: 'orderedIds array is required' });
+    }
+    const current = getLocalServices();
+    const map = new Map(current.map((s) => [String(s._id || s.id), s]));
+    const reordered = [];
+    orderedIds.forEach((id, idx) => {
+      const item = map.get(String(id));
+      if (item) {
+        reordered.push({ ...item, order: idx + 1 });
+        map.delete(String(id));
+      }
+    });
+    for (const rem of map.values()) {
+      reordered.push({ ...rem, order: reordered.length + 1 });
+    }
+    saveLocalServices(reordered);
+    return res.status(200).json({ message: 'Services reordered', services: reordered });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export default { getAllServices, createService, updateService, deleteService, reorderServices };
+

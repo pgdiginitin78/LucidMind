@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { Menu, X } from "lucide-react";

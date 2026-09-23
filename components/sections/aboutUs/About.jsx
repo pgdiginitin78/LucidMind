@@ -8,8 +8,8 @@ import {
   useTransform,
 } from "framer-motion";
 import Lenis from "lenis";
-import Image from "next/image";
-import Link from "next/link";
+import Image from "@/common/Image";
+import { Link } from "@/lib/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import ExecutiveThinkingLeftImg from "./images/executive_thinking_left.webp";

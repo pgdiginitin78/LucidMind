@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { ShieldAlert, Loader2 } from "lucide-react";
 
 export default function AdminGuard({ children }) {

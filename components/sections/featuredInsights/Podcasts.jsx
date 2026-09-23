@@ -1,12 +1,11 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Play } from "lucide-react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { usePathname, Link } from "@/lib/navigation";
 import { useEffect, useRef, useState } from "react";
 import Heading from "../../ui/Heading";
 import WebGLParticleCanvas from "./WebGLParticleCanvas";
-import Image from "next/image";
+import Image from "@/common/Image";
 import PodcastBannerImg from "./images/PodcastBanner.webp";
 
 function WaveformIcon({ active = false }) {

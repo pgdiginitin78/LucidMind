@@ -1,0 +1,8 @@
+{
+  "doctype-first": true,
+  "doctype-html5": true,
+  "html-lang": true,
+  "tag-pair": true,
+  "tag-self-close": false,
+  "attr-value-not-empty": false
+}

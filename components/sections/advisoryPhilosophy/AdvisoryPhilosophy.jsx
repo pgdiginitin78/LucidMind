@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import Image from "@/common/Image";
 import AdvisoryPhilosophyBanner from "./images/AdvisoryPhilosophyBanner.webp";
 import HighlightCard from "../../ui/highlight-card";
 

@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { motion } from "framer-motion";
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 4.svg";
 import DotField from "../sections/heroSection/DotField";

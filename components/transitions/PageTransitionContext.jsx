@@ -6,7 +6,7 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/lib/navigation";
 
 const PageTransitionContext = createContext({
   isReady: false,

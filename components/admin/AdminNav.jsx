@@ -9,8 +9,7 @@ import {
   LogOut,
   Mic
 } from "lucide-react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { useRef, useState } from "react";
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 const LucidMindTransperentLogoMobile =

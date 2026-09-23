@@ -67,7 +67,7 @@ const operatingSteps = [
 
 import { useEffect } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 
 export default function Advisory() {
   const { setReady } = usePageReady();
