@@ -241,6 +241,7 @@ export default function ContactUs() {
     }
   }, [status]);
 
+  
   const onSubmitHandler = async (data) => {
     const payload = {
       name: data.name,
