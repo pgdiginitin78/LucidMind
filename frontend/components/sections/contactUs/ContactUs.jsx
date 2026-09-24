@@ -1,8 +1,8 @@
 "use client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { AlertCircle, CheckCircle2, Loader2, Send, X } from "lucide-react";
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { API_BASE_URL } from "@/src/config/api";
@@ -202,7 +202,6 @@ export default function ContactUs() {
     title: "",
     message: "",
   });
-  const successRef = useRef(null);
 
   useEffect(() => {
     setReady(true);
@@ -225,23 +224,6 @@ export default function ContactUs() {
     },
   });
 
-  useEffect(() => {
-    if (status === "success" && successRef.current) {
-      Array.from(successRef.current.querySelectorAll("[data-reveal]")).forEach(
-        (el, i) => {
-          el.style.opacity = "0";
-          el.style.transform = "translateY(10px)";
-          el.style.transition = `opacity 0.5s ease-out ${i * 0.08}s, transform 0.5s ease-out ${i * 0.08}s`;
-          setTimeout(() => {
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          }, 50);
-        },
-      );
-    }
-  }, [status]);
-
-  
   const onSubmitHandler = async (data) => {
     const payload = {
       name: data.name,
@@ -459,181 +441,114 @@ export default function ContactUs() {
                 style={{ background: `${BLUE}07` }}
               />
 
-              <AnimatePresence mode="wait">
-                {status === "success" ? (
-                  <motion.div
-                    key="success"
-                    ref={successRef}
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.92 }}
-                    transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                    className="relative flex flex-col items-center justify-center gap-4 py-10 text-center sm:py-14"
+              <motion.form
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onSubmit={handleSubmit(onSubmitHandler)}
+                className="relative flex flex-col gap-4 sm:gap-5"
+              >
+                <div className="mb-1">
+                  <p
+                    className="mb-2 text-[9px] font-semibold uppercase tracking-[0.22em] sm:text-[10px] sm:tracking-[0.28em]"
+                    style={{ color: TEAL }}
                   >
-                    <div
-                      data-reveal
-                      className="grid h-14 w-14 place-items-center rounded-full sm:h-16 sm:w-16"
-                      style={{ background: `${TEAL}22` }}
-                    >
-                      <CheckCircle2
-                        size={28}
-                        style={{ color: TEAL }}
-                        className="sm:size-[30px]"
-                      />
-                    </div>
-                    <h3
-                      data-reveal
-                      className="text-lg font-bold text-white sm:text-xl"
-                      style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
-                    >
-                      Message Sent!
-                    </h3>
-                    <p
-                      data-reveal
-                      className="max-w-xs text-sm leading-relaxed text-white/45"
-                    >
-                      Thank you for reaching out. We'll get back to you within
-                      24 hours.
-                    </p>
-                    <button
-                      data-reveal
-                      onClick={() => {
-                        setStatus("idle");
-                        reset();
-                      }}
-                      className="mt-1 text-xs font-semibold uppercase tracking-widest transition-opacity hover:opacity-70"
-                      style={{ color: TEAL }}
-                    >
-                      Send Another
-                    </button>
-                  </motion.div>
-                ) : (
-                  <motion.form
-                    key="form"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    onSubmit={handleSubmit(onSubmitHandler)}
-                    className="relative flex flex-col gap-4 sm:gap-5"
+                    Send a Message
+                  </p>
+                  <h2
+                    className="text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl"
+                    style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
                   >
-                    <div className="mb-1">
-                      <p
-                        className="mb-2 text-[9px] font-semibold uppercase tracking-[0.22em] sm:text-[10px] sm:tracking-[0.28em]"
-                        style={{ color: TEAL }}
-                      >
-                        Send a Message
-                      </p>
-                      <h2
-                        className="text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl"
-                        style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
-                      >
-                        We'd love to hear from you
-                      </h2>
-                    </div>
+                    We'd love to hear from you
+                  </h2>
+                </div>
 
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <Field
-                        label="Full Name"
-                        required
-                        error={errors.name?.message}
-                      >
-                        <input
-                          type="text"
-                          placeholder="John Doe"
-                          {...inputProps("name")}
-                        />
-                      </Field>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field
+                    label="Full Name"
+                    required
+                    error={errors.name?.message}
+                  >
+                    <input
+                      type="text"
+                      placeholder="John Doe"
+                      {...inputProps("name")}
+                    />
+                  </Field>
 
-                      <Field
-                        label="Email"
-                        required
-                        error={errors.email?.message}
-                      >
-                        <input
-                          type="email"
-                          placeholder="john@company.com"
-                          {...inputProps("email")}
-                        />
-                      </Field>
-                    </div>
+                  <Field label="Email" required error={errors.email?.message}>
+                    <input
+                      type="email"
+                      placeholder="john@company.com"
+                      {...inputProps("email")}
+                    />
+                  </Field>
+                </div>
 
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <Field label="Phone" error={errors.phone?.message}>
-                        <input
-                          type="tel"
-                          placeholder="+91 98765 43210"
-                          {...inputProps("phone")}
-                        />
-                      </Field>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <Field label="Phone" error={errors.phone?.message}>
+                    <input
+                      type="tel"
+                      placeholder="+91 98765 43210"
+                      {...inputProps("phone")}
+                    />
+                  </Field>
 
-                      <Field label="Company" error={errors.company?.message}>
-                        <input
-                          type="text"
-                          placeholder="Acme Corp"
-                          {...inputProps("company")}
-                        />
-                      </Field>
-                    </div>
+                  <Field label="Company" error={errors.company?.message}>
+                    <input
+                      type="text"
+                      placeholder="Acme Corp"
+                      {...inputProps("company")}
+                    />
+                  </Field>
+                </div>
 
-                    <Field
-                      label="Subject"
-                      required
-                      error={errors.subject?.message}
-                    >
-                      <input
-                        type="text"
-                        placeholder="AI Transformation Advisory"
-                        {...inputProps("subject")}
-                      />
-                    </Field>
+                <Field label="Subject" required error={errors.subject?.message}>
+                  <input
+                    type="text"
+                    placeholder="AI Transformation Advisory"
+                    {...inputProps("subject")}
+                  />
+                </Field>
 
-                    <Field
-                      label="Message"
-                      required
-                      error={errors.message?.message}
-                    >
-                      <textarea
-                        placeholder="Tell us about your challenge or goal…"
-                        rows={5}
-                        {...inputProps("message")}
-                        className="w-full resize-none rounded-[10px] px-3.5 py-2.5 text-[13px] text-white/90 outline-none transition-all duration-200 placeholder:text-white/25 sm:text-[13.5px]"
-                      />
-                    </Field>
+                <Field label="Message" required error={errors.message?.message}>
+                  <textarea
+                    placeholder="Tell us about your challenge or goal…"
+                    rows={5}
+                    {...inputProps("message")}
+                    className="w-full resize-none rounded-[10px] px-3.5 py-2.5 text-[13px] text-white/90 outline-none transition-all duration-200 placeholder:text-white/25 sm:text-[13.5px]"
+                  />
+                </Field>
 
-                    <motion.button
-                      type="submit"
-                      disabled={status === "loading"}
-                      whileHover={{ scale: status === "loading" ? 1 : 1.015 }}
-                      whileTap={{ scale: status === "loading" ? 1 : 0.985 }}
-                      className="flex w-full items-center justify-center gap-2.5 rounded-xl py-3.5 text-sm font-semibold text-white"
-                      style={{
-                        background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`,
-                        opacity: status === "loading" ? 0.75 : 1,
-                        cursor:
-                          status === "loading" ? "not-allowed" : "pointer",
-                        fontFamily: "'PlusJakartaSans', sans-serif",
-                        border: "none",
-                      }}
-                    >
-                      {status === "loading" ? (
-                        <>
-                          <Loader2 size={15} className="animate-spin" />{" "}
-                          Sending…
-                        </>
-                      ) : (
-                        <>
-                          <Send size={14} strokeWidth={2} /> Send Message
-                        </>
-                      )}
-                    </motion.button>
+                <motion.button
+                  type="submit"
+                  disabled={status === "loading"}
+                  whileHover={{ scale: status === "loading" ? 1 : 1.015 }}
+                  whileTap={{ scale: status === "loading" ? 1 : 0.985 }}
+                  className="flex w-full items-center justify-center gap-2.5 rounded-xl py-3.5 text-sm font-semibold text-white"
+                  style={{
+                    background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`,
+                    opacity: status === "loading" ? 0.75 : 1,
+                    cursor: status === "loading" ? "not-allowed" : "pointer",
+                    fontFamily: "'PlusJakartaSans', sans-serif",
+                    border: "none",
+                  }}
+                >
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 size={15} className="animate-spin" /> Sending…
+                    </>
+                  ) : (
+                    <>
+                      <Send size={14} strokeWidth={2} /> Send Message
+                    </>
+                  )}
+                </motion.button>
 
-                    <p className="text-center text-[10px] text-white/22 sm:text-[10.5px]">
-                      We respect your privacy. Your information will never be
-                      shared.
-                    </p>
-                  </motion.form>
-                )}
-              </AnimatePresence>
+                <p className="text-center text-[10px] text-white/22 sm:text-[10.5px]">
+                  We respect your privacy. Your information will never be
+                  shared.
+                </p>
+              </motion.form>
             </div>
           </motion.div>
         </div>
@@ -677,7 +592,7 @@ export default function ContactUs() {
                 onClick={() =>
                   setModalConfig((prev) => ({ ...prev, isOpen: false }))
                 }
-                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-1"
+                className="absolute top-4 right-4 text-white/50 cursor-pointer hover:text-white transition-colors p-1"
                 aria-label="Close modal"
               >
                 <X size={20} />
@@ -723,7 +638,7 @@ export default function ContactUs() {
                 onClick={() =>
                   setModalConfig((prev) => ({ ...prev, isOpen: false }))
                 }
-                className="w-full rounded-xl py-3 px-6 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-98"
+                className="w-full rounded-xl py-3 px-6 cursor-pointer text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-98"
                 style={{
                   background:
                     modalConfig.type === "success"
