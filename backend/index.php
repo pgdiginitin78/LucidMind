@@ -31,7 +31,8 @@ $allowedOrigins = [
     'https://lucidmind.co.in',
     'https://www.lucidmind.co.in',
     'http://localhost:3000',
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'https://lucid-mind-ten.vercel.app'
 ];
 
 $frontendUrl = getenv('FRONTEND_URL') ?: ($_ENV['FRONTEND_URL'] ?? ($_SERVER['FRONTEND_URL'] ?? ''));
