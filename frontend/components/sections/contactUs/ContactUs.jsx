@@ -1,8 +1,8 @@
 "use client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { motion,AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { AlertCircle, CheckCircle2, Loader2, Send, X } from "lucide-react";
-import { Suspense, lazy, useEffect, useMemo, useState ,useRef} from "react";
+import { Suspense, lazy, useEffect, useMemo, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { API_BASE_URL } from "@/src/config/api";
@@ -624,13 +624,8 @@ export default function ContactUs() {
                 className="mb-2 text-xl font-bold text-white sm:text-2xl"
                 style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
               >
-                {modalConfig.title}
-              </h3>
-
-              {/* Message */}
-              <p className="mb-6 text-sm leading-relaxed text-white/70">
                 {modalConfig.message}
-              </p>
+              </h3>
 
               {/* Action Button */}
               <button
