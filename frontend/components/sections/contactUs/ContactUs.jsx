@@ -1,6 +1,6 @@
 "use client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { motion } from "framer-motion";
+import { motion,AnimatePresence} from "framer-motion";
 import { AlertCircle, CheckCircle2, Loader2, Send, X } from "lucide-react";
 import { Suspense, lazy, useEffect, useMemo, useState ,useRef} from "react";
 import { useForm } from "react-hook-form";
