@@ -92,7 +92,7 @@ class ContactController {
             body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
             .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
             .header { background-color: #000000; padding: 25px; text-align: center; }
-            .header img { max-height: 40px; }
+            .header img { max-height: 120px; }
             .content { padding: 30px; color: #333333; }
             .content h2 { margin-top: 0; color: #1a1a1a; font-size: 20px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;}
             .field { margin-bottom: 20px; }

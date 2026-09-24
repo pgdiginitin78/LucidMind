@@ -1,11 +1,12 @@
 "use client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AnimatePresence, motion } from "framer-motion";
-import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader2, Send, X } from "lucide-react";
 import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { API_BASE_URL } from "@/src/config/api";
+import { usePageReady } from "../../transitions/PageTransitionContext";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -190,31 +191,17 @@ function FullScreenLoader({ isVisible }) {
   );
 }
 
-const showThemeAlert = (type, title, text) => {
-  Swal.fire({
-    title,
-    text,
-    icon: type,
-    background: "#0a1224",
-    color: "#ffffff",
-    confirmButtonColor: TEAL,
-    confirmButtonText: "Okay",
-    customClass: {
-      popup: "border border-white/10 rounded-2xl",
-      title: 'font-["PlusJakartaSans"]',
-      confirmButton:
-        'rounded-xl px-8 py-3 font-semibold font-["PlusJakartaSans"] tracking-wide',
-    },
-  });
-};
-
-import { usePageReady } from "../../transitions/PageTransitionContext";
-
 export default function ContactUs() {
   const { setReady } = usePageReady();
   const [status, setStatus] = useState("idle");
   const [focusedField, setFocusedField] = useState(null);
   const [headerRef, headerInView] = useInViewOnce();
+  const [modalConfig, setModalConfig] = useState({
+    isOpen: false,
+    type: "success",
+    title: "",
+    message: "",
+  });
   const successRef = useRef(null);
 
   useEffect(() => {
@@ -282,28 +269,43 @@ export default function ContactUs() {
       setStatus("idle");
 
       if (result.success) {
-        showThemeAlert(
-          "success",
-          "Message Sent!",
-          "Thank you for reaching out. We will get back to you soon.",
-        );
-        reset();
+        reset({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          subject: "",
+          message: "",
+        });
+        setModalConfig({
+          isOpen: true,
+          type: "success",
+          title: "Message Sent!",
+          message:
+            result.message ||
+            "Thank you for reaching out. We will get back to you soon.",
+        });
       } else {
         console.error("Error from backend:", result.message);
-        showThemeAlert(
-          "error",
-          "Failed to Send",
-          "There was an issue sending your message. Please try again later.",
-        );
+        setModalConfig({
+          isOpen: true,
+          type: "error",
+          title: "Failed to Send",
+          message:
+            result.message ||
+            "There was an issue sending your message. Please try again later.",
+        });
       }
     } catch (error) {
       console.error("Network error:", error);
       setStatus("idle");
-      showThemeAlert(
-        "error",
-        "Network Error",
-        "Failed to reach the server. Please try again later.",
-      );
+      setModalConfig({
+        isOpen: true,
+        type: "error",
+        title: "Network Error",
+        message:
+          "Failed to reach the server. Please check your internet connection and try again.",
+      });
     }
   };
 
@@ -312,12 +314,13 @@ export default function ContactUs() {
       focusedField === field
         ? "rgba(255,255,255,0.07)"
         : "rgba(255,255,255,0.03)",
-    border: `1.5px solid ${errors[field]
+    border: `1.5px solid ${
+      errors[field]
         ? "#ef4444"
         : focusedField === field
           ? TEAL + "70"
           : "rgba(255,255,255,0.10)"
-      }`,
+    }`,
     boxShadow: focusedField === field ? `0 0 0 3px ${TEAL}18` : "none",
   });
 
@@ -634,6 +637,109 @@ export default function ContactUs() {
           </motion.div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <AnimatePresence>
+        {modalConfig.isOpen && (
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
+            style={{
+              backgroundColor: "rgba(0, 0, 0, 0.75)",
+              backdropFilter: "blur(8px)",
+            }}
+            onClick={() =>
+              setModalConfig((prev) => ({ ...prev, isOpen: false }))
+            }
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-md overflow-hidden rounded-2xl p-6 sm:p-8 text-center shadow-2xl"
+              style={{
+                background: "linear-gradient(160deg, #0a1329 0%, #050b18 100%)",
+                border:
+                  modalConfig.type === "success"
+                    ? `1.5px solid ${TEAL}60`
+                    : "1.5px solid rgba(239, 68, 68, 0.5)",
+                boxShadow:
+                  modalConfig.type === "success"
+                    ? `0 20px 50px -10px ${TEAL}30`
+                    : "0 20px 50px -10px rgba(239, 68, 68, 0.3)",
+              }}
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() =>
+                  setModalConfig((prev) => ({ ...prev, isOpen: false }))
+                }
+                className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-1"
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Status Icon */}
+              <div
+                className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full"
+                style={{
+                  background:
+                    modalConfig.type === "success"
+                      ? `${TEAL}18`
+                      : "rgba(239, 68, 68, 0.15)",
+                  border:
+                    modalConfig.type === "success"
+                      ? `1.5px solid ${TEAL}60`
+                      : "1.5px solid rgba(239, 68, 68, 0.5)",
+                }}
+              >
+                {modalConfig.type === "success" ? (
+                  <CheckCircle2 size={32} style={{ color: TEAL }} />
+                ) : (
+                  <AlertCircle size={32} className="text-red-400" />
+                )}
+              </div>
+
+              {/* Title */}
+              <h3
+                className="mb-2 text-xl font-bold text-white sm:text-2xl"
+                style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
+              >
+                {modalConfig.title}
+              </h3>
+
+              {/* Message */}
+              <p className="mb-6 text-sm leading-relaxed text-white/70">
+                {modalConfig.message}
+              </p>
+
+              {/* Action Button */}
+              <button
+                type="button"
+                onClick={() =>
+                  setModalConfig((prev) => ({ ...prev, isOpen: false }))
+                }
+                className="w-full rounded-xl py-3 px-6 text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-98"
+                style={{
+                  background:
+                    modalConfig.type === "success"
+                      ? `linear-gradient(90deg, ${TEAL}, ${BLUE})`
+                      : "linear-gradient(90deg, #ef4444, #dc2626)",
+                  boxShadow:
+                    modalConfig.type === "success"
+                      ? `0 4px 20px ${TEAL}35`
+                      : "0 4px 20px rgba(239, 68, 68, 0.35)",
+                }}
+              >
+                {modalConfig.type === "success" ? "Done" : "Try Again"}
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
