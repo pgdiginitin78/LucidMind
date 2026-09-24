@@ -654,7 +654,7 @@ export default function Advisory() {
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <h4 className="text-sm sm:text-base font-serif font-semibold text-white mb-1.5 leading-snug">
-                ESG &amp; Responsible Business Transformation
+                  ESG &amp; Responsible Business Transformation
                 </h4>
                 <p className="text-[10px] sm:text-[11px] text-slate-400 mb-4 leading-normal">
                   Integrating purpose with performance

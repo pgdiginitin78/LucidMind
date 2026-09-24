@@ -2,7 +2,11 @@
 // Load env early
 $envCandidates = [
     __DIR__ . '/.env',
-    dirname(__DIR__) . '/.env'
+    dirname(__DIR__) . '/.env',
+    dirname(__DIR__, 2) . '/.env',
+    '/home4/lucidmindco/.env',
+    '/home4/lucidmindco/public_html/.env',
+    '/home4/lucidmindco/public_html/api/.env'
 ];
 
 foreach ($envCandidates as $envFile) {
