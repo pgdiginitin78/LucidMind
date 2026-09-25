@@ -245,7 +245,7 @@ export default function Navbar() {
               height={96}
               fetchPriority="high"
               decoding="async"
-              className="h-8 sm:h-9 md:h-20 2xl:h-22 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+              className="h-9 md:h-20 2xl:h-22 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
             />
           </Link>
         </motion.div>

@@ -144,8 +144,6 @@ export default function LoginModal({ open, handleClose }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: data.username.trim(),
-          password: data.password,
           payload: encryptedPayload,
         }),
       });

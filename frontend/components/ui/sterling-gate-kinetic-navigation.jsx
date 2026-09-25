@@ -1,9 +1,18 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "@/lib/navigation";
+import { Link, useRouter } from "@/lib/navigation";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import { Menu, X } from "lucide-react";
+import {
+  Menu,
+  X,
+  LayoutDashboard,
+  BookOpen,
+  Mic,
+  LogOut,
+  ChevronRight,
+  ShieldCheck,
+} from "lucide-react";
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 const LucidMindTransperentLogoMobile = "/assets/logo/LucidMind logo 2.svg";
 
@@ -13,9 +22,46 @@ if (typeof window !== "undefined") {
 
 export function Component() {
   const containerRef = useRef(null);
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showLogo, setShowLogo] = useState(true);
   const showLogoRef = useRef(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        const token = localStorage.getItem("lucidmind_token");
+        const storedUser = localStorage.getItem("lucidmind_user");
+        if (token && storedUser) {
+          setUser(JSON.parse(storedUser));
+        } else {
+          setUser(null);
+        }
+      } catch {
+        setUser(null);
+      }
+    };
+
+    checkAuth();
+    window.addEventListener("lucidmind_auth_change", checkAuth);
+    window.addEventListener("storage", checkAuth);
+    return () => {
+      window.removeEventListener("lucidmind_auth_change", checkAuth);
+      window.removeEventListener("storage", checkAuth);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("lucidmind_token");
+      localStorage.removeItem("lucidmind_user");
+    } catch {}
+    setUser(null);
+    window.dispatchEvent(new Event("lucidmind_auth_change"));
+    closeMenu();
+    router.push("/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -115,7 +161,7 @@ export function Component() {
         items.forEach((item) => item._cleanup && item._cleanup());
       }
     };
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const currentContainer = containerRef.current;
@@ -203,7 +249,7 @@ export function Component() {
               height={64}
               fetchPriority="high"
               decoding="async"
-              className="h-14 md:h-16 w-auto object-contain"
+              className="h-16 md:h-16 w-auto object-contain"
             />
           </Link>
 
@@ -231,7 +277,10 @@ export function Component() {
             className="overlay absolute inset-0 bg-black/60 backdrop-blur-md"
             onClick={closeMenu}
           ></div>
-          <nav className="menu-content absolute right-0 top-0 bottom-0 w-full max-w-md bg-linear-to-tr from-[#040914] to-[#4B9AF5] flex flex-col justify-center px-8 sm:px-12 py-10 overflow-hidden shadow-2xl">
+          <nav
+            className="menu-content absolute right-0 top-0 bottom-0 w-full max-w-md bg-linear-to-tr from-[#040914] to-[#4B9AF5] flex flex-col justify-between px-8 sm:px-12 py-8 overflow-y-auto shadow-2xl"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             <div className="menu-bg absolute inset-0 overflow-hidden pointer-events-none">
               <div className="backdrop-layer first absolute inset-0 bg-linear-to-b from-[#4B9AF5] to-[#040914]"></div>
               <div className="backdrop-layer second absolute inset-0 bg-linear-to-b from-[#040914] to-[#4B9AF5]"></div>
@@ -345,8 +394,8 @@ export function Component() {
               </div>
             </div>
 
-            <div className="menu-content-wrapper relative z-10">
-              <ul className="menu-list space-y-8">
+            <div className="menu-content-wrapper relative z-10 my-auto py-4">
+              <ul className="menu-list space-y-6 sm:space-y-7">
                 <li className="menu-list-item" data-shape="1">
                   <Link
                     href="/"
@@ -414,7 +463,89 @@ export function Component() {
                     <p className="nav-link-text">Contact</p>
                   </Link>
                 </li>
+
+                {user && (
+                  <li className="menu-list-item" data-shape="1">
+                    <div className="space-y-2 pt-2 border-t border-white/10">
+                      <div className="flex items-center justify-between gap-2">
+                        <Link
+                          href="/admin"
+                          onClick={closeMenu}
+                          className="nav-link block text-2xl font-bold text-[#00C4FF] hover:text-white transition-colors"
+                        >
+                          <span className="nav-link-text flex items-center gap-2.5">
+                            <LayoutDashboard className="w-6 h-6 text-[#00C4FF]" />
+                            <span>Dashboard</span>
+                          </span>
+                        </Link>
+                        <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-[#00C4FF]/15 border border-[#00C4FF]/40 text-[#00C4FF]">
+                          Admin
+                        </span>
+                      </div>
+                      <div className="pl-3 flex flex-col gap-2 pt-1 border-l-2 border-[#00C4FF]/40">
+                        <Link
+                          href="/admin"
+                          onClick={closeMenu}
+                          className="text-sm font-semibold text-white/80 hover:text-[#00C4FF] transition-colors flex items-center gap-2"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#00C4FF]" />
+                          <span>Overview</span>
+                        </Link>
+                        <Link
+                          href="/admin/blogs"
+                          onClick={closeMenu}
+                          className="text-sm font-semibold text-white/80 hover:text-[#00C4FF] transition-colors flex items-center gap-2"
+                        >
+                          <BookOpen className="w-3.5 h-3.5 text-[#00C4FF]" />
+                          <span>Blogs Manager</span>
+                        </Link>
+                        <Link
+                          href="/admin/podcasts"
+                          onClick={closeMenu}
+                          className="text-sm font-semibold text-white/80 hover:text-[#00C4FF] transition-colors flex items-center gap-2"
+                        >
+                          <Mic className="w-3.5 h-3.5 text-[#00C4FF]" />
+                          <span>Podcasts Manager</span>
+                        </Link>
+                      </div>
+                    </div>
+                  </li>
+                )}
               </ul>
+
+              {user && (
+                <div
+                  data-menu-fade
+                  className="mt-6 pt-5 border-t border-white/10 flex items-center justify-between gap-3"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#2563EB] to-[#00C4FF] flex items-center justify-center font-bold text-white text-sm shadow-[0_0_12px_rgba(0,196,255,0.4)] border border-[#00C4FF]/40 shrink-0">
+                      {user.username
+                        ? user.username.charAt(0).toUpperCase()
+                        : "A"}
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm font-semibold text-white capitalize truncate">
+                        {user.username || "Admin"}
+                      </span>
+                      <span className="text-[11px] text-[#00C4FF] flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block animate-pulse" />
+                        Active Session
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="flex items-center gap-1.5 text-xs font-semibold text-red-600 hover:text-red-300 px-3 py-1.5 rounded-full border border-red-600 bg-red-50 transition-all cursor-pointer shrink-0"
+                    title="Sign Out"
+                  >
+                    <LogOut size={13} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
             </div>
           </nav>
         </div>
