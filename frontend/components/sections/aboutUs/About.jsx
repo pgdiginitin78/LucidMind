@@ -12,17 +12,17 @@ import Lenis from "lenis";
 import React, { useEffect, useRef, useState } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import AboutUsSecondSectionBanner from "./images/AboutUsSecondSectionBanner.webp";
-import PillarBuildImg from "./images/Create capability.png";
-import PillarThinkImg from "./images/Create clarity.png";
-import PillarDeliverImg from "./images/Create impact.png";
+import PillarBuildImg from "./images/Create capability.webp";
+import PillarThinkImg from "./images/Create clarity.webp";
+import PillarDeliverImg from "./images/Create impact.webp";
 import ExecutiveThinkingLeftImg from "./images/executive_thinking_left.webp";
 import GlobeCurvedRightImg from "./images/globe_curved_right.webp";
 import HeroBgSectionUnknown from "./images/HeroBgSectionUnknown.webp";
-import HeroBannerBg from "./images/NewHeroBanner.png";
+import HeroBannerBg from "./images/NewHeroBanner.webp";
 import NewHeroBannerMobile from "./images/NewHeroBanner_mobile.webp";
 import Section4MountainPeak from "./images/section4_mountain_summit.webp";
-import Section5FullBg from "./images/SectionFiveBg.png";
-import Section5FullBgTab from "./images/SectionFiveBgTab.png";
+import Section5FullBg from "./images/SectionFiveBg.webp";
+import Section5FullBgTab from "./images/SectionFiveBgTab.webp";
 import TheFounderSectionBg from "./images/TheFounderSectionBg.webp";
 import TheFounderSectionBgMobile from "./images/TheFounderSectionBg_mobile.webp";
 import TheFounderSectionBgTablet from "./images/TheFounderSectionBg_tablet.webp";
@@ -573,7 +573,7 @@ export default function AboutUs() {
               }}
             />
             {/* Tablet (md–xl) */}
-            <div  
+            <div
               className="absolute inset-0 hidden md:block xl:hidden"
               style={{
                 backgroundImage: `url(${HeroBannerBg})`,
@@ -1281,7 +1281,8 @@ export default function AboutUs() {
                   Ravishankar Pingali
                 </h2>
                 <h3 className="text-xs sm:text-sm xl:text-base font-bold text-[#00C4FF] mt-1.5 sm:mt-2">
-                  GCC & Technology Leader | Transformation Advisor | Board Advisor
+                  GCC & Technology Leader | Transformation Advisor | Board
+                  Advisor
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-200 mt-1.5 sm:mt-2 font-normal leading-relaxed">
                   Building adaptive enterprises by connecting strategy,
@@ -1351,7 +1352,7 @@ export default function AboutUs() {
                 // label: "experience across enterprise environments",
               },
               {
-               icon: <IconFounderBullseye />,
+                icon: <IconFounderBullseye />,
                 stat: "30% Leadrship Pipline Strengthened",
                 statClass: "text-white",
                 // label: "perspective",
