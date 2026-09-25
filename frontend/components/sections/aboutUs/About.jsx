@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "@/common/Image";
 import {
   AnimatePresence,
   motion,
@@ -8,25 +9,23 @@ import {
   useTransform,
 } from "framer-motion";
 import Lenis from "lenis";
-import Image from "@/common/Image";
-import { Link } from "@/lib/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
+import AboutUsSecondSectionBanner from "./images/AboutUsSecondSectionBanner.webp";
+import PillarBuildImg from "./images/Create capability.png";
+import PillarThinkImg from "./images/Create clarity.png";
+import PillarDeliverImg from "./images/Create impact.png";
 import ExecutiveThinkingLeftImg from "./images/executive_thinking_left.webp";
 import GlobeCurvedRightImg from "./images/globe_curved_right.webp";
+import HeroBgSectionUnknown from "./images/HeroBgSectionUnknown.webp";
 import HeroBannerBg from "./images/NewHeroBanner.png";
 import NewHeroBannerMobile from "./images/NewHeroBanner_mobile.webp";
-import NewHeroBannerTablet from "./images/NewHeroBanner_tablet.webp";
 import Section4MountainPeak from "./images/section4_mountain_summit.webp";
-import Section5FullBg from "./images/SectionFiveBg.webp";
+import Section5FullBg from "./images/SectionFiveBg.png";
+import Section5FullBgTab from "./images/SectionFiveBgTab.png";
 import TheFounderSectionBg from "./images/TheFounderSectionBg.webp";
 import TheFounderSectionBgMobile from "./images/TheFounderSectionBg_mobile.webp";
 import TheFounderSectionBgTablet from "./images/TheFounderSectionBg_tablet.webp";
-import PillarBuildImg from "./images/Create capability.png";
-import PillarDeliverImg from "./images/Create impact.png";
-import PillarThinkImg from "./images/Create clarity.png";
-import HeroBgSectionUnknown from "./images/HeroBgSectionUnknown.webp";
-import AboutUsSecondSectionBanner from "./images/AboutUsSecondSectionBanner.webp";
 
 const EarthHorizonImg = "/assets/about/earth_horizon_dawn.webp";
 const FounderImg = "/assets/Ravishankar Pingali.webp";
@@ -563,26 +562,35 @@ export default function AboutUs() {
       >
         <div className="absolute inset-0 z-0">
           <motion.div className="absolute inset-0" style={{ scale: heroScale }}>
-            <Image
-              src={HeroBannerBg}
-              alt="About Us – Born from experience, Built for what comes next"
-              fill
-              priority
-              className="hidden xl:block object-contain  object-center"
+            {/* Desktop (xl+) */}
+            <div
+              className="absolute inset-0 hidden xl:block"
+              style={{
+                backgroundImage: `url(${HeroBannerBg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+              }}
             />
-            <Image
-              src={NewHeroBannerTablet}
-              alt="About Us – Born from experience, Built for what comes next"
-              fill
-              priority
-              className="hidden md:block xl:hidden object-cover object-center"
+            {/* Tablet (md–xl) */}
+            <div  
+              className="absolute inset-0 hidden md:block xl:hidden"
+              style={{
+                backgroundImage: `url(${HeroBannerBg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+                backgroundRepeat: "no-repeat",
+              }}
             />
-            <Image
-              src={NewHeroBannerMobile}
-              alt="About Us – Born from experience, Built for what comes next"
-              fill
-              priority
-              className="block md:hidden object-cover object-top"
+            {/* Mobile */}
+            <div
+              className="absolute inset-0 block md:hidden"
+              style={{
+                backgroundImage: `url(${NewHeroBannerMobile})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center top",
+                backgroundRepeat: "no-repeat",
+              }}
             />
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-r from-[#040814]/90 via-[#040814]/40 xl:via-[#040814]/25 to-transparent" />
@@ -648,7 +656,7 @@ export default function AboutUs() {
         </div>
 
         <div className="max-w-[1640px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center relative z-10">
-          <Reveal className="lg:col-span-5" variants={fadeLeft}>
+          <Reveal className="lg:col-span-4 xl:col-span-5" variants={fadeLeft}>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl 2xl:text-5xl font-extrabold text-[#1D63B8] leading-[1.12] tracking-tight">
               Why We Exist
             </h2>
@@ -662,7 +670,7 @@ export default function AboutUs() {
             </p>
           </Reveal>
 
-          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 xl:gap-4 items-stretch">
+          <div className="lg:col-span-8 xl:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 xl:gap-4 items-stretch">
             {[
               {
                 num: "01",
@@ -911,6 +919,15 @@ export default function AboutUs() {
 
       <section className="relative w-full bg-[#011424] py-10 sm:py-12 md:py-14 xl:py-16 overflow-hidden flex items-center min-h-[420px] sm:min-h-[460px] lg:min-h-[520px] xl:min-h-[560px]">
         <div className="absolute inset-0 z-0 pointer-events-none">
+          {/* lg only */}
+          <Image
+            src={Section5FullBgTab}
+            alt="The LucidMind Difference background"
+            fill
+            priority
+            className="hidden lg:block xl:hidden object-cover object-center"
+          />
+          {/* xl+ */}
           <Image
             src={Section5FullBg}
             alt="The LucidMind Difference background"
@@ -918,7 +935,9 @@ export default function AboutUs() {
             priority
             className="hidden xl:block object-cover object-right"
           />
-          <div className="absolute inset-0 bg-[#011424] xl:hidden" />
+          <div className="absolute inset-0 bg-[#011424] lg:hidden" />
+          {/* lg-only left overlay so text stays readable */}
+          <div className="absolute inset-0 hidden lg:block xl:hidden bg-gradient-to-r from-[#011424]/95 via-[#011424]/70 to-transparent" />
         </div>
 
         <div className="relative z-10 w-full max-w-[1520px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-4 xl:gap-6">
@@ -1006,7 +1025,7 @@ export default function AboutUs() {
             </h2>
           </Reveal>
 
-          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center max-w-[1460px] mx-auto w-full gap-8 sm:gap-10 lg:gap-0 px-4 sm:px-6 xl:px-8">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center max-w-[1480px] mx-auto w-full gap-8 sm:gap-10 lg:gap-0 px-4 sm:px-6 xl:px-8">
             {threePillars.map((step, i) => (
               <React.Fragment key={step.title}>
                 <Reveal
@@ -1016,7 +1035,7 @@ export default function AboutUs() {
                 >
                   <div className="relative z-20 flex flex-col items-start text-left shrink-0">
                     <span
-                      className="text-3xl sm:text-4xl xl:text-[42px] font-bold leading-none tracking-tight"
+                      className="text-3xl md:text-4xl lg:text-3xl xl:text-[42px] font-bold leading-none tracking-tight"
                       style={{ color: step.numColor }}
                     >
                       {step.num}
@@ -1027,7 +1046,7 @@ export default function AboutUs() {
                     />
 
                     <div
-                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border flex items-center justify-center mb-2.5 sm:mb-3.5 shadow-sm"
+                      className="w-10 h-10 sm:w-11 sm:h-11 lg:w-9 lg:h-9 xl:w-11 xl:h-11 rounded-full border flex items-center justify-center mb-2.5 sm:mb-3.5 shadow-sm"
                       style={{
                         backgroundColor: step.iconBg,
                         borderColor: step.iconBorder,
@@ -1036,23 +1055,23 @@ export default function AboutUs() {
                       {step.icon}
                     </div>
 
-                    <h3 className="text-base sm:text-lg xl:text-xl font-black text-[#06142F] tracking-tight leading-none mb-1">
+                    <h3 className="text-base sm:text-lg lg:text-base xl:text-xl font-black text-[#06142F] tracking-tight leading-none mb-1">
                       {step.title}
                     </h3>
                     <h4 className="text-xs sm:text-[13px] xl:text-[13.5px] font-bold text-[#06142F] leading-tight mb-2 sm:mb-2.5">
                       {step.sub}
                     </h4>
-                    <p className="text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#4A5568] leading-[1.65] max-w-[155px] xs:max-w-[175px] sm:max-w-[200px] xl:max-w-[230px]">
+                    <p className="text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#4A5568] leading-[1.65] max-w-[155px] xs:max-w-[175px] sm:max-w-[180px] lg:max-w-[155px] xl:max-w-[230px]">
                       {step.desc}
                     </p>
                   </div>
 
-                  <div className="relative z-10 shrink-0 -ml-12 xs:-ml-14 sm:-ml-18 lg:-ml-16 xl:-ml-24">
+                  <div className="relative z-10 shrink-0 -ml-12 xs:-ml-14 sm:-ml-18 lg:-ml-20 xl:-ml-24">
                     <div
                       className="absolute -top-3 -right-3 sm:-top-3.5 sm:-right-3.5 xl:-top-4 xl:-right-4 w-[112%] h-[112%] rounded-full pointer-events-none z-0 blur-[3px] opacity-80"
                       style={{ backgroundColor: step.crescentColor }}
                     />
-                    <div className="relative z-10 w-40 h-40 xs:w-44 xs:h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-[210px] lg:h-[210px] xl:w-[260px] xl:h-[260px] rounded-full overflow-hidden">
+                    <div className="relative z-10 w-40 h-40 xs:w-44 xs:h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-[170px] lg:h-[170px] xl:w-[260px] xl:h-[260px] rounded-full overflow-hidden">
                       <Image
                         src={step.image}
                         alt={step.alt}
@@ -1068,7 +1087,7 @@ export default function AboutUs() {
 
                 {i < 2 && (
                   <>
-                    <div className="hidden lg:flex items-center justify-center flex-1 min-w-[24px] max-w-[70px] xl:max-w-[95px] mx-1 xl:mx-2 relative shrink-0 self-start mt-[105px] xl:mt-[130px]">
+                    <div className="hidden lg:flex items-center justify-center flex-1 min-w-[16px] max-w-[40px] xl:max-w-[95px] mx-0.5 xl:mx-2 relative shrink-0 self-start mt-[85px] xl:mt-[130px]">
                       <div className="w-full h-[1.5px] bg-[#93C5FD]/70" />
                       <div className="absolute w-2.5 h-2.5 rounded-full bg-[#0084FF] shadow-[0_0_6px_rgba(0,132,255,0.6)]" />
                     </div>
@@ -1346,19 +1365,19 @@ export default function AboutUs() {
             ].map((m, i) => (
               <Reveal key={i} variants={scaleIn} custom={i}>
                 <div className="h-full rounded-2xl bg-[#06182D]/70 backdrop-blur-md border border-[#00C4FF]/30 p-3.5 sm:p-4 md:p-5 xl:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-[#00C4FF]/70 hover:shadow-[0_0_25px_rgba(0,196,255,0.25)] transition-all duration-300 flex flex-col justify-between">
-                  <div>
-                    <div className="w-9 h-9 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full bg-[#05172A] border border-[#00C4FF]/60 shadow-[0_0_16px_rgba(0,196,255,0.4)] flex items-center justify-center mb-3 sm:mb-4 xl:mb-5 text-[#00C4FF] scale-90 sm:scale-100">
+                  <div className="text-center">
+                    <div className="w-9 h-9 sm:w-11 sm:h-11 xl:w-12 xl:h-12 mx-auto rounded-full bg-[#05172A] border border-[#00C4FF]/60 shadow-[0_0_16px_rgba(0,196,255,0.4)] flex items-center justify-center mb-3 sm:mb-4 xl:mb-5 text-[#00C4FF] scale-90 sm:scale-100">
                       {m.icon}
                     </div>
                     <h4
-                      className={`text-base sm:text-lg md:text-xl xl:text-2xl font-extrabold leading-tight tracking-tight ${m.statClass}`}
+                      className={`text-base sm:text-lg md:text-xl xl:text-xl font-extrabold leading-tight tracking-tight ${m.statClass}`}
                     >
                       {m.stat}
                     </h4>
                   </div>
-                  <p className="text-[10.5px] sm:text-xs xl:text-[13px] text-slate-300 mt-2 sm:mt-3 leading-snug">
+                  {/* <p className="text-[10.5px] sm:text-xs xl:text-[13px] text-slate-300 mt-2 sm:mt-3 leading-snug">
                     {m.label}
-                  </p>
+                  </p> */}
                 </div>
               </Reveal>
             ))}
@@ -1415,7 +1434,7 @@ export default function AboutUs() {
                 <p className="text-xs sm:text-sm xl:text-base font-bold text-[#00C4FF]">
                   Think clearly. Build capability. Create impact.
                 </p>
-                <Link
+                {/* <Link
                   href="/contact"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-4 md:px-7 py-2.5 md:py-3 rounded-full bg-[#14E5D4] hover:bg-[#00E5FF] text-[#031326] font-extrabold text-xs tracking-wider uppercase shadow-[0_0_25px_rgba(20,229,212,0.5)] hover:shadow-[0_0_35px_rgba(0,229,255,0.8)] transition-all duration-300 shrink-0 group"
                 >
@@ -1434,7 +1453,7 @@ export default function AboutUs() {
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </Reveal>

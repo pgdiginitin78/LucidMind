@@ -149,13 +149,13 @@ export default function PodcastsManager() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      episode: "Ep. 01",
+      episode: "",
       title: "",
       src: "",
       thumbnail: "",
       host: "Ravishankar Pingali",
       guest: "",
-      duration: "18 mins",
+      duration: "",
       description: "",
       isActive: true,
     },
@@ -232,7 +232,7 @@ export default function PodcastsManager() {
       thumbnail: "",
       host: "Ravishankar Pingali",
       guest: "",
-      duration: "18 mins",
+      duration: "",
       description: "",
       isActive: true,
     });
@@ -243,13 +243,13 @@ export default function PodcastsManager() {
   const openEdit = (pod) => {
     setEditingPodcast(pod);
     reset({
-      episode: pod.episode || "Ep. 01",
+      episode: pod.episode || "",
       title: pod.title || "",
       src: pod.src || pod.audioUrl || "",
       thumbnail: pod.thumbnail || pod.image || "",
       host: pod.host || "Ravishankar Pingali",
       guest: pod.guest || "",
-      duration: pod.duration || "18 mins",
+      duration: pod.duration || "",
       description: pod.description || "",
       isActive: pod.isActive !== false && pod.isPublished !== false,
     });
@@ -476,8 +476,7 @@ export default function PodcastsManager() {
             <div>
               <InputField
                 name="episode"
-                label="Episode (e.g. Ep. 01) *"
-                placeholder="Ep. 01"
+                label="Episode (e.g. Ep. 01) *"              
                 control={control}
                 rules={{ required: "Episode label is required" }}
                 error={errors.episode}

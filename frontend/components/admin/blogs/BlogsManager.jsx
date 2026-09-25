@@ -224,12 +224,12 @@ export default function BlogsManager() {
     setEditingBlog(null);
     reset({
       title: "",
-      tag: "MINDSET",
-      category: "Thought Leadership",
+      tag: "",
+      category: "",
       author: "Ravishankar Pingali",
       authorRole:
-        "Building Adaptive Enterprises | GCC Leader | Enterprise Reinvention | Board Advisor",
-      readTime: "3 MIN READ",
+        "",
+      readTime: "",
       date: new Date().toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",
