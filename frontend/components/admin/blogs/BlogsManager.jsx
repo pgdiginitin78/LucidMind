@@ -399,7 +399,7 @@ export default function BlogsManager() {
         <div className="w-full">
           {/* Helper toolbar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-3.5 py-2 mb-3 rounded-xl bg-white/[0.03] border border-white/[0.07] text-xs text-white/60">
-            <span className="flex items-center gap-1.5">
+            <span className="lg:flex items-center gap-1.5">
               <span className="text-[#00C4FF] font-semibold">⠿ Drag rows in SEQUENCE column</span> to change live sequence. Use <strong className="text-emerald-400 font-medium">ACTIVE / INACTIVE</strong> column to show or hide items on website.
             </span>
             {reorderSaving && (
@@ -451,13 +451,13 @@ export default function BlogsManager() {
                   icon={<Edit2 size={12} />}
                   label=""
                   onClick={() => openEdit(row._raw)}
-                  className="bg-white/[0.06] text-white/80 hover:bg-white/[0.14] hover:text-white border border-white/10 text-xs px-2.5 py-1 h-7"
+                  className=" text-white/80 "
                 />
                 <CommonButton
                   icon={<Trash2 size={12} />}
                   label=""
                   onClick={() => askDelete(row._raw)}
-                  className="bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 border border-red-500/20 text-xs px-2.5 py-1 h-7"
+                  className=" text-red-400 "
                 />
               </div>
             )}
