@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body suppressHydrationWarning>
+      <body className="font-jakarta" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

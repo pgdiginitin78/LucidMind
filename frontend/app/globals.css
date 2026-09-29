@@ -82,13 +82,98 @@
 
 
 @theme {
-  --color-brand-blue: #2563EB;
-  --color-brand-teal: #00C4B4;
+  --font-jakarta: "PlusJakartaSans", "Inter", sans-serif;
   --font-sans: "PlusJakartaSans", "Inter", sans-serif;
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-plus-jakarta: "PlusJakartaSans", sans-serif;
+  --font-serif: "PlusJakartaSans", Georgia, serif;
   --font-gilroy: "Gilroy", sans-serif;
   --font-gilroylight: "GilroyLight", sans-serif;
-  --font-plus-jakarta: "PlusJakartaSans", sans-serif;
+
+  /* Brand Colors */
+  --color-brand-cyan: #00C4FF;
+  --color-brand-teal: #00C4B4;
+  --color-brand-blue: #2563EB;
+  --color-brand-indigo: #4D4FEC;
+  --color-brand-sky: #4B9AF5;
+  --color-brand-teal-dark: #009A9A;
+  --color-brand-teal-deep: #007070;
+  --color-brand-teal-marine: #00B8B8;
+  --color-brand-teal-forest: #006D77;
+  --color-brand-cyan-neon: #00E5FF;
+  --color-brand-cyan-light: #14E5D4;
+  --color-brand-blue-vivid: #1B64F2;
+  --color-brand-blue-accent: #007DFE;
+  --color-brand-blue-electric: #0084FF;
+  --color-brand-blue-light: #00A3FF;
+  --color-brand-blue-royal: #1D63B8;
+  --color-brand-blue-deep: #1D4ED8;
+  --color-brand-darkest: #040914;
+  --color-brand-linkedin: #0077B5;
+
+  /* Navy Shades & Backgrounds */
+  --color-navy-darkest: #040914;
+  --color-navy-midnight: #040814;
+  --color-navy-black: #030914;
+  --color-navy-deep: #050D1A;
+  --color-navy-abyss: #040D1E;
+  --color-navy-surface: #071328;
+  --color-navy-card: #08152B;
+  --color-navy-border: #142A4A;
+  --color-navy-border-light: #0F2644;
+  --color-navy-muted: #040C1A;
+  --color-navy-night: #09172B;
+  --color-navy-subtle: #061426;
+  --color-navy-charcoal: #040E1E;
+  --color-navy-deep-slate: #030A16;
+  --color-navy-deep-blue: #041122;
+  --color-navy-overlay: #051124;
+  --color-navy-glow: #07162E;
+  --color-navy-input: #030A18;
+  --color-navy-void: #011424;
+  --color-navy-900: #070E1E;
+  --color-navy-850: #0B192C;
+  --color-navy-800: #0F172A;
+  --color-navy-700: #1E293B;
+  --color-navy-dark: #050B18;
+  --color-navy-slate: #1C2E4A;
+  --color-navy-accent: #0B1528;
+  --color-navy-panel: #0B182F;
+  --color-navy-ink: #06142F;
+  --color-navy-slate-dark: #031326;
+  --color-navy-space: #020712;
+  --color-navy-base: #070D1B;
+  --color-navy-rich: #09152B;
+  --color-navy-cobalt: #12397B;
+  --color-navy-ocean: #061224;
+  --color-navy-midnight-blue: #112240;
+  --color-navy-dense: #1A365D;
+  --color-navy-header: #05172A;
+  --color-navy-alt: #06182D;
+  --color-navy-box: #051C33;
+  --color-navy-section: #061E38;
+  --color-navy-shade: #0A1A35;
+  --color-navy-tint: #0D1F3C;
+  --color-navy-dusk: #07132B;
+  --color-navy-twilight: #091A38;
+  --color-navy-deep-dusk: #050E21;
+  --color-navy-hover: #091833;
+  --color-navy-gate: #071326;
+  --color-navy-glass: #061226;
+
+  /* Slate & Muted */
+  --color-slate-muted: #4A5870;
+  --color-slate-navy: #3B4E68;
+  --color-slate-charcoal: #4A5568;
+  --color-slate-steel: #526484;
+  --color-slate-mist: #8392A5;
+
+  /* Surfaces & Soft Lights */
+  --color-surface-ice: #FAFCFE;
+  --color-surface-soft-blue: #F1F6FB;
+  --color-surface-tint: #F6F7FB;
+  --color-surface-blue-tint: #E0EBF5;
+  --color-surface-ice-start: #E8F1F8;
+  --color-surface-ice-end: #D3E1EF;
 }
 
 
@@ -109,6 +194,7 @@
 }
 
 body {
+  font-family: var(--font-jakarta), "PlusJakartaSans", sans-serif;
   overflow-x: hidden;
   max-width: 100vw;
   scrollbar-width: none !important;

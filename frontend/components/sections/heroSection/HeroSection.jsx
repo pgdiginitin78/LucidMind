@@ -53,7 +53,7 @@ function HeroSection() {
 
             <h1 className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold w-full">
               {/* Organisations Ready  for the{" "} */}
-              BUILT FOR THE {" "}
+              Built For The {" "}
               <span className="text-[#009A9A]">Adaptive Future</span> 
             </h1>
             <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>

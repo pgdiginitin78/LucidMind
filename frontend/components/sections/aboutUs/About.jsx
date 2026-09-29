@@ -84,97 +84,70 @@ const IconPillarTarget = () => (
   </svg>
 );
 
-const IconFounderUser = () => (
+const IconCareerReinvention = () => (
   <svg
-    width="24"
-    height="24"
+    className="w-6 h-6 sm:w-7 sm:h-7 text-[#00C4FF]"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#00C4FF"
+    stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
+    {/* Crown: MD & CEO */}
+    <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z" />
+    <path d="M4 20h16" />
   </svg>
 );
 
-const IconFounderGrowthBars = () => (
+const IconTwoXFounder = () => (
   <svg
-    width="24"
-    height="24"
+    className="w-6 h-6 sm:w-7 sm:h-7 text-[#00C4FF]"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#00C4FF"
+    stroke="currentColor"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <rect x="3" y="14" width="4" height="7" rx="1.5" />
-    <rect x="10" y="8" width="4" height="13" rx="1.5" />
-    <rect x="17" y="3" width="4" height="18" rx="1.5" />
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
   </svg>
 );
 
-const IconFounderGlobe = () => (
+const IconThreeContinents = () => (
   <svg
-    width="24"
-    height="24"
+    className="w-6 h-6 sm:w-7 sm:h-7 text-[#00C4FF]"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#00C4FF"
-    strokeWidth="1.8"
+    stroke="currentColor"
+    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
     <circle cx="12" cy="12" r="10" />
     <line x1="2" y1="12" x2="22" y2="12" />
     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    <path d="M4.5 7h15" />
-    <path d="M4.5 17h15" />
   </svg>
 );
 
-const IconFounderMicrochip = () => (
+const IconLeadershipPipeline = () => (
   <svg
-    width="24"
-    height="24"
+    className="w-6 h-6 sm:w-7 sm:h-7 text-[#00C4FF]"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#00C4FF"
-    strokeWidth="1.9"
+    stroke="currentColor"
+    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <rect x="5" y="5" width="14" height="14" rx="2" />
-    <rect x="9" y="9" width="6" height="6" />
-    <line x1="9" y1="1" x2="9" y2="5" />
-    <line x1="15" y1="1" x2="15" y2="5" />
-    <line x1="9" y1="19" x2="9" y2="23" />
-    <line x1="15" y1="19" x2="15" y2="23" />
-    <line x1="1" y1="9" x2="5" y2="9" />
-    <line x1="1" y1="15" x2="5" y2="15" />
-    <line x1="19" y1="9" x2="23" y2="9" />
-    <line x1="19" y1="15" x2="23" y2="15" />
-  </svg>
-);
-
-const IconFounderBullseye = () => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#00C4FF"
-    strokeWidth="1.9"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="6" />
-    <circle cx="12" cy="12" r="2" />
-    <line x1="19" y1="5" x2="13.4" y2="10.6" strokeWidth="2.2" />
+    {/* Users: Leadership Pipeline */}
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
   </svg>
 );
 
@@ -184,78 +157,7 @@ const LinkedInIcon = () => (
   </svg>
 );
 
-const IconRefresh = ({ className = "text-[#2563EB]" }) => (
-  <svg
-    width="34"
-    height="34"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.4"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M4 12a8 8 0 1 0 8-8 8 8 0 0 0-5.7 2.4L3 9" />
-    <path d="M3 4v5h5" />
-  </svg>
-);
 
-const IconLightbulb = ({ className = "text-[#2563EB]" }) => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M9 18h6" />
-    <path d="M10 22h4" />
-    <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A6 6 0 1 0 7.5 11.5c.76.76 1.23 1.52 1.41 2.5h6.18z" />
-  </svg>
-);
-
-const IconCrosshair = ({ className = "text-[#2563EB]" }) => (
-  <svg
-    width="34"
-    height="34"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <circle cx="11.5" cy="12.5" r="8.5" />
-    <circle cx="11.5" cy="12.5" r="4.5" />
-    <circle cx="11.5" cy="12.5" r="1.5" fill="currentColor" />
-    <path d="M11.5 12.5L20 4" />
-    <path d="M16 4h4v4" />
-  </svg>
-);
-
-const IconBarChart = ({ className = "text-[#2563EB]" }) => (
-  <svg
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <rect x="3.5" y="14" width="4" height="7" rx="1.2" />
-    <rect x="10" y="9" width="4" height="12" rx="1.2" />
-    <rect x="16.5" y="4" width="4" height="17" rx="1.2" />
-  </svg>
-);
 
 const IconEye = () => (
   <svg
@@ -355,21 +257,7 @@ const IconArrowRight = () => (
   </svg>
 );
 
-const IconArrowUp = () => (
-  <svg
-    width="20"
-    height="20"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <line x1="12" y1="19" x2="12" y2="5" />
-    <polyline points="5 12 12 5 19 12" />
-  </svg>
-);
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 44 },
@@ -458,15 +346,9 @@ export default function AboutUs() {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-    const onScroll = () => setShowScrollTop(window.scrollY > 600);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      lenis.destroy();
-      window.removeEventListener("scroll", onScroll);
-    };
+
   }, [setReady]);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const valuePillars = [
     {
@@ -517,7 +399,12 @@ export default function AboutUs() {
       icon: <IconPillarBrain />,
       title: "THINK",
       sub: "Create clarity.",
-      desc: "Understand the business, challenge assumptions, identify what matters and define where the organisation needs to go.",
+      desc: [
+        "Understand the business",
+        "Challenge assumptions",
+        "Identify what matters",
+        "Define the direction",
+      ],
       image: PillarThinkImg,
       alt: "THINK - Seedling sprouting on rock",
     },
@@ -531,7 +418,13 @@ export default function AboutUs() {
       icon: <IconPillarBox />,
       title: "BUILD",
       sub: "Create capability.",
-      desc: "Translate strategy into operating models, technology capabilities, leadership alignment and ways of working that can actually scale.",
+      desc: [
+        "Translate strategy",
+        "Design operating models",
+        "Build technology capabilities",
+        "Align leadership",
+        "Enable scalable ways of working",
+      ],
       image: PillarBuildImg,
       alt: "BUILD - Stacked wooden blocks",
     },
@@ -545,7 +438,13 @@ export default function AboutUs() {
       icon: <IconPillarTarget />,
       title: "DELIVER",
       sub: "Create impact.",
-      desc: "Move beyond recommendations and ensure that ideas translate into execution, adoption and measurable business outcomes.",
+      desc: [
+        "Turn ideas into action",
+        "Drive adoption",
+        "Enable execution",
+        "Measure business impact",
+        "Deliver tangible outcomes",
+      ],
       image: PillarDeliverImg,
       alt: "DELIVER - Hiker on mountain summit",
     },
@@ -562,7 +461,6 @@ export default function AboutUs() {
       >
         <div className="absolute inset-0 z-0">
           <motion.div className="absolute inset-0" style={{ scale: heroScale }}>
-            {/* Desktop (xl+) */}
             <div
               className="absolute inset-0 hidden xl:block"
               style={{
@@ -572,7 +470,6 @@ export default function AboutUs() {
                 backgroundRepeat: "no-repeat",
               }}
             />
-            {/* Tablet (md–xl) */}
             <div
               className="absolute inset-0 hidden md:block xl:hidden"
               style={{
@@ -582,7 +479,6 @@ export default function AboutUs() {
                 backgroundRepeat: "no-repeat",
               }}
             />
-            {/* Mobile */}
             <div
               className="absolute inset-0 block md:hidden"
               style={{
@@ -642,8 +538,7 @@ export default function AboutUs() {
         </motion.div>
       </section>
 
-      <section className="relative w-full bg-[#0A1A35] text-slate-900 py-12 sm:py-16 md:py-20 xl:py-28 px-4 sm:px-8 md:px-12 xl:px-20 overflow-hidden">
-        {/* Background Banner */}
+      {/* <section className="relative w-full bg-[#0A1A35] text-slate-900 py-12 sm:py-16 md:py-20 xl:py-28 px-4 sm:px-8 md:px-12 xl:px-20 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none select-none z-0">
           <Image
             src={AboutUsSecondSectionBanner}
@@ -723,7 +618,6 @@ export default function AboutUs() {
                 custom={i}
                 className="group relative overflow-hidden flex flex-col items-center text-center justify-between min-h-[220px] sm:min-h-[260px] md:min-h-[290px] xl:min-h-[320px] pt-5 pb-6 px-2.5 sm:pt-6 sm:pb-7 sm:px-3.5 xl:pt-7 xl:pb-8 xl:px-4 rounded-t-[48px] sm:rounded-t-[64px] xl:rounded-t-[84px] rounded-b-[48px] sm:rounded-b-[64px] xl:rounded-b-[84px] bg-gradient-to-b from-white/35 via-white/18 to-white/8 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_0_rgba(10,35,80,0.12),inset_0_1.5px_2px_0_rgba(255,255,255,0.7),inset_0_-1px_2px_0_rgba(255,255,255,0.15)] hover:from-white/45 hover:via-white/25 hover:to-white/12 hover:border-white/90 hover:shadow-[0_16px_40px_0_rgba(15,45,105,0.2),inset_0_2px_3px_0_rgba(255,255,255,0.9)] hover:-translate-y-1.5 transition-all duration-300"
               >
-                {/* Glossy glass reflection sheen */}
                 <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-white/5 to-transparent pointer-events-none rounded-[inherit]" />
 
                 <div className="w-full flex flex-col items-center relative z-10">
@@ -757,9 +651,9 @@ export default function AboutUs() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="relative w-full min-h-[420px] sm:min-h-[460px] lg:min-h-[520px] xl:min-h-[550px] bg-[#050D1A] overflow-hidden flex items-center py-12 sm:py-14 md:py-16">
+      {/* <section className="relative w-full min-h-[420px] sm:min-h-[460px] lg:min-h-[520px] xl:min-h-[550px] bg-[#050D1A] overflow-hidden flex items-center py-12 sm:py-14 md:py-16">
         <div className="absolute top-0 bottom-0 left-0 w-full sm:w-[50%] lg:w-[38%] xl:w-[35%] pointer-events-none overflow-hidden z-0">
           <Image
             src={ExecutiveThinkingLeftImg}
@@ -850,7 +744,7 @@ export default function AboutUs() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="relative w-full bg-[#F1F6FB] overflow-hidden flex items-center py-12 sm:py-14 md:py-16 min-h-[220px] sm:min-h-[250px]">
         <div className="hidden xl:block absolute top-0 bottom-0 left-0 w-[30%] pointer-events-none overflow-hidden z-0">
@@ -919,7 +813,7 @@ export default function AboutUs() {
 
       <section className="relative w-full bg-[#011424] py-10 sm:py-12 md:py-14 xl:py-16 overflow-hidden flex items-center min-h-[420px] sm:min-h-[460px] lg:min-h-[520px] xl:min-h-[560px]">
         <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* lg only */}
+        
           <Image
             src={Section5FullBgTab}
             alt="The LucidMind Difference background"
@@ -927,7 +821,7 @@ export default function AboutUs() {
             priority
             className="hidden lg:block xl:hidden object-cover object-center"
           />
-          {/* xl+ */}
+  
           <Image
             src={Section5FullBg}
             alt="The LucidMind Difference background"
@@ -936,7 +830,6 @@ export default function AboutUs() {
             className="hidden xl:block object-cover object-right"
           />
           <div className="absolute inset-0 bg-[#011424] lg:hidden" />
-          {/* lg-only left overlay so text stays readable */}
           <div className="absolute inset-0 hidden lg:block xl:hidden bg-gradient-to-r from-[#011424]/95 via-[#011424]/70 to-transparent" />
         </div>
 
@@ -952,18 +845,21 @@ export default function AboutUs() {
                 We{" "}
                 <span className="text-[#00C4FF]">start with the question.</span>
               </h2>
-              <p className="text-xs sm:text-[13px] text-slate-300 leading-[1.6] mb-2.5 max-w-xl">
+              {/* <p className="text-xs sm:text-[13px] text-slate-300 leading-[1.6] mb-2.5 max-w-xl">
                 AI is accelerating change. New platforms, tools and technologies
                 are emerging every day.
               </p>
               <p className="text-xs sm:text-[13px] text-slate-300 leading-[1.6] mb-3 max-w-xl">
                 But technology adoption, by itself, does not create
                 transformation.
-              </p>
-              <h3 className="text-xs sm:text-[13px] font-bold text-white mb-2">
-                The important questions are business questions:
-              </h3>
-              <div className="space-y-1.5 mb-3 sm:mb-3.5 pl-0.5">
+              </p> */}
+              <div className="flex items-center gap-2.5 mb-3.5 mt-2">
+                <span className="w-2 h-2 rounded-full bg-[#00C4FF] animate-pulse shadow-[0_0_10px_#00C4FF]" />
+                <h3 className="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-[#00C4FF]">
+                  The strategic imperatives :
+                </h3>
+              </div>
+              <div className="grid space-y-2.5 sm:space-y-3 mb-4">
                 {[
                   "Where can technology create meaningful advantage?",
                   "What capabilities does the organisation need to build?",
@@ -972,21 +868,34 @@ export default function AboutUs() {
                 ].map((q, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-2.5 text-xs sm:text-[12.5px] text-slate-200 leading-snug"
+                    className="group relative flex items-center gap-3 sm:gap-3.5 p-3 sm:p-3.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-white/[0.08] via-white/[0.04] to-transparent border border-white/10 hover:border-[#00C4FF]/50 hover:from-[#00C4FF]/10 hover:via-white/[0.06] hover:translate-x-1.5 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.25)]"
                   >
-                    <span className="text-[#00C4FF] font-bold text-sm shrink-0 leading-none mt-0.5">
-                      →
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#00C4FF]/15 border border-[#00C4FF]/30 text-[#00C4FF] flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(0,196,255,0.25)] group-hover:bg-[#00C4FF] group-hover:text-[#011424] transition-all duration-300">
+                      <svg
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-xs sm:text-[13.5px] xl:text-[14px] font-medium text-slate-100 leading-snug group-hover:text-white transition-colors">
+                      {q}
                     </span>
-                    <span>{q}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs sm:text-[12px] text-slate-300/85 leading-[1.6] max-w-xl">
+              {/* <p className="text-xs sm:text-[12px] text-slate-300/85 leading-[1.6] max-w-xl">
                 LucidMind brings a perspective shaped by having sat on both
                 sides of the transformation table: as a technology leader
                 responsible for making change happen and as a business leader
                 accountable for people, operations, stakeholders and the P&L.
-              </p>
+              </p> */}
             </Reveal>
           </div>
 
@@ -1055,15 +964,29 @@ export default function AboutUs() {
                       {step.icon}
                     </div>
 
-                    <h3 className="text-base sm:text-lg lg:text-base xl:text-xl font-black text-[#06142F] tracking-tight leading-none mb-1">
+                    <h3 className="text-base sm:text-lg lg:text-base xl:text-xl font-black text-[#06142F] tracking-tight leading-none mb-2">
                       {step.title}
                     </h3>
-                    <h4 className="text-xs sm:text-[13px] xl:text-[13.5px] font-bold text-[#06142F] leading-tight mb-2 sm:mb-2.5">
+                    {/* <h4 className="text-xs sm:text-[13px] xl:text-[13.5px] font-bold text-[#06142F] leading-tight mb-2 sm:mb-2.5">
                       {step.sub}
-                    </h4>
-                    <p className="text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#4A5568] leading-[1.65] max-w-[155px] xs:max-w-[175px] sm:max-w-[180px] lg:max-w-[155px] xl:max-w-[230px]">
-                      {step.desc}
-                    </p>
+                    </h4> */}
+                    {Array.isArray(step.desc) ? (
+                      <ul className="space-y-1.5 text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#4A5568] leading-[1.5] max-w-[160px] xs:max-w-[180px] sm:max-w-[190px] lg:max-w-[160px] xl:max-w-[230px]">
+                        {step.desc.map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-1.5">
+                            <span
+                              className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5"
+                              style={{ backgroundColor: step.numLine }}
+                            />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#4A5568] leading-[1.65] max-w-[155px] xs:max-w-[175px] sm:max-w-[180px] lg:max-w-[155px] xl:max-w-[230px]">
+                        {step.desc}
+                      </p>
+                    )}
                   </div>
 
                   <div className="relative z-10 shrink-0 -ml-12 xs:-ml-14 sm:-ml-18 lg:-ml-20 xl:-ml-24">
@@ -1242,14 +1165,14 @@ export default function AboutUs() {
                 variants={fadeLeft}
                 className="w-full sm:w-[260px] md:w-[280px] xl:w-[330px] shrink-0 flex flex-col items-center"
               >
-                <div className="relative w-full max-w-[220px] sm:max-w-[260px] md:max-w-[280px] xl:max-w-[320px]">
+                <div className="relative w-full max-w-[220px] sm:max-w-[260px] md:max-w-[280px] xl:max-w-[380px]">
                   <div className="absolute -inset-2 rounded-3xl bg-[#061e38]/50 border border-[#00C4FF]/20 -z-10 translate-x-1.5 translate-y-1.5 pointer-events-none" />
-                  <div className="relative w-full aspect-[4/4.6] rounded-2xl overflow-hidden border-2 border-[#00C4FF] shadow-[0_0_30px_rgba(0,196,255,0.35)] bg-[#040E1E]">
+                  <div className="relative w-full aspect-[4/6] rounded-2xl overflow-hidden border-2 border-[#00C4FF] shadow-[0_0_30px_rgba(0,196,255,0.35)] bg-[#040E1E]">
                     <Image
                       src={FounderImg}
                       alt="Ravishankar Pingali"
                       fill
-                      className="object-cover object-top"
+                      className="object-cover object-top w-full h-full"
                     />
                   </div>
                 </div>
@@ -1281,50 +1204,55 @@ export default function AboutUs() {
                   Ravishankar Pingali
                 </h2>
                 <h3 className="text-xs sm:text-sm xl:text-base font-bold text-[#00C4FF] mt-1.5 sm:mt-2">
-                  GCC & Technology Leader | Transformation Advisor | Board
-                  Advisor
+                  GCC & Transformation Leader | Advisor | Independent Director
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-200 mt-1.5 sm:mt-2 font-normal leading-relaxed">
-                  Building adaptive enterprises by connecting strategy,
-                  technology, people and execution.
+                  Adaptability, practised before it was advised.
                 </p>
                 <div className="space-y-3 sm:space-y-3.5 text-xs sm:text-[13px] xl:text-sm text-slate-300 leading-relaxed mt-4 sm:mt-5">
                   <p>
-                    Ravishankar Pingali brings{" "}
-                    <strong className="text-white font-bold">
-                      27+ years of experience
-                    </strong>{" "}
-                    across technology and business leadership, spanning
-                    enterprise transformation, global technology operations,
-                    product development and organisational scale
+                    Ravishankar’s career has seen a series of purposeful
+                    reinventions as a result of both technological and business
+                    model evolutions. Starting off as a software engineer and
+                    technical lead, he quickly rose to the position of chief
+                    architect and programme manager on large-scale
+                    transformation programmes for insurers in the US and Canada.
                   </p>
                   <p>
-                    His career includes significant leadership experience with
-                    Würth IT India, where he progressed from COO to MD, building
-                    and scaling technology organisations and working closely
-                    with global leadership teams.
+                    He went on to lead major financial services accounts across
+                    North America and the UK, where close partnership with
+                    demanding clients became one of his defining strengths.
                   </p>
                   <p>
-                    At Würth IT India, he identified an APAC business gap,
-                    developed and pitched the solution to the Germany leadership
-                    team, and led its rollout across 12 companies within four
-                    months, contributing up to 10% additional revenue at each
-                    site.
+                    In <span className="font-bold">2014</span>, he took the
+                    plunge and started up his first entrepreneurial venture as a
+                    co-founder in a technology start-up.
                   </p>
                   <p>
-                    He has also scaled a GCC from 15 to 220+ people, translating
-                    emerging technologies and business strategies into tangible
-                    outcomes. His experience goes beyond technology to the
-                    operating realities of transformation, how strategy, people,
-                    processes, technology and leadership need to come together
-                    to create sustainable business impact.
+                    He later joined Würth IT India as part of their digital
+                    transformation efforts, eventually rising to COO, Managing
+                    Director & CEO, as well as a member of its Board.
                   </p>
                   <p>
-                    LucidMind is a natural extension of this journey, bringing
-                    that experience to organisations navigating their next
-                    chapter, helping leadership teams think strategically, build
-                    the right capabilities and deliver meaningful
-                    transformation.
+                    There, he was able to convince global leadership to let the
+                    India unit own end-to-end product lifecycle management,
+                    invested early on in low-code and built competencies in AI
+                    and emerging technologies. He also realised, first hand,
+                    that building technology is not the same as transforming
+                    work practices.
+                  </p>
+                  <p>
+                    Earlier this year, he took an intentional pause to reflect
+                    and refocus. He spoke with industry leaders and founders and
+                    took part in industry events, gaining a first-hand view of
+                    what AI was disrupting, and what it wasn't.
+                  </p>
+                  <p>
+                    He also qualified as an Independent Director and is
+                    currently pursuing IICA's ESG Impact Leader programme. All
+                    of this led to the founding of LucidMind in{" "}
+                    <span className="font-bold">June 2026</span>, his second
+                    entrepreneurial venture with a purpose.
                   </p>
                 </div>
               </Reveal>
@@ -1334,40 +1262,35 @@ export default function AboutUs() {
           <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-3.5 xl:gap-5">
             {[
               {
-                icon: <IconFounderUser />,
-                stat: "27+ years",
+                icon: <IconCareerReinvention />,
+                stat: "Engineer → MD & CEO",
                 statClass: "text-[#00C4FF]",
-                // label: "of leadership & transformation experience",
+                label: "A career of deliberate reinvention",
               },
               {
-                icon: <IconFounderGrowthBars />,
-                stat: "15 → 220+ People",
+                icon: <IconTwoXFounder />,
+                stat: "2× Founder ",
                 statClass: "text-white",
-                // label: "GCC scale journey",
+                label: "Calculated risks, taken twice",
               },
               {
-                icon: <IconFounderGlobe />,
-                stat: "100M+ Value Led",
+                icon: <IconThreeContinents />,
+                stat: "3 Continents ",
                 statClass: "text-[#00C4FF]",
-                // label: "experience across enterprise environments",
+                label:
+                  "Client leadership across North America, Europe and APAC",
               },
               {
-                icon: <IconFounderBullseye />,
-                stat: "30% Leadrship Pipline Strengthened",
+                icon: <IconLeadershipPipeline />,
+                stat: "30%",
                 statClass: "text-white",
-                // label: "perspective",
+                label: "Leadership pipeline strengthened",
               },
-              // {
-              //         icon: <IconFounderMicrochip />,
-              //   stat: "Strategy → Execution → Impact",
-              //   statClass: "text-[#00C4FF]",
-              //   label: "the LucidMind approach",
-              // },
             ].map((m, i) => (
               <Reveal key={i} variants={scaleIn} custom={i}>
                 <div className="h-full rounded-2xl bg-[#06182D]/70 backdrop-blur-md border border-[#00C4FF]/30 p-3.5 sm:p-4 md:p-5 xl:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:border-[#00C4FF]/70 hover:shadow-[0_0_25px_rgba(0,196,255,0.25)] transition-all duration-300 flex flex-col justify-between">
                   <div className="text-center">
-                    <div className="w-9 h-9 sm:w-11 sm:h-11 xl:w-12 xl:h-12 mx-auto rounded-full bg-[#05172A] border border-[#00C4FF]/60 shadow-[0_0_16px_rgba(0,196,255,0.4)] flex items-center justify-center mb-3 sm:mb-4 xl:mb-5 text-[#00C4FF] scale-90 sm:scale-100">
+                    <div className="w-12 h-12 sm:w-13 sm:h-13 xl:w-14 xl:h-14 mx-auto rounded-full bg-[#05172A] border border-[#00C4FF]/60 shadow-[0_0_18px_rgba(0,196,255,0.45)] flex items-center justify-center mb-2.5 md:mb-3.5 text-[#00C4FF]">
                       {m.icon}
                     </div>
                     <h4
@@ -1376,9 +1299,9 @@ export default function AboutUs() {
                       {m.stat}
                     </h4>
                   </div>
-                  {/* <p className="text-[10.5px] sm:text-xs xl:text-[13px] text-slate-300 mt-2 sm:mt-3 leading-snug">
+                  <p className="text-[10.5px] sm:text-xs xl:text-[13px] text-slate-300 leading-snug text-center">
                     {m.label}
-                  </p> */}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -1433,7 +1356,7 @@ export default function AboutUs() {
 
               <div className="relative z-10 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[#00C4FF]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5">
                 <p className="text-xs sm:text-sm xl:text-base font-bold text-[#00C4FF]">
-                  Think clearly. Build capability. Create impact.
+                  THINK clearly. BUILD capability. DELIVER impact.
                 </p>
                 {/* <Link
                   href="/contact"
@@ -1460,21 +1383,6 @@ export default function AboutUs() {
           </Reveal>
         </div>
       </section>
-
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-            className="fixed bottom-8 right-8 z-50 p-3.5 rounded-full bg-[#00C4B4] text-[#040814] shadow-2xl hover:bg-[#38BDF8] hover:scale-110 transition-all duration-300"
-          >
-            <IconArrowUp />
-          </motion.button>
-        )}
-      </AnimatePresence>
     </main>
   );
 }

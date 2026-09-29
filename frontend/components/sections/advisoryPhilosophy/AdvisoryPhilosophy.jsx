@@ -67,7 +67,7 @@ function TrendingUpIcon() {
 const philosophies = [
   {
     theme: "blue",
-    title: "Strategy for Better Decisions",
+    title: "THINK",
     description: [
       "Helping leadership teams make",
       "informed, future-ready decisions.",
@@ -76,7 +76,7 @@ const philosophies = [
   },
   {
     theme: "teal",
-    title: "Execution for Stronger Organisations",
+    title: "BUILD",
     description: [
       "Building the capabilities, leadership,",
       "and operating models required to",
@@ -86,7 +86,7 @@ const philosophies = [
   },
   {
     theme: "purple",
-    title: "Outcomes for Measurable Impact",
+    title: "DELIVER",
     description: [
       "Driving sustainable growth through",
       "responsible transformation and",
@@ -124,7 +124,7 @@ export default function AdvisoryPhilosophy() {
               Our <span className="text-[#2563EB]">Philosophy</span>
             </h2>
             <p className="text-[#526484] text-base sm:text-lg font-normal mt-1.5">
-              From Strategy to Execution. From Execution to Impact.
+            From strategic thinking to tangible business impact.
             </p>
           </div>
 

@@ -21,38 +21,38 @@ function ChevronRightIcon({ className }) {
 
 const problems = [
   "AI without a roadmap",
-  "Scaling GCCs",
   "Enterprise transformation",
+  "Transforming GCCs",
   "Leadership readiness",
   "Governance & Responsible AI",
 ];
 
 const solutions = [
-  {
-    title: "Operating Model Transformation",
-    desc: "Foundation / starting point",
-    icon: (
-      <svg
-        className="w-5 h-5 text-blue-200"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={1.5}
-      >
-        <rect x="3" y="4" width="7" height="5" rx="1" />
-        <rect x="14" y="4" width="7" height="5" rx="1" />
-        <rect x="8.5" y="15" width="7" height="5" rx="1" />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M6.5 9v2a2 2 0 002 2h7a2 2 0 002-2V9M12 13v2"
-        />
-      </svg>
-    ),
-  },
+  // {
+  //   title: "Operating Model Transformation",
+  //   desc: "Foundation / starting point",
+  //   icon: (
+  //     <svg
+  //       className="w-5 h-5 text-blue-200"
+  //       fill="none"
+  //       viewBox="0 0 24 24"
+  //       stroke="currentColor"
+  //       strokeWidth={1.5}
+  //     >
+  //       <rect x="3" y="4" width="7" height="5" rx="1" />
+  //       <rect x="14" y="4" width="7" height="5" rx="1" />
+  //       <rect x="8.5" y="15" width="7" height="5" rx="1" />
+  //       <path
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //         d="M6.5 9v2a2 2 0 002 2h7a2 2 0 002-2V9M12 13v2"
+  //       />
+  //     </svg>
+  //   ),
+  // },
   {
     title: "AI Strategy & Adoption",
-    desc: "AI strategy, adoption and value",
+    desc: "From AI strategy to measurable value",
     icon: (
       <svg
         className="w-5 h-5 text-blue-200"
@@ -70,8 +70,8 @@ const solutions = [
     ),
   },
   {
-    title: "Business Transformation & Change Enablement",
-    desc: "Business transformation and change",
+    title: "Change Enablement",
+    desc: "Making change work across the business",
     icon: (
       <svg
         className="w-5 h-5 text-blue-200"
@@ -89,8 +89,8 @@ const solutions = [
     ),
   },
   {
-    title: "GCC Transformation",
-    desc: "Building, scaling and evolving GCCs",
+    title: "GCC Evolution & Optimisation",
+    desc: "Evolving GCCs for greater business impact",
     icon: (
       <svg
         className="w-5 h-5 text-blue-200"
@@ -109,7 +109,7 @@ const solutions = [
   },
   {
     title: "Leadership Capability & Adoption Mindset",
-    desc: "Leadership and capability for change",
+    desc: "Building leaders ready for change",
     icon: (
       <svg
         className="w-5 h-5 text-blue-200"
@@ -128,7 +128,7 @@ const solutions = [
   },
   {
     title: "ESG & Responsible Business Transformation",
-    desc: "ESG, governance and responsible growth",
+    desc: "Building responsible, sustainable growth",
     icon: (
       <svg
         className="w-5 h-5 text-blue-200"
@@ -207,7 +207,7 @@ export default function ProblemsAndSolutions() {
         >
           <div className="flex flex-col items-start w-full">
             <p className="text-brand-blue font-bold tracking-[0.25em] uppercase text-xs sm:text-sm mb-3">
-              Challenges Leaders Face
+              Challenges
             </p>
             <div className="w-12 h-[2px] bg-brand-blue mb-6"></div>
 
@@ -215,8 +215,8 @@ export default function ProblemsAndSolutions() {
               level={2}
               className="text-2xl sm:text-3xl lg:text-[2.5rem] text-[#0B192C] leading-[1.1] mb-8"
             >
-              What Problems Leadership Teams Face{" "}
-              <span className="text-brand-blue">Today</span>
+              What Problems Enterprises Face{" "}
+              <span className="text-brand-blue">Today?</span>
             </Heading>
           </div>
         </motion.div>
@@ -233,10 +233,10 @@ export default function ProblemsAndSolutions() {
               className="relative z-20 flex flex-col justify-center rounded-[1.5rem] border border-[#009A9A]/15 bg-white/70 p-6 shadow-[0_20px_50px_rgba(11,25,44,0.08)] backdrop-blur-sm sm:p-8"
             >
               <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#007070] uppercase sm:text-sm">
-                The Problem
+                What`s
               </p>
               <h3 className="mb-5 text-base md:text-xl lg:text-base font-semibold text-[#0B192C] sm:text-xl">
-                What&apos;s slowing teams down
+                Slowing Enterprises down
               </h3>
 
               <motion.ul

@@ -87,7 +87,7 @@ export default function ClientLayout({ children }) {
   const isAdminRoute = pathname?.startsWith("/admin");
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden font-jakarta">
       <ScrollToTop lenisRef={lenisRef} />
       {!isAdminRoute && <Navbar />}
 
