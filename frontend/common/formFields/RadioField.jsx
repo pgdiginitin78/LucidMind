@@ -4,61 +4,92 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  Typography
+  Typography,
 } from "@mui/material";
-
 import { Controller } from "react-hook-form";
-// space-x-2
 
-const RadioField = ({ dataArray, name, label, control }) => {
+const RadioField = ({
+  dataArray = [],
+  name,
+  label,
+  control,
+  defaultValue = "",
+  className = "",
+  sx,
+  labelSx,
+  radioSx,
+  row = true,
+}) => {
   return (
-    <FormControl className="">
-      <div className="flex flex-row lg:flex-row flex-wrap">
+    <FormControl className={className} sx={sx}>
+      {label && (
         <FormLabel
-          sx={{ color: "#000000", fontSize: "10px" }}
-          id="demo-radio-buttons-group-label"
-          // className="mt-2"
+          id={`${name}-radio-label`}
+          sx={{
+            color: "rgba(255, 255, 255, 0.7)",
+            fontSize: "12px",
+            fontWeight: 500,
+            mb: 0.5,
+            "&.Mui-focused": {
+              color: "#00C4FF",
+            },
+            ...labelSx,
+          }}
         >
           {label}
         </FormLabel>
-        <Controller
-          render={({ field }) => (
-            <RadioGroup
-              row
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue={""}
-              name={name}
-              {...field}
-              sx={{
-                marginTop: "-0.3rem",
-                display: "flex",
-                justifyContent: "space-between",
-                fontSize: "12px",
-              }}
-            >
-              {dataArray.map((p) => (
-                <FormControlLabel
-                  key={name + p.id}
-                  value={p.id}
-                  control={<Radio size="small" />}
-                  label={
-                    <Typography
-                      variant="body2 "
-                      className="w-full "
-                      sx={{ fontSize: 12 }}
-                    >
-                      {p.label}
-                    </Typography>
-                  }
-                />
-              ))}
-            </RadioGroup>
-          )}
-          name={name}
-          control={control}
-          defaultValue={""}
-        />
-      </div>
+      )}
+      <Controller
+        name={name}
+        control={control}
+        defaultValue={defaultValue}
+        render={({ field }) => (
+          <RadioGroup
+            row={row}
+            aria-labelledby={`${name}-radio-label`}
+            name={field.name}
+            value={field.value ?? defaultValue}
+            onChange={(e, val) => field.onChange(val ?? e.target.value)}
+            onBlur={field.onBlur}
+            sx={{
+              display: "flex",
+              gap: 2,
+              ...sx,
+            }}
+          >
+            {dataArray.map((p) => (
+              <FormControlLabel
+                key={name + p.id}
+                value={p.id}
+                control={
+                  <Radio
+                    size="small"
+                    sx={{
+                      color: "rgba(255, 255, 255, 0.4)",
+                      "&.Mui-checked": {
+                        color: "#00C4FF",
+                      },
+                      ...radioSx,
+                    }}
+                  />
+                }
+                label={
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: "13px",
+                      color: "#ffffff",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {p.label}
+                  </Typography>
+                }
+              />
+            ))}
+          </RadioGroup>
+        )}
+      />
     </FormControl>
   );
 };

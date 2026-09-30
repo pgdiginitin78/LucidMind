@@ -8,6 +8,7 @@ import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import Image from "@/common/Image";
 import PodcastBannerImg from "./images/PodcastBanner.webp";
 import { API_BASE_URL } from "@/src/config/api";
+import { resolveImageUrl } from "@/lib/utils";
 
 function WaveformIcon({ active = false }) {
   return (
@@ -52,7 +53,7 @@ export default function Podcasts() {
             title: p.title || "",
             episode: p.episode || `Ep. 0${idx + 1}`,
             src: p.src || p.audioUrl || "",
-            thumbnail: p.thumbnail || p.coverImage || p.image || "",
+            thumbnail: resolveImageUrl(p.thumbnail || p.coverImage || p.image || ""),
             description: Array.isArray(p.description)
               ? p.description
               : p.description

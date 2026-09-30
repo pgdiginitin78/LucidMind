@@ -7,6 +7,7 @@ import Image from "@/common/Image";
 import PodcastHeroBanner from "./images/PodcastHeroBanner.webp";
 import PodcastHeroBannerMobile from "./images/PodcastHeroBannerMobile.webp";
 import { API_BASE_URL } from "@/src/config/api";
+import { resolveImageUrl, getEmbedUrl } from "@/lib/utils";
 
 export default function PodcastsHub() {
   const { setReady } = usePageReady();
@@ -31,22 +32,36 @@ export default function PodcastsHub() {
           const activeList = data.podcasts.filter(
             (p) => p.isActive !== false && p.isPublished !== false,
           );
-          const normalized = activeList.map((p, idx) => ({
-            id: p._id || p.id || idx + 1,
-            title: p.title || "",
-            episode: p.episode || `Ep. 0${idx + 1}`,
-            src: p.src || p.audioUrl || "",
-            thumbnail:
-              p.thumbnail ||
-              p.coverImage ||
-              p.image ||
-              "/assets/podcastThumbnails/Capacity vs Capability.min.webp",
-            description: Array.isArray(p.description)
-              ? p.description
-              : p.description
-                ? p.description.split("\n\n")
-                : [],
-          }));
+          const normalized = activeList.map((p, idx) => {
+            const isVid =
+              (p.mediaType || p.type || "").toLowerCase() === "video" ||
+              (Array.isArray(p.tags) &&
+                p.tags.some((t) => String(t).toLowerCase() === "video")) ||
+              /^v\d+/i.test(String(p.episode || "").trim()) ||
+              String(p.episode || "")
+                .toLowerCase()
+                .startsWith("video");
+
+            return {
+              id: p._id || p.id || idx + 1,
+              title: p.title || "",
+              episode: p.episode || `Ep. 0${idx + 1}`,
+              src: p.src || p.audioUrl || "",
+              mediaType: isVid ? "video" : "podcast",
+              tags: Array.isArray(p.tags) ? p.tags : [],
+              thumbnail: resolveImageUrl(
+                p.thumbnail ||
+                  p.coverImage ||
+                  p.image ||
+                  "/assets/podcastThumbnails/Capacity vs Capability.min.webp",
+              ),
+              description: Array.isArray(p.description)
+                ? p.description
+                : p.description
+                  ? p.description.split("\n\n")
+                  : [],
+            };
+          });
           setPodcasts(normalized);
           if (normalized.length > 0) {
             setActiveEpisode(normalized[0]);
@@ -366,8 +381,9 @@ export default function PodcastsHub() {
               <div className="p-4 sm:p-6">
                 <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black border border-white/10 shadow-inner">
                   <iframe
-                    src={playingModal.src}
+                    src={getEmbedUrl(playingModal.src)}
                     title={playingModal.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen
                     className="w-full h-full border-0"
                   />

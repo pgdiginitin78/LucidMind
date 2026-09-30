@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import { Controller } from "react-hook-form";
 import { UploadCloud, Image as ImageIcon, X, RefreshCw, CheckCircle2, Link as LinkIcon } from "lucide-react";
 import { API_BASE_URL } from "@/src/config/api";
+import { resolveImageUrl } from "@/lib/utils";
 
 export default function ImageUploadField({
   name,
@@ -113,7 +114,7 @@ export default function ImageUploadField({
                 <div className="relative rounded-xl border border-[#00C4FF]/30 bg-[#071328] p-3 flex items-center gap-4 overflow-hidden">
                   <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-black/40 border border-white/10 flex-shrink-0">
                     <img
-                      src={field.value}
+                      src={resolveImageUrl(field.value)}
                       alt="Uploaded preview"
                       className="w-full h-full object-cover"
                       onError={(e) => {

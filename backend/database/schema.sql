@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS podcasts (
     guest VARCHAR(255) DEFAULT '',
     description TEXT NOT NULL,
     tags JSON,
+    media_type VARCHAR(50) DEFAULT 'podcast',
     is_published BOOLEAN DEFAULT TRUE,
     sort_order INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

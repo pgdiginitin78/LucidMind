@@ -12,8 +12,7 @@ import {
 import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { useEffect, useState } from "react";
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
-const LucidMindTransperentLogoMobile =
-  "/assets/logo/LucidMind logo 2.svg";
+const LucidMindTransperentLogoMobile = "/assets/logo/LucidMind logo 2.svg";
 
 const NAV_TABS = [
   { name: "Overview", href: "/admin", icon: LayoutDashboard },
@@ -45,8 +44,7 @@ export default function AdminNav() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#070e1e]/90 backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-16 md:h-22.5">
           <div className="flex items-center gap-3">
             <Link
               href="/"
@@ -62,12 +60,11 @@ export default function AdminNav() {
                 height={72}
                 fetchPriority="high"
                 decoding="async"
-                className="h-11 sm:h-13 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-16 md:h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </Link>
           </div>
 
-          {/* Desktop & Tablet Navigation Pill */}
           <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
             {NAV_TABS.map((tab) => {
               const Icon = tab.icon;
@@ -96,7 +93,6 @@ export default function AdminNav() {
             })}
           </nav>
 
-          {/* Right actions: View Website, User Profile, Sign Out */}
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/"
@@ -130,7 +126,6 @@ export default function AdminNav() {
           </div>
         </div>
 
-        {/* Mobile & Small Tablet Navigation Tabs */}
         <div
           className="flex md:hidden items-center gap-1.5 pb-2.5 pt-1 overflow-x-auto"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}

@@ -1,28 +1,30 @@
 "use client";
 /* global process */
 
-import { useEffect, useState, useCallback } from "react";
-import { useForm } from "react-hook-form";
-import {
-  Mic,
-  Edit2,
-  Trash2,
-  Loader2,
-  Sparkles,
-  RefreshCw,
-  ExternalLink,
-} from "lucide-react";
 import { Box, Modal, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  Edit2,
+  Loader2,
+  Mic,
+  RefreshCw,
+  Sparkles,
+  Trash2,
+  Video
+} from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
-import CommonButton from "@/common/button/CommonButton";
 import CancelButtonModal from "@/common/button/CancelButtonModal";
+import CommonButton from "@/common/button/CommonButton";
 import ConfirmationModal from "@/common/ConfirmationModal";
-import InputField from "@/common/formFields/InputField";
-import InputArea from "@/common/formFields/InputArea";
 import ImageUploadField from "@/common/formFields/ImageUploadField";
+import InputArea from "@/common/formFields/InputArea";
+import InputField from "@/common/formFields/InputField";
+import RadioField from "@/common/formFields/RadioField";
 import CommonTableNew from "@/common/table/CommonTable";
 
+import { getEmbedUrl } from "@/lib/utils";
 import { API_BASE_URL } from "@/src/config/api";
 
 
@@ -129,6 +131,21 @@ function PodcastModal({ open, onClose, title, children }) {
   );
 }
 
+const isItemVideo = (p) => {
+  if (!p) return false;
+  // 1. Explicit tags take top priority
+  if (Array.isArray(p.tags) && p.tags.includes("podcast")) return false;
+  if (Array.isArray(p.tags) && p.tags.includes("video")) return true;
+  // 2. Explicit mediaType or type
+  const mt = (p.mediaType || p.type || "").toLowerCase();
+  if (mt === "podcast") return false;
+  if (mt === "video") return true;
+  // 3. Fallback heuristic: check episode prefix
+  const ep = String(p.episode || "").trim().toLowerCase();
+  if (ep.startsWith("video") || /^v\d+/i.test(ep)) return true;
+  return false;
+};
+
 export default function PodcastsManager() {
   const [podcasts, setPodcasts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -139,6 +156,7 @@ export default function PodcastsManager() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [reorderSaving, setReorderSaving] = useState(false);
+  const [adminFilter, setAdminFilter] = useState("ALL"); // "ALL" | "PODCAST" | "VIDEO"
 
   const {
     control,
@@ -149,6 +167,7 @@ export default function PodcastsManager() {
     formState: { errors },
   } = useForm({
     defaultValues: {
+      mediaType: "podcast",
       episode: "",
       title: "",
       src: "",
@@ -164,9 +183,18 @@ export default function PodcastsManager() {
   const fetchPodcasts = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/podcasts`);
+      const res = await fetch(`${API_BASE_URL}/podcasts?_t=${Date.now()}`, {
+        cache: "no-store",
+        headers: getHeaders(),
+      });
       const data = await res.json();
-      if (data.podcasts) setPodcasts(data.podcasts);
+      if (data.podcasts) {
+        const mapped = data.podcasts.map((p) => ({
+          ...p,
+          mediaType: isItemVideo(p) ? "video" : "podcast",
+        }));
+        setPodcasts(mapped);
+      }
     } catch {
 
     } finally {
@@ -223,10 +251,9 @@ export default function PodcastsManager() {
 
   const openCreate = () => {
     setEditingPodcast(null);
-    const nextEpNum = podcasts.length + 1;
-    const epStr = `Ep. ${nextEpNum < 10 ? "0" + nextEpNum : nextEpNum}`;
     reset({
-      episode: epStr,
+      mediaType: adminFilter === "VIDEO" ? "video" : "podcast",
+      episode: "",
       title: "",
       src: "",
       thumbnail: "",
@@ -242,15 +269,23 @@ export default function PodcastsManager() {
 
   const openEdit = (pod) => {
     setEditingPodcast(pod);
+    const isVideo = isItemVideo(pod);
+    const descText = Array.isArray(pod.description)
+      ? pod.description.join("\n\n")
+      : typeof pod.description === "string"
+        ? pod.description
+        : "";
+
     reset({
+      mediaType: isVideo ? "video" : "podcast",
       episode: pod.episode || "",
       title: pod.title || "",
       src: pod.src || pod.audioUrl || "",
-      thumbnail: pod.thumbnail || pod.image || "",
+      thumbnail: pod.thumbnail || pod.image || pod.coverImage || "",
       host: pod.host || "Ravishankar Pingali",
       guest: pod.guest || "",
       duration: pod.duration || "",
-      description: pod.description || "",
+      description: descText,
       isActive: pod.isActive !== false && pod.isPublished !== false,
     });
     setApiError("");
@@ -262,13 +297,30 @@ export default function PodcastsManager() {
     setApiError("");
     try {
       const isAct = values.isActive !== false;
+      const mediaType = values.mediaType === "video" ? "video" : "podcast";
+
+      // Always synchronize tags with mediaType so that live MySQL databases persist the format even without column updates
+      const existingTags = Array.isArray(editingPodcast?.tags)
+        ? [...editingPodcast.tags]
+        : [];
+      const cleanTags = existingTags.filter(
+        (t) => t !== "video" && t !== "podcast"
+      );
+      cleanTags.push(mediaType);
+
+      const embedUrl = getEmbedUrl(values.src);
+
       const payload = {
+        mediaType,
+        type: mediaType,
+        tags: cleanTags,
         episode: values.episode,
         title: values.title,
-        src: values.src,
-        audioUrl: values.src,
+        src: embedUrl,
+        audioUrl: embedUrl,
         thumbnail: values.thumbnail || "",
         image: values.thumbnail || "",
+        coverImage: values.thumbnail || "",
         host: values.host,
         guest: values.guest,
         duration: values.duration,
@@ -277,8 +329,9 @@ export default function PodcastsManager() {
         isPublished: isAct,
       };
 
+      const targetId = editingPodcast?._id || editingPodcast?.id;
       const url = editingPodcast
-        ? `${API_BASE_URL}/podcasts/${editingPodcast._id || editingPodcast.id}`
+        ? `${API_BASE_URL}/podcasts/${targetId}`
         : `${API_BASE_URL}/podcasts`;
 
       const res = await fetch(url, {
@@ -287,12 +340,49 @@ export default function PodcastsManager() {
         body: JSON.stringify(payload),
       });
 
+      const resData = await res.json().catch(() => ({}));
+
       if (res.ok) {
+        const savedPod = resData.podcast || {
+          ...editingPodcast,
+          ...payload,
+          id: targetId,
+          _id: targetId,
+          mediaType,
+        };
+
+        // Immediately update state so table reflects edits in real time!
+        setPodcasts((prev) => {
+          if (editingPodcast) {
+            return prev.map((p) =>
+              (p._id || p.id) === targetId ? { ...p, ...savedPod, mediaType } : p
+            );
+          } else {
+            return [{ ...savedPod, mediaType }, ...prev];
+          }
+        });
+
         setModalOpen(false);
         fetchPodcasts();
       } else {
-        const err = await res.json();
-        setApiError(err.message || "Operation failed.");
+        // If the server returns 404 because no database column changed, treat as success if updating
+        if (
+          editingPodcast &&
+          res.status === 404 &&
+          (resData.message || "").toLowerCase().includes("no changes made")
+        ) {
+          setPodcasts((prev) =>
+            prev.map((p) =>
+              (p._id || p.id) === targetId
+                ? { ...p, ...payload, mediaType }
+                : p
+            )
+          );
+          setModalOpen(false);
+          fetchPodcasts();
+        } else {
+          setApiError(resData.message || "Operation failed.");
+        }
       }
     } catch {
       setApiError("Cannot connect to server.");
@@ -322,30 +412,44 @@ export default function PodcastsManager() {
     setDeleteTarget(null);
   };
 
-  const tableRows = podcasts.map((p) => ({
-    id: p._id || p.id,
-    Episode: p.episode || "-",
-    Title: p.title,
-    Host: p.host || "-",
-    Guest: p.guest || "-",
-    Duration: p.duration || "-",
-    "Talking Points":
-      ((typeof p.description === "string"
-        ? p.description
-        : Array.isArray(p.description)
-          ? p.description.join(" ")
-          : ""
-      ).replace(/\s+/g, " ")).slice(0, 60) +
-      (((typeof p.description === "string"
-        ? p.description
-        : Array.isArray(p.description)
-          ? p.description.join(" ")
-          : ""
-      ).replace(/\s+/g, " ")).length > 60
-        ? "..."
-        : ""),
-    _raw: p,
-  }));
+  const totalCount = podcasts.length;
+  const videoCount = podcasts.filter(isItemVideo).length;
+  const podcastCount = totalCount - videoCount;
+
+  const filteredPodcasts = podcasts.filter((p) => {
+    if (adminFilter === "VIDEO") return isItemVideo(p);
+    if (adminFilter === "PODCAST") return !isItemVideo(p);
+    return true;
+  });
+
+  const tableRows = filteredPodcasts.map((p) => {
+    const isVid = isItemVideo(p);
+    return {
+      id: p._id || p.id,
+      Format: isVid ? "Video" : "Podcast",
+      Episode: p.episode || "-",
+      Title: p.title,
+      Host: p.host || "-",
+      Guest: p.guest || "-",
+      Duration: p.duration || "-",
+      "Talking Points":
+        ((typeof p.description === "string"
+          ? p.description
+          : Array.isArray(p.description)
+            ? p.description.join(" ")
+            : ""
+        ).replace(/\s+/g, " ")).slice(0, 60) +
+        (((typeof p.description === "string"
+          ? p.description
+          : Array.isArray(p.description)
+            ? p.description.join(" ")
+            : ""
+        ).replace(/\s+/g, " ")).length > 60
+          ? "..."
+          : ""),
+      _raw: { ...p, mediaType: isVid ? "video" : "podcast" },
+    };
+  });
 
   return (
     <div className="space-y-6 w-full max-w-full font-sans">
@@ -405,6 +509,44 @@ export default function PodcastsManager() {
             )}
           </div>
 
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            <button
+              type="button"
+              onClick={() => setAdminFilter("ALL")}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                adminFilter === "ALL"
+                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_12px_rgba(0,196,255,0.3)]"
+                  : "bg-white/[0.04] text-white/60 hover:text-white hover:bg-white/[0.08] border border-white/10"
+              }`}
+            >
+              All Content ({totalCount})
+            </button>
+            <button
+              type="button"
+              onClick={() => setAdminFilter("PODCAST")}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                adminFilter === "PODCAST"
+                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_12px_rgba(0,196,255,0.3)]"
+                  : "bg-white/[0.04] text-white/60 hover:text-white hover:bg-white/[0.08] border border-white/10"
+              }`}
+            >
+              <Mic size={12} />
+              <span>Podcasts ({podcastCount})</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setAdminFilter("VIDEO")}
+              className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                adminFilter === "VIDEO"
+                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_12px_rgba(0,196,255,0.3)]"
+                  : "bg-white/[0.04] text-white/60 hover:text-white hover:bg-white/[0.08] border border-white/10"
+              }`}
+            >
+              <Video size={12} />
+              <span>Videos ({videoCount})</span>
+            </button>
+          </div>
+
           <CommonTableNew
             dataResult={tableRows}
             removeHeaders={["id", "_raw"]}
@@ -462,7 +604,7 @@ export default function PodcastsManager() {
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         title={
-          editingPodcast ? "Edit Podcast Episode" : "Add New Podcast Episode"
+          editingPodcast ? "Edit Episode" : "Add New Episode"
         }
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -471,6 +613,19 @@ export default function PodcastsManager() {
               {apiError}
             </div>
           )}
+
+          <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <RadioField
+              name="mediaType"
+              label="Content Format *"
+              control={control}
+              defaultValue="podcast"
+              dataArray={[
+                { id: "podcast", label: "Podcast" },
+                { id: "video", label: "Video" },
+              ]}
+            />
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-start">
             <div>

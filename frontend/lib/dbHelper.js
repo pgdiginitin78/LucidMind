@@ -169,7 +169,11 @@ export function reorderBlogs(orderedIds) {
 // PODCASTS
 export function getPodcasts() {
   const db = getDb();
-  return db.podcasts || [];
+  const list = db.podcasts || [];
+  return list.map((p) => ({
+    ...p,
+    mediaType: p.mediaType || p.type || "podcast",
+  }));
 }
 
 export function createPodcast(payload) {
@@ -178,6 +182,7 @@ export function createPodcast(payload) {
     _id: "pod_" + Date.now(),
     isActive: true,
     isPublished: true,
+    mediaType: payload.mediaType || payload.type || "podcast",
     ...payload,
     createdAt: new Date().toISOString(),
   };
@@ -191,7 +196,12 @@ export function updatePodcast(id, payload) {
   const list = db.podcasts || [];
   const idx = list.findIndex((p) => p._id === id || p.id === id);
   if (idx === -1) return null;
-  list[idx] = { ...list[idx], ...payload, updatedAt: new Date().toISOString() };
+  list[idx] = {
+    ...list[idx],
+    ...payload,
+    mediaType: payload.mediaType || payload.type || list[idx].mediaType || "podcast",
+    updatedAt: new Date().toISOString(),
+  };
   db.podcasts = list;
   saveDb(db);
   return list[idx];

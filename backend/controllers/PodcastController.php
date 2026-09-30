@@ -36,7 +36,19 @@ class PodcastController {
         }
     }
 
+    private function ensureMediaTypeColumn() {
+        try {
+            $check = $this->pdo->query("SHOW COLUMNS FROM podcasts LIKE 'media_type'")->fetch();
+            if (!$check) {
+                $this->pdo->exec("ALTER TABLE podcasts ADD COLUMN media_type VARCHAR(50) DEFAULT 'podcast'");
+            }
+        } catch (\Exception $e) {
+            // ignore
+        }
+    }
+
     private function getAllPodcasts() {
+        $this->ensureMediaTypeColumn();
         $stmt = $this->pdo->prepare("SELECT * FROM podcasts ORDER BY sort_order ASC, created_at DESC");
         $stmt->execute();
         $podcasts = $stmt->fetchAll();
@@ -47,12 +59,15 @@ class PodcastController {
             $podcast['isPublished'] = (bool)$podcast['is_published'];
             $podcast['audioUrl'] = $podcast['audio_url'];
             $podcast['coverImage'] = $podcast['cover_image'];
+            $hasVideoTag = in_array('video', $podcast['tags']) || preg_match('/^v\d+/i', trim($podcast['episode'] ?? ''));
+            $podcast['mediaType'] = !empty($podcast['media_type']) ? $podcast['media_type'] : ($hasVideoTag ? 'video' : 'podcast');
         }
 
         echo json_encode(['podcasts' => $podcasts]);
     }
 
     private function getPodcastById($id) {
+        $this->ensureMediaTypeColumn();
         $stmt = $this->pdo->prepare("SELECT * FROM podcasts WHERE id = ?");
         $stmt->execute([$id]);
         $podcast = $stmt->fetch();
@@ -63,6 +78,8 @@ class PodcastController {
             $podcast['isPublished'] = (bool)$podcast['is_published'];
             $podcast['audioUrl'] = $podcast['audio_url'];
             $podcast['coverImage'] = $podcast['cover_image'];
+            $hasVideoTag = in_array('video', $podcast['tags']) || preg_match('/^v\d+/i', trim($podcast['episode'] ?? ''));
+            $podcast['mediaType'] = !empty($podcast['media_type']) ? $podcast['media_type'] : ($hasVideoTag ? 'video' : 'podcast');
             echo json_encode(['podcast' => $podcast]);
         } else {
             http_response_code(404);
@@ -85,6 +102,8 @@ class PodcastController {
             return;
         }
 
+        $this->ensureMediaTypeColumn();
+
         $id = uniqid('pod_');
         $slug = !empty($data['slug']) ? $data['slug'] : $this->slugify($data['title']);
         $episode = $data['episode'] ?? 'Ep. 01';
@@ -96,14 +115,32 @@ class PodcastController {
         $guest = $data['guest'] ?? '';
         $description = $data['description'] ?? '';
         $isPublished = isset($data['isPublished']) ? (int)$data['isPublished'] : 1;
-        $tags = isset($data['tags']) && is_array($data['tags']) ? json_encode($data['tags']) : json_encode([]);
+        $tags = isset($data['tags']) && is_array($data['tags']) ? $data['tags'] : [];
+        $mediaType = !empty($data['mediaType']) ? strtolower($data['mediaType']) : (!empty($data['type']) ? strtolower($data['type']) : 'podcast');
+        if (!in_array($mediaType, $tags)) {
+            $tags[] = $mediaType;
+        }
+        $tagsJson = json_encode($tags);
 
-        $stmt = $this->pdo->prepare("INSERT INTO podcasts (id, title, slug, episode, src, audio_url, thumbnail, cover_image, duration, host, guest, description, tags, is_published) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $hasMediaTypeCol = false;
+        try {
+            $hasMediaTypeCol = (bool)$this->pdo->query("SHOW COLUMNS FROM podcasts LIKE 'media_type'")->fetch();
+        } catch (\Exception $e) {}
+
+        if ($hasMediaTypeCol) {
+            $stmt = $this->pdo->prepare("INSERT INTO podcasts (id, title, slug, episode, src, audio_url, thumbnail, cover_image, duration, host, guest, description, tags, is_published, media_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $params = [$id, $data['title'], $slug, $episode, $finalSrc, $finalSrc, $thumbnail, $coverImage, $duration, $host, $guest, $description, $tagsJson, $isPublished, $mediaType];
+        } else {
+            $stmt = $this->pdo->prepare("INSERT INTO podcasts (id, title, slug, episode, src, audio_url, thumbnail, cover_image, duration, host, guest, description, tags, is_published) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $params = [$id, $data['title'], $slug, $episode, $finalSrc, $finalSrc, $thumbnail, $coverImage, $duration, $host, $guest, $description, $tagsJson, $isPublished];
+        }
         
         try {
-            $stmt->execute([$id, $data['title'], $slug, $episode, $finalSrc, $finalSrc, $thumbnail, $coverImage, $duration, $host, $guest, $description, $tags, $isPublished]);
+            $stmt->execute($params);
             $podcast = $data;
             $podcast['_id'] = $id;
+            $podcast['mediaType'] = $mediaType;
+            $podcast['tags'] = $tags;
             http_response_code(201);
             echo json_encode(['message' => 'Podcast created', 'podcast' => $podcast]);
         } catch (\PDOException $e) {
@@ -115,6 +152,18 @@ class PodcastController {
     private function updatePodcast($id) {
         $data = json_decode(file_get_contents("php://input"), true);
         
+        $this->ensureMediaTypeColumn();
+
+        // Check if podcast exists first
+        $stmt = $this->pdo->prepare("SELECT * FROM podcasts WHERE id = ?");
+        $stmt->execute([$id]);
+        $existing = $stmt->fetch();
+        if (!$existing) {
+            http_response_code(404);
+            echo json_encode(['message' => 'Podcast not found']);
+            return;
+        }
+
         $fields = [];
         $values = [];
 
@@ -129,8 +178,19 @@ class PodcastController {
             'duration' => 'duration',
             'host' => 'host',
             'guest' => 'guest',
-            'description' => 'description'
+            'description' => 'description',
         ];
+
+        // Handle media_type safely only if column exists
+        $hasMediaTypeCol = false;
+        try {
+            $hasMediaTypeCol = (bool)$this->pdo->query("SHOW COLUMNS FROM podcasts LIKE 'media_type'")->fetch();
+        } catch (\Exception $e) {}
+
+        if ($hasMediaTypeCol && (isset($data['mediaType']) || isset($data['type']))) {
+            $fields[] = "media_type = ?";
+            $values[] = strtolower($data['mediaType'] ?? $data['type'] ?? 'podcast');
+        }
 
         // Mirror fields
         if (isset($data['src']) && !isset($data['audioUrl'])) $data['audioUrl'] = $data['src'];
@@ -150,39 +210,37 @@ class PodcastController {
             $values[] = (int)$data['isPublished'];
         }
 
-        if (isset($data['tags']) && is_array($data['tags'])) {
-            $fields[] = "tags = ?";
-            $values[] = json_encode($data['tags']);
+        $mediaTypeVal = strtolower($data['mediaType'] ?? $data['type'] ?? '');
+        $tags = isset($data['tags']) && is_array($data['tags']) ? $data['tags'] : (json_decode($existing['tags'] ?? '[]', true) ?: []);
+        if ($mediaTypeVal) {
+            $tags = array_values(array_filter($tags, function($t) { return $t !== 'video' && $t !== 'podcast'; }));
+            $tags[] = $mediaTypeVal;
         }
+        $fields[] = "tags = ?";
+        $values[] = json_encode($tags);
 
-        if (empty($fields)) {
-            http_response_code(400);
-            echo json_encode(['message' => 'No fields to update']);
-            return;
-        }
-
-        $values[] = $id;
-        $sql = "UPDATE podcasts SET " . implode(', ', $fields) . " WHERE id = ?";
-        
-        try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute($values);
-            if ($stmt->rowCount() > 0) {
-                // Fetch the updated podcast
-                $stmt = $this->pdo->prepare("SELECT * FROM podcasts WHERE id = ?");
-                $stmt->execute([$id]);
-                $podcast = $stmt->fetch();
-                $podcast['_id'] = $podcast['id'];
-                $podcast['tags'] = json_decode($podcast['tags'], true) ?: [];
-                echo json_encode(['message' => 'Podcast updated', 'podcast' => $podcast]);
-            } else {
-                http_response_code(404);
-                echo json_encode(['message' => 'Podcast not found or no changes made']);
+        if (!empty($fields)) {
+            $values[] = $id;
+            $sql = "UPDATE podcasts SET " . implode(', ', $fields) . " WHERE id = ?";
+            try {
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute($values);
+            } catch (\PDOException $e) {
+                http_response_code(400);
+                echo json_encode(['message' => $e->getMessage()]);
+                return;
             }
-        } catch (\PDOException $e) {
-            http_response_code(400);
-            echo json_encode(['message' => $e->getMessage()]);
         }
+
+        // Always fetch and return the updated podcast
+        $stmt = $this->pdo->prepare("SELECT * FROM podcasts WHERE id = ?");
+        $stmt->execute([$id]);
+        $podcast = $stmt->fetch();
+        $podcast['_id'] = $podcast['id'];
+        $podcast['tags'] = json_decode($podcast['tags'], true) ?: [];
+        $hasVideoTag = in_array('video', $podcast['tags']) || preg_match('/^v\d+/i', trim($podcast['episode'] ?? ''));
+        $podcast['mediaType'] = !empty($podcast['media_type']) ? $podcast['media_type'] : ($hasVideoTag ? 'video' : 'podcast');
+        echo json_encode(['message' => 'Podcast updated', 'podcast' => $podcast]);
     }
 
     private function deletePodcast($id) {
