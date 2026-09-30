@@ -40,7 +40,7 @@ function HeroSection() {
         }}
       />
 
-      <div className="relative z-20 w-full max-w-[1440px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
+      <div className="relative z-20 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
         <div className="w-full md:w-[48%] lg:w-[50%] flex items-center justify-center order-first md:order-last scale-95 sm:scale-100 md:scale-100 -mb-6 sm:-mb-4 md:mb-0">
           <AiParticleDisplay />
         </div>
@@ -53,7 +53,7 @@ function HeroSection() {
 
             <h1 className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold w-full">
               {/* Organisations Ready  for the{" "} */}
-              Built For The {" "}
+              Built For The {" "}<br/>  
               <span className="text-[#009A9A]">Adaptive Future</span> 
             </h1>
             <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>

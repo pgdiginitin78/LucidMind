@@ -27,8 +27,13 @@ import TheFounderSectionBg from "./images/TheFounderSectionBg.webp";
 import TheFounderSectionBgMobile from "./images/TheFounderSectionBg_mobile.webp";
 import TheFounderSectionBgTablet from "./images/TheFounderSectionBg_tablet.webp";
 
+import Velaris from "@/components/ui/velaris";
+import TealParticles from "@/components/ui/TealParticles";
+import OrbitPhilosophyBg from "./images/orbit_philosophy_bg.png";
+
 const EarthHorizonImg = "/assets/about/earth_horizon_dawn.webp";
 const FounderImg = "/assets/Ravishankar Pingali.webp";
+const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 
 const IconPillarBrain = () => (
   <svg
@@ -157,8 +162,6 @@ const LinkedInIcon = () => (
   </svg>
 );
 
-
-
 const IconEye = () => (
   <svg
     width="22"
@@ -175,7 +178,7 @@ const IconEye = () => (
   </svg>
 );
 
-const IconTarget = () => (
+const IconGear = () => (
   <svg
     width="22"
     height="22"
@@ -186,9 +189,8 @@ const IconTarget = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="6" />
-    <circle cx="12" cy="12" r="2" />
+    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1Z" />
   </svg>
 );
 
@@ -257,8 +259,6 @@ const IconArrowRight = () => (
   </svg>
 );
 
-
-
 const fadeUp = {
   hidden: { opacity: 0, y: 44 },
   visible: (i = 0) => ({
@@ -322,17 +322,22 @@ function Reveal({ children, className = "", variants = fadeUp, custom = 0 }) {
 
 export default function AboutUs() {
   const { setReady } = usePageReady();
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
   const heroRef = useRef(null);
+  const philosophyRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
 
+  const { scrollYProgress: philosophyScroll } = useScroll({
+    target: philosophyRef,
+    offset: ["start end", "end start"],
+  });
+
   const heroScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const velarisY = useTransform(philosophyScroll, [0, 1], [-70, 70]);
 
   useEffect(() => {
     setReady(true);
@@ -346,44 +351,42 @@ export default function AboutUs() {
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-
   }, [setReady]);
-
 
   const valuePillars = [
     {
       icon: <IconEye />,
       title: "Lucidity",
-      desc: "See the situation clearly before deciding what to do.",
-      color: "#00C4B4",
+      desc: "See the invisible, clarify better decisions, build a fairer tomorrow.",
+      color: "#00C4FF",
       num: "01",
     },
     {
-      icon: <IconTarget />,
+      icon: <IconGear />,
       title: "Pragmatism",
-      desc: "Focus on what can create meaningful business value — not what is simply possible.",
-      color: "#38BDF8",
+      desc: "Focus on what can create a measurable transformation, not what is merely possible.",
+      color: "#00C4FF",
       num: "02",
     },
     {
       icon: <IconShield />,
       title: "Ownership",
-      desc: "Stay connected to execution, not just strategy.",
-      color: "#00C4B4",
+      desc: "Stay accountable, take initiative, act with integrity.",
+      color: "#00C4FF",
       num: "03",
     },
     {
       icon: <IconLoop />,
       title: "Adaptability",
-      desc: "Build organisations that can respond to change continuously, not periodically.",
-      color: "#38BDF8",
+      desc: "Build organisations that can anticipate change, evolve early, not just react.",
+      color: "#00C4FF",
       num: "04",
     },
     {
       icon: <IconZap />,
       title: "Impact",
       desc: "Measure progress by outcomes, not activity.",
-      color: "#00C4B4",
+      color: "#00C4FF",
       num: "05",
     },
   ];
@@ -813,7 +816,6 @@ export default function AboutUs() {
 
       <section className="relative w-full bg-[#011424] py-10 sm:py-12 md:py-14 xl:py-16 overflow-hidden flex items-center min-h-[420px] sm:min-h-[460px] lg:min-h-[520px] xl:min-h-[560px]">
         <div className="absolute inset-0 z-0 pointer-events-none">
-        
           <Image
             src={Section5FullBgTab}
             alt="The LucidMind Difference background"
@@ -821,7 +823,7 @@ export default function AboutUs() {
             priority
             className="hidden lg:block xl:hidden object-cover object-center"
           />
-  
+
           <Image
             src={Section5FullBg}
             alt="The LucidMind Difference background"
@@ -1084,44 +1086,47 @@ export default function AboutUs() {
         </div>
       </section> */}
 
-      <section className="relative w-full bg-[#070D1B] py-12 sm:py-16 md:py-20 xl:py-28 px-4 sm:px-8 md:px-12 xl:px-20">
-        <div className="max-w-7xl mx-auto">
+      <section ref={philosophyRef} className="relative w-full bg-[#010B1E] py-8 sm:py-10 lg:py-12 px-4 sm:px-6 md:px-8 xl:px-12 overflow-hidden select-none">
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <Image
+            src={OrbitPhilosophyBg}
+            alt=""
+            fill
+            priority
+            className="object-cover object-center opacity-95"
+          />
+          <div className="absolute inset-0 bg-[#010B1E]/25 pointer-events-none" />
+        </div>
+
+        <TealParticles className="z-[1] opacity-25" count={25} />
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <Reveal
             variants={fadeUp}
-            className="text-center max-w-2xl mx-auto mb-10 sm:mb-14 xl:mb-16"
+            className="text-center max-w-5xl mx-auto mb-5 sm:mb-6"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-bold tracking-tight text-white">
-              What LucidMind stands for
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-2">
+              What <span className="text-[#00C4FF]">LucidMind</span> stands for
             </h2>
+            <div className="w-10 h-0.5 bg-[#00C4FF] rounded-full mx-auto shadow-[0_0_10px_#00c4ff]" />
           </Reveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3.5 sm:gap-4 xl:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-3.5 xl:gap-4">
             {valuePillars.map((pillar, i) => (
               <Reveal key={pillar.num} variants={scaleIn} custom={i}>
                 <motion.div
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.25 }}
-                  className="group relative p-4 sm:p-5 xl:p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.06] transition-colors duration-300 flex flex-col justify-between h-full"
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.borderColor = pillar.color + "80")
-                  }
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = "")}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                  className="group flex flex-row sm:flex-col items-start gap-3 sm:gap-0 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#030d22]/60 backdrop-blur-xl border border-cyan-500/25 hover:border-cyan-400/70 hover:bg-[#030d22]/80 transition-all duration-300 shadow-[0_8px_30px_rgba(0,0,0,0.4)] hover:shadow-[0_0_20px_rgba(0,196,255,0.25)] h-full"
                 >
-                  <div>
-                    <div
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-4 sm:mb-5 group-hover:scale-110 transition-transform"
-                      style={{
-                        background: `${pillar.color}18`,
-                        border: `1px solid ${pillar.color}44`,
-                        color: pillar.color,
-                      }}
-                    >
-                      {pillar.icon}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                  <div className="w-10 h-10 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/35 text-[#00C4FF] flex items-center justify-center sm:mb-2.5 shadow-[inset_0_0_10px_rgba(0,196,255,0.2)] filter drop-shadow-[0_0_6px_rgba(0,196,255,0.5)] group-hover:scale-105 group-hover:border-[#00C4FF] transition-all">
+                    {pillar.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1 tracking-tight">
                       {pillar.title}
                     </h3>
-                    <p className="text-xs text-slate-300/80 leading-relaxed">
+                    <p className="text-[11px] sm:text-xs text-slate-300/85 leading-relaxed">
                       {pillar.desc}
                     </p>
                   </div>
@@ -1129,6 +1134,186 @@ export default function AboutUs() {
               </Reveal>
             ))}
           </div>
+
+          <div className="my-6 sm:my-8 lg:my-10" />
+
+          <Reveal variants={fadeUp} className="text-center max-w-5xl mx-auto mb-5 sm:mb-7">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-['Playfair_Display',serif] drop-shadow-[0_2px_14px_rgba(0,196,255,0.5)]">
+              The Philosophy Behind <span className="text-[#00C4FF] bg-gradient-to-r from-[#00C4FF] via-[#38BDF8] to-[#60A5FA] bg-clip-text text-transparent">Our Mark</span>
+            </h2>
+            <div className="w-12 h-0.5 bg-[#00C4FF] rounded-full mx-auto my-2.5 shadow-[0_0_10px_#00c4ff]" />
+            <p className="text-xs sm:text-sm text-slate-300/90 font-medium max-w-xl mx-auto">
+              Our logo is a visual manifesto of the values we bring to every partnership.
+            </p>
+          </Reveal>
+
+          <div className="relative">
+            <div className="flex flex-col lg:flex-row items-center justify-center max-w-5xl mx-auto relative px-2 sm:px-4 lg:px-0">
+              <div className="relative shrink-0 flex items-center justify-center mb-8 lg:mb-0">
+                <div className="absolute -inset-10 sm:-inset-12 rounded-full bg-[radial-gradient(circle,_rgba(0,196,255,0.35)_0%,_rgba(0,120,255,0.12)_50%,_transparent_70%)] blur-2xl pointer-events-none" />
+                <div className="absolute -inset-4 sm:-inset-6 rounded-full border border-cyan-400/25 pointer-events-none transform -rotate-6 scale-x-105" />
+                <div className="relative w-60 h-60 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full border-2 border-cyan-400/80 bg-[#020b1c]/80 backdrop-blur-xl shadow-[0_0_35px_rgba(0,196,255,0.5),inset_0_0_25px_rgba(0,196,255,0.2)] flex flex-col items-center justify-center p-6 text-center group transition-all duration-300">
+                  <motion.div
+                    animate={{ scale: [1, 1.02, 1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative z-10 flex items-center justify-center w-full"
+                  >
+                    <img
+                      src={LucidMindTransperentLogo}
+                      alt="LucidMind Logo"
+                      className="w-36 sm:w-40 lg:w-44 h-auto object-contain filter drop-shadow-[0_0_20px_rgba(0,196,255,0.7)]"
+                    />
+                  </motion.div>
+                </div>
+              </div>
+
+              <div className="hidden lg:block w-24 shrink-0 h-[288px] pointer-events-none relative z-20">
+                <svg className="w-full h-full overflow-visible" viewBox="0 0 96 288" fill="none">
+                  <defs>
+                    <filter id="markCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  <path
+                    d="M -76 17 C -16 31, 60 43, 96 43"
+                    stroke="#00C4FF"
+                    strokeWidth="1.75"
+                    strokeOpacity="0.9"
+                    filter="url(#markCyanGlow)"
+                  />
+                  <circle cx="-76" cy="17" r="4.5" fill="#ffffff" filter="url(#markCyanGlow)" />
+                  <circle cx="-76" cy="17" r="2.5" fill="#00C4FF" />
+                  <circle cx="96" cy="43" r="3.5" fill="#ffffff" filter="url(#markCyanGlow)" />
+                  <circle cx="96" cy="43" r="2" fill="#00C4FF" />
+
+                  <path
+                    d="M -14 83 C 25 123, 60 144, 96 144"
+                    stroke="#00C4FF"
+                    strokeWidth="1.75"
+                    strokeOpacity="0.9"
+                    filter="url(#markCyanGlow)"
+                  />
+                  <circle cx="96" cy="144" r="3.5" fill="#ffffff" filter="url(#markCyanGlow)" />
+                  <circle cx="96" cy="144" r="2" fill="#00C4FF" />
+
+                  <path
+                    d="M -7 189 C 29 225, 60 245, 96 245"
+                    stroke="#00C4FF"
+                    strokeWidth="1.75"
+                    strokeOpacity="0.9"
+                    filter="url(#markCyanGlow)"
+                  />
+                  <circle cx="96" cy="245" r="3.5" fill="#ffffff" filter="url(#markCyanGlow)" />
+                  <circle cx="96" cy="245" r="2" fill="#00C4FF" />
+                </svg>
+              </div>
+
+              <div className="relative shrink-0 w-full max-w-md lg:max-w-none lg:w-[480px] xl:w-[500px] flex flex-col gap-3 sm:gap-[15px] z-10 px-2 sm:px-0">
+                <Reveal variants={fadeRight}>
+                  <motion.div
+                    whileHover={{ x: 4, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="group flex items-center gap-3.5 sm:gap-4 p-3 sm:p-3.5 min-h-[80px] lg:h-[86px] rounded-xl sm:rounded-2xl bg-[#030d22]/65 backdrop-blur-xl border border-cyan-500/25 hover:border-cyan-400/80 hover:bg-[#030d22]/85 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(0,196,255,0.3)]"
+                  >
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/40 flex items-center justify-center p-2 shadow-[inset_0_0_12px_rgba(0,196,255,0.15)] group-hover:scale-105 group-hover:border-cyan-400 transition-all">
+                      <img
+                        src="/assets/logo/open-circle.png"
+                        alt="Open Circle"
+                        className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,196,255,0.7)]"
+                      />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <h3 className="text-sm sm:text-base font-bold font-['Playfair_Display',serif] text-white">
+                          Open Circle
+                        </h3>
+                        <span className="text-[10px] sm:text-[11px] font-semibold tracking-wide text-cyan-300 px-2.5 py-0.5 rounded-full bg-[#02182b] border border-cyan-400/60 shadow-[0_0_10px_rgba(0,196,255,0.35)]">
+                          Continuous Learning
+                        </span>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
+                        We approach every challenge with a holistic perspective, remaining endlessly open to new possibilities and the clarity that comes from continuous learning.
+                      </p>
+                    </div>
+                  </motion.div>
+                </Reveal>
+
+                <Reveal variants={fadeRight} custom={1}>
+                  <motion.div
+                    whileHover={{ x: 4, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="group flex items-center gap-3.5 sm:gap-4 p-3 sm:p-3.5 min-h-[80px] lg:h-[86px] rounded-xl sm:rounded-2xl bg-[#030d22]/65 backdrop-blur-xl border border-cyan-500/25 hover:border-cyan-400/80 hover:bg-[#030d22]/85 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(0,196,255,0.3)]"
+                  >
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/40 flex items-center justify-center p-2 shadow-[inset_0_0_12px_rgba(0,196,255,0.15)] group-hover:scale-105 group-hover:border-cyan-400 transition-all">
+                      <img
+                        src="/assets/logo/hidden-lm.png"
+                        alt="Hidden LM"
+                        className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,196,255,0.7)]"
+                      />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <h3 className="text-sm sm:text-base font-bold font-['Playfair_Display',serif] text-white">
+                          Hidden LM
+                        </h3>
+                        <span className="text-[10px] sm:text-[11px] font-semibold tracking-wide text-cyan-300 px-2.5 py-0.5 rounded-full bg-[#02182b] border border-cyan-400/60 shadow-[0_0_10px_rgba(0,196,255,0.35)]">
+                          Core Clarity
+                        </span>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
+                        LucidMind sits at the center of the work we do. We cut through complexity to shape better outcomes and bring absolute clarity to your toughest business questions.
+                      </p>
+                    </div>
+                  </motion.div>
+                </Reveal>
+
+                <Reveal variants={fadeRight} custom={2}>
+                  <motion.div
+                    whileHover={{ x: 4, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="group flex items-center gap-3.5 sm:gap-4 p-3 sm:p-3.5 min-h-[80px] lg:h-[86px] rounded-xl sm:rounded-2xl bg-[#030d22]/65 backdrop-blur-xl border border-cyan-500/25 hover:border-cyan-400/80 hover:bg-[#030d22]/85 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_0_25px_rgba(0,196,255,0.3)]"
+                  >
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/40 flex items-center justify-center p-2 shadow-[inset_0_0_12px_rgba(0,196,255,0.15)] group-hover:scale-105 group-hover:border-cyan-400 transition-all">
+                      <img
+                        src="/assets/logo/upward-path.png"
+                        alt="Upward Path"
+                        className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,196,255,0.7)]"
+                      />
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-1">
+                        <h3 className="text-sm sm:text-base font-bold font-['Playfair_Display',serif] text-white">
+                          Upward Path
+                        </h3>
+                        <span className="text-[10px] sm:text-[11px] font-semibold tracking-wide text-cyan-300 px-2.5 py-0.5 rounded-full bg-[#02182b] border border-cyan-400/60 shadow-[0_0_10px_rgba(0,196,255,0.35)]">
+                          Measurable Impact
+                        </span>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
+                        We are built for progress. Our commitment is to take you on a journey from strategic insight to tangible, lasting enterprise impact.
+                      </p>
+                    </div>
+                  </motion.div>
+                </Reveal>
+              </div>
+            </div>
+          </div>
+
+          <Reveal variants={fadeUp} custom={1}>
+            <div className="mt-6 sm:mt-8 lg:mt-10 text-center w-full max-w-xl mx-auto p-3 sm:p-3.5 rounded-xl bg-[#030d22]/70 backdrop-blur-xl border border-cyan-500/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+              <p className="text-xs sm:text-[13px] font-medium text-slate-200 leading-relaxed px-2">
+                We help leaders move from clarity to capability, and from strategy to lasting impact.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 

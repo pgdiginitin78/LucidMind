@@ -8,6 +8,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/footer/Footer";
+import ScrollToTopButton from "@/components/ui/ScrollToTopButton";
 
 function ScrollToTop({ lenisRef }) {
   const pathname = usePathname();
@@ -101,6 +102,7 @@ export default function ClientLayout({ children }) {
       </motion.div>
 
       {!isAdminRoute && <Footer />}
+      <ScrollToTopButton />
     </div>
   );
 }
