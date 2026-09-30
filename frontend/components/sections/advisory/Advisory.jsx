@@ -666,7 +666,7 @@ export default function Advisory() {
               loop
               muted
               playsInline
-              className="w-full h-full object-cover bg-center   opacity-85 md:opacity-95 "
+              className="w-full h-full object-cover bg-center opacity-85 md:opacity-95"
               style={{
                 maskImage:
                   "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 35%, black 100%)",
@@ -677,13 +677,22 @@ export default function Advisory() {
             />
           </div>
 
+          <div className="absolute inset-0 bg-[#040D1E]/70 sm:bg-[#040D1E]/55 lg:hidden pointer-events-none z-[1]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#040D1E] via-[#040D1E]/75 to-transparent lg:hidden pointer-events-none z-[1]" />
+
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1] select-none">
+            <span className="text-7xl sm:text-8xl md:text-9xl font-extrabold text-white/15 select-none tracking-tight">
+              AI
+            </span>
+          </div>
+
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#00C4B4]/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
-          <div className="relative z-10 max-w-full md:max-w-[55%] lg:max-w-[58%] my-4">
+          <div className="relative z-10 max-w-full md:max-w-[85%] lg:max-w-[58%] my-4">
             <span className="text-4xl sm:text-5xl font-serif text-[#00C4B4] block mb-1 leading-none">
               “
             </span>
-            <blockquote className="text-base sm:text-lg md:text-xl font-serif italic text-slate-100 leading-relaxed mb-4 font-light">
+            <blockquote className="text-base sm:text-lg md:text-xl italic text-slate-100 leading-relaxed mb-4 font-light">
               "The organisations that win won't be the ones with perfect
               strategy. They'll be the ones that can learn, adapt, and move
               faster than their competitors. That happens when the operating
