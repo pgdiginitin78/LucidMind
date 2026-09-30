@@ -680,12 +680,7 @@ export default function Advisory() {
           <div className="absolute inset-0 bg-[#040D1E]/70 sm:bg-[#040D1E]/55 lg:hidden pointer-events-none z-[1]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#040D1E] via-[#040D1E]/75 to-transparent lg:hidden pointer-events-none z-[1]" />
 
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1] select-none">
-            <span className="text-7xl sm:text-8xl md:text-9xl font-extrabold text-white/15 select-none tracking-tight">
-              AI
-            </span>
-          </div>
-
+       
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#00C4B4]/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
           <div className="relative z-10 max-w-full md:max-w-[85%] lg:max-w-[58%] my-4">
