@@ -239,7 +239,7 @@ export default function Podcasts() {
                   >
                     <div
                       onClick={() => handlePlayClick(current.src)}
-                      className="relative w-full pt-[52%] lg:pt-[42%] xl:pt-[50%] cursor-pointer group/thumb"
+                      className="relative w-full pt-[52%] lg:pt-[42%] xl:pt-[55%] cursor-pointer group/thumb"
                     >
                       <img
                         src={current.thumbnail}
@@ -260,7 +260,7 @@ export default function Podcasts() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                       >
-                        <h3 className="font-['Playfair_Display',serif] font-bold text-white text-base sm:text-lg 2xl:text-2xl leading-snug">
+                        <h3 className="text-xl font-['Playfair_Display',serif] text-white">
                           {current.title}
                         </h3>
                       </motion.div>

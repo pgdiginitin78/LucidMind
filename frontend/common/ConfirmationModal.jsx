@@ -113,7 +113,7 @@ export default function ConfirmationModal({
                   {/* Title */}
                   <h2
                     id="confirmation-modal-title"
-                    className="text-center text-2xl font-semibold mb-3"
+                    className="heading-h2 text-center mb-3"
                     style={{
                       color: "#212121",
                       fontFamily: "Georgia, serif",
@@ -125,7 +125,7 @@ export default function ConfirmationModal({
 
                   <p
                     id="confirmation-modal-description"
-                    className="text-center text-base leading-relaxed mb-6"
+                    className="body-text text-center mb-6"
                     style={{
                       color: "#616161",
                       maxWidth: "380px",

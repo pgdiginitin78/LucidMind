@@ -359,8 +359,7 @@ export default function ContactUs() {
               delay: 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-[3.6rem]"
-            style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
+            className="heading-h1 text-white"
           >
             Let's Start a{" "}
             <span
@@ -378,7 +377,7 @@ export default function ContactUs() {
             initial={{ opacity: 0, y: 14 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.18 }}
-            className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-white/45 sm:max-w-lg sm:text-base"
+            className="body-text mx-auto mt-3 max-w-xs sm:max-w-lg text-white/45"
           >
             Whether you're navigating an AI transformation, building a GCC, or
             looking for strategic advisory — let's connect.
@@ -454,10 +453,7 @@ export default function ContactUs() {
                   >
                     Send a Message
                   </p>
-                  <h2
-                    className="text-lg font-bold leading-snug text-white sm:text-xl lg:text-2xl"
-                    style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
-                  >
+                  <h2 className="heading-h2 text-white">
                     We'd love to hear from you
                   </h2>
                 </div>
@@ -620,10 +616,7 @@ export default function ContactUs() {
               </div>
 
               {/* Title */}
-              <h3
-                className="mb-2 text-xl font-bold text-white sm:text-2xl"
-                style={{ fontFamily: "'PlusJakartaSans', sans-serif" }}
-              >
+              <h3 className="heading-h3 mb-2 text-white text-center">
                 {modalConfig.message}
               </h3>
 

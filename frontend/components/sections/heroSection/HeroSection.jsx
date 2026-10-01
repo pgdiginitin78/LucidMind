@@ -47,11 +47,11 @@ function HeroSection() {
 
         <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col md:pt-20 lg:pt-10 items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
           <div className="flex flex-col items-center md:items-start w-full">
-            {/* <p className="text-[#009A9A] font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm md:text-base mb-2">
+            {/* <p className="body-text text-[#009A9A] font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm md: mb-2">
               Helping Leaders Build
             </p> */}
 
-            <h1 className="text-[28px] md:text-[2rem] lg:text-[2.8rem] xl:text-[3.2rem] 2xl:text-[4.5rem] text-white leading-[1.15] sm:leading-[1.1] md:leading-[1.08] tracking-tight font-bold w-full">
+            <h1 className="heading-h1 text-white w-full">
               {/* Organisations Ready  for the{" "} */}
               Built For The {" "}<br/>  
               <span className="text-[#009A9A]">Adaptive Future</span> 
@@ -59,7 +59,7 @@ function HeroSection() {
             <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>
           </div>
 
-          <p className="text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed max-w-xs sm:max-w-md md:max-w-lg mb-2">
+          <p className="body-text-lg text-slate-400 font-medium text-sm sm:text-base md: lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mb-2">
             {/* AI is changing technology. The real challenge is */}
          Helping leaders turn technology, transformation and organisational capability into measurable business impact.
           </p>

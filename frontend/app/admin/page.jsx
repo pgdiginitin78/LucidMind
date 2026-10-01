@@ -88,7 +88,7 @@ export default function AdminDashboard() {
               <Sparkles size={13} />
               <span>LucidMind Admin Hub</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            <h1 className="heading-h1 tracking-tight text-white">
               Welcome back, Administrator
             </h1>
             <p className="text-sm text-white/60 max-w-xl leading-relaxed">
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold text-white group-hover:text-[#00C4FF] transition-colors">
+                  <h3 className="heading-h3 text-white group-hover:text-[#00C4FF] transition-colors">
                     {sec.title}
                   </h3>
                   <p className="text-xs text-white/50 mt-1.5 leading-relaxed">

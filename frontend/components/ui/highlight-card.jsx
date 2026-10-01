@@ -272,13 +272,13 @@ export default function HighlightCard({
             description.map((line, idx) => (
               <p
                 key={idx}
-                className="text-[#4A5870] text-[13px] sm:text-[14px] leading-[1.55] font-normal"
+                className="text-[#4A5870] text-[13px] sm:text-[14px] leading-[1.55] font-semibold"
               >
                 {line}
               </p>
             ))
           ) : (
-            <p className="text-[#4A5870] text-[13px] sm:text-[14px] leading-[1.55] font-normal">
+            <p className="text-[#4A5870] text-[13px] sm:text-[16px] leading-[1.55] font-bold">
               {description}
             </p>
           )}

@@ -102,18 +102,17 @@ export default function Advisory() {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-24 sm:pb-32">
-        <section className="grid grid-cols-1 justify-items-center text-center mb-16 sm:mb-20">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-40 pb-24 sm:pb-32">
+        <section className="text-left mb-16 sm:mb-10 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex items-center gap-3 mb-4"
+            className="flex items-center gap-3 mb-4 justify-start"
           >
-            <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-transparent to-[#00C4B4]" />
             <div className="w-1.5 h-1.5 rounded-full bg-[#00C4B4] shadow-[0_0_10px_#00C4B4]" />
-            <div className="w-12 sm:w-16 h-px bg-gradient-to-l from-transparent to-[#00C4B4]" />
+            <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-[#00C4B4] to-transparent" />
           </motion.div>
 
           <motion.h1
@@ -121,12 +120,18 @@ export default function Advisory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight leading-[1.15] mb-5 font-normal"
+            className="heading-h1 text-white tracking-tight mb-2"
           >
-            Advisory Built for the Adaptive Future
+            Advisory Built for the<br />{" "}
+            <span
+              className="text-[#00C4B4]"
+              style={{ textShadow: "0 0 40px rgba(0,196,180,0.5)" }}
+            >
+              Adaptive Future
+            </span>
           </motion.h1>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -138,7 +143,7 @@ export default function Advisory() {
               problem, build the capability to solve it, and execute with
               clarity.
             </p>
-          </motion.div>
+          </motion.div> */}
         </section>
 
         <motion.section
@@ -150,598 +155,590 @@ export default function Advisory() {
         >
           <OurClients />
         </motion.section>
+        <div className="w-full max-w-5xl mx-auto">
+          <section className="grid grid-cols-1 justify-items-center mb-20 sm:mb-24">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-2 mb-3"
+            >
+              <div className="w-4 h-px bg-[#00C4B4]" />
+              <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+                HOW WE THINK ABOUT TRANSFORMATION
+              </span>
+              <div className="w-4 h-px bg-[#00C4B4]" />
+            </motion.div>
 
-        <section className="grid grid-cols-1 justify-items-center mb-20 sm:mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-2 mb-3"
-          >
-            <div className="w-4 h-px bg-[#00C4B4]" />
-            <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
-              HOW WE THINK ABOUT TRANSFORMATION
-            </span>
-            <div className="w-4 h-px bg-[#00C4B4]" />
-          </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="heading-h2 text-white text-center mb-4 tracking-tight"
+            >
+              The Operating Model
+            </motion.h2>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-serif text-white text-center mb-4 tracking-tight"
-          >
-            The Operating Model
-          </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="max-w-3xl text-center text-xs sm:text-[13px] text-slate-300 leading-relaxed mb-10"
+            >
+              Technology rarely fails; organizational adaptation does. Most
+              companies don't need more tools, they need clarity on where AI
+              creates value and how to restructure to sustain it.
+            </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-3xl text-center text-xs sm:text-[13px] text-slate-300 leading-relaxed mb-10"
-          >
-            Technology rarely fails; organizational adaptation does. Most
-            companies don't need more tools, they need clarity on where AI
-            creates value and how to restructure to sustain it.
-          </motion.p>
+            <div className="w-full relative mt-8">
+              <div className="hidden lg:block absolute top-0 left-8 right-8 h-px border-t border-dashed border-slate-700/60 z-0" />
 
-          <div className="w-full relative mt-8">
-            <div className="hidden lg:block absolute top-0 left-8 right-8 h-px border-t border-dashed border-slate-700/60 z-0" />
-
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-3 items-stretch relative z-10">
-              {operatingSteps.map((item, idx) => {
-                return (
-                  <div
-                    key={item.id}
-                    className="relative flex flex-col items-center"
-                  >
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-3 items-stretch relative z-10">
+                {operatingSteps.map((item, idx) => {
+                  return (
                     <div
-                      className={`w-full group cursor-pointer relative flex flex-col items-center justify-center pt-10 pb-5 px-3 sm:px-4 rounded-2xl border transition-all duration-300 min-h-[110px]                 
-                           bg-[#040D1E]/80 border-[#142A4A] hover:border-[#00C4B4]/50 hover:bg-[#061426]`}
+                      key={item.id}
+                      className="relative flex flex-col items-center"
                     >
-                      <div className="absolute -top-7 left-1/2 -translate-x-1/2">
-                        <div
-                          className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300                         
+                      <div
+                        className={`w-full group cursor-pointer relative flex flex-col items-center justify-center pt-10 pb-5 px-3 sm:px-4 rounded-2xl border transition-all duration-300 min-h-[110px]                 
+                           bg-[#040D1E]/80 border-[#142A4A] hover:border-[#00C4B4]/50 hover:bg-[#061426]`}
+                      >
+                        <div className="absolute -top-7 left-1/2 -translate-x-1/2">
+                          <div
+                            className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300                         
                               bg-gradient-to-b from-[#2563EB] via-[#12397B] to-[#040D1E] border-2 border-[#2563EB]/80 shadow-[0_0_14px_rgba(37,99,235,0.35)] group-hover:border-[#00C4B4] group-hover:scale-105
                           `}
-                        >
-                          <span className="text-white font-semibold text-base sm:text-lg tracking-wider">
-                            {item.id}
-                          </span>
+                          >
+                            <span className="text-white font-semibold text-base sm:text-lg tracking-wider">
+                              {item.id}
+                            </span>
+                          </div>
                         </div>
+
+                        <span className="text-xs sm:text-[13px] text-slate-200 font-normal text-center leading-snug tracking-wide group-hover:text-white transition-colors">
+                          {item.label}
+                        </span>
                       </div>
 
-                      <span className="text-xs sm:text-[13px] text-slate-200 font-normal text-center leading-snug tracking-wide group-hover:text-white transition-colors">
-                        {item.label}
-                      </span>
+                      {idx < operatingSteps.length - 1 && (
+                        <div className="hidden lg:flex absolute -right-3.5 top-0 -translate-y-1/2 z-20 items-center justify-center pointer-events-none">
+                          <ChevronRight className="w-4 h-4 text-slate-500" />
+                        </div>
+                      )}
                     </div>
-
-                    {idx < operatingSteps.length - 1 && (
-                      <div className="hidden lg:flex absolute -right-3.5 top-0 -translate-y-1/2 z-20 items-center justify-center pointer-events-none">
-                        <ChevronRight className="w-4 h-4 text-slate-500" />
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-        <div className="grid grid-cols-1 justify-items-center text-center mb-10 sm:mb-14">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-4 h-px bg-[#00C4B4]" />
-            <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
-              EXECUTION ROADMAP
-            </span>
-            <div className="w-4 h-px bg-[#00C4B4]" />
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-white tracking-tight leading-tight">
-            How We Execute
-          </h2>
-        </div>
-
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
-        >
-          <div className="flex flex-wrap items-center gap-2.5 mb-2">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
-              Phase 1
-            </span>
-            <h3 className="text-lg sm:text-xl font-serif text-white">
-              If You&apos;re Getting Started
-            </h3>
-          </div>
-          <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
-            Building the Foundation
-          </p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center p-5 sm:p-7 md:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
-            <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
-              <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
-                <div className="w-10 h-10 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] shrink-0">
-                  <Rocket className="w-5 h-5" />
-                </div>
-                <h4 className="text-sm sm:text-base font-serif font-semibold text-white leading-snug">
-                  Operating Model Foundation &amp; Speed
-                </h4>
-              </div>
-
-              <div>
-                <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                  The Bottleneck
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Slow approval cycles, siloed functions, and defaulting to
-                  caution.
-                </p>
-              </div>
-
-              <div>
-                <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                  The Intervention
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Assess operating model readiness. Redesign decision rights,
-                  approval flows, and accountability. Reshape incentives to
-                  reward learning over certainty.
-                </p>
-              </div>
-
-              <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                  What Success Looks Like
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Decision cycles shrink from six months to four weeks. Pilots
-                  launch in 6–8 weeks. Failure is treated as information, not
-                  blame.
-                </p>
+                  );
+                })}
               </div>
             </div>
-
-            <div className="lg:col-span-5 flex justify-center items-center">
-              <img
-                src={AdvisoryImg1}
-                alt="Building the Foundation"
-                className="w-full max-w-sm lg:max-w-none object-contain rounded-xl shadow-lg"
-              />
+          </section>
+          <div className="grid grid-cols-1 justify-items-center text-center mb-10 sm:mb-14">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-4 h-px bg-[#00C4B4]" />
+              <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+                EXECUTION ROADMAP
+              </span>
+              <div className="w-4 h-px bg-[#00C4B4]" />
             </div>
+            <h2 className="heading-h2 text-white tracking-tight">
+              How We Execute
+            </h2>
           </div>
-        </motion.section>
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7 }}
+            className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
+          >
+            <div className="flex flex-wrap items-center gap-2.5 mb-2">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+                Phase 1
+              </span>
+              <h3 className="heading-h4 text-white">
+                If You&apos;re Getting Started
+              </h3>
+            </div>
+            <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
+              Building the Foundation
+            </p>
 
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
-        >
-          <div className="flex flex-wrap items-center gap-2.5 mb-2">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
-              Phase 2
-            </span>
-            <h3 className="text-lg sm:text-xl font-serif text-white">
-              If You&apos;re Ready To Learn
-            </h3>
-          </div>
-          <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
-            Focused Pilots &amp; Leadership Judgment
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 items-stretch">
-            <div className="group p-5 sm:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
-              <div className="flex flex-col space-y-4">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center p-5 sm:p-7 md:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
+              <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
                 <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                   <div className="w-10 h-10 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] shrink-0">
-                    <BrainCircuit className="w-5 h-5" />
+                    <Rocket className="w-5 h-5" />
                   </div>
-                  <div>
-                    <h4 className="text-sm sm:text-base font-serif font-semibold text-white leading-snug">
-                      AI Strategy &amp; Adoption
-                    </h4>
-                  </div>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                    The Bottleneck
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    AI is treated as a tech problem, not an operating model
-                    problem, causing investment to stall.
-                  </p>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                    The Intervention
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Map real use cases. Design outcome-driven pilot models.
-                    Build internal confidence.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                  What Success Looks Like
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Leadership aligns on value. Pilots move from 18-month
-                  evaluation cycles to 6–8 week learning cycles.
-                </p>
-              </div>
-            </div>
-
-            <div className="group p-5 sm:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
-              <div className="flex flex-col space-y-4">
-                <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
-                  <div className="w-10 h-10 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)] shrink-0">
-                    <Users className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm sm:text-base font-serif font-semibold text-white leading-snug">
-                      Leadership Capability &amp; Mindset
-                    </h4>
-                  </div>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
-                    The Bottleneck
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Leaders trained for a predictable world lack the judgment to
-                    navigate ambiguity.
-                  </p>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
-                    The Intervention
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Develop AI judgment for non-technical leaders. Build
-                    decision-making under uncertainty and systems thinking.
-                    Identify catalyst hires.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                <h5 className="font-semibold text-xs sm:text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
-                  What Success Looks Like
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Leaders ask business-impact questions. Disagreement is
-                  expected, and learning happens in real-time.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-20 sm:mb-24 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
-        >
-          <div className="flex flex-wrap items-center gap-2.5 mb-2">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
-              Phase 3
-            </span>
-            <h3 className="text-lg sm:text-xl font-serif text-white">
-              If You&apos;re Evolving
-            </h3>
-          </div>
-          <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
-            Understanding What Works &amp; Building Permanent Capability
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-            <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
-              <div className="flex flex-col space-y-4">
-                <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
-                  <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
-                    <Globe2 className="w-5 h-5" />
-                  </div>
-                  <h4 className="text-sm sm:text-base font-serif font-semibold text-white leading-snug">
-                    Business Transformation &amp; Change Enablement
+                  <h4 className="heading-h5 text-white">
+                    Operating Model Foundation <span className="font-sans">&amp;</span> Speed
                   </h4>
                 </div>
 
                 <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
                     The Bottleneck
                   </h5>
                   <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Old habits die hard; new initiatives fade back into old ways
-                    of working.
+                    Slow approval cycles, siloed functions, and defaulting to
+                    caution.
                   </p>
                 </div>
 
                 <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
                     The Intervention
                   </h5>
                   <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Design change strategies grounded in reality. Mobilize
-                    internal champions. Measure adoption continuously.
+                    Assess operating model readiness. Redesign decision rights,
+                    approval flows, and accountability. Reshape incentives to
+                    reward learning over certainty.
                   </p>
                 </div>
-              </div>
 
-              <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                  What Success Looks Like
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Adoption rates jump from 7% to 40-60%. New ways of working
-                  become the default
-                </p>
-              </div>
-            </div>
-
-            <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
-              <div className="flex flex-col space-y-4">
-                <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
-                  <div className="w-10 h-10 shrink-0 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)]">
-                    <Building2 className="w-5 h-5" />
-                  </div>
-                  <h4 className="text-sm sm:text-base font-serif font-semibold text-white leading-snug">
-                    GCC Evolution &amp; Optimization
-                  </h4>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
-                    The Bottleneck
+                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
+                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    What Success Looks Like
                   </h5>
                   <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    GCCs are built for cost arbitrage, not innovation.
-                  </p>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
-                    The Intervention
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Redesign for autonomy and accountability. Build an AI-era
-                    talent strategy. Create global governance without friction.
+                    Decision cycles shrink from six months to four weeks. Pilots
+                    launch in 6–8 weeks. Failure is treated as information, not
+                    blame.
                   </p>
                 </div>
               </div>
 
-              <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                <h5 className="font-semibold text-xs sm:text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
-                  What Success Looks Like
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  The GCC becomes a talent magnet. Decision-making distributes,
-                  and initiative cycles accelerate.
-                </p>
+              <div className="lg:col-span-5 flex justify-center items-center">
+                <img
+                  src={AdvisoryImg1}
+                  alt="Building the Foundation"
+                  className="w-full max-w-sm lg:max-w-none object-contain rounded-xl shadow-lg"
+                />
               </div>
             </div>
-
-            <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full md:col-span-2 lg:col-span-1 shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
-              <div className="flex flex-col space-y-4">
-                <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
-                  <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
-                    <ShieldCheck className="w-5 h-5" />
-                  </div>
-                  <h4 className="text-sm sm:text-base font-serif font-semibold text-white leading-snug">
-                    ESG &amp; Responsible Business Transformation
-                  </h4>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                    The Bottleneck
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    ESG is treated as a compliance checkbox rather than an
-                    operating model question.
-                  </p>
-                </div>
-
-                <div>
-                  <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                    The Intervention
-                  </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                    Embed ESG directly into decision-making. Design governance
-                    that equates impact with profit. Build metrics that matter.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                <h5 className="font-semibold text-xs sm:text-sm text-brand-teal mb-1 uppercase tracking-wide">
-                  What Success Looks Like
-                </h5>
-                <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
-                  Sustainability is integrated into business decisions. Boards
-                  discuss ESG with the same rigor as financials.
-                </p>
-              </div>
+          </motion.section>
+        </div>
+        <div className="w-full max-w-7xl mx-auto">
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7 }}
+            className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
+          >
+            <div className="flex flex-wrap items-center gap-2.5 mb-2">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+                Phase 2
+              </span>
+              <h3 className="heading-h4 text-white">
+                If You&apos;re Ready To Learn
+              </h3>
             </div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-20 sm:mb-24 p-6 sm:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/75 grid grid-cols-1 justify-items-center"
-        >
-        
-
-          <h2 className="text-2xl sm:text-3xl font-serif text-white text-center mb-3 tracking-tight">
-            How We Work
-          </h2>
-
-          <p className="max-w-2xl text-center text-base text-slate-300 leading-relaxed mb-8">
-            We don't hand off a hundred-page strategy. We start with a
-            conversation, diagnose what's actually happening, and stay engaged
-            as a thinking partner — not an execution team.
-          </p>
-
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#00C4B4]/50 transition-colors">
-              <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
-                <TargetSvg className="w-4 h-4" />
-              </div>
-              <h4 className="text-base font-serif text-white mb-1.5">
-                Discovery
-              </h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                A real conversation. What's actually happening, not what the
-                strategy document says.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#2563EB]/50 transition-colors">
-              <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
-                <AssesmentSvg className="w-4 h-4" />
-              </div>
-              <h4 className="text-base font-serif text-white mb-1.5">
-                Assessment
-              </h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Two to four weeks of diagnosis. Where you're winning, where
-                you're stuck, what's really blocking you.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#00C4B4]/50 transition-colors">
-              <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
-                <Rocket className="w-4 h-4" />
-              </div>
-              <h4 className="text-base font-serif text-white mb-1.5">Roadmap</h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Clarity on the three to five things that matter most. The
-                sequence. The checkpoints.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#2563EB]/50 transition-colors">
-              <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
-                <Users className="w-4 h-4" />
-              </div>
-              <h4 className="text-base font-serif text-white mb-1.5">
-                Partnership
-              </h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                We stay engaged as you move — pushing back when you're about to
-                settle for good enough.
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-20 sm:mb-24 p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl border border-[#142A4A] bg-gradient-to-r from-[#040D1E] via-[#061224] to-[#040D1E] shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden flex items-center min-h-[260px] lg:min-h-[350px]"
-        >
-          <div className="absolute right-0 top-0 bottom-0 w-full sm:w-2/3 md:w-1/2 lg:w-[60%] pointer-events-none overflow-hidden flex items-center justify-end z-0">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover bg-center opacity-85 md:opacity-95"
-              style={{
-                maskImage:
-                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 35%, black 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 35%, black 100%)",
-              }}
-              src={AINeuralVideo}
-            />
-          </div>
-
-          <div className="absolute inset-0 bg-[#040D1E]/70 sm:bg-[#040D1E]/55 lg:hidden pointer-events-none z-[1]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#040D1E] via-[#040D1E]/75 to-transparent lg:hidden pointer-events-none z-[1]" />
-
-       
-          <div className="absolute top-0 right-0 w-80 h-80 bg-[#00C4B4]/10 blur-[100px] rounded-full pointer-events-none z-0" />
-
-          <div className="relative z-10 max-w-full md:max-w-[85%] lg:max-w-[58%] my-4">
-            <span className="text-4xl sm:text-5xl font-serif text-[#00C4B4] block mb-1 leading-none">
-              “
-            </span>
-            <blockquote className="text-base sm:text-lg md:text-xl italic text-slate-100 leading-relaxed mb-4 font-light">
-              "The organisations that win won't be the ones with perfect
-              strategy. They'll be the ones that can learn, adapt, and move
-              faster than their competitors. That happens when the operating
-              model enables it."
-            </blockquote>
-            <p className="text-sm sm:text-xs text-slate-400 font-sans tracking-wide">
-              Ravishankar Pingali, Founder, LucidMind Consulting
+            <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
+              Focused Pilots <span className="font-sans">&amp;</span> Leadership Judgment
             </p>
-          </div>
-        </motion.section>
 
-        <section className="grid grid-cols-1 justify-items-center text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 items-stretch">
+              <div className="group p-5 sm:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+                <div className="flex flex-col space-y-4">
+                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                    <div className="w-10 h-10 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] shrink-0">
+                      <BrainCircuit className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="heading-h5 text-white">
+                        AI Strategy <span className="font-sans">&amp;</span> Adoption
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                      The Bottleneck
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      AI is treated as a tech problem, not an operating model
+                      problem, causing investment to stall.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                      The Intervention
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Map real use cases. Design outcome-driven pilot models.
+                      Build internal confidence.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
+                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    What Success Looks Like
+                  </h5>
+                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    Leadership aligns on value. Pilots move from 18-month
+                    evaluation cycles to 6–8 week learning cycles.
+                  </p>
+                </div>
+              </div>
+
+              <div className="group p-5 sm:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+                <div className="flex flex-col space-y-4">
+                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                    <div className="w-10 h-10 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)] shrink-0">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="heading-h5 text-white">
+                        Leadership Capability <span className="font-sans">&amp;</span> Mindset
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                      The Bottleneck
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Leaders trained for a predictable world lack the judgment
+                      to navigate ambiguity.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                      The Intervention
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Develop AI judgment for non-technical leaders. Build
+                      decision-making under uncertainty and systems thinking.
+                      Identify catalyst hires.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
+                  <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                    What Success Looks Like
+                  </h5>
+                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    Leaders ask business-impact questions. Disagreement is
+                    expected, and learning happens in real-time.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="w-1.5 h-1.5 rounded-full bg-[#00C4B4] shadow-[0_0_8px_#00C4B4] mb-3"
-          />
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7 }}
+            className="mb-20 sm:mb-24 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
+          >
+            <div className="flex flex-wrap items-center gap-2.5 mb-2">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+                Phase 3
+              </span>
+              <h3 className="heading-h4 text-white">If You&apos;re Evolving</h3>
+            </div>
+            <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
+              Understanding What Works <span className="font-sans">&amp;</span> Build Relevant Capability
+            </p>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
+              <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+                <div className="flex flex-col space-y-4">
+                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                    <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
+                      <Globe2 className="w-5 h-5" />
+                    </div>
+                    <h4 className="heading-h5 text-white">
+                      Business Transformation <span className="font-sans">&amp;</span> Change Enablement
+                    </h4>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                      The Bottleneck
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Old habits die hard; new initiatives fade back into old
+                      ways of working.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                      The Intervention
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Design change strategies grounded in reality. Mobilize
+                      internal champions. Measure adoption continuously.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
+                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    What Success Looks Like
+                  </h5>
+                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    Adoption rates jump from 7% to 40-60%. New ways of working
+                    become the default
+                  </p>
+                </div>
+              </div>
+
+              <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+                <div className="flex flex-col space-y-4">
+                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                    <div className="w-10 h-10 shrink-0 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)]">
+                      <Building2 className="w-5 h-5" />
+                    </div>
+                    <h4 className="heading-h5 text-white">
+                      GCC Evolution <span className="font-sans">&amp;</span> Optimization
+                    </h4>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                      The Bottleneck
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      GCCs are built for cost arbitrage, not innovation.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                      The Intervention
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Redesign for autonomy and accountability. Build an AI-era
+                      talent strategy. Create global governance without
+                      friction.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
+                  <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                    What Success Looks Like
+                  </h5>
+                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    The GCC becomes a talent magnet. Decision-making
+                    distributes, and initiative cycles accelerate.
+                  </p>
+                </div>
+              </div>
+
+              <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full md:col-span-2 lg:col-span-1 shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+                <div className="flex flex-col space-y-4">
+                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                    <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <h4 className="heading-h5 text-white">
+                      ESG <span className="font-sans">&amp;</span> Responsible Business Transformation
+                    </h4>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                      The Bottleneck
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      ESG is treated as a compliance checkbox rather than an
+                      operating model question.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                      The Intervention
+                    </h5>
+                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                      Embed ESG directly into decision-making. Design governance
+                      that equates impact with profit. Build metrics that
+                      matter.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
+                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    What Success Looks Like
+                  </h5>
+                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    Sustainability is integrated into business decisions. Boards
+                    discuss ESG with the same rigor as financials.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-serif text-white mb-3 tracking-tight"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7 }}
+            className="mb-20 sm:mb-24 p-6 sm:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/75 grid grid-cols-1 justify-items-center"
           >
-            Ready to stop experimenting and start transforming?
-          </motion.h2>
+            <h2 className="heading-h2 text-white text-center mb-3 tracking-tight">
+              How We Work
+            </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            <p className="body-text max-w-2xl text-center text-slate-300 mb-8">
+              We don't hand off a hundred-page strategy. We start with a
+              conversation, diagnose what's actually happening, and stay engaged
+              as a thinking partner — not an execution team.
+            </p>
+
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#00C4B4]/50 transition-colors">
+                <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
+                  <TargetSvg className="w-4 h-4" />
+                </div>
+                <h4 className="heading-h5 text-white mb-1.5">Discovery</h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  A real conversation. What's actually happening, not what the
+                  strategy document says.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#2563EB]/50 transition-colors">
+                <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
+                  <AssesmentSvg className="w-4 h-4" />
+                </div>
+                <h4 className="heading-h5 text-white mb-1.5">Assessment</h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Two to four weeks of diagnosis. Where you're winning, where
+                  you're stuck, what's really blocking you.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#00C4B4]/50 transition-colors">
+                <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
+                  <Rocket className="w-4 h-4" />
+                </div>
+                <h4 className="heading-h5 text-white mb-1.5">Roadmap</h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Clarity on the three to five things that matter most. The
+                  sequence. The checkpoints.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl border border-[#142A4A] bg-[#061426]/70 flex flex-col items-start hover:border-[#2563EB]/50 transition-colors">
+                <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
+                  <Users className="w-4 h-4" />
+                </div>
+                <h4 className="heading-h5 text-white mb-1.5">Partnership</h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  We stay engaged as you move — pushing back when you're about
+                  to settle for good enough.
+                </p>
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-md text-xs text-slate-300 leading-relaxed mb-6"
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7 }}
+            className="mb-20 sm:mb-24 p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl border border-[#142A4A] bg-gradient-to-r from-[#040D1E] via-[#061224] to-[#040D1E] shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden flex items-center min-h-[260px] lg:min-h-[350px]"
           >
-            Let's discuss the operating model gaps holding your AI investments
-            back.
-          </motion.p>
+            <div className="absolute right-0 top-0 bottom-0 w-full sm:w-2/3 md:w-1/2 lg:w-[60%] pointer-events-none overflow-hidden flex items-center justify-end z-0">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover bg-center opacity-85 md:opacity-95"
+                style={{
+                  maskImage:
+                    "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 35%, black 100%)",
+                  WebkitMaskImage:
+                    "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 35%, black 100%)",
+                }}
+                src={AINeuralVideo}
+              />
+            </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white text-xs sm:text-sm font-medium tracking-wide shadow-[0_0_25px_rgba(0,196,180,0.4)] hover:shadow-[0_0_35px_rgba(0,196,180,0.6)] transition-shadow duration-300"
+            <div className="absolute inset-0 bg-[#040D1E]/70 sm:bg-[#040D1E]/55 lg:hidden pointer-events-none z-[1]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#040D1E] via-[#040D1E]/75 to-transparent lg:hidden pointer-events-none z-[1]" />
+
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#00C4B4]/10 blur-[100px] rounded-full pointer-events-none z-0" />
+
+            <div className="relative z-10 max-w-full md:max-w-[85%] lg:max-w-[58%] my-4">
+              <span className="text-4xl sm:text-5xl font-serif text-[#00C4B4] block mb-1 leading-none">
+                “
+              </span>
+              <blockquote className="text-base sm:text-lg md:text-xl italic text-slate-100 leading-relaxed mb-4 font-light">
+                "The organisations that win won't be the ones with perfect
+                strategy. They'll be the ones that can learn, adapt, and move
+                faster than their competitors. That happens when the operating
+                model enables it."
+              </blockquote>
+              <p className="text-sm sm:text-xs text-slate-400 font-sans tracking-wide">
+                Ravishankar Pingali, Founder, LucidMind Consulting
+              </p>
+            </div>
+          </motion.section>
+
+          <section className="grid grid-cols-1 justify-items-center text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="w-1.5 h-1.5 rounded-full bg-[#00C4B4] shadow-[0_0_8px_#00C4B4] mb-3"
+            />
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="heading-h2 text-white mb-3 tracking-tight"
             >
-              <Call className="w-4 h-4" />
-              <span>Book a Discovery Call</span>
-            </Link>
-          </motion.div>
-        </section>
+              Ready to stop experimenting and start transforming?
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="max-w-md text-xs text-slate-300 leading-relaxed mb-6"
+            >
+              Let's discuss the operating model gaps holding your AI investments
+              back.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white text-xs sm:text-sm font-medium tracking-wide shadow-[0_0_25px_rgba(0,196,180,0.4)] hover:shadow-[0_0_35px_rgba(0,196,180,0.6)] transition-shadow duration-300"
+              >
+                <Call className="w-4 h-4" />
+                <span>Book a Discovery Call</span>
+              </Link>
+            </motion.div>
+          </section>
+        </div>
       </div>
     </div>
   );

@@ -235,7 +235,7 @@ export default function ProblemsAndSolutions() {
               <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#007070] uppercase sm:text-sm">
                 What`s
               </p>
-              <h3 className="mb-5 text-base md:text-xl lg:text-base font-semibold text-[#0B192C] sm:text-xl">
+              <h3 className="heading-h3 mb-5 text-[#0B192C]">
                 Slowing Enterprises down
               </h3>
 

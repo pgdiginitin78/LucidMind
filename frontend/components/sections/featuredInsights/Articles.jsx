@@ -129,7 +129,7 @@ export default function Articles() {
                       Adaptive Future.
                     </span>
                   </Heading>
-                  <p className="text-black text-sm sm:text-base lg:text-base leading-relaxed max-w-[100%] md:max-w-[80%] lg:max-w-[900px] mb-3 drop-shadow-md sm:drop-shadow-none">
+                  <p className="body-text text-black text-sm sm: lg: max-w-[100%] md:max-w-[80%] lg:max-w-[900px] mb-3 drop-shadow-md sm:drop-shadow-none">
                     Expert insights, frameworks and perspectives to help leaders
                     navigate complexity and build future-ready organisations.
                   </p>
@@ -180,7 +180,7 @@ export default function Articles() {
                         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-transparent to-black/60" />
                       </div>
                       <div className="flex flex-col flex-1 p-3 z-10">
-                        <h3 className="text-white font-['Playfair_Display',serif] font-semibold text-[1rem] 2xl:text-[1.3rem] leading-[1.25] mb-2">
+                        <h3 className=" text-white font-['Playfair_Display',serif] text-[1rem] 2xl:text-[1.3rem] leading-[1.25] mb-2">
                           {article.title}
                         </h3>
                         <p className="text-[#94A3B8] text-xs 2xl:text-sm leading-relaxed mb-4 flex-1">

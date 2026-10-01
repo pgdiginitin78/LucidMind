@@ -39,14 +39,14 @@ function renderContent(content) {
     }
     if (block.type === "heading") {
       return (
-        <h3 key={i} className="text-[#00C4B4] font-['Playfair_Display',serif] font-semibold text-base mb-2 mt-5 leading-snug">
+        <h3 key={i} className="heading-h3 text-[#00C4B4] font-['Playfair_Display',serif] mb-2 mt-5">
           {block.text}
         </h3>
       );
     }
     if (block.type === "subheading") {
       return (
-        <h4 key={i} className="text-white font-semibold text-sm mb-1 mt-4">
+        <h4 key={i} className="heading-h4 text-white mb-1 mt-4">
           {block.text}
         </h4>
       );
@@ -175,7 +175,7 @@ export default function ArticleDetail({ article, onClose }) {
               <span className="text-[#64748B] text-xs">{article.date}</span>
             </div>
 
-            <h2 className="font-['Playfair_Display',serif] font-bold text-white text-xl sm:text-2xl leading-tight mb-2">
+            <h2 className="heading-h2 font-['Playfair_Display',serif] text-white mb-2">
               {article.title}
             </h2>
 
@@ -184,7 +184,7 @@ export default function ArticleDetail({ article, onClose }) {
                 RP
               </div>
               <div>
-                <p className="text-white text-xs 2xl:text-lg font-semibold">{article.author}</p>
+                <p className="body-text-lg text-white text-xs 2xl: font-semibold">{article.author}</p>
                 <p className="text-[#64748B] text-[10px] 2xl:text-sm leading-tight">{article.authorRole}</p>
               </div>
             </div>

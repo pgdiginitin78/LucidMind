@@ -458,7 +458,7 @@ export default function PodcastsManager() {
   return (
     <div className="space-y-6 w-full max-w-full font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="heading-h1 text-white tracking-tight">
           Podcasts
         </h1>
         <div className="flex items-center gap-2.5">

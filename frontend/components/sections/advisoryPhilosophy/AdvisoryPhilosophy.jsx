@@ -120,10 +120,10 @@ export default function AdvisoryPhilosophy() {
         >
           <div>
             <div className="w-12 h-1 bg-[#1D4ED8] rounded-full mb-3" />
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#0B1528] tracking-tight leading-tight">
-              Our <span className="text-[#2563EB]">Philosophy</span>
+            <h2 className="heading-h2 lg:text-[42px] text-[#0B1528] tracking-tight">
+              Our <span className="text-[#2563EB]">Philosophy</span>  
             </h2>
-            <p className="text-[#526484] text-base sm:text-lg font-normal mt-1.5">
+            <p className="body-text-lg text-[#526484] text-base sm: font-normal mt-1.5">
             From strategic thinking to tangible business impact.
             </p>
           </div>

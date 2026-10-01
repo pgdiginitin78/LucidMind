@@ -181,7 +181,7 @@ export default function PodcastsHub() {
 
                   <div className="lg:col-span-7 flex flex-col justify-between">
                     <div>
-                      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-2">
+                      <h2 className="heading-h2 font-['Playfair_Display',serif] text-white mb-2">
                         {activeEpisode.title}
                       </h2>
 
@@ -236,7 +236,7 @@ export default function PodcastsHub() {
               <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]">
                 <div className="flex items-center gap-2.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#00C4B4] shadow-[0_0_8px_#00C4B4]" />
-                  <h3 className="text-xl sm:text-2xl font-bold font-['Playfair_Display',serif] text-white">
+                  <h3 className="heading-h3 font-['Playfair_Display',serif] text-white">
                     All Studio Episodes ({podcasts.length})
                   </h3>
                 </div>
@@ -293,7 +293,7 @@ export default function PodcastsHub() {
                           </span>
                         </div>
 
-                        <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
+                        <h4 className="heading-h4 font-['Playfair_Display',serif] text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
                           {podcast.title}
                         </h4>
 

@@ -269,27 +269,41 @@ export default function InsightsHub() {
         </div>
 
         <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
-          <header className="relative max-w-sm sm:max-w-md md:max-w-[440px] lg:max-w-[500px] xl:max-w-[540px]">
+          <header className="relative max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
             <div className="absolute -inset-4 sm:-inset-6 -z-10 rounded-3xl bg-[#040914]/30 md:bg-gradient-to-r md:from-[#040914]/70 md:via-[#040914]/40 md:to-transparent backdrop-blur-[1px] pointer-events-none" />
+
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-3 mb-4 justify-start"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-[#00C4B4] shadow-[0_0_10px_#00C4B4]" />
+              <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-[#00C4B4] to-transparent" />
+            </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] xl:text-5xl font-extrabold font-['Playfair_Display',serif] tracking-tight text-white leading-[1.16] mb-3 sm:mb-4 drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]"
+              className="heading-h1 text-white tracking-tight mb-2"
             >
-              Insights on Scaling{" "}
-              <span className="bg-gradient-to-r from-[#00E5FF] via-[#00C4B4] to-[#38BDF8] bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(0,196,180,0.4)]">
+              Insights on Scaling{" "}  <br className="hidden sm:block" />
+              <span
+                className="text-[#00C4B4]"
+                style={{ textShadow: "0 0 40px rgba(0,196,180,0.5)" }}
+              >
                 Enterprise AI
               </span>{" "}
-              &amp; Adaptive Leadership
+             
+              <span className="font-sans">&amp;</span> Adaptive<br/> Leadership
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-sm sm:max-w-md md:max-w-[420px] lg:max-w-[480px] font-normal drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
+              className="body-text text-slate-200 mt-4 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
             >
               Explore executive essays, strategic frameworks, and in-depth video
               dialogues designed for leaders reinventing operating models.
@@ -364,10 +378,10 @@ export default function InsightsHub() {
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/30 text-[#00C4FF] text-xs font-semibold mb-2">
                   <BookOpen size={13} />
-                  <span>Executive Essays &amp; Frameworks</span>
+                  <span>Executive Essays <span className="font-sans">&amp;</span> Frameworks</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-['Playfair_Display',serif] text-white">
-                  Thought Leadership &amp; Blogs
+                <h2 className="heading-h2 text-white">
+                  Thought Leadership <span className="font-sans">&amp;</span> Blogs
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mt-2">
                   Reflections on modern engineering, talent ecosystems, and
@@ -388,7 +402,7 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Layers size={22} />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="heading-h3 text-white mb-2">
                   No matching insights
                 </h3>
                 <p className="text-xs text-slate-400 mb-5">
@@ -437,11 +451,11 @@ export default function InsightsHub() {
                           )}
                         </div>
 
-                        <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold font-['Playfair_Display',serif] text-white leading-tight mb-4 group-hover:text-[#00C4B4] transition-colors">
+                        <h4 className="heading-h4 text-white mb-4 group-hover:text-[#00C4B4] transition-colors">
                           {featuredArticle.title}
-                        </h2>
+                        </h4>
 
-                        <p className="text-slate-300 text-sm sm:text-base leading-relaxed line-clamp-4 mb-6">
+                        <p className="body-text text-slate-300 text-sm line-clamp-4 mb-6">
                           {featuredArticle.description}
                         </p>
                       </div>
@@ -505,11 +519,11 @@ export default function InsightsHub() {
                           {article.date && <span>{article.date}</span>}
                         </div>
 
-                        <h3 className="text-lg sm:text-xl 2xl:text-2xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
+                        <h5 className="heading-h5 text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
                           {article.title}
-                        </h3>
+                        </h5>
 
-                        <p className="text-slate-300 text-xs sm:text-sm 2xl:text-lg leading-relaxed line-clamp-3 mb-6 flex-1">
+                        <p className="body-text-lg text-slate-300 text-xs sm:text-sm line-clamp-3 mb-6 flex-1">
                           {article.description}
                         </p>
 
@@ -543,8 +557,8 @@ export default function InsightsHub() {
                   <Video size={13} />
                   <span>Executive Videos</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-['Playfair_Display',serif] text-white">
-                  Video Discussions &amp; Masterclasses
+                <h2 className="heading-h2 text-white">
+                  Video Discussions <span className="font-sans">&amp;</span> Masterclasses
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
                   Watch executive video discussions and dialogues on enterprise
@@ -565,7 +579,7 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Video size={22} />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="heading-h3 text-white mb-2">
                   No videos available
                 </h3>
                 <p className="text-xs text-slate-400 mb-4">
@@ -609,9 +623,9 @@ export default function InsightsHub() {
                       </div>
                       <div className="lg:col-span-7 flex flex-col justify-between">
                         <div>
-                          <h3 className="text-xl lg:text-2xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-4">
+                          <h4 className="heading-h4 text-white mb-4">
                             {currentActiveVideo.title}
-                          </h3>
+                          </h4>
 
                           <div className="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
                             {currentActiveVideo.description
@@ -641,7 +655,7 @@ export default function InsightsHub() {
                                 {currentActiveVideo.host}
                               </div>
                               <div className="text-[11px] text-slate-400">
-                                Board Advisor &amp; GCC Leader
+                                Board Advisor <span className="font-sans">&amp;</span> GCC Leader
                               </div>
                             </div>
                           </div>
@@ -719,9 +733,9 @@ export default function InsightsHub() {
                               </span>
                             </div>
 
-                            <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
+                            <h5 className="heading-h5 text-white mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
                               {video.title}
-                            </h4>
+                            </h5>
 
                             <div className="space-y-1.5 mb-6 flex-1">
                               {video.description.slice(0, 2).map((item, i) => (
@@ -773,8 +787,8 @@ export default function InsightsHub() {
                   <Mic size={13} />
                   <span>Executive Podcasts</span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-['Playfair_Display',serif] text-white">
-                  Podcasts &amp; Audio Broadcasts
+                <h2 className="heading-h2 text-white">
+                  Podcasts <span className="font-sans">&amp;</span> Audio Broadcasts
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
                   Listen to in-depth discussions unpacking capacity vs.
@@ -795,7 +809,7 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Headphones size={22} />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="heading-h3 text-white mb-2">
                   No podcast episodes available
                 </h3>
                 <p className="text-xs text-slate-400 mb-4">
@@ -841,9 +855,9 @@ export default function InsightsHub() {
                       </div>
                       <div className="lg:col-span-7 flex flex-col justify-between">
                         <div>
-                          <h3 className="text-xl lg:text-2xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-4">
+                          <h4 className="heading-h4 text-white mb-4">
                             {currentActivePodcast.title}
-                          </h3>
+                          </h4>
 
                           <div className="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
                             {currentActivePodcast.description
@@ -873,7 +887,7 @@ export default function InsightsHub() {
                                 {currentActivePodcast.host}
                               </div>
                               <div className="text-[11px] text-slate-400">
-                                Board Advisor &amp; GCC Leader
+                                Board Advisor <span className="font-sans">&amp;</span> GCC Leader
                               </div>
                             </div>
                           </div>
@@ -947,9 +961,9 @@ export default function InsightsHub() {
                           </div>
 
                           <div className="p-5 sm:p-6 flex flex-col flex-1">
-                            <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
+                            <h5 className="heading-h5 text-white mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
                               {podcast.title}
-                            </h4>
+                            </h5>
 
                             <div className="space-y-1.5 mb-6 flex-1">
                               {podcast.description

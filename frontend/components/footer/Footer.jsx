@@ -116,7 +116,7 @@ export default function Footer() {
                 className="h-full w-auto max-w-[20rem] object-contain"
               />
             </Link>
-            <p className="text-white text-sm leading-relaxed mb-5 sm:mb-6 max-w-sm 2xl:text-base">
+            <p className="body-text text-white text-sm mb-5 sm:mb-6 max-w-sm 2xl:">
              Navigating complexity and building organisations ready for the Adaptive Future
             </p>
             <div className="flex flex-wrap items-center gap-3">
@@ -168,7 +168,7 @@ export default function Footer() {
               variants={fadeUp}
               custom={colIdx + 1}
             >
-              <h3 className="text-white text-xs sm:text-sm 2xl:text-lg font-normal tracking-wide mb-3">
+              <h3 className="heading-h6 text-white tracking-wide mb-3">
                 {col.title}
               </h3>
               <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
@@ -211,11 +211,11 @@ export default function Footer() {
             variants={fadeUp}
             custom={3}
           >
-            <h3 className="text-white text-xs sm:text-sm 2xl:text-xl font-normal tracking-wide mb-3">
+            <h3 className="heading-h6 text-white tracking-wide mb-3">
               Get in Touch
             </h3>
             <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
-            <p className="text-white text-sm 2xl:text-base leading-relaxed mb-5">
+            <p className="body-text text-white text-sm 2xl: mb-5">
               Have a question or want to work together? Let's talk.
             </p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
@@ -240,7 +240,7 @@ export default function Footer() {
             &copy; {currentYear} Lucidmind. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap items-center 2xl:text-sm justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
+          {/* <div className="flex flex-wrap items-center 2xl:text-sm justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
             <Link
               href="/privacy-policy"
               className="text-white text-xs 2xl:text-sm transition-colors hover:text-[#00C4FF]"
@@ -259,7 +259,7 @@ export default function Footer() {
             >
               Cookie Policy
             </Link>
-            {/* {user && (
+            {user && (
               <div className="flex items-center gap-2 sm:gap-3 pl-1 sm:pl-2">
                 <Link
                   href="/admin"
@@ -276,8 +276,8 @@ export default function Footer() {
                   Sign Out
                 </button>
               </div>
-            )} */}
-          </div>
+            )}
+          </div> */}
         </motion.div>
       </div>
 
