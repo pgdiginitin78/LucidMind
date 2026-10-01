@@ -1,6 +1,6 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { Play } from "lucide-react";
+import { Play, X, Mic, Video, ArrowUpRight } from "lucide-react";
 import { usePathname, Link } from "@/lib/navigation";
 import { useEffect, useRef, useState } from "react";
 import Heading from "../../ui/Heading";
@@ -8,7 +8,7 @@ import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import Image from "@/common/Image";
 import PodcastBannerImg from "./images/PodcastBanner.webp";
 import { API_BASE_URL } from "@/src/config/api";
-import { resolveImageUrl } from "@/lib/utils";
+import { resolveImageUrl, getEmbedUrl } from "@/lib/utils";
 
 function WaveformIcon({ active = false }) {
   return (
@@ -35,6 +35,7 @@ export default function Podcasts() {
   const isStandalone = pathname === "/podcasts";
   const [selectedPodcast, setSelectedPodcast] = useState(0);
   const [podcastsList, setPodcastsList] = useState([]);
+  const [playingPodcastModal, setPlayingPodcastModal] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -96,8 +97,10 @@ export default function Podcasts() {
     setSelectedPodcast(index);
   };
 
-  const handlePlayClick = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer");
+  const handlePlayClick = (podcast) => {
+    if (podcast?.src) {
+      setPlayingPodcastModal(podcast);
+    }
   };
 
   const current = podcastsList[selectedPodcast] || podcastsList[0] || {};
@@ -238,8 +241,8 @@ export default function Podcasts() {
                     className="rounded-xl overflow-hidden bg-white/[0.04] border border-white/10 shadow-[0_24px_80px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md"
                   >
                     <div
-                      onClick={() => handlePlayClick(current.src)}
-                      className="relative w-full pt-[52%] lg:pt-[42%] xl:pt-[55%] cursor-pointer group/thumb"
+                      onClick={() => handlePlayClick(current)}
+                      className="relative w-full pt-[52%] lg:pt-[42%] xl:pt-[50%] cursor-pointer group/thumb"
                     >
                       <img
                         src={current.thumbnail}
@@ -248,9 +251,10 @@ export default function Podcasts() {
                         decoding="async"
                         className="absolute inset-0 w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-[linear-gradient(135deg,#00C4B4,#2563EB)] shadow-[0_8px_28px_rgba(0,196,180,0.45)] transition-transform duration-300 group-hover/thumb:scale-110">
-                          <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-white ml-0.5" />
+                      <div className="absolute inset-0 bg-black/20 group-hover/thumb:bg-black/10 transition-colors duration-300" />
+                      <div className="absolute inset-0 flex items-center justify-center opacity-90 group-hover/thumb:opacity-100 transition-opacity duration-300">
+                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black/40 backdrop-blur-md border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-transform duration-300 group-hover/thumb:scale-110">
+                          <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-white ml-1 drop-shadow-lg" />
                         </div>
                       </div>
                     </div>
@@ -294,6 +298,80 @@ export default function Podcasts() {
           </div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {playingPodcastModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12 bg-[#020617]/90 backdrop-blur-xl"
+            onClick={() => setPlayingPodcastModal(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-4xl bg-[#07162e] border border-[#00C4FF]/30 rounded-3xl overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.8)]"
+            >
+              <div className="p-4 sm:p-5 flex items-center justify-between border-b border-white/[0.08] bg-[#051124]">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-[#00C4FF]/20 border border-[#00C4FF]/30 flex items-center justify-center text-[#00C4FF] shrink-0">
+                    {playingPodcastModal.mediaType === "video" ? (
+                      <Video size={18} />
+                    ) : (
+                      <Mic size={18} />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    {/* <div className="text-xs font-mono text-[#00C4FF] font-bold">
+                      {playingPodcastModal.episode}
+                    </div> */}
+                    <div className="text-sm font-bold text-white truncate max-w-sm sm:max-w-md">
+                      {playingPodcastModal.title}
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPlayingPodcastModal(null)}
+                  className="w-8 h-8 rounded-full bg-white/[0.08] hover:bg-white/[0.15] text-slate-300 hover:text-white flex items-center justify-center transition-all cursor-pointer"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              <div className="p-4 sm:p-6">
+                <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black border border-white/10 shadow-inner">
+                  <iframe
+                    src={getEmbedUrl(playingPodcastModal.src)}
+                    title={playingPodcastModal.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full h-full border-0"
+                  />
+                </div>
+
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                  <span>Host: {playingPodcastModal.host || "Ravishankar Pingali"}</span>
+                  {playingPodcastModal.src && (
+                    <a
+                      href={playingPodcastModal.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[#00C4FF] hover:underline"
+                    >
+                      <span>Open in Source</span>
+                      <ArrowUpRight size={13} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

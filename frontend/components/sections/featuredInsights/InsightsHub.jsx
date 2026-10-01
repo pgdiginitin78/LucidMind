@@ -288,15 +288,15 @@ export default function InsightsHub() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="heading-h1 text-white tracking-tight mb-2"
             >
-              Insights on Scaling{" "}  <br className="hidden sm:block" />
+              Insights on Scaling <br className="hidden sm:block" />
               <span
                 className="text-[#00C4B4]"
                 style={{ textShadow: "0 0 40px rgba(0,196,180,0.5)" }}
               >
                 Enterprise AI
               </span>{" "}
-             
-              <span className="font-sans">&amp;</span> Adaptive<br/> Leadership
+              <span className="font-sans">&amp;</span> Adaptive
+              <br /> Leadership
             </motion.h1>
 
             <motion.p
@@ -378,10 +378,14 @@ export default function InsightsHub() {
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/30 text-[#00C4FF] text-xs font-semibold mb-2">
                   <BookOpen size={13} />
-                  <span>Executive Essays <span className="font-sans">&amp;</span> Frameworks</span>
+                  <span>
+                    Executive Essays <span className="font-sans">&amp;</span>{" "}
+                    Frameworks
+                  </span>
                 </div>
                 <h2 className="heading-h2 text-white">
-                  Thought Leadership <span className="font-sans">&amp;</span> Blogs
+                  Thought Leadership <span className="font-sans">&amp;</span>{" "}
+                  Blogs
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mt-2">
                   Reflections on modern engineering, talent ecosystems, and
@@ -558,7 +562,8 @@ export default function InsightsHub() {
                   <span>Executive Videos</span>
                 </div>
                 <h2 className="heading-h2 text-white">
-                  Video Discussions <span className="font-sans">&amp;</span> Masterclasses
+                  Video Discussions <span className="font-sans">&amp;</span>{" "}
+                  Masterclasses
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
                   Watch executive video discussions and dialogues on enterprise
@@ -655,7 +660,9 @@ export default function InsightsHub() {
                                 {currentActiveVideo.host}
                               </div>
                               <div className="text-[11px] text-slate-400">
-                                Board Advisor <span className="font-sans">&amp;</span> GCC Leader
+                                Board Advisor{" "}
+                                <span className="font-sans">&amp;</span> GCC
+                                Leader
                               </div>
                             </div>
                           </div>
@@ -788,7 +795,8 @@ export default function InsightsHub() {
                   <span>Executive Podcasts</span>
                 </div>
                 <h2 className="heading-h2 text-white">
-                  Podcasts <span className="font-sans">&amp;</span> Audio Broadcasts
+                  Podcasts <span className="font-sans">&amp;</span> Audio
+                  Broadcasts
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
                   Listen to in-depth discussions unpacking capacity vs.
@@ -887,7 +895,9 @@ export default function InsightsHub() {
                                 {currentActivePodcast.host}
                               </div>
                               <div className="text-[11px] text-slate-400">
-                                Board Advisor <span className="font-sans">&amp;</span> GCC Leader
+                                Board Advisor{" "}
+                                <span className="font-sans">&amp;</span> GCC
+                                Leader
                               </div>
                             </div>
                           </div>

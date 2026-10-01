@@ -1,191 +1,585 @@
 <?php
 
-class ContactController {
-    public function handleRequest($method, $args) {
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+class ContactController
+{
+    public function handleRequest($method, $args)
+    {
+        header('Content-Type: application/json; charset=utf-8');
+
         if ($method === 'POST') {
             $this->sendEmail();
-        } else {
-            http_response_code(404);
-            echo json_encode(['message' => 'Route not found']);
+            return;
         }
+
+        http_response_code(404);
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'Route not found'
+        ]);
     }
 
-    private function sendEmail() {
-        $rawInput = file_get_contents("php://input");
+    private function sendEmail()
+    {
+        // ---------------------------------------------------------
+        // 1. Read JSON request
+        // ---------------------------------------------------------
+
+        $rawInput = file_get_contents('php://input');
+
+        if (!$rawInput) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Request body is empty.'
+            ]);
+
+            return;
+        }
+
         $data = json_decode($rawInput, true);
 
-        if (!$data || !is_array($data)) {
+        if (!is_array($data)) {
             http_response_code(400);
+
             echo json_encode([
                 'success' => false,
                 'message' => 'Invalid JSON payload received.'
             ]);
+
             return;
         }
-        
+
+        // ---------------------------------------------------------
+        // 2. Get form data
+        // ---------------------------------------------------------
+
         $name = trim($data['name'] ?? '');
         $email = trim($data['email'] ?? '');
         $subject = trim($data['subject'] ?? '');
         $message = trim($data['message'] ?? '');
 
-        // Header injection protection: strictly reject CR/LF in single-line headers
-        if (preg_match("/[\r\n]/", $name) || preg_match("/[\r\n]/", $email) || preg_match("/[\r\n]/", $subject)) {
+        // ---------------------------------------------------------
+        // 3. Validate header injection
+        // ---------------------------------------------------------
+
+        if (
+            preg_match('/[\r\n]/', $name) ||
+            preg_match('/[\r\n]/', $email) ||
+            preg_match('/[\r\n]/', $subject)
+        ) {
             http_response_code(400);
+
             echo json_encode([
                 'success' => false,
-                'message' => 'Invalid header characters in input.'
+                'message' => 'Invalid characters detected.'
             ]);
+
             return;
         }
 
-        // Validate required fields and email format
-        if (empty($name) || empty($email) || empty($subject) || empty($message) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // ---------------------------------------------------------
+        // 4. Validate required fields
+        // ---------------------------------------------------------
+
+        if (
+            empty($name) ||
+            empty($email) ||
+            empty($subject) ||
+            empty($message)
+        ) {
             http_response_code(400);
+
             echo json_encode([
                 'success' => false,
-                'message' => 'Valid name, email, subject, and message are required.'
+                'message' => 'Name, email, subject and message are required.'
             ]);
+
             return;
         }
 
-        // Helper to safely load environment variables
-        $getEnvVar = function($key) {
-            $val = getenv($key);
-            if ($val !== false && $val !== null && $val !== '') return $val;
-            if (isset($_ENV[$key]) && $_ENV[$key] !== '') return $_ENV[$key];
-            if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') return $_SERVER[$key];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'Please provide a valid email address.'
+            ]);
+
+            return;
+        }
+
+        // ---------------------------------------------------------
+        // 5. Environment variable helper
+        // ---------------------------------------------------------
+
+        $getEnvVar = function ($key) {
+
+            // getenv()
+            $value = getenv($key);
+
+            if ($value !== false && trim($value) !== '') {
+                return trim($value);
+            }
+
+            // $_ENV
+            if (isset($_ENV[$key]) && trim($_ENV[$key]) !== '') {
+                return trim($_ENV[$key]);
+            }
+
+            // $_SERVER
+            if (isset($_SERVER[$key]) && trim($_SERVER[$key]) !== '') {
+                return trim($_SERVER[$key]);
+            }
+
             return '';
         };
 
-        $smtpHost       = $getEnvVar('SMTP_HOST') ?: 'smtp.gmail.com';
-        $smtpPort       = (int)($getEnvVar('SMTP_PORT') ?: 465);
-        $smtpEncryption = strtolower($getEnvVar('SMTP_ENCRYPTION') ?: 'ssl');
-        $smtpUser       = $getEnvVar('SMTP_USER');
-        $smtpPassword   = $getEnvVar('SMTP_APP_PASSWORD') ?: $getEnvVar('SMTP_PASSWORD');
-        $receiverEmail  = $getEnvVar('RECEIVER_EMAIL');
+        // ---------------------------------------------------------
+        // 6. SMTP configuration
+        // ---------------------------------------------------------
 
-        if (empty($receiverEmail) || empty($smtpUser) || empty($smtpPassword)) {
-            error_log('LucidMind SMTP error: Environment variables (SMTP_USER, SMTP_APP_PASSWORD, RECEIVER_EMAIL) are missing.');
+        $smtpHost = $getEnvVar('SMTP_HOST');
+
+        if ($smtpHost === '') {
+            $smtpHost = 'smtp.gmail.com';
+        }
+
+        $smtpPort = (int)($getEnvVar('SMTP_PORT') ?: 465);
+
+        $smtpEncryption = strtolower(
+            $getEnvVar('SMTP_ENCRYPTION') ?: 'ssl'
+        );
+
+        $smtpUser = $getEnvVar('SMTP_USER');
+
+        $smtpPassword = $getEnvVar('SMTP_APP_PASSWORD');
+
+        if ($smtpPassword === '') {
+            $smtpPassword = $getEnvVar('SMTP_PASSWORD');
+        }
+
+        // ---------------------------------------------------------
+        // IMPORTANT:
+        // Multiple email addresses separated by comma
+        // ---------------------------------------------------------
+
+        $receiverEmail = $getEnvVar('RECEIVER_EMAIL');
+
+        // ---------------------------------------------------------
+        // 7. Check SMTP configuration
+        // ---------------------------------------------------------
+
+        if (
+            empty($smtpUser) ||
+            empty($smtpPassword) ||
+            empty($receiverEmail)
+        ) {
+
+            error_log(
+                'LucidMind SMTP configuration error. ' .
+                'SMTP_USER=' . ($smtpUser ? 'SET' : 'MISSING') . ' | ' .
+                'SMTP_PASSWORD=' . ($smtpPassword ? 'SET' : 'MISSING') . ' | ' .
+                'RECEIVER_EMAIL=' . ($receiverEmail ? 'SET' : 'MISSING')
+            );
+
             http_response_code(500);
+
             echo json_encode([
                 'success' => false,
-                'message' => 'Failed to send message. Please try again later.'
+                'message' => 'Email service is not configured correctly.'
             ]);
+
             return;
         }
 
-        // Clean up any internal whitespace in app password
+        // Remove spaces from Gmail App Password
         $smtpPassword = str_replace(' ', '', $smtpPassword);
-        
-        // Safely escape user input for HTML
-        $safeName    = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-        $safeEmail   = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-        $safeSubject = htmlspecialchars($subject, ENT_QUOTES, 'UTF-8');
-        $safeMessage = nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8'));
-        $plainMessage = htmlspecialchars_decode($message, ENT_QUOTES);
+
+        // ---------------------------------------------------------
+        // 8. Convert receiver string into array
+        // ---------------------------------------------------------
+
+        $receivers = explode(',', $receiverEmail);
+
+        $validReceivers = [];
+
+        foreach ($receivers as $receiver) {
+
+            $receiver = trim($receiver);
+
+            if (
+                !empty($receiver) &&
+                filter_var($receiver, FILTER_VALIDATE_EMAIL)
+            ) {
+                $validReceivers[] = $receiver;
+            }
+        }
+
+        // Remove duplicates
+        $validReceivers = array_unique($validReceivers);
+
+        // ---------------------------------------------------------
+        // 9. Check recipients
+        // ---------------------------------------------------------
+
+        if (empty($validReceivers)) {
+
+            error_log(
+                'LucidMind SMTP error: No valid receiver emails. ' .
+                'RECEIVER_EMAIL=' . $receiverEmail
+            );
+
+            http_response_code(500);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'No valid recipient email configured.'
+            ]);
+
+            return;
+        }
+
+        // ---------------------------------------------------------
+        // 10. Escape HTML
+        // ---------------------------------------------------------
+
+        $safeName = htmlspecialchars(
+            $name,
+            ENT_QUOTES | ENT_SUBSTITUTE,
+            'UTF-8'
+        );
+
+        $safeEmail = htmlspecialchars(
+            $email,
+            ENT_QUOTES | ENT_SUBSTITUTE,
+            'UTF-8'
+        );
+
+        $safeSubject = htmlspecialchars(
+            $subject,
+            ENT_QUOTES | ENT_SUBSTITUTE,
+            'UTF-8'
+        );
+
+        $safeMessage = nl2br(
+            htmlspecialchars(
+                $message,
+                ENT_QUOTES | ENT_SUBSTITUTE,
+                'UTF-8'
+            )
+        );
+
+        // ---------------------------------------------------------
+        // 11. HTML email
+        // ---------------------------------------------------------
 
         $htmlContent = "
+        <!DOCTYPE html>
         <html>
         <head>
-          <title>New Contact Form Submission</title>
-          <style>
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            .header { background-color: #000000; padding: 25px; text-align: center; }
-            .header img { max-height: 120px; }
-            .content { padding: 30px; color: #333333; }
-            .content h2 { margin-top: 0; color: #1a1a1a; font-size: 20px; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;}
-            .field { margin-bottom: 20px; }
-            .field-label { font-size: 12px; text-transform: uppercase; color: #888888; letter-spacing: 1px; margin-bottom: 5px; }
-            .field-value { font-size: 16px; background: #f9f9f9; padding: 12px 15px; border-left: 3px solid #000000; border-radius: 4px; }
-            .message-box { background: #f9f9f9; padding: 15px; border-radius: 4px; border: 1px solid #eeeeee; font-size: 15px; line-height: 1.6; }
-            .footer { background-color: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #aaaaaa; border-top: 1px solid #eeeeee;}
-          </style>
+            <meta charset='UTF-8'>
+            <title>New Contact Form Submission</title>
+
+            <style>
+                body {
+                    font-family: Arial, Helvetica, sans-serif;
+                    background-color: #f4f7f6;
+                    margin: 0;
+                    padding: 20px;
+                }
+
+                .container {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    background: #ffffff;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+                }
+
+                .header {
+                    background: #000000;
+                    padding: 25px;
+                    text-align: center;
+                }
+
+                .header img {
+                    max-width: 200px;
+                    max-height: 120px;
+                    height: auto;
+                }
+
+                .content {
+                    padding: 30px;
+                    color: #333333;
+                }
+
+                .content h2 {
+                    margin-top: 0;
+                    color: #1a1a1a;
+                    font-size: 20px;
+                    margin-bottom: 25px;
+                    border-bottom: 1px solid #eeeeee;
+                    padding-bottom: 15px;
+                }
+
+                .field {
+                    margin-bottom: 20px;
+                }
+
+                .field-label {
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    color: #888888;
+                    letter-spacing: 1px;
+                    margin-bottom: 6px;
+                }
+
+                .field-value {
+                    font-size: 16px;
+                    background: #f9f9f9;
+                    padding: 12px 15px;
+                    border-left: 3px solid #000000;
+                    border-radius: 4px;
+                    word-break: break-word;
+                }
+
+                .message-box {
+                    background: #f9f9f9;
+                    padding: 15px;
+                    border-radius: 4px;
+                    border: 1px solid #eeeeee;
+                    font-size: 15px;
+                    line-height: 1.6;
+                    word-break: break-word;
+                }
+
+                .footer {
+                    background: #f9f9f9;
+                    padding: 15px;
+                    text-align: center;
+                    font-size: 12px;
+                    color: #aaaaaa;
+                    border-top: 1px solid #eeeeee;
+                }
+
+                a {
+                    color: #000000;
+                }
+            </style>
         </head>
+
         <body>
-          <div class='container'>
-            <div class='header'>
-              <img src='https://lucidmind.co.in/assets/logo/Lucid-mind-logos.png' alt='LucidMind Logo' />
+
+            <div class='container'>
+
+                <div class='header'>
+
+                    <img
+                        src='https://lucidmind.co.in/assets/logo/LucidMind%20logo%202.svg'
+                        alt='LucidMind Logo'
+                    >
+
+                </div>
+
+                <div class='content'>
+
+                    <h2>New Contact Submission</h2>
+
+                    <div class='field'>
+                        <div class='field-label'>Name</div>
+                        <div class='field-value'>
+                            {$safeName}
+                        </div>
+                    </div>
+
+                    <div class='field'>
+                        <div class='field-label'>Email</div>
+                        <div class='field-value'>
+                            <a href='mailto:{$safeEmail}'>
+                                {$safeEmail}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class='field'>
+                        <div class='field-label'>Subject</div>
+                        <div class='field-value'>
+                            {$safeSubject}
+                        </div>
+                    </div>
+
+                    <div class='field'>
+                        <div class='field-label'>Message</div>
+
+                        <div class='message-box'>
+                            {$safeMessage}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class='footer'>
+                    This email was automatically generated from the LucidMind Contact Form.
+                </div>
+
             </div>
-            <div class='content'>
-              <h2>New Contact Submission</h2>
-              <div class='field'>
-                <div class='field-label'>Name</div>
-                <div class='field-value'>$safeName</div>
-              </div>
-              <div class='field'>
-                <div class='field-label'>Email</div>
-                <div class='field-value'><a href='mailto:$safeEmail' style='color: #000; text-decoration: none;'>$safeEmail</a></div>
-              </div>
-              <div class='field'>
-                <div class='field-label'>Subject</div>
-                <div class='field-value'>$safeSubject</div>
-              </div>
-              <div class='field'>
-                <div class='field-label'>Message</div>
-                <div class='message-box'>$safeMessage</div>
-              </div>
-            </div>
-            <div class='footer'>
-              This email was automatically generated from the LucidMind Contact Form.
-            </div>
-          </div>
+
         </body>
         </html>
         ";
 
-        $altBody = "New Contact Submission\n\nName: $name\nEmail: $email\nSubject: $subject\n\nMessage:\n$plainMessage";
+        // ---------------------------------------------------------
+        // 12. Plain text version
+        // ---------------------------------------------------------
+
+        $altBody =
+            "New Contact Submission\n\n" .
+            "Name: {$name}\n" .
+            "Email: {$email}\n" .
+            "Subject: {$subject}\n\n" .
+            "Message:\n{$message}";
+
+        // ---------------------------------------------------------
+        // 13. Load PHPMailer
+        // ---------------------------------------------------------
 
         require_once __DIR__ . '/../vendor/phpmailer/Exception.php';
         require_once __DIR__ . '/../vendor/phpmailer/PHPMailer.php';
         require_once __DIR__ . '/../vendor/phpmailer/SMTP.php';
 
-        $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+        // ---------------------------------------------------------
+        // 14. Create PHPMailer
+        // ---------------------------------------------------------
+
+        $mail = new PHPMailer(true);
 
         try {
-            $mail->SMTPDebug = 0;
-            $mail->isSMTP();
-            $mail->Host       = $smtpHost;
-            $mail->SMTPAuth   = true;
-            $mail->Username   = $smtpUser;
-            $mail->Password   = $smtpPassword;
-            if ($smtpEncryption === 'tls' || $smtpPort === 587) {
-                $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-            } else {
-                $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
-            }
-            $mail->Port       = $smtpPort;
 
-            // Sender must match authenticated user to maximize deliverability
-            $mail->setFrom($smtpUser, 'LucidMind Website');
-            
-            // Destination address
-            $mail->addAddress($receiverEmail);
-            
-            // Visitor email as Reply-To
-            $mail->addReplyTo($email, $name);
+            // -----------------------------------------------------
+            // SMTP
+            // -----------------------------------------------------
+
+            $mail->isSMTP();
+
+            $mail->Host = $smtpHost;
+
+            $mail->SMTPAuth = true;
+
+            $mail->Username = $smtpUser;
+
+            $mail->Password = $smtpPassword;
+
+            // SSL / TLS
+            if (
+                $smtpEncryption === 'tls' ||
+                $smtpPort === 587
+            ) {
+
+                $mail->SMTPSecure =
+                    PHPMailer::ENCRYPTION_STARTTLS;
+
+                $mail->Port = 587;
+
+            } else {
+
+                $mail->SMTPSecure =
+                    PHPMailer::ENCRYPTION_SMTPS;
+
+                $mail->Port = 465;
+            }
+
+            // -----------------------------------------------------
+            // Sender
+            // -----------------------------------------------------
+
+            $mail->setFrom(
+                $smtpUser,
+                'LucidMind Website'
+            );
+
+            // -----------------------------------------------------
+            // Add ALL recipients
+            // -----------------------------------------------------
+
+            foreach ($validReceivers as $receiver) {
+
+                $mail->addAddress($receiver);
+
+            }
+
+            // -----------------------------------------------------
+            // Reply to website visitor
+            // -----------------------------------------------------
+
+            $mail->addReplyTo(
+                $email,
+                $name
+            );
+
+            // -----------------------------------------------------
+            // Email content
+            // -----------------------------------------------------
 
             $mail->isHTML(true);
-            $mail->Subject = "New Contact Submission from $safeName: $safeSubject";
-            $mail->Body    = $htmlContent;
+
+            $mail->CharSet = 'UTF-8';
+
+            $mail->Subject =
+                'New Contact Enquiry from ' .
+                $name .
+                ': ' .
+                $subject;
+
+            $mail->Body = $htmlContent;
+
             $mail->AltBody = $altBody;
 
+            // -----------------------------------------------------
+            // Send
+            // -----------------------------------------------------
+
             $mail->send();
-            
+
+            // -----------------------------------------------------
+            // Success
+            // -----------------------------------------------------
+
             echo json_encode([
                 'success' => true,
                 'message' => 'Message sent successfully.'
             ]);
-        } catch (\PHPMailer\PHPMailer\Exception $e) {
-            error_log('LucidMind SMTP error: ' . $mail->ErrorInfo);
+
+        } catch (Exception $e) {
+
+            // Log the real PHPMailer error
+            error_log(
+                'LucidMind PHPMailer Error: ' .
+                $mail->ErrorInfo
+            );
+
             http_response_code(500);
+
             echo json_encode([
                 'success' => false,
                 'message' => 'Failed to send message. Please try again later.'
             ]);
-        } catch (\Exception $e) {
-            error_log('LucidMind SMTP error: ' . $e->getMessage());
+
+        } catch (\Throwable $e) {
+
+            error_log(
+                'LucidMind PHP Error: ' .
+                $e->getMessage()
+            );
+
             http_response_code(500);
+
             echo json_encode([
                 'success' => false,
                 'message' => 'Failed to send message. Please try again later.'

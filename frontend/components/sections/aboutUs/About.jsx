@@ -843,9 +843,11 @@ export default function AboutUs() {
               </span>
               <h2 className="heading-h2 lg:text-[32px] xl:text-[36px] text-white leading-[1.14] tracking-tight mb-3 sm:mb-3.5">
                 We don&apos;t start with technology.
-                <br />
-                We{" "}
-                <span className="text-[#00C4FF]">start with the question.</span>
+                <br className="hidden md:block" />
+                We{"  "}
+                <span className="text-[#00C4FF]">
+                  start <br className="md:hidden" /> with the question.
+                </span>
               </h2>
               {/* <p className="text-xs sm:text-[13px] text-slate-300 leading-[1.6] mb-2.5 max-w-xl">
                 AI is accelerating change. New platforms, tools and technologies
@@ -856,9 +858,9 @@ export default function AboutUs() {
                 transformation.
               </p> */}
               <div className="flex items-center gap-2.5 mb-3.5 mt-2">
-                <span className="w-2 h-2 rounded-full bg-[#00C4FF] animate-pulse shadow-[0_0_10px_#00C4FF]" />
-                <h3 className="heading-h3 uppercase tracking-[0.2em] text-[#00C4FF]">
-                  The strategic imperatives :
+                <span className="w-2 h-2 rounded-full bg-[#00C4FF] animate-pulse shadow-[0_0_10px_#00C4FF] hidden lg:block" />
+                <h3 className="heading-h4 md:heading-h3 uppercase text-[#00C4FF]">
+                  The strategic imperatives
                 </h3>
               </div>
               <div className="grid space-y-2.5 sm:space-y-3 mb-4">
@@ -942,7 +944,7 @@ export default function AboutUs() {
                 <Reveal
                   variants={scaleIn}
                   custom={i}
-                  className="relative flex items-start shrink-0 max-w-full"
+                  className="relative flex items-start w-full max-w-[290px] xs:max-w-[320px] sm:max-w-[360px] lg:w-auto lg:max-w-none shrink-0"
                 >
                   <div className="relative z-20 flex flex-col items-start text-left shrink-0">
                     <span
@@ -1017,10 +1019,7 @@ export default function AboutUs() {
                       <div className="absolute w-2.5 h-2.5 rounded-full bg-[#0084FF] shadow-[0_0_6px_rgba(0,132,255,0.6)]" />
                     </div>
 
-                    <div className="flex lg:hidden flex-col items-center justify-center h-10 w-full relative shrink-0 my-1">
-                      <div className="w-[1.5px] h-full bg-[#93C5FD]/60" />
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-[#0084FF] shadow-[0_0_6px_rgba(0,132,255,0.6)]" />
-                    </div>
+                    {/* Removed mobile vertical divider to fix alignment inconsistency */}
                   </>
                 )}
               </React.Fragment>

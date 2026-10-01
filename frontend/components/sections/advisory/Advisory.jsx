@@ -60,7 +60,7 @@ export const AssesmentSvg = () => {
 const operatingSteps = [
   { id: "01", label: "Decision Rights" },
   { id: "02", label: "Information Flow" },
-  { id: "03", label: "Skills & Incentives" },
+  { id: "03", label: "Skills" },
   { id: "04", label: "Processes & Workflows" },
   { id: "05", label: "Learning & Adaptation" },
 ];
@@ -196,7 +196,7 @@ export default function Advisory() {
             <div className="w-full relative mt-8">
               <div className="hidden lg:block absolute top-0 left-8 right-8 h-px border-t border-dashed border-slate-700/60 z-0" />
 
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-3 items-stretch relative z-10">
+              <div className="w-full grid grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-3 items-stretch relative z-10">
                 {operatingSteps.map((item, idx) => {
                   return (
                     <div

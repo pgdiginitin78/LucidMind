@@ -107,13 +107,13 @@ export default function Articles() {
               glowColor="0, 196, 180"
             />
             <div className="grid items-start">
-              <div className="flex items-center">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 w-full">
                 <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="shrink-0 pt-2"
+                  className="flex-1 min-w-0 pt-2"
                 >
                   <p className="text-brand-blue font-semibold tracking-[0.18em] uppercase text-xs mb-2">
                     INSIGHTS &amp; PERSPECTIVES
@@ -129,12 +129,12 @@ export default function Articles() {
                       Adaptive Future.
                     </span>
                   </Heading>
-                  <p className="body-text text-black text-sm sm: lg: max-w-[100%] md:max-w-[80%] lg:max-w-[900px] mb-3 drop-shadow-md sm:drop-shadow-none">
+                  <p className="body-text text-black text-sm max-w-full md:max-w-[80%] lg:max-w-[900px] mb-3 drop-shadow-md sm:drop-shadow-none whitespace-normal break-words">
                     Expert insights, frameworks and perspectives to help leaders
                     navigate complexity and build future-ready organisations.
                   </p>
                 </motion.div>
-                <div className="w-full flex items-center justify-end">
+                <div className="flex items-center justify-start md:justify-end shrink-0 mb-4 md:mb-0">
                   <Link href="/insights">
                     <span className=" text-brand-blue  cursor-pointer font-semibold">
                       View All Insights <ArrowRightIcon />
