@@ -298,7 +298,10 @@ export default function InsightsHub() {
         </div>
       </section>
 
-      <div id="insights-content" className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 space-y-16 sm:space-y-20">
+      <div
+        id="insights-content"
+        className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 space-y-16 sm:space-y-20"
+      >
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
           <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-full bg-[#08152b]/80 border border-white/[0.1] backdrop-blur-xl">
             <button
@@ -544,7 +547,8 @@ export default function InsightsHub() {
                   Video Discussions &amp; Masterclasses
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
-                  Watch executive video discussions and dialogues on enterprise scale, GCC evolution, and generative AI.
+                  Watch executive video discussions and dialogues on enterprise
+                  scale, GCC evolution, and generative AI.
                 </p>
               </div>
             </div>
@@ -671,101 +675,100 @@ export default function InsightsHub() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {videoList.map((video, index) => {
-                    const isSelected = currentActiveVideo?.id === video.id;
-                    return (
-                      <motion.article
-                        key={video.id}
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.1 }}
-                        transition={{
-                          duration: 0.5,
-                          delay: (index % 3) * 0.08,
-                        }}
-                        className={cn(
-                          "group rounded-2xl bg-[#08152b]/85 border overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] transition-all duration-300 flex flex-col h-full",
-                          isSelected
-                            ? "border-[#00C4FF] shadow-[0_0_24px_rgba(0,196,255,0.2)]"
-                            : "border-white/[0.09] hover:border-[#00C4FF]/50 hover:shadow-[0_16px_48px_rgba(0,196,255,0.15)]",
-                        )}
-                      >
-                        <div className="relative aspect-video overflow-hidden bg-black shrink-0">
-                          <img
-                            src={encodeURI(video.thumbnail)}
-                            alt={video.title}
-                            loading="lazy"
-                            onError={(e) => {
-                              e.currentTarget.src =
-                                "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
-                            }}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent" />
-
-                          <button
-                            type="button"
-                            onClick={() => openPodcastPlayer(video)}
-                            className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity"
-                            aria-label={`Play ${video.title}`}
-                          >
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,255,0.5)] group-hover:scale-110 transition-transform">
-                              <Play size={18} className="fill-white ml-0.5" />
-                            </div>
-                          </button>
-                        </div>
-
-                        <div className="p-5 sm:p-6 flex flex-col flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.06] text-[#00C4FF] border border-white/10">
-                              <Video size={10} />
-                              <span>Video</span>
-                            </span>
-                            <span className="text-xs text-white/50">
-                              {video.episode}
-                            </span>
-                          </div>
-
-                          <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
-                            {video.title}
-                          </h4>
-
-                          <div className="space-y-1.5 mb-6 flex-1">
-                            {video.description.slice(0, 2).map((item, i) => (
-                              <p
-                                key={i}
-                                className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
-                              >
-                                {item.replace(/^✅\s*/, "")}
-                              </p>
-                            ))}
-                          </div>
-
-                          <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setActiveVideo(video);
-                                scrollToSection("videos");
+                  {videoList
+                    .filter((video) => video.id !== currentActiveVideo?.id)
+                    .map((video, index) => {
+                      const isSelected = currentActiveVideo?.id === video.id;
+                      return (
+                        <motion.article
+                          key={video.id}
+                          initial={{ opacity: 0, y: 24 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.1 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: (index % 3) * 0.08,
+                          }}
+                          className={cn(
+                            "group rounded-2xl bg-[#08152b]/85 border overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] transition-all duration-300 flex flex-col h-full",
+                            isSelected
+                              ? "border-[#00C4FF] shadow-[0_0_24px_rgba(0,196,255,0.2)]"
+                              : "border-white/[0.09] hover:border-[#00C4FF]/50 hover:shadow-[0_16px_48px_rgba(0,196,255,0.15)]",
+                          )}
+                        >
+                          <div className="relative aspect-video overflow-hidden bg-black shrink-0">
+                            <img
+                              src={encodeURI(video.thumbnail)}
+                              alt={video.title}
+                              loading="lazy"
+                              onError={(e) => {
+                                e.currentTarget.src =
+                                  "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
                               }}
-                              className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
-                            >
-                              Set as Focus
-                            </button>
+                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent" />
 
                             <button
                               type="button"
                               onClick={() => openPodcastPlayer(video)}
-                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                              className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity"
+                              aria-label={`Play ${video.title}`}
                             >
-                              <span>Watch Video</span>
-                              <ArrowUpRight size={13} />
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,255,0.5)] group-hover:scale-110 transition-transform">
+                                <Play size={18} className="fill-white ml-0.5" />
+                              </div>
                             </button>
                           </div>
-                        </div>
-                      </motion.article>
-                    );
-                  })}
+
+                          <div className="p-5 sm:p-6 flex flex-col flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.06] text-[#00C4FF] border border-white/10">
+                                <Video size={10} />
+                                <span>Video</span>
+                              </span>
+                            </div>
+
+                            <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
+                              {video.title}
+                            </h4>
+
+                            <div className="space-y-1.5 mb-6 flex-1">
+                              {video.description.slice(0, 2).map((item, i) => (
+                                <p
+                                  key={i}
+                                  className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                                >
+                                  {item.replace(/^✅\s*/, "")}
+                                </p>
+                              ))}
+                            </div>
+
+                            <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setActiveVideo(video);
+                                  scrollToSection("videos");
+                                }}
+                                className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+                              >
+                                Set as Focus
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => openPodcastPlayer(video)}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                              >
+                                <span>Watch Video</span>
+                                <ArrowUpRight size={13} />
+                              </button>
+                            </div>
+                          </div>
+                        </motion.article>
+                      );
+                    })}
                 </div>
               </div>
             )}
@@ -784,7 +787,8 @@ export default function InsightsHub() {
                   Podcasts &amp; Audio Broadcasts
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
-                  Listen to in-depth discussions unpacking capacity vs. capability and modern engineering leadership.
+                  Listen to in-depth discussions unpacking capacity vs.
+                  capability and modern engineering leadership.
                 </p>
               </div>
             </div>
@@ -913,101 +917,108 @@ export default function InsightsHub() {
                 )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                  {podcastList.map((podcast, index) => {
-                    const isSelected = currentActivePodcast?.id === podcast.id;
-                    return (
-                      <motion.article
-                        key={podcast.id}
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.1 }}
-                        transition={{
-                          duration: 0.5,
-                          delay: (index % 3) * 0.08,
-                        }}
-                        className={cn(
-                          "group rounded-2xl bg-[#08152b]/85 border overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] transition-all duration-300 flex flex-col h-full",
-                          isSelected
-                            ? "border-[#00C4FF] shadow-[0_0_24px_rgba(0,196,255,0.2)]"
-                            : "border-white/[0.09] hover:border-[#00C4FF]/50 hover:shadow-[0_16px_48px_rgba(0,196,255,0.15)]",
-                        )}
-                      >
-                        <div className="relative aspect-video overflow-hidden bg-black shrink-0">
-                          <img
-                            src={encodeURI(podcast.thumbnail)}
-                            alt={podcast.title}
-                            loading="lazy"
-                            onError={(e) => {
-                              e.currentTarget.src =
-                                "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
-                            }}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent" />
-
-                          <button
-                            type="button"
-                            onClick={() => openPodcastPlayer(podcast)}
-                            className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity"
-                            aria-label={`Play ${podcast.title}`}
-                          >
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,255,0.5)] group-hover:scale-110 transition-transform">
-                              <Play size={18} className="fill-white ml-0.5" />
-                            </div>
-                          </button>
-                        </div>
-
-                        <div className="p-5 sm:p-6 flex flex-col flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.06] text-[#00C4FF] border border-white/10">
-                              <Mic size={10} />
-                              <span>Podcast</span>
-                            </span>
-                            <span className="text-xs text-white/50">
-                              {podcast.episode}
-                            </span>
-                          </div>
-
-                          <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
-                            {podcast.title}
-                          </h4>
-
-                          <div className="space-y-1.5 mb-6 flex-1">
-                            {podcast.description.slice(0, 2).map((item, i) => (
-                              <p
-                                key={i}
-                                className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
-                              >
-                                {item.replace(/^✅\s*/, "")}
-                              </p>
-                            ))}
-                          </div>
-
-                          <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setActivePodcast(podcast);
-                                scrollToSection("podcasts");
+                  {podcastList
+                    .filter(
+                      (podcast) => podcast.id !== currentActivePodcast?.id,
+                    )
+                    .map((podcast, index) => {
+                      const isSelected =
+                        currentActivePodcast?.id === podcast.id;
+                      return (
+                        <motion.article
+                          key={podcast.id}
+                          initial={{ opacity: 0, y: 24 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.1 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: (index % 3) * 0.08,
+                          }}
+                          className={cn(
+                            "group rounded-2xl bg-[#08152b]/85 border overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] transition-all duration-300 flex flex-col h-full",
+                            isSelected
+                              ? "border-[#00C4FF] shadow-[0_0_24px_rgba(0,196,255,0.2)]"
+                              : "border-white/[0.09] hover:border-[#00C4FF]/50 hover:shadow-[0_16px_48px_rgba(0,196,255,0.15)]",
+                          )}
+                        >
+                          <div className="relative aspect-video overflow-hidden bg-black shrink-0">
+                            <img
+                              src={encodeURI(podcast.thumbnail)}
+                              alt={podcast.title}
+                              loading="lazy"
+                              onError={(e) => {
+                                e.currentTarget.src =
+                                  "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
                               }}
-                              className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
-                            >
-                              Set as Focus
-                            </button>
+                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent" />
 
                             <button
                               type="button"
                               onClick={() => openPodcastPlayer(podcast)}
-                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                              className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity"
+                              aria-label={`Play ${podcast.title}`}
                             >
-                              <span>Listen / Watch</span>
-                              <ArrowUpRight size={13} />
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,255,0.5)] group-hover:scale-110 transition-transform">
+                                <Play size={18} className="fill-white ml-0.5" />
+                              </div>
                             </button>
                           </div>
-                        </div>
-                      </motion.article>
-                    );
-                  })}
+
+                          <div className="p-5 sm:p-6 flex flex-col flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.06] text-[#00C4FF] border border-white/10">
+                                <Mic size={10} />
+                                <span>Podcast</span>
+                              </span>
+                              <span className="text-xs text-white/50">
+                                {podcast.episode}
+                              </span>
+                            </div>
+
+                            <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
+                              {podcast.title}
+                            </h4>
+
+                            <div className="space-y-1.5 mb-6 flex-1">
+                              {podcast.description
+                                .slice(0, 2)
+                                .map((item, i) => (
+                                  <p
+                                    key={i}
+                                    className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                                  >
+                                    {item.replace(/^✅\s*/, "")}
+                                  </p>
+                                ))}
+                            </div>
+
+                            <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setActivePodcast(podcast);
+                                  scrollToSection("podcasts");
+                                }}
+                                className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+                              >
+                                Set as Focus
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => openPodcastPlayer(podcast)}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                              >
+                                <span>Listen / Watch</span>
+                                <ArrowUpRight size={13} />
+                              </button>
+                            </div>
+                          </div>
+                        </motion.article>
+                      );
+                    })}
                 </div>
               </div>
             )}

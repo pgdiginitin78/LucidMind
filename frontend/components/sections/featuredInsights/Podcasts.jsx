@@ -48,19 +48,40 @@ export default function Podcasts() {
           const activePodcasts = data.podcasts.filter(
             (p) => p.isActive !== false && p.isPublished !== false,
           );
-          const normalized = activePodcasts.map((p, idx) => ({
-            id: p._id || p.id || idx + 1,
-            title: p.title || "",
-            episode: p.episode || `Ep. 0${idx + 1}`,
-            src: p.src || p.audioUrl || "",
-            thumbnail: resolveImageUrl(p.thumbnail || p.coverImage || p.image || ""),
-            description: Array.isArray(p.description)
-              ? p.description
-              : p.description
-                ? p.description.split("\n\n")
-                : [],
-          }));
-          setPodcastsList(normalized);
+          const normalized = activePodcasts.map((p, idx) => {
+            const isVid = (p.mediaType || p.type || "").toLowerCase() === "video" ||
+              (Array.isArray(p.tags) && p.tags.some((t) => String(t).toLowerCase() === "video")) ||
+              /^v\d+/i.test(String(p.episode || "").trim()) ||
+              String(p.episode || "").toLowerCase().startsWith("video");
+            return {
+              id: p._id || p.id || idx + 1,
+              title: p.title || "",
+              episode: p.episode || `Ep. 0${idx + 1}`,
+              src: p.src || p.audioUrl || "",
+              mediaType: isVid ? "video" : "podcast",
+              thumbnail: resolveImageUrl(p.thumbnail || p.coverImage || p.image || ""),
+              description: Array.isArray(p.description)
+                ? p.description
+                : p.description
+                  ? p.description.split("\n\n")
+                  : [],
+            };
+          });
+
+          const videos = normalized.filter(p => p.mediaType === "video");
+          const podcasts = normalized.filter(p => p.mediaType === "podcast");
+
+          const mixed = [];
+          if (videos.length > 0) mixed.push(videos.shift());
+          if (videos.length > 0) mixed.push(videos.shift());
+          if (podcasts.length > 0) mixed.push(podcasts.shift());
+
+          while (mixed.length < 3 && (videos.length > 0 || podcasts.length > 0)) {
+            if (videos.length > 0) mixed.push(videos.shift());
+            else if (podcasts.length > 0) mixed.push(podcasts.shift());
+          }
+
+          setPodcastsList(mixed);
         }
       })
       .catch(() => {
@@ -120,7 +141,7 @@ export default function Podcasts() {
                 <div className="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-full bg-[#00C4B4]/10 border border-[#00C4B4]/25">
                   <WaveformIcon />
                   <p className="text-[#00C4B4] font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
-                    Podcasts
+                    Video/Podcasts
                   </p>
                 </div>
                 <Heading
@@ -183,8 +204,10 @@ export default function Podcasts() {
                           >
                             {podcast.title}
                           </p>
-                          <p className="text-[10px] 2xl:text-sm text-white/30 mt-0.5">
-                            {podcast.episode}
+                          <p className="text-[10px] 2xl:text-sm text-white/30 mt-0.5 flex items-center gap-1.5 uppercase">
+                            <span className="font-semibold text-[#00C4B4]">{podcast.mediaType === "video" ? "VIDEO" : "PODCAST"}</span>
+                            <span className="text-white/20">&bull;</span>
+                            <span>{podcast.episode}</span>
                           </p>
                         </div>
                         {isActive && (
@@ -250,7 +273,7 @@ export default function Podcasts() {
 
           <div className="w-full flex justify-center mt-10">
             <Link
-              href="/podcasts"
+              href="/insights#podcasts"
               className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_0_24px_rgba(0,196,180,0.35)] hover:shadow-[0_0_36px_rgba(0,196,180,0.55)] hover:scale-[1.03] transition-all duration-300 group cursor-pointer"
             >
               <span>View All Episodes</span>

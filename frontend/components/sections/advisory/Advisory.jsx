@@ -160,7 +160,7 @@ export default function Advisory() {
             className="flex items-center gap-2 mb-3"
           >
             <div className="w-4 h-px bg-[#00C4B4]" />
-            <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+            <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
               HOW WE THINK ABOUT TRANSFORMATION
             </span>
             <div className="w-4 h-px bg-[#00C4B4]" />
@@ -233,7 +233,7 @@ export default function Advisory() {
         <div className="grid grid-cols-1 justify-items-center text-center mb-10 sm:mb-14">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-4 h-px bg-[#00C4B4]" />
-            <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+            <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
               EXECUTION ROADMAP
             </span>
             <div className="w-4 h-px bg-[#00C4B4]" />
@@ -251,7 +251,7 @@ export default function Advisory() {
           className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
         >
           <div className="flex flex-wrap items-center gap-2.5 mb-2">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-[11px] font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
               Phase 1
             </span>
             <h3 className="text-lg sm:text-xl font-serif text-white">
@@ -324,7 +324,7 @@ export default function Advisory() {
           className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
         >
           <div className="flex flex-wrap items-center gap-2.5 mb-2">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-[11px] font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
               Phase 2
             </span>
             <h3 className="text-lg sm:text-xl font-serif text-white">
@@ -437,7 +437,7 @@ export default function Advisory() {
           className="mb-20 sm:mb-24 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
         >
           <div className="flex flex-wrap items-center gap-2.5 mb-2">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-[11px] font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
               Phase 3
             </span>
             <h3 className="text-lg sm:text-xl font-serif text-white">
@@ -586,15 +586,13 @@ export default function Advisory() {
           transition={{ duration: 0.7 }}
           className="mb-20 sm:mb-24 p-6 sm:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/75 grid grid-cols-1 justify-items-center"
         >
-          <div className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#00C4B4] mb-2">
-            ENGAGEMENT
-          </div>
+        
 
           <h2 className="text-2xl sm:text-3xl font-serif text-white text-center mb-3 tracking-tight">
             How We Work
           </h2>
 
-          <p className="max-w-2xl text-center text-xs text-slate-300 leading-relaxed mb-8">
+          <p className="max-w-2xl text-center text-base text-slate-300 leading-relaxed mb-8">
             We don't hand off a hundred-page strategy. We start with a
             conversation, diagnose what's actually happening, and stay engaged
             as a thinking partner — not an execution team.
@@ -605,10 +603,10 @@ export default function Advisory() {
               <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
                 <TargetSvg className="w-4 h-4" />
               </div>
-              <h4 className="text-sm font-serif text-white mb-1.5">
+              <h4 className="text-base font-serif text-white mb-1.5">
                 Discovery
               </h4>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-400 leading-relaxed">
                 A real conversation. What's actually happening, not what the
                 strategy document says.
               </p>
@@ -618,10 +616,10 @@ export default function Advisory() {
               <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
                 <AssesmentSvg className="w-4 h-4" />
               </div>
-              <h4 className="text-sm font-serif text-white mb-1.5">
+              <h4 className="text-base font-serif text-white mb-1.5">
                 Assessment
               </h4>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-400 leading-relaxed">
                 Two to four weeks of diagnosis. Where you're winning, where
                 you're stuck, what's really blocking you.
               </p>
@@ -631,8 +629,8 @@ export default function Advisory() {
               <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
                 <Rocket className="w-4 h-4" />
               </div>
-              <h4 className="text-sm font-serif text-white mb-1.5">Roadmap</h4>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+              <h4 className="text-base font-serif text-white mb-1.5">Roadmap</h4>
+              <p className="text-sm text-slate-400 leading-relaxed">
                 Clarity on the three to five things that matter most. The
                 sequence. The checkpoints.
               </p>
@@ -642,10 +640,10 @@ export default function Advisory() {
               <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
                 <Users className="w-4 h-4" />
               </div>
-              <h4 className="text-sm font-serif text-white mb-1.5">
+              <h4 className="text-base font-serif text-white mb-1.5">
                 Partnership
               </h4>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-400 leading-relaxed">
                 We stay engaged as you move — pushing back when you're about to
                 settle for good enough.
               </p>
@@ -693,7 +691,7 @@ export default function Advisory() {
               faster than their competitors. That happens when the operating
               model enables it."
             </blockquote>
-            <p className="text-[11px] sm:text-xs text-slate-400 font-sans tracking-wide">
+            <p className="text-sm sm:text-xs text-slate-400 font-sans tracking-wide">
               Ravishankar Pingali, Founder, LucidMind Consulting
             </p>
           </div>

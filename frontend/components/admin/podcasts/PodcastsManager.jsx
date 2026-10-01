@@ -10,7 +10,7 @@ import {
   RefreshCw,
   Sparkles,
   Trash2,
-  Video
+  Video,
 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,7 +26,6 @@ import CommonTableNew from "@/common/table/CommonTable";
 
 import { getEmbedUrl } from "@/lib/utils";
 import { API_BASE_URL } from "@/src/config/api";
-
 
 const getHeaders = () => {
   const token =
@@ -141,7 +140,9 @@ const isItemVideo = (p) => {
   if (mt === "podcast") return false;
   if (mt === "video") return true;
   // 3. Fallback heuristic: check episode prefix
-  const ep = String(p.episode || "").trim().toLowerCase();
+  const ep = String(p.episode || "")
+    .trim()
+    .toLowerCase();
   if (ep.startsWith("video") || /^v\d+/i.test(ep)) return true;
   return false;
 };
@@ -196,7 +197,6 @@ export default function PodcastsManager() {
         setPodcasts(mapped);
       }
     } catch {
-
     } finally {
       setLoading(false);
     }
@@ -215,8 +215,8 @@ export default function PodcastsManager() {
       prev.map((p) =>
         (p._id || p.id) === pId
           ? { ...p, isActive: nextActive, isPublished: nextActive }
-          : p
-      )
+          : p,
+      ),
     );
 
     try {
@@ -304,7 +304,7 @@ export default function PodcastsManager() {
         ? [...editingPodcast.tags]
         : [];
       const cleanTags = existingTags.filter(
-        (t) => t !== "video" && t !== "podcast"
+        (t) => t !== "video" && t !== "podcast",
       );
       cleanTags.push(mediaType);
 
@@ -355,7 +355,9 @@ export default function PodcastsManager() {
         setPodcasts((prev) => {
           if (editingPodcast) {
             return prev.map((p) =>
-              (p._id || p.id) === targetId ? { ...p, ...savedPod, mediaType } : p
+              (p._id || p.id) === targetId
+                ? { ...p, ...savedPod, mediaType }
+                : p,
             );
           } else {
             return [{ ...savedPod, mediaType }, ...prev];
@@ -375,8 +377,8 @@ export default function PodcastsManager() {
             prev.map((p) =>
               (p._id || p.id) === targetId
                 ? { ...p, ...payload, mediaType }
-                : p
-            )
+                : p,
+            ),
           );
           setModalOpen(false);
           fetchPodcasts();
@@ -433,18 +435,20 @@ export default function PodcastsManager() {
       Guest: p.guest || "-",
       Duration: p.duration || "-",
       "Talking Points":
+        (typeof p.description === "string"
+          ? p.description
+          : Array.isArray(p.description)
+            ? p.description.join(" ")
+            : ""
+        )
+          .replace(/\s+/g, " ")
+          .slice(0, 60) +
         ((typeof p.description === "string"
           ? p.description
           : Array.isArray(p.description)
             ? p.description.join(" ")
             : ""
-        ).replace(/\s+/g, " ")).slice(0, 60) +
-        (((typeof p.description === "string"
-          ? p.description
-          : Array.isArray(p.description)
-            ? p.description.join(" ")
-            : ""
-        ).replace(/\s+/g, " ")).length > 60
+        ).replace(/\s+/g, " ").length > 60
           ? "..."
           : ""),
       _raw: { ...p, mediaType: isVid ? "video" : "podcast" },
@@ -500,7 +504,14 @@ export default function PodcastsManager() {
         <div className="w-full">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-3.5 py-2 mb-3 rounded-xl bg-white/[0.03] border border-white/[0.07] text-xs text-white/60">
             <span className="lg:flex items-center gap-1.5">
-              <span className="text-[#00C4FF] font-semibold">⠿ Drag rows in SEQUENCE column</span> to change live sequence. Use <strong className="text-emerald-400 font-medium">ACTIVE / INACTIVE</strong> column to show or hide items on website.
+              <span className="text-[#00C4FF] font-semibold">
+                ⠿ Drag rows in SEQUENCE column
+              </span>{" "}
+              to change live sequence. Use{" "}
+              <strong className="text-emerald-400 font-medium">
+                ACTIVE / INACTIVE
+              </strong>{" "}
+              column to show or hide items on website.
             </span>
             {reorderSaving && (
               <span className="text-xs font-semibold text-[#00C4FF] animate-pulse flex items-center gap-1">
@@ -558,7 +569,8 @@ export default function PodcastsManager() {
             statusHeaderLabel="ACTIVE / INACTIVE"
             renderStatus={(row) => {
               const item = row._raw;
-              const isActive = item.isActive !== false && item.isPublished !== false;
+              const isActive =
+                item.isActive !== false && item.isPublished !== false;
               return (
                 <button
                   type="button"
@@ -568,14 +580,18 @@ export default function PodcastsManager() {
                       ? "Currently Active (Visible on site). Click to set Inactive."
                       : "Currently Inactive (Hidden from site). Click to set Active."
                   }
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer ${isActive
-                    ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/35 hover:bg-emerald-500/25 shadow-[0_0_10px_rgba(16,185,129,0.15)]"
-                    : "bg-slate-500/15 text-slate-400 border border-slate-500/30 hover:bg-slate-500/25"
-                    }`}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer ${
+                    isActive
+                      ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/35 hover:bg-emerald-500/25 shadow-[0_0_10px_rgba(16,185,129,0.15)]"
+                      : "bg-slate-500/15 text-slate-400 border border-slate-500/30 hover:bg-slate-500/25"
+                  }`}
                 >
                   <span
-                    className={`w-2 h-2 rounded-full ${isActive ? "bg-emerald-400 animate-pulse shadow-[0_0_6px_#34d399]" : "bg-slate-400"
-                      }`}
+                    className={`w-2 h-2 rounded-full ${
+                      isActive
+                        ? "bg-emerald-400 animate-pulse shadow-[0_0_6px_#34d399]"
+                        : "bg-slate-400"
+                    }`}
                   />
                   <span>{isActive ? "Active" : "Inactive"}</span>
                 </button>
@@ -603,9 +619,7 @@ export default function PodcastsManager() {
       <PodcastModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={
-          editingPodcast ? "Edit Episode" : "Add New Episode"
-        }
+        title={editingPodcast ? "Edit Episode" : "Add New Episode"}
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {apiError && (
@@ -631,7 +645,7 @@ export default function PodcastsManager() {
             <div>
               <InputField
                 name="episode"
-                label="Episode (e.g. Ep. 01) *"              
+                label="Episode (e.g. Ep. 01) *"
                 control={control}
                 rules={{ required: "Episode label is required" }}
                 error={errors.episode}
@@ -699,8 +713,12 @@ export default function PodcastsManager() {
           />
           <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
             <div>
-              <span className="text-xs font-semibold text-white block">Visibility on Live Site</span>
-              <span className="text-[11px] text-white/50">Enable or disable this episode on the public website</span>
+              <span className="text-xs font-semibold text-white block">
+                Visibility on Live Site
+              </span>
+              <span className="text-[11px] text-white/50">
+                Enable or disable this episode on the public website
+              </span>
             </div>
             <label className="relative inline-flex items-center cursor-pointer">
               <input

@@ -184,7 +184,7 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
-                {col.title === "Quick Links" && (
+                {/* {col.title === "Quick Links" && (
                   <li>
                     {user ? (
                       <Link
@@ -198,7 +198,7 @@ export default function Footer() {
                       ""
                     )}
                   </li>
-                )}
+                )} */}
               </ul>
             </motion.div>
           ))}
@@ -259,7 +259,7 @@ export default function Footer() {
             >
               Cookie Policy
             </Link>
-            {user && (
+            {/* {user && (
               <div className="flex items-center gap-2 sm:gap-3 pl-1 sm:pl-2">
                 <Link
                   href="/admin"
@@ -276,7 +276,7 @@ export default function Footer() {
                   Sign Out
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         </motion.div>
       </div>

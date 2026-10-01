@@ -1137,7 +1137,7 @@ export default function AboutUs() {
 
           <div className="my-6 sm:my-8 lg:my-10" />
 
-          <Reveal variants={fadeUp} className="text-center max-w-5xl mx-auto mb-5 sm:mb-7">
+          <Reveal variants={fadeUp} className="text-center max-w-5xl mx-auto my-20">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-['Playfair_Display',serif] drop-shadow-[0_2px_14px_rgba(0,196,255,0.5)]">
               The Philosophy Behind <span className="text-[#00C4FF] bg-gradient-to-r from-[#00C4FF] via-[#38BDF8] to-[#60A5FA] bg-clip-text text-transparent">Our Mark</span>
             </h2>
@@ -1148,7 +1148,7 @@ export default function AboutUs() {
           </Reveal>
 
           <div className="relative">
-            <div className="flex flex-col lg:flex-row items-center justify-center max-w-5xl mx-auto relative px-2 sm:px-4 lg:px-0">
+            <div className="flex flex-col lg:flex-row items-center justify-center max-w-5xl mx-auto relative px-2 sm:px-4 lg:px-0 gap-20">
               <div className="relative shrink-0 flex items-center justify-center mb-8 lg:mb-0">
                 <div className="absolute -inset-10 sm:-inset-12 rounded-full bg-[radial-gradient(circle,_rgba(0,196,255,0.35)_0%,_rgba(0,120,255,0.12)_50%,_transparent_70%)] blur-2xl pointer-events-none" />
                 <div className="absolute -inset-4 sm:-inset-6 rounded-full border border-cyan-400/25 pointer-events-none transform -rotate-6 scale-x-105" />
@@ -1161,56 +1161,10 @@ export default function AboutUs() {
                     <img
                       src={LucidMindTransperentLogo}
                       alt="LucidMind Logo"
-                      className="w-36 sm:w-40 lg:w-44 h-auto object-contain filter drop-shadow-[0_0_20px_rgba(0,196,255,0.7)]"
+                      className="w-36 sm:w-40 lg:w-60 h-auto object-contain filter drop-shadow-[0_0_20px_rgba(0,196,255,0.7)]"
                     />
                   </motion.div>
                 </div>
-              </div>
-
-              <div className="hidden lg:block w-24 shrink-0 h-[288px] pointer-events-none relative z-20">
-                <svg className="w-full h-full overflow-visible" viewBox="0 0 96 288" fill="none">
-                  <defs>
-                    <filter id="markCyanGlow" x="-50%" y="-50%" width="200%" height="200%">
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
-                      <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                  </defs>
-
-                  <path
-                    d="M -76 17 C -16 31, 60 43, 96 43"
-                    stroke="#00C4FF"
-                    strokeWidth="1.75"
-                    strokeOpacity="0.9"
-                    filter="url(#markCyanGlow)"
-                  />
-                  <circle cx="-76" cy="17" r="4.5" fill="#ffffff" filter="url(#markCyanGlow)" />
-                  <circle cx="-76" cy="17" r="2.5" fill="#00C4FF" />
-                  <circle cx="96" cy="43" r="3.5" fill="#ffffff" filter="url(#markCyanGlow)" />
-                  <circle cx="96" cy="43" r="2" fill="#00C4FF" />
-
-                  <path
-                    d="M -14 83 C 25 123, 60 144, 96 144"
-                    stroke="#00C4FF"
-                    strokeWidth="1.75"
-                    strokeOpacity="0.9"
-                    filter="url(#markCyanGlow)"
-                  />
-                  <circle cx="96" cy="144" r="3.5" fill="#ffffff" filter="url(#markCyanGlow)" />
-                  <circle cx="96" cy="144" r="2" fill="#00C4FF" />
-
-                  <path
-                    d="M -7 189 C 29 225, 60 245, 96 245"
-                    stroke="#00C4FF"
-                    strokeWidth="1.75"
-                    strokeOpacity="0.9"
-                    filter="url(#markCyanGlow)"
-                  />
-                  <circle cx="96" cy="245" r="3.5" fill="#ffffff" filter="url(#markCyanGlow)" />
-                  <circle cx="96" cy="245" r="2" fill="#00C4FF" />
-                </svg>
               </div>
 
               <div className="relative shrink-0 w-full max-w-md lg:max-w-none lg:w-[480px] xl:w-[500px] flex flex-col gap-3 sm:gap-[15px] z-10 px-2 sm:px-0">
