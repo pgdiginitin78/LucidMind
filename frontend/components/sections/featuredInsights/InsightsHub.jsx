@@ -609,16 +609,6 @@ export default function InsightsHub() {
                       </div>
                       <div className="lg:col-span-7 flex flex-col justify-between">
                         <div>
-                          <div className="flex flex-wrap items-center gap-2 text-xs text-[#00C4FF] font-mono mb-2">
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.08] text-[#00C4FF] border border-white/10">
-                              <Video size={10} />
-                              <span>Video</span>
-                            </span>
-                            <span className="text-xs text-white/50">
-                              {currentActiveVideo.episode}
-                            </span>
-                          </div>
-
                           <h3 className="text-xl lg:text-2xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-4">
                             {currentActiveVideo.title}
                           </h3>
@@ -744,8 +734,8 @@ export default function InsightsHub() {
                               ))}
                             </div>
 
-                            <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
-                              <button
+                            <div className="pt-4 border-t border-white/[0.07] flex items-center justify-end gap-3 mt-auto">
+                              {/* <button
                                 type="button"
                                 onClick={() => {
                                   setActiveVideo(video);
@@ -754,7 +744,7 @@ export default function InsightsHub() {
                                 className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
                               >
                                 Set as Focus
-                              </button>
+                              </button> */}
 
                               <button
                                 type="button"
@@ -851,16 +841,6 @@ export default function InsightsHub() {
                       </div>
                       <div className="lg:col-span-7 flex flex-col justify-between">
                         <div>
-                          <div className="flex flex-wrap items-center gap-2 text-xs text-[#00C4FF] font-mono mb-2">
-                            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.08] text-[#00C4FF] border border-white/10">
-                              <Mic size={10} />
-                              <span>Podcast</span>
-                            </span>
-                            <span className="text-xs text-white/50">
-                              {currentActivePodcast.episode}
-                            </span>
-                          </div>
-
                           <h3 className="text-xl lg:text-2xl font-extrabold font-['Playfair_Display',serif] text-white leading-tight mb-4">
                             {currentActivePodcast.title}
                           </h3>
@@ -967,16 +947,6 @@ export default function InsightsHub() {
                           </div>
 
                           <div className="p-5 sm:p-6 flex flex-col flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/[0.06] text-[#00C4FF] border border-white/10">
-                                <Mic size={10} />
-                                <span>Podcast</span>
-                              </span>
-                              <span className="text-xs text-white/50">
-                                {podcast.episode}
-                              </span>
-                            </div>
-
                             <h4 className="text-lg sm:text-xl font-bold font-['Playfair_Display',serif] text-white leading-snug mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
                               {podcast.title}
                             </h4>
@@ -994,8 +964,8 @@ export default function InsightsHub() {
                                 ))}
                             </div>
 
-                            <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
-                              <button
+                            <div className="pt-4 border-t border-white/[0.07] flex items-center justify-end gap-3 mt-auto">
+                              {/* <button
                                 type="button"
                                 onClick={() => {
                                   setActivePodcast(podcast);
@@ -1004,7 +974,7 @@ export default function InsightsHub() {
                                 className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
                               >
                                 Set as Focus
-                              </button>
+                              </button> */}
 
                               <button
                                 type="button"
