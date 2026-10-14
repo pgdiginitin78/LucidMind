@@ -18,7 +18,7 @@ export function createApp() {
     helmet({
       // Uploaded images/frontend are loaded cross-origin by the SPA
       crossOriginResourcePolicy: { policy: 'cross-origin' },
-      contentSecurityPolicy: config.serveFrontend ? false : undefined,
+      contentSecurityPolicy: false,
     }),
   );
 

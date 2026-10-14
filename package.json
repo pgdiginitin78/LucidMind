@@ -8,7 +8,7 @@
     "dev": "npm run dev --prefix frontend",
     "dev:api": "npm run dev --prefix backend",
     "install:frontend": "npm install --prefix frontend --include=dev",
-    "install:backend": "npm install --prefix backend",
+    "install:backend": "npm install --prefix backend --include=dev",
     "test:backend": "npm test --prefix backend",
     "start": "node server.js",
     "build": "npm run install:backend && npm run install:frontend && npm run build --prefix frontend && node -e \"const fs=require('fs');['build','.next','dist'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true});fs.cpSync('frontend/dist',d,{recursive:true});}catch(e){}});\""
