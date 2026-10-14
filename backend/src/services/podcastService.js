@@ -1,6 +1,7 @@
 import db from '../config/database.js';
 import { HttpError } from '../utils/http.js';
 import { coalesce, isset, parseJsonArray, slugify, toInt, uniqueId } from '../utils/php.js';
+import { triggerDbSyncToJson } from '../utils/syncJson.js';
 
 // The PHP controller lazily added/widened columns on first request. This runs once per process,
 // is idempotent, and never drops or rewrites data.
@@ -116,6 +117,7 @@ export async function createPodcast(data) {
   } catch (err) {
     throw dbError(err);
   }
+  triggerDbSyncToJson();
   return { ...data, _id: id, mediaType, tags };
 }
 
@@ -166,17 +168,20 @@ export async function updatePodcast(id, input) {
   } catch (err) {
     throw dbError(err);
   }
+  triggerDbSyncToJson();
   return getPodcast(id);
 }
 
 export async function deletePodcast(id) {
   const result = await db.query('DELETE FROM podcasts WHERE id = ?', [id]);
   if (!result.affectedRows) throw new HttpError(404, 'Podcast not found');
+  triggerDbSyncToJson();
 }
 
 export async function setPodcastPublished(id, isPublished) {
   const result = await db.query('UPDATE podcasts SET is_published = ? WHERE id = ?', [toInt(isPublished), id]);
   if (!result.affectedRows) throw new HttpError(404, 'Podcast not found');
+  triggerDbSyncToJson();
   return getPodcast(id);
 }
 
@@ -186,5 +191,6 @@ export async function reorderPodcasts(orderedIds) {
       await conn.execute('UPDATE podcasts SET sort_order = ? WHERE id = ?', [index + 1, id ?? null]);
     }
   });
+  triggerDbSyncToJson();
   return listPodcasts();
 }

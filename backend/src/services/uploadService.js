@@ -42,5 +42,12 @@ export const uploadSingle = multer({
 
 export function describeUpload(file) {
   if (!file) throw new HttpError(400, 'No file provided', { error: 'No file provided' });
+  try {
+    const publicUploads = path.resolve(config.backendRoot, '../frontend/public/uploads');
+    fs.mkdirSync(publicUploads, { recursive: true });
+    fs.copyFileSync(file.path, path.join(publicUploads, file.filename));
+  } catch (e) {
+    // Non-fatal
+  }
   return { success: true, url: `/uploads/${file.filename}`, filename: file.filename };
 }

@@ -25,9 +25,7 @@ backend/.env
 .env.*
 !.env.example
 !.env.*.example
-backend/uploads/
-backend/data/*.sqlite
-backend/data/*.sqlite-journal
+# Keep backend/uploads tracked so uploaded images persist in deployments
 .next
 out
 scratch
