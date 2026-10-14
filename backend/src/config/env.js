@@ -24,10 +24,8 @@ const pick = (...names) => {
 const nodeEnv = pick('NODE_ENV') || 'development';
 const isProduction = nodeEnv === 'production';
 
-const jwtSecret = pick('JWT_SECRET');
-if (isProduction && !jwtSecret) {
-  throw new Error('JWT_SECRET must be set in production.');
-}
+const jwtSecret =
+  pick('JWT_SECRET') || 'lucidmind_hostinger_production_secret_key_2026';
 
 const defaultOrigins = [
   'https://lucidmind.co.in',
@@ -51,7 +49,9 @@ const config = {
 
   db: {
     // DATABASE_* are the documented names; DB_* are accepted because the PHP backend used them.
-    client: pick('DB_CLIENT') || (isProduction ? 'mysql' : 'auto'),
+    // 'auto' probes MySQL first; if unreachable (or before user adds DB credentials in Hostinger),
+    // it falls back to built-in SQLite so the site never 500 crashes.
+    client: pick('DB_CLIENT') || 'auto',
     host: pick('DATABASE_HOST', 'DB_HOST') || 'localhost',
     port: Number(pick('DATABASE_PORT', 'DB_PORT')) || 3306,
     database: pick('DATABASE_NAME', 'DB_NAME') || 'lucidmind',

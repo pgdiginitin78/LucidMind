@@ -25,8 +25,12 @@ export function createApp() {
   app.use(
     cors({
       origin(origin, cb) {
-        // No Origin header => curl / server-to-server / same-origin navigation
-        if (!origin || config.allowedOrigins.includes(origin)) return cb(null, true);
+        if (
+          !origin ||
+          config.allowedOrigins.includes(origin) ||
+          /\.hostingersite\.com$/i.test(origin)
+        )
+          return cb(null, true);
         return cb(new Error('CORS_NOT_ALLOWED'));
       },
       credentials: true,
@@ -61,11 +65,20 @@ export function createApp() {
   app.use('/api', apiLimiter, routes);
   app.use('/api', notFound);
 
-  // Optional: serve the built SPA from the same process/domain (single Hostinger Node app)
-  if (config.serveFrontend && fs.existsSync(path.join(config.frontendDist, 'index.html'))) {
-    app.use(express.static(config.frontendDist, { index: false, maxAge: '1h' }));
+  // Serve the built frontend SPA from the same process/domain (single Hostinger Node app)
+  const distCandidates = [
+    config.frontendDist,
+    path.resolve(config.backendRoot, '../frontend/dist'),
+    path.resolve(config.backendRoot, '../dist'),
+    path.resolve(config.backendRoot, '../build'),
+    path.resolve(config.backendRoot, '../.next'),
+  ];
+  const matchedDist = distCandidates.find((d) => fs.existsSync(path.join(d, 'index.html')));
+
+  if ((config.serveFrontend || config.isProduction) && matchedDist) {
+    app.use(express.static(matchedDist, { index: false, maxAge: '1h' }));
     app.get(/^\/(?!api\/|uploads\/).*/, (req, res) => {
-      res.sendFile(path.join(config.frontendDist, 'index.html'));
+      res.sendFile(path.join(matchedDist, 'index.html'));
     });
   }
 
