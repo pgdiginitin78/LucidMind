@@ -108,8 +108,12 @@ export default function ImageUploadField({
       const formData = new FormData();
       formData.append("file", processedFile);
 
+      const token =
+        typeof window !== "undefined" ? localStorage.getItem("lucidmind_token") : null;
+
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
         body: formData,
       });
 

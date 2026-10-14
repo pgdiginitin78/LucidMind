@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "concurrently -k \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:frontend": "vite",
-    "dev:backend": "C:\\php\\php.exe -d extension_dir=C:\\php\\ext -d extension=pdo_mysql -d extension=openssl -S localhost:8000 -t ../backend ../backend/router.php",
+    "dev:backend": "npm run dev --prefix ../backend",
     "start": "node app.js",
     "build": "vite build",
     "postbuild": "node scripts/build-dist.js",
