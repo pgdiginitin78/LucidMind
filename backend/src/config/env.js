@@ -82,7 +82,7 @@ const config = {
 
   uploads: {
     dir: path.resolve(backendRoot, pick('UPLOAD_DIR') || 'uploads'),
-    maxBytes: 10 * 1024 * 1024,
+    maxBytes: (Number(pick('MAX_UPLOAD_SIZE_MB')) || 50) * 1024 * 1024,
   },
 
   serveFrontend: pick('SERVE_FRONTEND').toLowerCase() === 'true',

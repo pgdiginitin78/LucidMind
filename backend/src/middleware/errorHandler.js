@@ -10,8 +10,9 @@ export function notFound(req, res) {
 export function errorHandler(err, req, res, next) {
   // Upload errors keep the PHP `{ error }` shape
   if (err instanceof multer.MulterError) {
+    const limitMb = Math.round(config.uploads.maxBytes / (1024 * 1024));
     const msg =
-      err.code === 'LIMIT_FILE_SIZE' ? 'File size exceeds 10MB limit' : 'Failed to process upload';
+      err.code === 'LIMIT_FILE_SIZE' ? `File size exceeds ${limitMb}MB limit` : 'Failed to process upload';
     return res.status(400).json({ error: msg });
   }
   if (err?.type === 'entity.parse.failed') {

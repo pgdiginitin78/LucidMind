@@ -92,8 +92,8 @@ export default function ImageUploadField({
   const handleFileUpload = async (file, onChange) => {
     if (!file) return;
 
-    if (file.size > 20 * 1024 * 1024) {
-      setUploadError("Image size must be less than 20MB");
+    if (file.size > 50 * 1024 * 1024) {
+      setUploadError("Image size must be less than 50MB");
       return;
     }
 
@@ -123,9 +123,13 @@ export default function ImageUploadField({
           onChange(data.url);
           return;
         }
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        setUploadError(errData.error || errData.message || "Failed to upload file.");
+        return;
       }
 
-      // Fallback to FileReader DataURL if endpoint fails
+      // Fallback only if no URL returned from 200 response
       const reader = new FileReader();
       reader.onload = () => {
         onChange(reader.result);

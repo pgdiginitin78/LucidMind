@@ -48,7 +48,8 @@ export function createApp() {
   }
 
   // Podcast thumbnails can be base64 data URLs, so allow larger JSON bodies than the default.
-  app.use(express.json({ limit: '25mb' }));
+  app.use(express.json({ limit: '50mb' }));
+  app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
   // Uploaded files. Served sandboxed so an uploaded SVG cannot run script.
   const serveUploads = express.static(config.uploads.dir, {

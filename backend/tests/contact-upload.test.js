@@ -107,11 +107,12 @@ describe('upload', () => {
     assert.equal(fs.readdirSync(config.uploads.dir).length, before);
   });
 
-  test('over 10MB -> 400', async () => {
-    const big = Buffer.alloc(10 * 1024 * 1024 + 10);
+  test('over max upload limit -> 400', async () => {
+    const limitMb = Math.round(config.uploads.maxBytes / (1024 * 1024));
+    const big = Buffer.alloc(config.uploads.maxBytes + 10);
     const res = await request(app).post('/api/upload').set(authHeader()).attach('file', big, { filename: 'big.png', contentType: 'image/png' });
     assert.equal(res.status, 400);
-    assert.deepEqual(res.body, { error: 'File size exceeds 10MB limit' });
+    assert.deepEqual(res.body, { error: `File size exceeds ${limitMb}MB limit` });
   });
 
   test('path traversal in filename is neutralised', async () => {
