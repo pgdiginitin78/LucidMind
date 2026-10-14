@@ -1,17 +1,10 @@
+import bcrypt from "bcryptjs";
 import fs from "node:fs";
 import path from "node:path";
-import { DatabaseSync } from "node:sqlite";
-import bcrypt from "bcryptjs";
-import config from "./env.js";
 import logger from "../utils/logger.js";
+import config from "./env.js";
 
-function getDbPath() {
-  const dataDir = path.resolve(config.backendRoot, "data");
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
-  return path.join(dataDir, "lucidmind.sqlite");
-}
+
 
 export function seedFullData(db, force = false) {
   const recoveredFile = path.resolve(
