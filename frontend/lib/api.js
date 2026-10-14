@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://lucidmind.co.in/api';
+export { API_BASE_URL } from '../src/config/api';

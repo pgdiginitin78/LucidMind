@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lucid-mind-ten.vercel.app/sitemap.xml
