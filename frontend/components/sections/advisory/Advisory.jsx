@@ -3,17 +3,14 @@ import { motion } from "framer-motion";
 import {
   BrainCircuit,
   Building2,
-  Calendar,
-  Check,
   ChevronRight,
-  Compass,
   Globe2,
   Rocket,
   ShieldCheck,
   Users,
 } from "lucide-react";
+import ConstellationField from "@/components/ui/constellation-field";
 const AdvisoryImg1 = "/assets/advisory/advisoryImg1.webp";
-const AINeuralVideo = "/assets/advisory/AINeural.mp4";
 
 export const TargetSvg = () => {
   return (
@@ -77,7 +74,7 @@ export default function Advisory() {
     setReady(true);
   }, [setReady]);
   return (
-    <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-plus-jakarta selection:bg-[#00C4B4]/30 selection:text-white overflow-x-hidden">
+    <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-inter selection:bg-[#00C4B4]/30 selection:text-white overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-full h-200 pointer-events-none"
@@ -102,8 +99,8 @@ export default function Advisory() {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-40 pb-24 sm:pb-32">
-        <section className="text-left mb-16 sm:mb-10 max-w-3xl">
+      <div className="relative z-10 max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto pt-24 sm:pt-40 pb-24 sm:pb-32">
+        <section className="text-left my-16 sm:my-20 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -120,9 +117,10 @@ export default function Advisory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="heading-h1 text-white tracking-tight mb-2"
+            className="heading-h2 md:heading-h1 text-white tracking-tight mb-2"
           >
-            Advisory Built for the<br />{" "}
+            Advisory Built for the
+            <br />{" "}
             <span
               className="text-[#00C4B4]"
               style={{ textShadow: "0 0 40px rgba(0,196,180,0.5)" }}
@@ -156,7 +154,7 @@ export default function Advisory() {
           <OurClients />
         </motion.section>
         <div className="w-full max-w-5xl mx-auto">
-          <section className="grid grid-cols-1 justify-items-center mb-20 sm:mb-24">
+          <section className="grid grid-cols-1 justify-items-center mb-10 md:mb-14">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -165,7 +163,7 @@ export default function Advisory() {
               className="flex items-center gap-2 mb-3"
             >
               <div className="w-4 h-px bg-[#00C4B4]" />
-              <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+              <span className="text-[8px] md:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
                 HOW WE THINK ABOUT TRANSFORMATION
               </span>
               <div className="w-4 h-px bg-[#00C4B4]" />
@@ -176,7 +174,7 @@ export default function Advisory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="heading-h2 text-white text-center mb-4 tracking-tight"
+              className="heading-h3 md:heading-h2 text-white text-center mb-4 tracking-tight"
             >
               The Operating Model
             </motion.h2>
@@ -196,7 +194,7 @@ export default function Advisory() {
             <div className="w-full relative mt-8">
               <div className="hidden lg:block absolute top-0 left-8 right-8 h-px border-t border-dashed border-slate-700/60 z-0" />
 
-              <div className="w-full grid grid-cols-2 lg:grid-cols-5 gap-y-12 gap-x-3 items-stretch relative z-10">
+              <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-12 gap-x-3 items-stretch relative z-10">
                 {operatingSteps.map((item, idx) => {
                   return (
                     <div
@@ -252,7 +250,7 @@ export default function Advisory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
-            className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
+            className="mb-10 md:mb-18 border border-[#2563EB]/40 p-3 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
           >
             <div className="flex flex-wrap items-center gap-2.5 mb-2">
               <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
@@ -266,14 +264,15 @@ export default function Advisory() {
               Building the Foundation
             </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center p-5 sm:p-7 md:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center p-3  md:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
               <div className="lg:col-span-7 flex flex-col justify-between h-full space-y-4">
-                <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                <div className="grid md:grid-cols-[auto_1fr] gap-2 md:gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                   <div className="w-10 h-10 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] shrink-0">
                     <Rocket className="w-5 h-5" />
                   </div>
-                  <h4 className="heading-h5 text-white">
-                    Operating Model Foundation <span className="font-sans">&amp;</span> Speed
+                  <h4 className="heading-h6 lg:heading-h5 text-white">
+                    Operating Model Foundation{" "}
+                    <span className="font-sans">&amp;</span> Speed
                   </h4>
                 </div>
 
@@ -320,13 +319,13 @@ export default function Advisory() {
             </div>
           </motion.section>
         </div>
-        <div className="w-full max-w-7xl mx-auto">
+        <div className="w-full max-w-[1680px] px-1 md:px-2 lg:px-12 2xl:px-16 mx-auto">
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
-            className="mb-14 sm:mb-18 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
+            className="mb-10 md:mb-18 border border-[#2563EB]/40 p-3 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
           >
             <div className="flex flex-wrap items-center gap-2.5 mb-2">
               <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
@@ -337,19 +336,21 @@ export default function Advisory() {
               </h3>
             </div>
             <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
-              Focused Pilots <span className="font-sans">&amp;</span> Leadership Judgment
+              Focused Pilots <span className="font-sans">&amp;</span> Leadership
+              Judgment
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 items-stretch">
-              <div className="group p-5 sm:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-stretch">
+              <div className="group p-3 md:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
                 <div className="flex flex-col space-y-4">
-                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                  <div className="grid md:grid-cols-[auto_1fr] gap-2 md:gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                     <div className="w-10 h-10 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] shrink-0">
                       <BrainCircuit className="w-5 h-5" />
                     </div>
                     <div>
                       <h4 className="heading-h5 text-white">
-                        AI Strategy <span className="font-sans">&amp;</span> Adoption
+                        AI Strategy <span className="font-sans">&amp;</span>{" "}
+                        Adoption
                       </h4>
                     </div>
                   </div>
@@ -386,15 +387,16 @@ export default function Advisory() {
                 </div>
               </div>
 
-              <div className="group p-5 sm:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+              <div className="group p-3 md:p-7 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
                 <div className="flex flex-col space-y-4">
-                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                  <div className="grid md:grid-cols-[auto_1fr] gap-2 md:gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                     <div className="w-10 h-10 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)] shrink-0">
                       <Users className="w-5 h-5" />
                     </div>
                     <div>
                       <h4 className="heading-h5 text-white">
-                        Leadership Capability <span className="font-sans">&amp;</span> Mindset
+                        Leadership Capability{" "}
+                        <span className="font-sans">&amp;</span> Mindset
                       </h4>
                     </div>
                   </div>
@@ -439,7 +441,7 @@ export default function Advisory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7 }}
-            className="mb-20 sm:mb-24 border border-[#2563EB]/40 p-5 sm:p-7 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
+            className="mb-10 md:mb-24 border border-[#2563EB]/40 p-3 md:p-4 lg:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
           >
             <div className="flex flex-wrap items-center gap-2.5 mb-2">
               <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
@@ -448,18 +450,20 @@ export default function Advisory() {
               <h3 className="heading-h4 text-white">If You&apos;re Evolving</h3>
             </div>
             <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
-              Understanding What Works <span className="font-sans">&amp;</span> Build Relevant Capability
+              Understanding What Works <span className="font-sans">&amp;</span>{" "}
+              Build Relevant Capability
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 items-stretch">
-              <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+              <div className="group p-3 md:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
                 <div className="flex flex-col space-y-4">
-                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                  <div className="grid md:grid-cols-[auto_1fr] gap-2 md:gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                     <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
                       <Globe2 className="w-5 h-5" />
                     </div>
-                    <h4 className="heading-h5 text-white">
-                      Business Transformation <span className="font-sans">&amp;</span> Change Enablement
+                    <h4 className="heading-h6 lg:heading-h5 text-white">
+                      Business Transformation{" "}
+                      <span className="font-sans">&amp;</span> Change Enablement
                     </h4>
                   </div>
 
@@ -495,14 +499,15 @@ export default function Advisory() {
                 </div>
               </div>
 
-              <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+              <div className="group p-3 md:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#2563EB]/50 transition-all duration-300 flex flex-col justify-between h-full shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
                 <div className="flex flex-col space-y-4">
-                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                  <div className="grid md:grid-cols-[auto_1fr] gap-2 md:gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                     <div className="w-10 h-10 shrink-0 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)]">
                       <Building2 className="w-5 h-5" />
                     </div>
-                    <h4 className="heading-h5 text-white">
-                      GCC Evolution <span className="font-sans">&amp;</span> Optimization
+                    <h4 className="heading-h6 lg:heading-h5 text-white">
+                      GCC Evolution <span className="font-sans">&amp;</span>{" "}
+                      Optimization
                     </h4>
                   </div>
 
@@ -538,14 +543,15 @@ export default function Advisory() {
                 </div>
               </div>
 
-              <div className="group p-5 sm:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full md:col-span-2 lg:col-span-1 shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
+              <div className="group p-3 md:p-6 rounded-2xl border border-[#142A4A] bg-[#040D1E]/85 hover:border-[#00C4B4]/50 transition-all duration-300 flex flex-col justify-between h-full md:col-span-2 lg:col-span-1 shadow-[0_12px_35px_rgba(0,0,0,0.45)]">
                 <div className="flex flex-col space-y-4">
-                  <div className="grid grid-cols-[auto_1fr] gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
+                  <div className="grid md:grid-cols-[auto_1fr] gap-2 md:gap-3.5 items-center pb-2 border-b border-[#142A4A]/50">
                     <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
                       <ShieldCheck className="w-5 h-5" />
                     </div>
-                    <h4 className="heading-h5 text-white">
-                      ESG <span className="font-sans">&amp;</span> Responsible Business Transformation
+                    <h4 className="heading-h6 lg:heading-h5 text-white">
+                      ESG <span className="font-sans">&amp;</span> Responsible
+                      Business Transformation
                     </h4>
                   </div>
 
@@ -591,11 +597,11 @@ export default function Advisory() {
             transition={{ duration: 0.7 }}
             className="mb-20 sm:mb-24 p-6 sm:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/75 grid grid-cols-1 justify-items-center"
           >
-            <h2 className="heading-h2 text-white text-center mb-3 tracking-tight">
+            <h2 className="heading-h4 md:heading-h2 text-white text-center mb-3 tracking-tight">
               How We Work
             </h2>
 
-            <p className="body-text max-w-2xl text-center text-slate-300 mb-8">
+            <p className="text-sm md:body-text max-w-2xl text-center text-slate-300 mb-8">
               We don't hand off a hundred-page strategy. We start with a
               conversation, diagnose what's actually happening, and stay engaged
               as a thinking partner — not an execution team.
@@ -656,11 +662,11 @@ export default function Advisory() {
             className="mb-20 sm:mb-24 p-6 sm:p-8 md:p-10 lg:p-12 rounded-2xl border border-[#142A4A] bg-gradient-to-r from-[#040D1E] via-[#061224] to-[#040D1E] shadow-[0_20px_50px_rgba(0,0,0,0.6)] relative overflow-hidden flex items-center min-h-[260px] lg:min-h-[350px]"
           >
             <div className="absolute right-0 top-0 bottom-0 w-full sm:w-2/3 md:w-1/2 lg:w-[60%] pointer-events-none overflow-hidden flex items-center justify-end z-0">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
+              <ConstellationField
+                mode="dark"
+                color="#00C4B4"
+                linkColor="#00C4B4"
+                background="transparent"
                 className="w-full h-full object-cover bg-center opacity-85 md:opacity-95"
                 style={{
                   maskImage:
@@ -668,7 +674,12 @@ export default function Advisory() {
                   WebkitMaskImage:
                     "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.8) 35%, black 100%)",
                 }}
-                src={AINeuralVideo}
+                speed={1}
+                size={1}
+                strokeWidth={1}
+                length={1}
+                density={1}
+                opacity={0.9}
               />
             </div>
 
@@ -681,13 +692,13 @@ export default function Advisory() {
               <span className="text-4xl sm:text-5xl font-serif text-[#00C4B4] block mb-1 leading-none">
                 “
               </span>
-              <blockquote className="text-base sm:text-lg md:text-xl italic text-slate-100 leading-relaxed mb-4 font-light">
+              <blockquote className="text-sm md:text-xl italic text-slate-100 leading-relaxed mb-4 font-light">
                 "The organisations that win won't be the ones with perfect
                 strategy. They'll be the ones that can learn, adapt, and move
                 faster than their competitors. That happens when the operating
                 model enables it."
               </blockquote>
-              <p className="text-sm sm:text-xs text-slate-400 font-sans tracking-wide">
+              <p className="text-xs text-slate-400 font-sans tracking-wide">
                 Ravishankar Pingali, Founder, LucidMind Consulting
               </p>
             </div>
@@ -707,7 +718,7 @@ export default function Advisory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="heading-h2 text-white mb-3 tracking-tight"
+              className="heading-h4 md:heading-h2 text-white mb-3 tracking-tight"
             >
               Ready to stop experimenting and start transforming?
             </motion.h2>

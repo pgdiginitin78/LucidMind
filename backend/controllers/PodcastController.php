@@ -42,6 +42,10 @@ class PodcastController {
             if (!$check) {
                 $this->pdo->exec("ALTER TABLE podcasts ADD COLUMN media_type VARCHAR(50) DEFAULT 'podcast'");
             }
+            $thumbCol = $this->pdo->query("SHOW COLUMNS FROM podcasts LIKE 'thumbnail'")->fetch();
+            if ($thumbCol && stripos($thumbCol['Type'] ?? '', 'varchar') !== false) {
+                $this->pdo->exec("ALTER TABLE podcasts MODIFY COLUMN thumbnail LONGTEXT, MODIFY COLUMN cover_image LONGTEXT");
+            }
         } catch (\Exception $e) {
             // ignore
         }

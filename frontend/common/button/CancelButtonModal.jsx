@@ -21,7 +21,7 @@ function CancelButtonModal({ onClick }) {
       aria-label="Close modal"
     >
       <svg
-        className="w-5 h-5 text-gray-600 group-hover:text-red-600 transition-colors duration-200"
+        className="w-5 h-5 text-gray-600 group-hover:text-red-600 transition-colors duration-200 cursor-pointer"
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -10,8 +10,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        jakarta: ["PlusJakartaSans", "sans-serif"],
-        sans: ["PlusJakartaSans", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        playfair: ["'Playfair Display'", "serif"],
+        sans: ["Inter", "sans-serif"],
+        serif: ["'Playfair Display'", "serif"],
+      },
+      gridTemplateColumns: {
+        /* Footer: Brand | QuickLinks | 1px-divider | Featured | Services | StayInLoop */
+        footer: "220px 140px 1px 160px 235px 1fr",
       },
       colors: {
         brand: {

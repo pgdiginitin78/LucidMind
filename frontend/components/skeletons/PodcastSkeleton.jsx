@@ -3,7 +3,7 @@ import React from "react";
 export function PodcastSkeleton() {
   return (
     <div className="relative w-full min-h-screen bg-[#030914] overflow-x-hidden animate-pulse pt-28 sm:pt-36 pb-20">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="mb-12">
           <div className="h-4 w-36 bg-white/10 rounded-full mb-3" />
           <div className="h-10 sm:h-14 w-96 bg-white/15 rounded-xl mb-4" />

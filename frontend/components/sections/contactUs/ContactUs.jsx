@@ -333,7 +333,7 @@ export default function ContactUs() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 pt-24 sm:pt-32 pb-14 sm:pb-20">
+ <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto pt-24 sm:pt-32 pb-14 sm:pb-20">
         <div ref={headerRef} className="mb-10 text-center sm:mb-14">
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -525,7 +525,7 @@ export default function ContactUs() {
                     background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`,
                     opacity: status === "loading" ? 0.75 : 1,
                     cursor: status === "loading" ? "not-allowed" : "pointer",
-                    fontFamily: "'PlusJakartaSans', sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     border: "none",
                   }}
                 >

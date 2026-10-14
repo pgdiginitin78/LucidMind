@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
 import {
   BookOpen,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Box, Modal, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
+import Lenis from "lenis";
 
 import CommonButton from "@/common/button/CommonButton";
 import CancelButtonModal from "@/common/button/CancelButtonModal";
@@ -35,12 +36,47 @@ const getHeaders = () => {
 };
 
 function BlogModal({ open, onClose, title, children }) {
+  const scrollRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    let lenisInstance = null;
+    let rafId = null;
+
+    const timer = setTimeout(() => {
+      if (scrollRef.current) {
+        lenisInstance = new Lenis({
+          wrapper: scrollRef.current,
+          content: contentRef.current || undefined,
+          duration: 1.0,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.8,
+        });
+
+        const raf = (time) => {
+          lenisInstance?.raf(time);
+          rafId = requestAnimationFrame(raf);
+        };
+        rafId = requestAnimationFrame(raf);
+      }
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenisInstance) lenisInstance.destroy();
+    };
+  }, [open]);
+
   return (
     <AnimatePresence mode="wait">
       {open && (
         <Modal
           open={open}
-          onClose={onClose}
+          // onClose={onClose}
           closeAfterTransition
           slotProps={{
             backdrop: {
@@ -52,6 +88,9 @@ function BlogModal({ open, onClose, title, children }) {
           }}
         >
           <Box
+            ref={scrollRef}
+            data-lenis-prevent="true"
+            className="no-scrollbar"
             sx={{
               position: "absolute",
               top: "50%",
@@ -76,21 +115,19 @@ function BlogModal({ open, onClose, title, children }) {
             }}
           >
             <motion.div
+              ref={contentRef}
               initial={{ opacity: 0, scale: 0.96, y: -16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: -10 }}
               transition={{ duration: 0.22 }}
               className="relative p-5 sm:p-7"
             >
-              {/* Brand Top Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2563EB] to-[#00C4FF]" />
 
               <CancelButtonModal onClick={onClose} />
 
               <div className="flex items-center gap-3 mb-6 mt-1">
-                <div className="w-10 h-10 rounded-xl bg-[#2563EB]/20 border border-[#00C4FF]/30 flex items-center justify-center text-[#00C4FF] shadow-[0_0_15px_rgba(0,196,255,0.2)]">
-                  <Sparkles size={20} />
-                </div>
+            
                 <div>
                   <Typography
                     variant="h6"
@@ -349,7 +386,7 @@ export default function BlogsManager() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
         <div>
        
-          <h1 className="heading-h1 text-white tracking-tight">
+          <h1 className="heading-h2  lg:heading-h1 text-white tracking-tight">
             Blogs &amp; Articles
           </h1>
   

@@ -158,7 +158,7 @@ function AiParticleDisplay() {
 
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = "#ffffff";
-      ctx.font = `900 ${fontSize}px "PlusJakartaSans", "Gilroy", "Inter", sans-serif`;
+      ctx.font = `900 ${fontSize}px "Inter", sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.fillText("AI", width / 2, height / 2 + fontSize * 0.04);
@@ -177,7 +177,7 @@ function AiParticleDisplay() {
   }, []);
 
   return (
-    <div className="relative w-full flex flex-col items-center justify-center font-['PlusJakartaSans',sans-serif]">
+    <div className="relative w-full flex flex-col items-center justify-center font-inter">
       <div className="relative w-full h-[220px] md:h-[400px] lg:h-[440px] xl:h-[440px] 2xl:h-[550px] flex items-center justify-center">
         <canvas
           ref={canvasRef}

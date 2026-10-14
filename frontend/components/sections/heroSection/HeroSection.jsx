@@ -12,7 +12,7 @@ function HeroSection() {
   }, [setReady]);
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
+    <div className="relative w-full min-h-screen md:min-h-[90dvh]  lg:min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <DotField
           dotRadius={1.5}
@@ -51,17 +51,16 @@ function HeroSection() {
               Helping Leaders Build
             </p> */}
 
-            <h1 className="heading-h1 text-white w-full">
-              {/* Organisations Ready  for the{" "} */}
-              Built For The {" "}<br/>  
-              <span className="text-[#009A9A]">Adaptive Future</span> 
+            <h1 className="heading-h2 lg:heading-h1 text-white w-full">
+              Built For The <br />
+              <span className="text-[#009A9A]">Adaptive Future</span>
             </h1>
             <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>
           </div>
 
-          <p className="body-text-lg text-slate-400 font-medium text-sm sm:text-base md: lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mb-2">
-            {/* AI is changing technology. The real challenge is */}
-         Helping leaders turn technology, transformation and organisational capability into measurable business impact.
+          <p className="body-text-lg text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mb-2">
+            Helping leaders turn technology, transformation and organisational
+            capability into measurable business impact.
           </p>
 
           <Link

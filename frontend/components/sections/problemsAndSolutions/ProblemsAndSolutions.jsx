@@ -197,7 +197,7 @@ export default function ProblemsAndSolutions() {
         <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
+      <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -235,7 +235,7 @@ export default function ProblemsAndSolutions() {
               <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#007070] uppercase sm:text-sm">
                 What`s
               </p>
-              <h3 className="heading-h3 mb-5 text-[#0B192C]">
+              <h3 className="heading-h4 lg:heading-h3 mb-5 text-[#0B192C]">
                 Slowing Enterprises down
               </h3>
 
@@ -292,7 +292,7 @@ export default function ProblemsAndSolutions() {
                   </p>
                   <Heading
                     level={2}
-                    className="text-2xl lg:text-3xl leading-tight tracking-wide text-white sm:text-[1.75rem]"
+                    className="text-xl lg:text-3xl leading-tight tracking-wide text-white sm:text-[1.75rem]"
                   >
                     <span className="bg-gradient-to-r from-[#00C4B4] to-[#00E5FF] bg-clip-text font-bold text-transparent">
                       LucidMind
@@ -326,7 +326,7 @@ export default function ProblemsAndSolutions() {
                       <div className="flex-1 pr-4">
                         <Heading
                           level={3}
-                          className="text-xs md:text-sm text-white"
+                          className="text-sm lg:text-base text-white"
                         >
                           {item.title}
                         </Heading>

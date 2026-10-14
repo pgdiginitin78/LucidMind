@@ -1,8 +1,7 @@
 "use client";
 /* global process */
-"use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
 import {
   Briefcase,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { Box, Modal, Typography } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
+import Lenis from "lenis";
 
 import CommonButton from "@/common/button/CommonButton";
 import CancelButtonModal from "@/common/button/CancelButtonModal";
@@ -38,6 +38,41 @@ const getHeaders = () => {
 };
 
 function ServiceModal({ open, onClose, title, children }) {
+  const scrollRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    let lenisInstance = null;
+    let rafId = null;
+
+    const timer = setTimeout(() => {
+      if (scrollRef.current) {
+        lenisInstance = new Lenis({
+          wrapper: scrollRef.current,
+          content: contentRef.current || undefined,
+          duration: 1.0,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.8,
+        });
+
+        const raf = (time) => {
+          lenisInstance?.raf(time);
+          rafId = requestAnimationFrame(raf);
+        };
+        rafId = requestAnimationFrame(raf);
+      }
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenisInstance) lenisInstance.destroy();
+    };
+  }, [open]);
+
   return (
     <AnimatePresence mode="wait">
       {open && (
@@ -55,6 +90,9 @@ function ServiceModal({ open, onClose, title, children }) {
           }}
         >
           <Box
+            ref={scrollRef}
+            data-lenis-prevent="true"
+            className="no-scrollbar"
             sx={{
               position: "absolute",
               top: "50%",
@@ -79,6 +117,7 @@ function ServiceModal({ open, onClose, title, children }) {
             }}
           >
             <motion.div
+              ref={contentRef}
               initial={{ opacity: 0, scale: 0.96, y: -16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: -10 }}
@@ -538,7 +577,7 @@ export default function ServicesManager() {
           <ImageUploadField
             name="image"
             label="Offering Visual / Image"
-            placeholder="/assets/advisory/advisoryImg1.png"
+            placeholder="/assets/advisory/advisoryImg1.webp"
             control={control}
           />
 

@@ -1,13 +1,14 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { Link } from "@/lib/navigation";
 import { motion } from "framer-motion";
+import FooterBg from "./image/FooterBg.webp";
+
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 4.svg";
-import DotField from "../sections/heroSection/DotField";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  const wordmarkRef = useRef(null);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function Footer() {
       try {
         const token = localStorage.getItem("lucidmind_token");
         const storedUser = localStorage.getItem("lucidmind_user");
+
         if (token && storedUser) {
           setUser(JSON.parse(storedUser));
         } else {
@@ -26,8 +28,10 @@ export default function Footer() {
     };
 
     checkAuth();
+
     window.addEventListener("lucidmind_auth_change", checkAuth);
     window.addEventListener("storage", checkAuth);
+
     return () => {
       window.removeEventListener("lucidmind_auth_change", checkAuth);
       window.removeEventListener("storage", checkAuth);
@@ -39,274 +43,322 @@ export default function Footer() {
       localStorage.removeItem("lucidmind_token");
       localStorage.removeItem("lucidmind_user");
     } catch {}
+
     setUser(null);
     window.dispatchEvent(new Event("lucidmind_auth_change"));
   };
 
+  const socialLinks = [
+    {
+      href: "https://www.linkedin.com/company/lucidmind-consulting/",
+      label: "LinkedIn",
+      path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
+    },
+    // {
+    //   href: "#",
+    //   label: "Facebook",
+    //   path: "M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z",
+    // },
+    // {
+    //   href: "#",
+    //   label: "Instagram",
+    //   path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z",
+    // },
+    // {
+    //   href: "#",
+    //   label: "YouTube",
+    //   path: "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z",
+    // },
+  ];
+
+  const quickLinks = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Advisory", path: "/advisory" },
+    { name: "Insights", path: "/insights" },
+    { name: "Contact", path: "/contact" },
+  ];
+
+  const featuredLinks = [
+    { name: "Latest Articles", path: "/insights" },
+    { name: "Podcasts", path: "/podcasts" },
+  ];
+
+  const services = [
+    "Strategy & Advisory",
+    "Leadership Development",
+    "Organisational Transformation",
+    "Talent & Teams",
+    "Innovation Enablement",
+  ];
+
   const fadeUp = {
-    hidden: { opacity: 0, y: 16 },
-    visible: (i = 0) => ({
+    hidden: {
+      opacity: 0,
+      y: 18,
+    },
+    visible: (index = 0) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, delay: i * 0.06, ease: "easeOut" },
+      transition: {
+        duration: 0.55,
+        delay: index * 0.08,
+        ease: "easeOut",
+      },
     }),
   };
 
-  const linkColumns = [
-    {
-      title: "Quick Links",
-      links: [
-        { name: "Home", path: "/" },
-        { name: "About", path: "/about" },
-        { name: "Advisory", path: "/advisory" },
-        { name: "Insights", path: "/insights" },
-        { name: "Contact", path: "/contact" },
-      ],
-    },
-    {
-      title: "Featured",
-      links: [
-        { name: "Latest Articles", path: "/insights" },
-        { name: "Podcasts", path: "/podcasts" },
-        // { name: "Case Studies", path: "/case-studies" },
-        // { name: "Reports", path: "/reports" },
-      ],
-    },
-  ];
+  const bgUrl = FooterBg.src || FooterBg;
 
   return (
-    <footer className="w-full relative bg-[#040C1A] pt-10 xs:pt-12 lg:pt-16 pb-6 sm:pb-8 border-t border-[#0F2644] font-['PlusJakartaSans',sans-serif] overflow-hidden">
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <DotField
-          dotRadius={1.5}
-          dotSpacing={20}
-          bulgeStrength={67}
-          glowRadius={160}
-          sparkle={false}
-          waveAmplitude={0}
-          cursorRadius={500}
-          cursorForce={0.1}
-          bulgeOnly
-          gradientFrom="#00C4B4"
-          gradientTo="#2563EB"
-          glowColor="#00C4B4"
+    <footer className="relative w-full overflow-hidden bg-[#030d1c] font-inter">
+      {/* Single Background Image */}
+      <div className="pointer-events-none absolute inset-0 z-[1] hidden md:block">
+        <img
+          src={bgUrl}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover object-bottom"
         />
       </div>
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 sm:gap-10 lg:gap-6 mb-10 sm:mb-12">
+
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-[7] w-full max-w-[560px] lg:w-[38%]"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(3, 13, 28, 0.75) 0%, rgba(3, 13, 28, 0.3) 60%, transparent 100%)",
+        }}
+      />
+
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 z-[8] h-1/2 w-full"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(3, 13, 28, 0.82) 0%, rgba(3, 13, 28, 0.35) 50%, transparent 100%)",
+        }}
+      />
+
+      <div className="relative z-20 mx-auto w-full max-w-[1920px] px-6 sm:px-10 lg:px-14 xl:px-20 2xl:px-24">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-[1.35fr_0.85fr_1.15fr_1.35fr]">
           <motion.div
-            className="col-span-2 lg:col-span-1"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={0}
+            className="min-w-0 py-10 lg:py-12 lg:pr-12 xl:pr-16 col-span-2 md:col-span-1"
           >
-            <Link
-              href="/"
-              className="inline-flex items-center mb-4 sm:mb-5 h-20 w-auto sm:h-24 md:h-28 xl:h-40 xl:w-72"
-            >
+            <Link href="/" className="mb-3 block w-[220px]">
               <img
                 src={LucidMindTransperentLogo}
-                alt="Lucidmind logo"
-                width={320}
-                height={128}
+                alt="LucidMind"
+                width={150}
+                height={60}
                 loading="lazy"
                 decoding="async"
-                className="h-full w-auto max-w-[20rem] object-contain"
+                className="h-auto w-full object-contain"
               />
             </Link>
-            <p className="body-text text-white text-sm mb-5 sm:mb-6 max-w-sm 2xl:">
-             Navigating complexity and building organisations ready for the Adaptive Future
+
+            <div className="mb-5 h-[2px] w-14 bg-[#00c4b4]" />
+
+            <p className="mb-7 max-w-[370px] text-[14px] font-light leading-[1.75] text-white">
+              Navigating complexity and building organisations ready for the
+              Adaptive Future.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              {[
-                {
-                  href: "https://twitter.com",
-                  label: "Twitter",
-                  path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.004 3.973H5.078z",
-                },
-                {
-                  href: "https://linkedin.com",
-                  label: "LinkedIn",
-                  path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
-                },
-              ].map((s) => (
+
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social) => (
                 <motion.a
-                  key={s.href}
-                  href={s.href}
-                  aria-label={s.label}
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
                   target="_blank"
                   rel="noreferrer"
-                  whileHover={{
-                    y: -2,
-                    borderColor: "#ffffff",
-                    color: "#ffffff",
-                  }}
+                  whileHover={{ y: -3 }}
                   transition={{ duration: 0.2 }}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#0F2644] flex items-center justify-center text-white shrink-0"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#00c4b4]/45 bg-[#030d1c]/35 text-white/85 backdrop-blur-sm transition-all duration-300 hover:border-[#00c4b4] hover:bg-[#00c4b4]/10 hover:text-[#00c4b4]"
                 >
                   <svg
-                    width="13"
-                    height="13"
+                    width="15"
+                    height="15"
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
-                    <path d={s.path} />
+                    <path d={social.path} />
                   </svg>
                 </motion.a>
               ))}
             </div>
           </motion.div>
 
-          {linkColumns.map((col, colIdx) => (
-            <motion.div
-              key={col.title}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
-              variants={fadeUp}
-              custom={colIdx + 1}
-            >
-              <h3 className="heading-h6 text-white tracking-wide mb-3">
-                {col.title}
-              </h3>
-              <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
-              <ul className="flex flex-col gap-2.5 sm:gap-3">
-                {col.links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.path}
-                      className="group relative text-white text-sm 2xl:text-base transition-colors inline-block"
-                    >
-                      {link.name}
-                      <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
-                    </Link>
-                  </li>
-                ))}
-                {/* {col.title === "Quick Links" && (
-                  <li>
-                    {user ? (
-                      <Link
-                        href="/admin"
-                        className="group relative text-[#00C4FF] text-sm 2xl:text-base transition-colors inline-block"
-                      >
-                        Dashboard
-                        <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-[#00C4FF] transition-all duration-300 group-hover:w-full" />
-                      </Link>
-                    ) : (
-                      ""
-                    )}
-                  </li>
-                )} */}
-              </ul>
-            </motion.div>
-          ))}
-
           <motion.div
-            className="col-span-2 md:col-span-1"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.1 }}
+            variants={fadeUp}
+            custom={1}
+            className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:px-8 xl:px-10"
+          >
+            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+              Quick Links
+            </h3>
+
+            <div className="mb-7 mt-5 h-[2px] w-12 bg-[#00c4b4]" />
+
+            <ul className="m-0 flex list-none flex-col gap-4 p-0">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.path}
+                    className="text-[14px] font-light text-white transition-all duration-300 hover:pl-1 hover:text-[#00c4b4]"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={fadeUp}
+            custom={2}
+            className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:px-8 xl:px-10"
+          >
+            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+              Featured
+            </h3>
+
+            <div className="mb-7 mt-5 h-[2px] w-12 bg-[#00c4b4]" />
+
+            <ul className="m-0 flex list-none flex-col gap-4 p-0">
+              {featuredLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.path}
+                    className="text-[14px] font-light text-white transition-all duration-300 hover:pl-1 hover:text-[#00c4b4]"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
             variants={fadeUp}
             custom={3}
+            className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:px-8 xl:px-10"
           >
-            <h3 className="heading-h6 text-white tracking-wide mb-3">
-              Get in Touch
+            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+              Our Services
             </h3>
-            <div className="w-8 h-px bg-[#00C4B4] mb-4 sm:mb-5" />
-            <p className="body-text text-white text-sm 2xl: mb-5">
-              Have a question or want to work together? Let's talk.
-            </p>
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 bg-transparent text-white/80 border border-white/20 text-sm 2xl:text-base font-normal px-5 sm:px-6 py-2.5 rounded-full hover:bg-white hover:text-[#040C1A] transition-colors duration-300 w-full sm:w-auto"
-              >
-                Contact Us
-              </Link>
-            </motion.div>
+
+            <div className="mb-7 mt-5 h-[2px] w-12 bg-[#00c4b4]" />
+
+            <ul className="m-0 flex list-none flex-col gap-4 p-0">
+              {services.map((service) => (
+                <li key={service}>
+                  <Link
+                    href="/advisory"
+                    className="text-[14px] font-light leading-6 text-white transition-all duration-300 hover:pl-1 hover:text-[#00c4b4]"
+                  >
+                    {service}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div> */}
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={fadeUp}
+            custom={4}
+            className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:pl-8 xl:pl-10 col-span-2 md:col-span-1"
+          >
+            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+             Get in Touch
+            </h3>
+
+            <div className="mb-5 mt-5 h-[2px] w-12 bg-[#00c4b4]" />
+
+            <div className="flex items-start gap-4">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#00c4b4]/60 bg-[#031624]/50 text-[#00c4b4]">
+                <svg
+                  width="21"
+                  height="21"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                </svg>
+              </div>
+
+              <div className="flex flex-col items-start">
+                <p className="mb-4 text-[14px] font-light leading-[1.7] text-white">
+                  Have a question or want to
+                  <br />
+                  work together?
+                  <br />
+                  Let's talk.
+                </p>
+
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-3 rounded-full border border-[#00c4b4]/70 px-6 py-2.5 text-[13px] font-medium text-white transition-all duration-300 hover:bg-[#00c4b4]/10"
+                >
+                  Contact Us
+                  <span className="text-[#00c4b4]">→</span>
+                </Link>
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        <motion.div
-          className="pt-6 sm:pt-8 border-t border-[#0F2644] flex flex-col md:flex-row items-center justify-between gap-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <p className="text-white text-xs order-2 md:order-1 text-center md:text-left 2xl:text-sm">
-            &copy; {currentYear} Lucidmind. All rights reserved.
+        <div className="relative z-40 flex flex-col gap-3 border-t border-white/10 py-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[12px] font-light text-white/50">
+            © {currentYear} Lucidmind. All rights reserved.
           </p>
-
-          {/* <div className="flex flex-wrap items-center 2xl:text-sm justify-center gap-x-4 gap-y-2 sm:gap-x-6 order-1 md:order-2">
+          {/* 
+          <div className="flex flex-wrap items-center gap-2 text-[12px] font-light text-white/45">
             <Link
               href="/privacy-policy"
-              className="text-white text-xs 2xl:text-sm transition-colors hover:text-[#00C4FF]"
+              className="transition-colors hover:text-white"
             >
               Privacy Policy
             </Link>
-            <Link
-              href="/terms"
-              className="text-white text-xs 2xl:text-sm transition-colors hover:text-[#00C4FF]"
-            >
+
+            <span className="text-white/20">|</span>
+
+            <Link href="/terms" className="transition-colors hover:text-white">
               Terms of Service
             </Link>
+
+            <span className="text-white/20">|</span>
+
             <Link
               href="/cookies"
-              className="text-white text-xs 2xl:text-sm transition-colors hover:text-[#00C4FF]"
+              className="transition-colors hover:text-white"
             >
-              Cookie Policy
+              Cookies
             </Link>
-            {user && (
-              <div className="flex items-center gap-2 sm:gap-3 pl-1 sm:pl-2">
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00C4FF]/10 text-[#00C4FF] border border-[#00C4FF]/30 text-xs 2xl:text-sm font-medium hover:bg-[#00C4FF]/20 transition-all duration-200"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-                  <span>Dashboard</span>
-                </Link>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="text-red-400 hover:text-red-300 text-xs 2xl:text-sm transition-colors cursor-pointer"
-                >
-                  Sign Out
-                </button>
-              </div>
-            )}
           </div> */}
-        </motion.div>
+        </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#040C1A]/40 via-transparent to-transparent" />
-
-      <motion.div
-        ref={wordmarkRef}
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: "some" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="pointer-events-none select-none absolute left-0 right-0 bottom-0 sm:bottom-[-1%] md:bottom-0 lg:bottom-[-2%] z-[5] flex justify-center overflow-hidden px-4"
-        aria-hidden="true"
-      >
-        <span
-          className="font-['Playfair_Display',serif] font-normal leading-none whitespace-nowrap"
-          style={{
-            fontSize: "clamp(2.5rem, 18vw, 11.5rem)",
-            color: "transparent",
-            WebkitTextStroke: "1px rgba(0, 196, 180, 0.4)",
-            backgroundImage:
-              "linear-gradient(180deg, rgba(0, 196, 180, 0.35) 0%, rgba(37, 99, 235, 0.25) 100%)",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-          }}
-        >
-          Lucidmind
-        </span>
-      </motion.div>
+      <div className="pointer-events-none absolute bottom-0 left-0 z-[14] h-px w-full bg-[#00c4b4]/25" />
     </footer>
   );
 }

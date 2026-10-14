@@ -25,17 +25,20 @@ class UploadController {
             echo json_encode(['error' => 'File size exceeds 10MB limit']);
             return;
         }
-
-        $uploadDir = __DIR__ . '/../../public_html/uploads'; // Assuming standard cPanel structure (or just ../uploads if in root)
-        // Check if we are in public_html/api or similar
-        // Let's use a safe relative path.
-        // We will default to a local 'uploads' directory if public_html doesn't exist.
-        $targetDir = realpath(__DIR__ . '/../../uploads'); // Up to project root -> uploads
-        if (!$targetDir) {
-            $targetDir = __DIR__ . '/../../uploads';
-            if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0755, true);
-            }
+        // Ensure valid image extension (PNG, JPG, SVG, etc)
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif'];
+        $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (!in_array($extension, $allowedExtensions)) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Unsupported file format. Only JPG, PNG, SVG, WEBP, and GIF are allowed.']);
+            return;
+        }
+        // Use dirname(__DIR__, 2) to strictly get the directory above the api folder (public_html)
+        $docRoot = dirname(__DIR__, 2);
+        $targetDir = $docRoot . '/uploads';
+        
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0755, true);
         }
 
         $cleanName = preg_replace('/[^a-zA-Z0-9.-]/', '_', basename($file['name']));
@@ -43,6 +46,7 @@ class UploadController {
         $targetFilePath = $targetDir . '/' . $filename;
 
         if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            chmod($targetFilePath, 0644); // Fix 403 Forbidden error on cPanel
             echo json_encode([
                 'success' => true,
                 'url' => '/uploads/' . $filename,

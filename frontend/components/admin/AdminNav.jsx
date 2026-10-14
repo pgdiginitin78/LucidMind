@@ -43,7 +43,7 @@ export default function AdminNav() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#070e1e]/90 backdrop-blur-2xl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-22.5">
           <div className="flex items-center gap-3">
             <Link
@@ -94,15 +94,6 @@ export default function AdminNav() {
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-[#00C4FF] px-2.5 sm:px-3 py-1.5 rounded-full border border-white/10 hover:border-[#00C4FF]/40 bg-white/[0.03] hover:bg-white/[0.08] transition-all"
-              title="View Public Website"
-            >
-              <Globe size={13} className="text-[#00C4FF]" />
-              <span className="hidden sm:inline">View Website</span>
-            </Link>
-
             {user && (
               <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
                 <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-[10px] font-bold text-white">

@@ -16,7 +16,7 @@ export function AdvisorySkeleton() {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-24 sm:pb-32">
+      <div className="relative z-10 max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32 pb-24 sm:pb-32">
         
         {/* Header Section */}
         <section className="grid grid-cols-1 justify-items-center text-center mb-16 sm:mb-20">

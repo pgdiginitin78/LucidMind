@@ -10,7 +10,7 @@ export function AboutSkeleton() {
           background: `linear-gradient(160deg, ${INK} 0%, #101d38 45%, ${INK} 100%)`,
         }}
       >
-        <div className="relative w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 z-10">
+        <div className="relative w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 z-10">
           <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-8 md:gap-12">
             <div className="w-full md:w-[60%]">
               <div className="h-3 w-24 bg-white/20 rounded-md mb-2"></div>
@@ -35,7 +35,7 @@ export function AboutSkeleton() {
 
       {/* Nav skeleton */}
       <div className="sticky top-16 z-40 w-full border-y border-slate-200 bg-white/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
           <div className="flex items-center gap-6 h-12">
             {[1, 2, 3, 4, 5, 6].map(i => (
               <div key={i} className="h-3 w-16 bg-slate-200 rounded-md"></div>
@@ -45,7 +45,7 @@ export function AboutSkeleton() {
       </div>
 
       {/* Content skeleton */}
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-16">
+      <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-16">
         <div className="flex gap-12">
           <div className="w-full lg:w-2/3 space-y-6">
             <div className="h-8 w-48 bg-slate-200 rounded-lg mb-8"></div>

@@ -4,7 +4,7 @@ export function ContactUsSkeleton() {
   const INK = "#050B18";
   return (
     <div className="min-h-screen bg-[#050B18] pt-24 sm:pt-32 pb-16 sm:pb-24 animate-pulse">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1680px] px-4 sm:px-6 lg:px-8">
         
         <div className="mb-12 flex flex-col items-center justify-center text-center">
           <div className="h-10 sm:h-12 w-64 bg-white/10 rounded-lg mb-3"></div>

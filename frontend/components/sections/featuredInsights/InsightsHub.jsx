@@ -241,7 +241,7 @@ export default function InsightsHub() {
     : filteredArticles;
 
   return (
-    <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-['PlusJakartaSans',sans-serif] selection:bg-[#00C4B4]/30 selection:text-white pb-24 sm:pb-32 overflow-hidden">
+    <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-inter selection:bg-[#00C4B4]/30 selection:text-white pb-24 sm:pb-32 overflow-hidden">
       <section className="relative w-full overflow-hidden flex items-end md:items-center pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16 lg:pb-20 mb-8 sm:mb-12 min-h-[560px] sm:min-h-[620px] lg:min-h-[680px] xl:min-h-[720px]">
         <div className="absolute inset-0 z-0 pointer-events-none select-none">
           <Image
@@ -268,9 +268,9 @@ export default function InsightsHub() {
           <div className="block md:hidden absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-[#040914] via-[#040914]/90 to-transparent" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16">
+        <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
           <header className="relative max-w-sm sm:max-w-md md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
-            <div className="absolute -inset-4 sm:-inset-6 -z-10 rounded-3xl bg-[#040914]/30 md:bg-gradient-to-r md:from-[#040914]/70 md:via-[#040914]/40 md:to-transparent backdrop-blur-[1px] pointer-events-none" />
+            <div className="absolute -inset-4 sm:-inset-6 -z-10 rounded-3xl md:bg-[#040914]/30 md:bg-gradient-to-r md:from-[#040914]/70 md:via-[#040914]/40 md:to-transparent backdrop-blur-[1px] pointer-events-none" />
 
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -286,7 +286,7 @@ export default function InsightsHub() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="heading-h1 text-white tracking-tight mb-2"
+              className="heading-h2 md:heading-h1 text-white tracking-tight mb-2"
             >
               Insights on Scaling <br className="hidden sm:block" />
               <span
@@ -314,67 +314,69 @@ export default function InsightsHub() {
 
       <div
         id="insights-content"
-        className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 space-y-16 sm:space-y-20"
+        className="relative z-10 max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto space-y-16 sm:space-y-20"
       >
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
-          <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-full bg-[#08152b]/80 border border-white/[0.1] backdrop-blur-xl">
-            <button
-              type="button"
-              onClick={() => handleTabSelect("ALL", "insights-content")}
-              className={cn(
-                "px-4 sm:px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer",
-                activeTab === "ALL"
-                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
-                  : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
-              )}
-            >
-              All Content
-            </button>
-            <button
-              type="button"
-              onClick={() => handleTabSelect("BLOGS", "blogs")}
-              className={cn(
-                "flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer",
-                activeTab === "BLOGS"
-                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
-                  : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
-              )}
-            >
-              <BookOpen size={13} />
-              <span>Blogs ({articles.length})</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleTabSelect("VIDEOS", "videos")}
-              className={cn(
-                "flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer",
-                activeTab === "VIDEOS"
-                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
-                  : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
-              )}
-            >
-              <Video size={13} />
-              <span>Videos ({videoList.length})</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleTabSelect("PODCASTS", "podcasts")}
-              className={cn(
-                "flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer",
-                activeTab === "PODCASTS"
-                  ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
-                  : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
-              )}
-            >
-              <Mic size={13} />
-              <span>Podcasts ({podcastList.length})</span>
-            </button>
+        <div className="w-full pb-4 sm:pb-5 border-b border-white/[0.08]">
+          <div className="w-full sm:w-auto flex justify-center sm:justify-start">
+            <div className="w-full sm:w-auto grid grid-cols-2 sm:flex sm:items-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl sm:rounded-full bg-[#08152b]/90 border border-white/[0.1] backdrop-blur-xl shadow-lg">
+              <button
+                type="button"
+                onClick={() => handleTabSelect("ALL", "insights-content")}
+                className={cn(
+                  "flex items-center justify-center px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  activeTab === "ALL"
+                    ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
+                    : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
+                )}
+              >
+                All Content
+              </button>
+              <button
+                type="button"
+                onClick={() => handleTabSelect("BLOGS", "blogs")}
+                className={cn(
+                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  activeTab === "BLOGS"
+                    ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
+                    : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
+                )}
+              >
+                <BookOpen size={13} className="shrink-0" />
+                <span>Blogs ({articles.length})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleTabSelect("VIDEOS", "videos")}
+                className={cn(
+                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  activeTab === "VIDEOS"
+                    ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
+                    : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
+                )}
+              >
+                <Video size={13} className="shrink-0" />
+                <span>Videos ({videoList.length})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleTabSelect("PODCASTS", "podcasts")}
+                className={cn(
+                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  activeTab === "PODCASTS"
+                    ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
+                    : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
+                )}
+              >
+                <Mic size={13} className="shrink-0" />
+                <span>Podcasts ({podcastList.length})</span>
+              </button>
+            </div>
           </div>
         </div>
 
         {(activeTab === "ALL" || activeTab === "BLOGS") && (
           <section id="blogs" className="scroll-mt-28 space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/30 text-[#00C4FF] text-xs font-semibold mb-2">
                   <BookOpen size={13} />
@@ -383,7 +385,7 @@ export default function InsightsHub() {
                     Frameworks
                   </span>
                 </div>
-                <h2 className="heading-h2 text-white">
+                <h2 className="heading-h3 md:heading-h2 text-white">
                   Thought Leadership <span className="font-sans">&amp;</span>{" "}
                   Blogs
                 </h2>
@@ -406,7 +408,7 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Layers size={22} />
                 </div>
-                <h3 className="heading-h3 text-white mb-2">
+                <h3 className="heading-h5 md:heading-h3 text-white mb-2">
                   No matching insights
                 </h3>
                 <p className="text-xs text-slate-400 mb-5">
@@ -561,7 +563,7 @@ export default function InsightsHub() {
                   <Video size={13} />
                   <span>Executive Videos</span>
                 </div>
-                <h2 className="heading-h2 text-white">
+                <h2 className="heading-h3 md:heading-h2 text-white">
                   Video Discussions <span className="font-sans">&amp;</span>{" "}
                   Masterclasses
                 </h2>
@@ -584,7 +586,7 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Video size={22} />
                 </div>
-                <h3 className="heading-h3 text-white mb-2">
+                <h3 className="heading-h5 md:heading-h3 text-white mb-2">
                   No videos available
                 </h3>
                 <p className="text-xs text-slate-400 mb-4">
@@ -620,7 +622,7 @@ export default function InsightsHub() {
                           />
 
                           <div className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/10 transition-colors">
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,196,255,0.6)] group-hover:scale-115 transition-transform duration-300">
+                            <div className="w-16 h-16 rounded-full bg-black/45 backdrop-blur-md backdrop-saturate-150 border border-white/10 flex items-center justify-center text-white shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] group-hover:bg-black/60 group-hover:scale-110 transition-all duration-300">
                               <Play size={24} className="fill-white ml-1" />
                             </div>
                           </div>
@@ -633,20 +635,18 @@ export default function InsightsHub() {
                           </h4>
 
                           <div className="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            {currentActiveVideo.description
-                              .slice(0, 4)
-                              .map((line, idx) => (
-                                <p
-                                  key={idx}
-                                  className={
-                                    line.startsWith("✅")
-                                      ? "text-[#00C4FF] font-medium"
-                                      : "line-clamp-2"
-                                  }
-                                >
-                                  {line}
-                                </p>
-                              ))}
+                            {currentActiveVideo.description.map((line, idx) => (
+                              <p
+                                key={idx}
+                                className={
+                                  line.startsWith("✅")
+                                    ? "text-[#00C4FF] font-medium"
+                                    : "line-clamp-2"
+                                }
+                              >
+                                {line}
+                              </p>
+                            ))}
                           </div>
                         </div>
 
@@ -726,7 +726,7 @@ export default function InsightsHub() {
                               className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity"
                               aria-label={`Play ${video.title}`}
                             >
-                              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,255,0.5)] group-hover:scale-110 transition-transform">
+                              <div className="w-12 h-12 rounded-full bg-black/45 backdrop-blur-md backdrop-saturate-150 border border-white/10 flex items-center justify-center text-white shadow-[0_8px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] group-hover:bg-black/60 group-hover:scale-110 transition-all duration-300">
                                 <Play size={18} className="fill-white ml-0.5" />
                               </div>
                             </button>
@@ -794,7 +794,7 @@ export default function InsightsHub() {
                   <Mic size={13} />
                   <span>Executive Podcasts</span>
                 </div>
-                <h2 className="heading-h2 text-white">
+                <h2 className="heading-h3 md:heading-h2 text-white">
                   Podcasts <span className="font-sans">&amp;</span> Audio
                   Broadcasts
                 </h2>
@@ -817,7 +817,7 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Headphones size={22} />
                 </div>
-                <h3 className="heading-h3 text-white mb-2">
+                <h3 className="heading-h5 md:heading-h3 text-white mb-2">
                   No podcast episodes available
                 </h3>
                 <p className="text-xs text-slate-400 mb-4">
@@ -855,7 +855,7 @@ export default function InsightsHub() {
                           />
 
                           <div className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/10 transition-colors">
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_30px_rgba(0,196,255,0.6)] group-hover:scale-115 transition-transform duration-300">
+                            <div className="w-16 h-16 rounded-full bg-black/45 backdrop-blur-md backdrop-saturate-150 border border-white/10 flex items-center justify-center text-white shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] group-hover:bg-black/60 group-hover:scale-110 transition-all duration-300">
                               <Play size={24} className="fill-white ml-1" />
                             </div>
                           </div>
@@ -964,7 +964,7 @@ export default function InsightsHub() {
                               className="absolute inset-0 flex items-center justify-center opacity-85 group-hover:opacity-100 transition-opacity"
                               aria-label={`Play ${podcast.title}`}
                             >
-                              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,255,0.5)] group-hover:scale-110 transition-transform">
+                              <div className="w-12 h-12 rounded-full bg-black/45 backdrop-blur-md backdrop-saturate-150 border border-white/10 flex items-center justify-center text-white shadow-[0_8px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] group-hover:bg-black/60 group-hover:scale-110 transition-all duration-300">
                                 <Play size={18} className="fill-white ml-0.5" />
                               </div>
                             </button>

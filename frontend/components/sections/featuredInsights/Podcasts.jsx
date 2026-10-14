@@ -72,14 +72,10 @@ export default function Podcasts() {
           const videos = normalized.filter(p => p.mediaType === "video");
           const podcasts = normalized.filter(p => p.mediaType === "podcast");
 
-          const mixed = [];
-          if (videos.length > 0) mixed.push(videos.shift());
-          if (videos.length > 0) mixed.push(videos.shift());
-          if (podcasts.length > 0) mixed.push(podcasts.shift());
-
-          while (mixed.length < 3 && (videos.length > 0 || podcasts.length > 0)) {
-            if (videos.length > 0) mixed.push(videos.shift());
-            else if (podcasts.length > 0) mixed.push(podcasts.shift());
+          // Show the first three videos; only backfill with podcasts if fewer than 3 videos exist
+          const mixed = videos.slice(0, 3);
+          if (mixed.length < 3) {
+            mixed.push(...podcasts.slice(0, 3 - mixed.length));
           }
 
           setPodcastsList(mixed);
@@ -127,11 +123,11 @@ export default function Podcasts() {
       <div className="w-full h-[1.5px] bg-[linear-gradient(90deg,transparent_0%,#00C4B4_35%,#0EA5E9_65%,transparent_100%)] relative z-[1]" />
       <section
         ref={sectionRef}
-        className={`w-full ${isStandalone ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-20"} relative font-['PlusJakartaSans',sans-serif]`}
+        className={`w-full ${isStandalone ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-20"} relative font-inter`}
       >
         <WebGLParticleCanvas variant="podcast" />
 
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
           <div className="grid lg:grid-cols-2 gap-5">
             <div className="w-full">
               <motion.div
@@ -210,7 +206,7 @@ export default function Podcasts() {
                           <p className="text-[10px] 2xl:text-sm text-white/30 mt-0.5 flex items-center gap-1.5 uppercase">
                             <span className="font-semibold text-[#00C4B4]">{podcast.mediaType === "video" ? "VIDEO" : "PODCAST"}</span>
                             <span className="text-white/20">&bull;</span>
-                            <span>{podcast.episode}</span>
+                            {/* <span>{podcast.episode}</span> */}
                           </p>
                         </div>
                         {isActive && (
@@ -277,7 +273,7 @@ export default function Podcasts() {
 
           <div className="w-full flex justify-center mt-10">
             <Link
-              href="/insights#podcasts"
+              href={`/insights#${current.mediaType === "video" ? "videos" : "podcasts"}`}
               className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_0_24px_rgba(0,196,180,0.35)] hover:shadow-[0_0_36px_rgba(0,196,180,0.55)] hover:scale-[1.03] transition-all duration-300 group cursor-pointer"
             >
               <span>View All Episodes</span>

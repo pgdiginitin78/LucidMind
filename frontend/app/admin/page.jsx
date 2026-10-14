@@ -22,9 +22,15 @@ export default function AdminDashboard() {
     const fetchCounts = async () => {
       try {
         const [srvRes, blogRes, podRes] = await Promise.all([
-          fetch(`${API_BASE_URL}/services`).then((r) => r.json()).catch(() => null),
-          fetch(`${API_BASE_URL}/blogs`).then((r) => r.json()).catch(() => null),
-          fetch(`${API_BASE_URL}/podcasts`).then((r) => r.json()).catch(() => null),
+          fetch(`${API_BASE_URL}/services`)
+            .then((r) => r.json())
+            .catch(() => null),
+          fetch(`${API_BASE_URL}/blogs`)
+            .then((r) => r.json())
+            .catch(() => null),
+          fetch(`${API_BASE_URL}/podcasts`)
+            .then((r) => r.json())
+            .catch(() => null),
         ]);
 
         setCounts({
@@ -84,19 +90,15 @@ export default function AdminDashboard() {
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00C4FF]/10 border border-[#00C4FF]/30 text-xs font-semibold text-[#00C4FF]">
-              <Sparkles size={13} />
-              <span>LucidMind Admin Hub</span>
-            </div>
-            <h1 className="heading-h1 tracking-tight text-white">
+            <h1 className="heading-h2 md:heading-h1 tracking-tight text-white">
               Welcome back, Administrator
             </h1>
             <p className="text-sm text-white/60 max-w-xl leading-relaxed">
-              Manage and publish your platform’s core Advisory Services, Executive Articles, and Podcast episodes with direct synchronization to the live website.
+              Manage and publish your platform’s core Advisory Services,
+              Executive Articles, and Podcast episodes with direct
+              synchronization to the live website.
             </p>
           </div>
-
-   
         </div>
       </motion.div>
 
@@ -128,7 +130,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div>
-                  <h3 className="heading-h3 text-white group-hover:text-[#00C4FF] transition-colors">
+                  <h3 className="heading-h4 md:heading-h3 text-white group-hover:text-[#00C4FF] transition-colors">
                     {sec.title}
                   </h3>
                   <p className="text-xs text-white/50 mt-1.5 leading-relaxed">
@@ -143,7 +145,10 @@ export default function AdminDashboard() {
                   className="inline-flex items-center justify-between w-full text-xs font-semibold px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB]/20 to-[#00C4FF]/20 hover:from-[#2563EB] hover:to-[#00C4FF] text-white transition-all duration-200 border border-[#00C4FF]/30 hover:shadow-[0_0_20px_rgba(0,196,255,0.35)]"
                 >
                   <span>Manage {sec.title}</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform text-[#00C4FF] group-hover:text-white" />
+                  <ArrowRight
+                    size={14}
+                    className="group-hover:translate-x-1 transition-transform text-[#00C4FF] group-hover:text-white"
+                  />
                 </Link>
               </div>
             </motion.div>
@@ -159,7 +164,10 @@ export default function AdminDashboard() {
       >
         <ShieldCheck size={18} className="text-[#00C4FF] shrink-0" />
         <p>
-          <strong className="text-white/80">Security Notice:</strong> All endpoints and `/admin/*` routes are protected with single-user JWT tokens and strict route guards. Unauthenticated URL access is blocked automatically.
+          <strong className="text-white/80">Security Notice:</strong> All
+          endpoints and `/admin/*` routes are protected with single-user JWT
+          tokens and strict route guards. Unauthenticated URL access is blocked
+          automatically.
         </p>
       </motion.div>
     </motion.div>

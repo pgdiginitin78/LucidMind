@@ -1,180 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
 @import "tailwindcss";
 
-
 @font-face {
-  font-family: 'GilroyLight';
-  src: url('/fonts/Gilroy-Light.otf') format('opentype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Gilroy';
-  src: url('/fonts/Gilroy-ExtraBold.otf') format('opentype');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/fonts/primary/PlusJakartaSans-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/fonts/primary/PlusJakartaSans-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/fonts/primary/PlusJakartaSans-SemiBold.woff2') format('woff2');
+  font-family: "Playfair Display";
+  src: url("/fonts/playfair/PlayfairDisplay-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/fonts/primary/PlusJakartaSans-Bold.woff2') format('woff2');
+  font-family: "Playfair Display";
+  src: url("/fonts/playfair/PlayfairDisplay-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/fonts/primary/PlusJakartaSans-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-
-
-
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/fonts/playfair/PlayfairDisplay-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Playfair Display';
-  src: url('/fonts/playfair/PlayfairDisplay-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 
 @theme {
-  --font-jakarta: "PlusJakartaSans", "Inter", sans-serif;
-  --font-sans: "PlusJakartaSans", "Inter", sans-serif;
-  --font-plus-jakarta: "PlusJakartaSans", sans-serif;
-  --font-serif: "PlusJakartaSans", Georgia, serif;
-  --font-gilroy: "Gilroy", sans-serif;
-  --font-gilroylight: "GilroyLight", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-sans: "Inter", sans-serif;
   --font-playfair: "Playfair Display", serif;
+  --font-serif: "Playfair Display", serif;
 
   /* Brand Colors */
-  --color-brand-cyan: #00C4FF;
-  --color-brand-teal: #00C4B4;
-  --color-brand-blue: #2563EB;
-  --color-brand-indigo: #4D4FEC;
-  --color-brand-sky: #4B9AF5;
-  --color-brand-teal-dark: #009A9A;
+  --color-brand-cyan: #00c4ff;
+  --color-brand-teal: #00c4b4;
+  --color-brand-blue: #2563eb;
+  --color-brand-indigo: #4d4fec;
+  --color-brand-sky: #4b9af5;
+  --color-brand-teal-dark: #009a9a;
   --color-brand-teal-deep: #007070;
-  --color-brand-teal-marine: #00B8B8;
-  --color-brand-teal-forest: #006D77;
-  --color-brand-cyan-neon: #00E5FF;
-  --color-brand-cyan-light: #14E5D4;
-  --color-brand-blue-vivid: #1B64F2;
-  --color-brand-blue-accent: #007DFE;
-  --color-brand-blue-electric: #0084FF;
-  --color-brand-blue-light: #00A3FF;
-  --color-brand-blue-royal: #1D63B8;
-  --color-brand-blue-deep: #1D4ED8;
+  --color-brand-teal-marine: #00b8b8;
+  --color-brand-teal-forest: #006d77;
+  --color-brand-cyan-neon: #00e5ff;
+  --color-brand-cyan-light: #14e5d4;
+  --color-brand-blue-vivid: #1b64f2;
+  --color-brand-blue-accent: #007dfe;
+  --color-brand-blue-electric: #0084ff;
+  --color-brand-blue-light: #00a3ff;
+  --color-brand-blue-royal: #1d63b8;
+  --color-brand-blue-deep: #1d4ed8;
   --color-brand-darkest: #040914;
-  --color-brand-linkedin: #0077B5;
+  --color-brand-linkedin: #0077b5;
 
   /* Navy Shades & Backgrounds */
   --color-navy-darkest: #040914;
   --color-navy-midnight: #040814;
   --color-navy-black: #030914;
-  --color-navy-deep: #050D1A;
-  --color-navy-abyss: #040D1E;
+  --color-navy-deep: #050d1a;
+  --color-navy-abyss: #040d1e;
   --color-navy-surface: #071328;
-  --color-navy-card: #08152B;
-  --color-navy-border: #142A4A;
-  --color-navy-border-light: #0F2644;
-  --color-navy-muted: #040C1A;
-  --color-navy-night: #09172B;
+  --color-navy-card: #08152b;
+  --color-navy-border: #142a4a;
+  --color-navy-border-light: #0f2644;
+  --color-navy-muted: #040c1a;
+  --color-navy-night: #09172b;
   --color-navy-subtle: #061426;
-  --color-navy-charcoal: #040E1E;
-  --color-navy-deep-slate: #030A16;
+  --color-navy-charcoal: #040e1e;
+  --color-navy-deep-slate: #030a16;
   --color-navy-deep-blue: #041122;
   --color-navy-overlay: #051124;
-  --color-navy-glow: #07162E;
-  --color-navy-input: #030A18;
+  --color-navy-glow: #07162e;
+  --color-navy-input: #030a18;
   --color-navy-void: #011424;
-  --color-navy-900: #070E1E;
-  --color-navy-850: #0B192C;
-  --color-navy-800: #0F172A;
-  --color-navy-700: #1E293B;
-  --color-navy-dark: #050B18;
-  --color-navy-slate: #1C2E4A;
-  --color-navy-accent: #0B1528;
-  --color-navy-panel: #0B182F;
-  --color-navy-ink: #06142F;
+  --color-navy-900: #070e1e;
+  --color-navy-850: #0b192c;
+  --color-navy-800: #0f172a;
+  --color-navy-700: #1e293b;
+  --color-navy-dark: #050b18;
+  --color-navy-slate: #1c2e4a;
+  --color-navy-accent: #0b1528;
+  --color-navy-panel: #0b182f;
+  --color-navy-ink: #06142f;
   --color-navy-slate-dark: #031326;
   --color-navy-space: #020712;
-  --color-navy-base: #070D1B;
-  --color-navy-rich: #09152B;
-  --color-navy-cobalt: #12397B;
+  --color-navy-base: #070d1b;
+  --color-navy-rich: #09152b;
+  --color-navy-cobalt: #12397b;
   --color-navy-ocean: #061224;
   --color-navy-midnight-blue: #112240;
-  --color-navy-dense: #1A365D;
-  --color-navy-header: #05172A;
-  --color-navy-alt: #06182D;
-  --color-navy-box: #051C33;
-  --color-navy-section: #061E38;
-  --color-navy-shade: #0A1A35;
-  --color-navy-tint: #0D1F3C;
-  --color-navy-dusk: #07132B;
-  --color-navy-twilight: #091A38;
-  --color-navy-deep-dusk: #050E21;
+  --color-navy-dense: #1a365d;
+  --color-navy-header: #05172a;
+  --color-navy-alt: #06182d;
+  --color-navy-box: #051c33;
+  --color-navy-section: #061e38;
+  --color-navy-shade: #0a1a35;
+  --color-navy-tint: #0d1f3c;
+  --color-navy-dusk: #07132b;
+  --color-navy-twilight: #091a38;
+  --color-navy-deep-dusk: #050e21;
   --color-navy-hover: #091833;
   --color-navy-gate: #071326;
   --color-navy-glass: #061226;
 
   /* Slate & Muted */
-  --color-slate-muted: #4A5870;
-  --color-slate-navy: #3B4E68;
-  --color-slate-charcoal: #4A5568;
+  --color-slate-muted: #4a5870;
+  --color-slate-navy: #3b4e68;
+  --color-slate-charcoal: #4a5568;
   --color-slate-steel: #526484;
-  --color-slate-mist: #8392A5;
+  --color-slate-mist: #8392a5;
 
   /* Surfaces & Soft Lights */
-  --color-surface-ice: #FAFCFE;
-  --color-surface-soft-blue: #F1F6FB;
-  --color-surface-tint: #F6F7FB;
-  --color-surface-blue-tint: #E0EBF5;
-  --color-surface-ice-start: #E8F1F8;
-  --color-surface-ice-end: #D3E1EF;
+  --color-surface-ice: #fafcfe;
+  --color-surface-soft-blue: #f1f6fb;
+  --color-surface-tint: #f6f7fb;
+  --color-surface-blue-tint: #e0ebf5;
+  --color-surface-ice-start: #e8f1f8;
+  --color-surface-ice-end: #d3e1ef;
 }
-
 
 /* Hide scrollbars everywhere while keeping smooth scrolling functionality */
 * {
@@ -192,35 +126,54 @@
   display: none !important;
 }
 
+.font-inter,
+[class*="font-inter"] {
+  font-family: "Inter", sans-serif !important;
+}
+
+.font-playfair,
+[class*="font-playfair"] {
+  font-family: "Playfair Display", serif !important;
+}
+
 body {
-  font-family: var(--font-jakarta), "PlusJakartaSans", sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
   max-width: 100vw;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, serif;
+}
+
+p, span, a, li, input, button, textarea, label {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+nav, footer, nav *, footer * {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
 
 .hero-gradient {
   background: linear-gradient(
     90deg,
-    #F8FAFD 0%,
-    #EAF3FC 20%,
-    #CBE6FB 45%,
-    #8BC8F7 65%,
-    #4B9AF5 82%,
-    #2E6EF2 100%
+    #f8fafd 0%,
+    #eaf3fc 20%,
+    #cbe6fb 45%,
+    #8bc8f7 65%,
+    #4b9af5 82%,
+    #2e6ef2 100%
   );
 }
 
-
 @media (prefers-reduced-motion: reduce) {
-  
   .dot-field-container,
   canvas {
     animation: none !important;
   }
-  
+
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -228,32 +181,62 @@ body {
   }
 }
 
-@layer utilities {
-  .heading-h1 {
-    @apply font-playfair text-4xl md:text-5xl font-bold leading-tight;
-  }
-  .heading-h2 {
-    @apply font-playfair text-3xl md:text-4xl font-bold leading-tight;
-  }
-  .heading-h3 {
-    @apply font-playfair text-2xl md:text-3xl font-bold leading-snug;
-  }
-  .heading-h4 {
-    @apply font-playfair text-xl md:text-2xl font-semibold leading-snug;
-  }
-  .heading-h5 {
-    @apply font-playfair text-lg md:text-xl font-semibold leading-normal;
-  }
-  .heading-h6 {
-    @apply font-playfair text-base md:text-lg font-semibold leading-normal;
-  }
-  .body-text {
-    @apply text-base leading-relaxed;
-  }
-  .body-text-lg {
-    @apply text-lg leading-relaxed;
-  }
-  .hero-description {
-    @apply text-lg md:text-xl leading-relaxed;
-  }
+@utility heading-h1 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  font-weight: 700;
+  line-height: 1.12;
+  font-size: 3rem;
+}
+@utility heading-h2 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  font-weight: 700;
+  line-height: 1.18;
+  font-size: 2.125rem;
+}
+@utility heading-h3 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  font-weight: 700;
+  line-height: 1.25;
+  font-size: 1.625rem;
+}
+@utility heading-h4 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  font-weight: 600;
+  line-height: 1.3;
+  font-size: 1.375rem;
+}
+@utility heading-h5 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  font-weight: 600;
+  line-height: 1.35;
+  font-size: 1.125rem;
+}
+@utility heading-h6 {
+  font-family: var(--font-playfair), "Playfair Display", serif;
+  font-weight: 600;
+  line-height: 1.4;
+  font-size: 1rem;
+}
+@utility body-text {
+  font-size: 1rem;
+  line-height: 1.625;
+}
+@utility body-text-lg {
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+@utility hero-description {
+  font-size: 1.125rem;
+  line-height: 1.625;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }

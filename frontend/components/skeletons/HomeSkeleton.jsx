@@ -9,7 +9,7 @@ export function HomeSkeleton() {
           background: "radial-gradient(circle at 30% 50%, rgba(0, 196, 180, 0.22) 0%, rgba(37, 99, 235, 0.12) 50%, transparent 75%)",
         }}
       />
-      <div className="relative z-20 w-full max-w-[1440px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
+      <div className="relative z-20 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
 
         {/* Particle Display Placeholder (Right on desktop, top on mobile) */}
         <div className="w-full md:w-[48%] lg:w-[50%] flex items-center justify-center order-first md:order-last scale-95 sm:scale-100 md:scale-100 -mb-6 sm:-mb-4 md:mb-0">

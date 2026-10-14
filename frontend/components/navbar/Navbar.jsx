@@ -132,6 +132,8 @@ export default function Navbar() {
   const dropdownTimeoutRef = useRef(null);
 
   const handleMouseEnterInsights = () => {
+    if (isCollapsed) return;
+    if (Date.now() - (window.lastNavExpandTime || 0) < 500) return;
     if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
     setInsightsDropdownOpen(true);
   };
@@ -208,6 +210,7 @@ export default function Navbar() {
     if (isCollapsed) {
       e.preventDefault();
       e.stopPropagation();
+      window.lastNavExpandTime = Date.now();
       isManuallyExpanded.current = true;
       expandScrollY.current = window.scrollY;
       isCollapsedRef.current = false;
@@ -224,31 +227,35 @@ export default function Navbar() {
       </div>
 
       <div className="hidden lg:block">
-        <motion.div
-          animate={{
-            opacity: showLogo ? 1 : 0,
-            y: showLogo ? 0 : -10,
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className={cn(
-            "fixed top-3 2xl:top-6 left-6 sm:left-12 2xl:left-16 z-50",
-            !showLogo && "pointer-events-none",
-          )}
-        >
-          <Link href="/" className="flex items-center group">
-            <img
-              src={LucidMindTransperentLogo}
-              srcSet={`${LucidMindTransperentLogo} 1000w, ${LucidMindTransperentLogoPng} 1000w`}
-              sizes="(max-width: 768px) 180px, 240px"
-              alt="LucidMind"
-              width={240}
-              height={96}
-              fetchPriority="high"
-              decoding="async"
-              className="h-9 md:h-20 2xl:h-22 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
-            />
-          </Link>
-        </motion.div>
+        <div className="fixed top-3 2xl:top-6 left-0 right-0 z-50 pointer-events-none flex justify-center">
+          <div className="w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-12">
+            <motion.div
+              animate={{
+                opacity: showLogo ? 1 : 0,
+                y: showLogo ? 0 : -10,
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className={cn(
+                "pointer-events-auto inline-block",
+                !showLogo && "pointer-events-none",
+              )}
+            >
+              <Link href="/" className="flex items-center group">
+                <img
+                  src={LucidMindTransperentLogo}
+                  srcSet={`${LucidMindTransperentLogo} 1000w, ${LucidMindTransperentLogoPng} 1000w`}
+                  sizes="(max-width: 768px) 180px, 240px"
+                  alt="LucidMind"
+                  width={240}
+                  height={96}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-9 md:h-20 2xl:h-22 w-auto object-contain transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_0_12px_rgba(0,196,255,0.25)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+                />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
         <div className="fixed top-5 2xl:top-8 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
           <motion.nav
             ref={navRef}

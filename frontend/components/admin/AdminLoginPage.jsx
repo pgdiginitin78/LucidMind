@@ -112,7 +112,7 @@ export default function AdminLoginPage({ onLoginSuccess }) {
     },
     "& .MuiInputLabel-root": {
       color: "rgba(255,255,255,0.55)",
-      fontFamily: "PlusJakartaSans, sans-serif",
+      fontFamily: "Inter, sans-serif",
       fontSize: "0.875rem",
     },
     "& .MuiInputLabel-root.Mui-focused": { color: "#00C4FF" },

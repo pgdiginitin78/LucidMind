@@ -12,8 +12,9 @@ import {
   Trash2,
   Video,
 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
+import Lenis from "lenis";
 
 import CancelButtonModal from "@/common/button/CancelButtonModal";
 import CommonButton from "@/common/button/CommonButton";
@@ -39,12 +40,47 @@ const getHeaders = () => {
 };
 
 function PodcastModal({ open, onClose, title, children }) {
+  const scrollRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    let lenisInstance = null;
+    let rafId = null;
+
+    const timer = setTimeout(() => {
+      if (scrollRef.current) {
+        lenisInstance = new Lenis({
+          wrapper: scrollRef.current,
+          content: contentRef.current || undefined,
+          duration: 1.0,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.8,
+        });
+
+        const raf = (time) => {
+          lenisInstance?.raf(time);
+          rafId = requestAnimationFrame(raf);
+        };
+        rafId = requestAnimationFrame(raf);
+      }
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenisInstance) lenisInstance.destroy();
+    };
+  }, [open]);
+
   return (
     <AnimatePresence mode="wait">
       {open && (
         <Modal
           open={open}
-          onClose={onClose}
+          // onClose={onClose}
           closeAfterTransition
           slotProps={{
             backdrop: {
@@ -56,6 +92,9 @@ function PodcastModal({ open, onClose, title, children }) {
           }}
         >
           <Box
+            ref={scrollRef}
+            data-lenis-prevent="true"
+            className="no-scrollbar"
             sx={{
               position: "absolute",
               top: "50%",
@@ -80,6 +119,7 @@ function PodcastModal({ open, onClose, title, children }) {
             }}
           >
             <motion.div
+              ref={contentRef}
               initial={{ opacity: 0, scale: 0.96, y: -16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: -10 }}
@@ -92,9 +132,7 @@ function PodcastModal({ open, onClose, title, children }) {
               <CancelButtonModal onClick={onClose} />
 
               <div className="flex items-center gap-3 mb-6 mt-1">
-                <div className="w-10 h-10 rounded-xl bg-[#2563EB]/20 border border-[#00C4FF]/30 flex items-center justify-center text-[#00C4FF] shadow-[0_0_15px_rgba(0,196,255,0.2)]">
-                  <Sparkles size={20} />
-                </div>
+            
                 <div>
                   <Typography
                     variant="h6"
@@ -132,14 +170,11 @@ function PodcastModal({ open, onClose, title, children }) {
 
 const isItemVideo = (p) => {
   if (!p) return false;
-  // 1. Explicit tags take top priority
   if (Array.isArray(p.tags) && p.tags.includes("podcast")) return false;
   if (Array.isArray(p.tags) && p.tags.includes("video")) return true;
-  // 2. Explicit mediaType or type
   const mt = (p.mediaType || p.type || "").toLowerCase();
   if (mt === "podcast") return false;
   if (mt === "video") return true;
-  // 3. Fallback heuristic: check episode prefix
   const ep = String(p.episode || "")
     .trim()
     .toLowerCase();
@@ -157,7 +192,7 @@ export default function PodcastsManager() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [reorderSaving, setReorderSaving] = useState(false);
-  const [adminFilter, setAdminFilter] = useState("ALL"); // "ALL" | "PODCAST" | "VIDEO"
+  const [adminFilter, setAdminFilter] = useState("ALL"); 
 
   const {
     control,
@@ -299,7 +334,6 @@ export default function PodcastsManager() {
       const isAct = values.isActive !== false;
       const mediaType = values.mediaType === "video" ? "video" : "podcast";
 
-      // Always synchronize tags with mediaType so that live MySQL databases persist the format even without column updates
       const existingTags = Array.isArray(editingPodcast?.tags)
         ? [...editingPodcast.tags]
         : [];
@@ -351,7 +385,6 @@ export default function PodcastsManager() {
           mediaType,
         };
 
-        // Immediately update state so table reflects edits in real time!
         setPodcasts((prev) => {
           if (editingPodcast) {
             return prev.map((p) =>
@@ -367,7 +400,6 @@ export default function PodcastsManager() {
         setModalOpen(false);
         fetchPodcasts();
       } else {
-        // If the server returns 404 because no database column changed, treat as success if updating
         if (
           editingPodcast &&
           res.status === 404 &&
@@ -458,7 +490,7 @@ export default function PodcastsManager() {
   return (
     <div className="space-y-6 w-full max-w-full font-sans">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
-        <h1 className="heading-h1 text-white tracking-tight">
+        <h1 className="heading-h2  lg:heading-h1 text-white tracking-tight">
           Podcasts
         </h1>
         <div className="flex items-center gap-2.5">

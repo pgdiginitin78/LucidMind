@@ -29,19 +29,19 @@ import TheFounderSectionBgTablet from "./images/TheFounderSectionBg_tablet.webp"
 
 import Velaris from "@/components/ui/velaris";
 import TealParticles from "@/components/ui/TealParticles";
-import OrbitPhilosophyBg from "./images/orbit_philosophy_bg.png";
+import OrbitPhilosophyBg from "./images/orbit_philosophy_bg.webp";
 
 const EarthHorizonImg = "/assets/about/earth_horizon_dawn.webp";
 const FounderImg = "/assets/Ravishankar Pingali.webp";
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 
-const IconPillarBrain = () => (
+const IconPillarBrain = ({ stroke = "#00A896" }) => (
   <svg
-    width="20"
-    height="20"
+    width="21"
+    height="21"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#0B182F"
+    stroke={stroke}
     strokeWidth="1.8"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -54,13 +54,13 @@ const IconPillarBrain = () => (
   </svg>
 );
 
-const IconPillarBox = () => (
+const IconPillarBox = ({ stroke = "#2563EB" }) => (
   <svg
-    width="20"
-    height="20"
+    width="21"
+    height="21"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#0B182F"
+    stroke={stroke}
     strokeWidth="1.8"
     strokeLinecap="round"
     strokeLinejoin="round"
@@ -71,20 +71,20 @@ const IconPillarBox = () => (
   </svg>
 );
 
-const IconPillarTarget = () => (
+const IconPillarTarget = ({ stroke = "#1D4ED8" }) => (
   <svg
-    width="20"
-    height="20"
+    width="21"
+    height="21"
     viewBox="0 0 24 24"
     fill="none"
-    stroke="#0B182F"
+    stroke={stroke}
     strokeWidth="1.8"
     strokeLinecap="round"
     strokeLinejoin="round"
   >
     <circle cx="12" cy="12" r="10" />
     <circle cx="12" cy="12" r="6" />
-    <circle cx="12" cy="12" r="2" fill="#0B182F" />
+    <circle cx="12" cy="12" r="2" fill={stroke} />
     <line x1="18.5" y1="5.5" x2="13.5" y2="10.5" strokeWidth="2" />
   </svg>
 );
@@ -394,14 +394,15 @@ export default function AboutUs() {
   const threePillars = [
     {
       num: "01",
-      numColor: "#9CD7CF",
-      numLine: "#9CD7CF",
-      iconBg: "#E6F7F4",
+      numColor: "#00A896",
+      numLine: "#00A896",
+      iconBg: "#E6F8F5",
       iconBorder: "#A7E2D6",
-      crescentColor: "#D6F3ED",
-      icon: <IconPillarBrain />,
+      arcColor: "#00C4B4",
+      ringColor: "#A7F3D0",
+      bulletColor: "#00A896",
+      icon: <IconPillarBrain stroke="#00A896" />,
       title: "THINK",
-      sub: "Create clarity.",
       desc: [
         "Understand the business",
         "Challenge assumptions",
@@ -409,18 +410,20 @@ export default function AboutUs() {
         "Define the direction",
       ],
       image: PillarThinkImg,
-      alt: "THINK - Seedling sprouting on rock",
+      alt: "THINK - Strategic executive thinking",
+      imgPos: "object-[55%_35%]",
     },
     {
       num: "02",
-      numColor: "#9DCEFD",
-      numLine: "#9DCEFD",
-      iconBg: "#EBF4FD",
-      iconBorder: "#B6D8FD",
-      crescentColor: "#DDF1FD",
-      icon: <IconPillarBox />,
+      numColor: "#2563EB",
+      numLine: "#2563EB",
+      iconBg: "#EFF6FF",
+      iconBorder: "#BFDBFE",
+      arcColor: "#2563EB",
+      ringColor: "#BFDBFE",
+      bulletColor: "#2563EB",
+      icon: <IconPillarBox stroke="#2563EB" />,
       title: "BUILD",
-      sub: "Create capability.",
       desc: [
         "Translate strategy",
         "Design operating models",
@@ -429,18 +432,20 @@ export default function AboutUs() {
         "Enable scalable ways of working",
       ],
       image: PillarBuildImg,
-      alt: "BUILD - Stacked wooden blocks",
+      alt: "BUILD - Technology capability building",
+      imgPos: "object-[52%_40%]",
     },
     {
       num: "03",
-      numColor: "#85CEF6",
-      numLine: "#85CEF6",
-      iconBg: "#E6F4FC",
-      iconBorder: "#A8DCFA",
-      crescentColor: "#DCF0FC",
-      icon: <IconPillarTarget />,
+      numColor: "#1D4ED8",
+      numLine: "#1D4ED8",
+      iconBg: "#EFF6FF",
+      iconBorder: "#BFDBFE",
+      arcColor: "#1D4ED8",
+      ringColor: "#BFDBFE",
+      bulletColor: "#1D4ED8",
+      icon: <IconPillarTarget stroke="#1D4ED8" />,
       title: "DELIVER",
-      sub: "Create impact.",
       desc: [
         "Turn ideas into action",
         "Drive adoption",
@@ -449,15 +454,13 @@ export default function AboutUs() {
         "Deliver tangible outcomes",
       ],
       image: PillarDeliverImg,
-      alt: "DELIVER - Hiker on mountain summit",
+      alt: "DELIVER - Tangible business outcomes",
+      imgPos: "object-[82%_42%]",
     },
   ];
 
   return (
-    <main
-      className="relative w-full bg-[#040814] text-slate-100 overflow-x-hidden"
-      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-    >
+    <main className="relative w-full bg-[#040814] text-slate-100 overflow-x-hidden font-playfair">
       <section
         ref={heroRef}
         className="relative w-full min-h-[85vh] sm:min-h-[90vh] xl:min-h-screen flex items-center overflow-hidden"
@@ -505,7 +508,7 @@ export default function AboutUs() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.1 }}
-              className="text-3xl sm:text-2xl md:text-3xl xl:text-5xl font-bold tracking-tight text-white leading-[1.12] xl:leading-[1.08]"
+              className="text-2xl md:text-3xl xl:text-5xl font-bold tracking-tight text-white leading-[1.12] xl:leading-[1.08]"
             >
               Born from experience.
               <br />
@@ -518,16 +521,11 @@ export default function AboutUs() {
               </span>
             </motion.h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.22 }}
-              className="mt-4 sm:mt-6 xl:mt-7 text-xs sm:text-sm md:text-2xl mb-3 text-slate-300 leading-relaxed max-w-xs sm:max-w-2xl"
-            >
+            <p className="text-sm md:body-text-lg font-['Inter',sans-serif] text-slate-400 font-medium sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mt-5">
               LucidMind is built on a simple belief
               <br />
               better outcomes begin with better thinking.
-            </motion.p>
+            </p>
             {/* <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -553,7 +551,7 @@ export default function AboutUs() {
           />
         </div>
 
-        <div className="max-w-[1640px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center relative z-10">
+ <div className="max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center relative z-10">
           <Reveal className="lg:col-span-4 xl:col-span-5" variants={fadeLeft}>
             <h2 className="heading-h2 text-[#1D63B8] leading-[1.12] tracking-tight">
               Why We Exist
@@ -681,7 +679,7 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#050D1A] via-transparent to-[#050D1A]/40" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 xl:px-18">
+ <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="w-full lg:col-span-8">
               <Reveal variants={fadeUp}>
@@ -784,12 +782,12 @@ export default function AboutUs() {
           </svg>
         </div>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8 lg:gap-12">
+        <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8 lg:gap-12">
           <div className="hidden xl:block w-[24%] shrink-0" />
 
-          <div className="w-full md:w-[42%] xl:w-[38%] shrink-0">
+          <div className="w-full md:w-[40%] xl:w-[35%] shrink-0">
             <Reveal variants={fadeUp}>
-              <h2 className="heading-h2 lg:text-[26px] xl:text-[30px] text-[#0B2545] leading-[1.22] tracking-tight">
+              <h2 className="heading-h3 lg:text-[26px] xl:text-[30px] text-[#0B2545] leading-[1.22] tracking-tight">
                 The hardest part of
                 <br />
                 transformation is rarely
@@ -799,7 +797,7 @@ export default function AboutUs() {
             </Reveal>
           </div>
 
-          <div className="w-full md:w-[54%] xl:w-[38%] shrink-0">
+          <div className="w-full md:w-[50%] xl:w-[38%]">
             <Reveal variants={fadeUp}>
               <p className="text-xs sm:text-sm md:text-[13px] xl:text-[14px] text-[#3B4E68] leading-[1.7] font-normal">
                 It is creating clarity around the problem, aligning people
@@ -835,13 +833,13 @@ export default function AboutUs() {
           <div className="absolute inset-0 hidden lg:block xl:hidden bg-gradient-to-r from-[#011424]/95 via-[#011424]/70 to-transparent" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1520px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-4 xl:gap-6">
+        <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-4 xl:gap-6">
           <div className="w-full lg:w-[50%] xl:w-[47%] shrink-0">
             <Reveal variants={fadeLeft}>
               <span className="text-[10px] sm:text-xs font-bold tracking-[0.24em] uppercase text-[#00C4FF] mb-2 sm:mb-2.5 block">
                 The LucidMind difference
               </span>
-              <h2 className="heading-h2 lg:text-[32px] xl:text-[36px] text-white leading-[1.14] tracking-tight mb-3 sm:mb-3.5">
+              <h2 className="heading-h3 md:heading-h2 lg:text-[32px] xl:text-[36px] text-white leading-[1.14] tracking-tight mb-3 sm:mb-3.5">
                 We don&apos;t start with technology.
                 <br className="hidden md:block" />
                 We{"  "}
@@ -859,7 +857,7 @@ export default function AboutUs() {
               </p> */}
               <div className="flex items-center gap-2.5 mb-3.5 mt-2">
                 <span className="w-2 h-2 rounded-full bg-[#00C4FF] animate-pulse shadow-[0_0_10px_#00C4FF] hidden lg:block" />
-                <h3 className="heading-h4 md:heading-h3 uppercase text-[#00C4FF]">
+                <h3 className="heading-h5 md:heading-h3 uppercase text-[#00C4FF]">
                   The strategic imperatives
                 </h3>
               </div>
@@ -907,7 +905,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <section className="relative w-full py-16 sm:py-20 md:py-24 overflow-hidden select-none bg-[#FAFCFE]">
+      <section className="relative w-full py-10  md:py-10 overflow-hidden select-none bg-[#FAFCFE]">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
             src={HeroBgSectionUnknown}
@@ -918,7 +916,7 @@ export default function AboutUs() {
           />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1680px] mx-auto px-5 sm:px-8 md:px-12 xl:px-16">
+        <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
           <Reveal
             variants={fadeUp}
             className="text-center max-w-5xl mx-auto mb-12 sm:mb-16 xl:mb-20"
@@ -930,7 +928,7 @@ export default function AboutUs() {
               </span>
               <span className="w-8 sm:w-12 h-[1px] bg-slate-400/50" />
             </div>
-            <h2 className="heading-h2 lg:text-[40px] text-[#0B182F] tracking-tight leading-[1.2]">
+            <h2 className="heading-h3 md:heading-h2 lg:text-[40px] text-[#0B182F] tracking-tight leading-[1.2]">
               This allows us to connect three things
               <br />
               that are often{" "}
@@ -938,88 +936,141 @@ export default function AboutUs() {
             </h2>
           </Reveal>
 
-          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center max-w-[1480px] mx-auto w-full gap-8 sm:gap-10 lg:gap-0 px-4 sm:px-6 xl:px-8">
+          <div className="absolute top-10 right-10 w-28 h-24 pointer-events-none opacity-30 [background-image:radial-gradient(#94A3B8_1.5px,transparent_1.5px)] [background-size:12px_12px] hidden sm:block" />
+          <div className="absolute bottom-10 left-10 w-28 h-24 pointer-events-none opacity-30 [background-image:radial-gradient(#94A3B8_1.5px,transparent_1.5px)] [background-size:12px_12px] hidden sm:block" />
+
+          <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center max-w-[1140px] xl:max-w-[1240px] 2xl:max-w-[1440px] mx-auto w-full gap-10 lg:gap-0 px-4 sm:px-6">
             {threePillars.map((step, i) => (
               <React.Fragment key={step.title}>
                 <Reveal
                   variants={scaleIn}
                   custom={i}
-                  className="relative flex items-start w-full max-w-[290px] xs:max-w-[320px] sm:max-w-[360px] lg:w-auto lg:max-w-none shrink-0"
+                  className="relative flex flex-col items-start shrink-0 w-full max-w-[280px] sm:max-w-[290px] lg:w-[210px] xl:w-[250px] 2xl:w-[276px] overflow-visible"
                 >
-                  <div className="relative z-20 flex flex-col items-start text-left shrink-0">
-                    <span
-                      className="text-3xl md:text-4xl lg:text-3xl xl:text-[42px] font-bold leading-none tracking-tight"
-                      style={{ color: step.numColor }}
+                  <div className="absolute left-[64px] sm:left-[70px] lg:left-[64px] xl:left-[76px] 2xl:left-[82px] top-0 shrink-0 z-10">
+                    <svg
+                      className="absolute -inset-2.5 sm:-inset-3 w-[calc(100%+20px)] sm:w-[calc(100%+24px)] h-[calc(100%+20px)] sm:h-[calc(100%+24px)] pointer-events-none z-10"
+                      viewBox="0 0 100 100"
+                      fill="none"
                     >
-                      {step.num}
-                    </span>
-                    <div
-                      className="w-6 sm:w-7 h-[2px] rounded-full mt-1.5 mb-2.5 sm:mb-3"
-                      style={{ backgroundColor: step.numLine }}
-                    />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="46"
+                        stroke={step.ringColor}
+                        strokeWidth="1.5"
+                        strokeOpacity="0.5"
+                      />
+                      <path
+                        d="M 27 10 A 46 46 0 0 1 90 73"
+                        stroke={step.arcColor}
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
 
-                    <div
-                      className="w-10 h-10 sm:w-11 sm:h-11 lg:w-9 lg:h-9 xl:w-11 xl:h-11 rounded-full border flex items-center justify-center mb-2.5 sm:mb-3.5 shadow-sm"
-                      style={{
-                        backgroundColor: step.iconBg,
-                        borderColor: step.iconBorder,
-                      }}
-                    >
-                      {step.icon}
-                    </div>
-
-                    <h3 className="heading-h4 text-[#06142F] tracking-tight mb-2">
-                      {step.title}
-                    </h3>
-                    {/* <h4 className="heading-h4 sm:text-[13px] xl:text-[13.5px] text-[#06142F] mb-2 sm:mb-2.5">
-                      {step.sub}
-                    </h4> */}
-                    {Array.isArray(step.desc) ? (
-                      <ul className="space-y-1.5 text-[11px] sm:text-[12px] xl:text-[12.5px] text-black  leading-[1.5] max-w-[160px] xs:max-w-[180px] sm:max-w-[190px] lg:max-w-[160px] xl:max-w-[230px]">
-                        {step.desc.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-1.5">
-                            <span
-                              className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5"
-                              style={{ backgroundColor: step.numLine }}
-                            />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-[11px] sm:text-[12px] xl:text-[12.5px] text-[#4A5568] leading-[1.65] max-w-[155px] xs:max-w-[175px] sm:max-w-[180px] lg:max-w-[155px] xl:max-w-[230px]">
-                        {step.desc}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="relative z-10 shrink-0 -ml-12 xs:-ml-14 sm:-ml-18 lg:-ml-20 xl:-ml-24">
-                    <div
-                      className="absolute -top-3 -right-3 sm:-top-3.5 sm:-right-3.5 xl:-top-4 xl:-right-4 w-[112%] h-[112%] rounded-full pointer-events-none z-0 blur-[3px] opacity-80"
-                      style={{ backgroundColor: step.crescentColor }}
-                    />
-                    <div className="relative z-10 w-40 h-40 xs:w-44 xs:h-44 sm:w-52 sm:h-52 md:w-56 md:h-56 lg:w-[170px] lg:h-[170px] xl:w-[260px] xl:h-[260px] rounded-full overflow-hidden">
+                    <div className="relative w-36 h-36 sm:w-40 sm:h-40 lg:w-[140px] lg:h-[140px] xl:w-[170px] xl:h-[170px] 2xl:w-[190px] 2xl:h-[190px] rounded-full overflow-hidden border-[3.5px] border-white shadow-[0_10px_28px_rgba(0,0,0,0.08)] bg-white">
                       <Image
                         src={step.image}
                         alt={step.alt}
                         fill
                         priority
-                        className="object-cover"
+                        className={`object-cover w-full h-full ${step.imgPos || "object-center"}`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-white from-10% via-white/50 via-30% to-transparent to-60% pointer-events-none" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/80 from-0% via-white/40 via-30% to-transparent to-50% pointer-events-none" />
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-white/90 via-white/20 to-transparent pointer-events-none z-[1]" />
                     </div>
+                  </div>
+
+                  <div className="hidden lg:block absolute left-6 w-[55px] xl:w-[70px] top-[70px] sm:top-[78px] lg:top-[70px] xl:top-[85px] 2xl:top-[95px] h-[1.5px] bg-[#93C5FD]/70 z-0 pointer-events-none" />
+
+                  <div className="relative z-20 flex flex-col items-start w-full text-left">
+                    <div className="flex flex-col items-center shrink-0 w-12 sm:w-14">
+                      <span
+                        className="font-playfair font-bold text-4xl sm:text-5xl lg:text-[44px] xl:text-[50px] leading-none tracking-tight block text-center h-[38px] sm:h-[44px] flex items-center justify-center"
+                        style={{ color: step.numColor }}
+                      >
+                        {step.num}
+                      </span>
+
+                      <div
+                        className="w-8 sm:w-9 h-[2.5px] rounded-full mt-2 mb-2.5"
+                        style={{ backgroundColor: step.numLine }}
+                      />
+
+                      <div
+                        className="w-11 h-11 sm:w-12 sm:h-12 xl:w-13 xl:h-13 rounded-full border flex items-center justify-center shadow-xs transition-transform duration-300 hover:scale-105 bg-white relative z-10"
+                        style={{
+                          backgroundColor: step.iconBg,
+                          borderColor: step.iconBorder,
+                        }}
+                      >
+                        {step.icon}
+                      </div>
+                    </div>
+
+                    <h3 className="font-playfair font-black text-xl sm:text-[22px] xl:text-[24px] tracking-wider text-[#06142F] leading-none mt-3.5 sm:mt-4 mb-1.5 uppercase">
+                      {step.title}
+                    </h3>
+
+                    <div
+                      className="w-8 sm:w-9 h-[2.5px] rounded-full mb-3 sm:mb-3.5"
+                      style={{ backgroundColor: step.numLine }}
+                    />
+
+                    <ul className="space-y-2 sm:space-y-2.5 text-[12px] sm:text-[13px] xl:text-[13.5px] text-[#334155] font-inter font-normal leading-snug">
+                      {step.desc.map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center gap-2.5 whitespace-nowrap"
+                        >
+                          <span
+                            className="w-1.5 h-1.5 rounded-full shrink-0"
+                            style={{ backgroundColor: step.bulletColor }}
+                          />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </Reveal>
 
                 {i < 2 && (
                   <>
-                    <div className="hidden lg:flex items-center justify-center flex-1 min-w-[16px] max-w-[40px] xl:max-w-[95px] mx-0.5 xl:mx-2 relative shrink-0 self-start mt-[85px] xl:mt-[130px]">
+                    <div className="hidden lg:flex items-center justify-center relative shrink-0 flex-1 min-w-[50px] max-w-[120px] xl:max-w-[150px] self-start mt-[70px] sm:mt-[78px] lg:mt-[70px] xl:mt-[85px] 2xl:mt-[95px]">
                       <div className="w-full h-[1.5px] bg-[#93C5FD]/70" />
-                      <div className="absolute w-2.5 h-2.5 rounded-full bg-[#0084FF] shadow-[0_0_6px_rgba(0,132,255,0.6)]" />
+                      <div className="absolute w-7 h-7 xl:w-8 xl:h-8 rounded-full border border-[#93C5FD] bg-white shadow-xs flex items-center justify-center text-[#2563EB]">
+                        <svg
+                          width="13"
+                          height="13"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                      </div>
                     </div>
 
-                    {/* Removed mobile vertical divider to fix alignment inconsistency */}
+                    <div className="flex lg:hidden items-center justify-center relative py-2 my-2">
+                      <div className="w-[1.5px] h-8 bg-[#93C5FD]/70" />
+                      <div className="absolute w-7 h-7 rounded-full border border-[#93C5FD] bg-white shadow-xs flex items-center justify-center text-[#2563EB]">
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </div>
+                    </div>
                   </>
                 )}
               </React.Fragment>
@@ -1031,7 +1082,6 @@ export default function AboutUs() {
             custom={3}
             className="mt-14 sm:mt-18 lg:mt-20 text-center max-w-3xl mx-auto px-4"
           >
-            <div className="w-[1.5px] h-6 bg-slate-300 mx-auto mb-3.5" />
             <p className="text-xs sm:text-sm md:text-[14.5px] font-semibold text-[#1E293B] leading-relaxed">
               Because strategy without execution remains an idea. And technology
               without direction remains a tool.
@@ -1056,7 +1106,7 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#040814] via-transparent to-[#040814]/50" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-10 md:px-14 xl:px-20">
+ <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
           <Reveal variants={fadeUp} className="max-w-3xl">
             <h2 className="heading-h2 text-white tracking-tight mb-6 sm:mb-8">
               From insight to impact
@@ -1107,7 +1157,7 @@ export default function AboutUs() {
             variants={fadeUp}
             className="text-center max-w-5xl mx-auto mb-5 sm:mb-6"
           >
-            <h2 className="heading-h2 tracking-tight text-white mb-2">
+            <h2 className="heading-h3 md:heading-h2 tracking-tight text-white mb-2">
               What <span className="text-[#00C4FF]">LucidMind</span> stands for
             </h2>
             <div className="w-10 h-0.5 bg-[#00C4FF] rounded-full mx-auto shadow-[0_0_10px_#00c4ff]" />
@@ -1143,7 +1193,7 @@ export default function AboutUs() {
             variants={fadeUp}
             className="text-center max-w-5xl mx-auto my-20"
           >
-            <h2 className="heading-h2 tracking-tight text-white font-['Playfair_Display',serif] drop-shadow-[0_2px_14px_rgba(0,196,255,0.5)]">
+            <h2 className="heading-h3 md:heading-h2 tracking-tight text-white font-['Playfair_Display',serif] drop-shadow-[0_2px_14px_rgba(0,196,255,0.5)]">
               The Philosophy Behind{" "}
               <span className="text-[#00C4FF] bg-gradient-to-r from-[#00C4FF] via-[#38BDF8] to-[#60A5FA] bg-clip-text text-transparent">
                 Our Mark
@@ -1189,7 +1239,7 @@ export default function AboutUs() {
                   >
                     <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/40 flex items-center justify-center p-2 shadow-[inset_0_0_12px_rgba(0,196,255,0.15)] group-hover:scale-105 group-hover:border-cyan-400 transition-all">
                       <img
-                        src="/assets/logo/open-circle.png"
+                        src="/assets/logo/open-circle.webp"
                         alt="Open Circle"
                         className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,196,255,0.7)]"
                       />
@@ -1221,7 +1271,7 @@ export default function AboutUs() {
                   >
                     <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/40 flex items-center justify-center p-2 shadow-[inset_0_0_12px_rgba(0,196,255,0.15)] group-hover:scale-105 group-hover:border-cyan-400 transition-all">
                       <img
-                        src="/assets/logo/hidden-lm.png"
+                        src="/assets/logo/hidden-lm.webp"
                         alt="Hidden LM"
                         className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,196,255,0.7)]"
                       />
@@ -1253,7 +1303,7 @@ export default function AboutUs() {
                   >
                     <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-xl bg-[#010714] border border-cyan-500/40 flex items-center justify-center p-2 shadow-[inset_0_0_12px_rgba(0,196,255,0.15)] group-hover:scale-105 group-hover:border-cyan-400 transition-all">
                       <img
-                        src="/assets/logo/upward-path.png"
+                        src="/assets/logo/upward-path.webp"
                         alt="Upward Path"
                         className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(0,196,255,0.7)]"
                       />
@@ -1317,7 +1367,7 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#030A16]/50 via-transparent to-[#030A16]/75" />
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10 flex flex-col gap-8 sm:gap-10 items-center xl:gap-14">
+        <div className="max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto relative z-10 flex flex-col gap-8 sm:gap-10 items-center xl:gap-14">
           <Reveal variants={fadeUp}>
             <div className="flex flex-col lg:flex-row items-center  gap-8 sm:gap-10 xl:gap-14">
               <Reveal
@@ -1359,10 +1409,10 @@ export default function AboutUs() {
                   </span>
                   <span className="w-8 sm:w-12 h-[1.5px] bg-[#00C4FF]/60" />
                 </div>
-                <h2 className="heading-h2 mt-1.5 sm:mt-2 text-white tracking-tight">
+                <h2 className="heading-h3 md:heading-h2 mt-1.5 sm:mt-2 text-white tracking-tight">
                   Ravishankar Pingali
                 </h2>
-                <h3 className="heading-h3 text-[#00C4FF] mt-1.5 sm:mt-2">
+                <h3 className="heading-h5 md:heading-h3 text-[#00C4FF] mt-1.5 sm:mt-2">
                   GCC & Transformation Leader | Advisor | Independent Director
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-200 mt-1.5 sm:mt-2 font-normal leading-relaxed">

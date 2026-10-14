@@ -80,7 +80,7 @@ export default function Articles() {
     <>
       <section
         ref={sectionRef}
-        className={`w-full ${pathname === "/articles" || pathname === "/insights" ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-10"} relative overflow-hidden font-['PlusJakartaSans',sans-serif]`}
+        className={`w-full ${pathname === "/articles" || pathname === "/insights" ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-10"} relative overflow-hidden font-inter`}
       >
         <img
           src={articlesSectionBgWebP}
@@ -97,7 +97,7 @@ export default function Articles() {
 
         <WebGLParticleCanvas variant="articles" />
 
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 relative z-[2]">
           <BentoCardGrid gridRef={gridRef}>
             <GlobalSpotlight
               gridRef={gridRef}
@@ -120,7 +120,7 @@ export default function Articles() {
                   </p>
                   <Heading
                     level={2}
-                    className="font-['Playfair_Display',serif] font-semibold text-[2rem] lg:text-[3rem] lg:text-[3rem] leading-[1.05] tracking-tight text-[#0B192C] mb-2 drop-shadow-md sm:drop-shadow-none"
+                    className="font-['Playfair_Display',serif] font-semibold text-[1.5rem] lg:text-[3rem] lg:text-[3rem] leading-[1.05] tracking-tight text-[#0B192C] mb-2 drop-shadow-md sm:drop-shadow-none"
                   >
                     Thought Leadership
                     <br />

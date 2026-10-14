@@ -85,7 +85,7 @@ export default function PodcastsHub() {
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-[#030914] text-slate-100 font-['PlusJakartaSans',sans-serif] selection:bg-[#00C4B4]/30 selection:text-white pb-24 sm:pb-32 overflow-hidden">
+    <div className="relative w-full min-h-screen bg-[#030914] text-slate-100 font-inter selection:bg-[#00C4B4]/30 selection:text-white pb-24 sm:pb-32 overflow-hidden">
       <section className="relative w-full overflow-hidden flex items-center pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24 lg:pb-28 mb-10 sm:mb-14 min-h-[520px] sm:min-h-[580px] lg:min-h-[660px] xl:min-h-[720px]">
         <div className="absolute inset-0 z-0 pointer-events-none select-none">
           <Image
@@ -109,7 +109,7 @@ export default function PodcastsHub() {
           <div className="absolute inset-x-0 bottom-0 h-16 sm:h-32 bg-gradient-to-t from-[#030914] to-transparent" />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-8">
+        <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
           <header className="max-w-2xl lg:max-w-xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -137,7 +137,7 @@ export default function PodcastsHub() {
         </div>
       </section>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-8">
+      <div className="relative z-10 max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center">
             <div className="w-10 h-10 border-2 border-[#00C4B4] border-t-transparent rounded-full animate-spin mb-4" />
@@ -246,90 +246,95 @@ export default function PodcastsHub() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-                {podcasts.filter(podcast => podcast.id !== activeEpisode?.id).map((podcast, index) => {
-                  const isSelected = activeEpisode?.id === podcast.id;
-                  return (
-                    <motion.article
-                      key={podcast.id}
-                      initial={{ opacity: 0, y: 24 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, amount: 0.1 }}
-                      transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
-                      className={`group rounded-2xl bg-[#061226]/85 border transition-all duration-300 flex flex-col h-full overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${
-                        isSelected
-                          ? "border-[#00C4B4]/60 shadow-[0_0_24px_rgba(0,196,180,0.25)]"
-                          : "border-white/[0.09] hover:border-[#00C4B4]/50 hover:shadow-[0_16px_40px_rgba(0,196,180,0.15)]"
-                      }`}
-                    >
-                      <div className="relative aspect-video overflow-hidden shrink-0">
-                        <img
-                          src={encodeURI(podcast.thumbnail)}
-                          alt={podcast.title}
-                          loading="lazy"
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
-                          }}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#061226] via-black/30 to-transparent" />
-
-                        <button
-                          type="button"
-                          onClick={() => openPlayer(podcast)}
-                          className="absolute inset-0 flex items-center justify-center opacity-90 group-hover:opacity-100 transition-opacity"
-                        >
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,180,0.5)] group-hover:scale-110 transition-transform">
-                            <Play size={20} className="fill-white ml-0.5" />
-                          </div>
-                        </button>
-                      </div>
-
-                      <div className="p-5 sm:p-6 flex flex-col flex-1">
-                        <div className="flex items-center gap-2 text-xs text-slate-400 mb-2">
-                          <Headphones size={13} className="text-[#00C4B4]" />
-                          <span className="font-mono">
-                            Executive Audio Dialogue
-                          </span>
-                        </div>
-
-                        <h4 className="heading-h4 font-['Playfair_Display',serif] text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
-                          {podcast.title}
-                        </h4>
-
-                        <div className="space-y-2 mb-6 flex-1">
-                          {podcast.description.slice(0, 2).map((item, i) => (
-                            <p
-                              key={i}
-                              className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
-                            >
-                              {item.replace(/^✅\s*/, "")}
-                            </p>
-                          ))}
-                        </div>
-
-                        <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
-                          <button
-                            type="button"
-                            onClick={() => setActiveEpisode(podcast)}
-                            className="text-xs text-slate-400 hover:text-white transition-colors"
-                          >
-                            Set as Focus
-                          </button>
+                {podcasts
+                  .filter((podcast) => podcast.id !== activeEpisode?.id)
+                  .map((podcast, index) => {
+                    const isSelected = activeEpisode?.id === podcast.id;
+                    return (
+                      <motion.article
+                        key={podcast.id}
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.1 }}
+                        transition={{
+                          duration: 0.5,
+                          delay: (index % 3) * 0.08,
+                        }}
+                        className={`group rounded-2xl bg-[#061226]/85 border transition-all duration-300 flex flex-col h-full overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${
+                          isSelected
+                            ? "border-[#00C4B4]/60 shadow-[0_0_24px_rgba(0,196,180,0.25)]"
+                            : "border-white/[0.09] hover:border-[#00C4B4]/50 hover:shadow-[0_16px_40px_rgba(0,196,180,0.15)]"
+                        }`}
+                      >
+                        <div className="relative aspect-video overflow-hidden shrink-0">
+                          <img
+                            src={encodeURI(podcast.thumbnail)}
+                            alt={podcast.title}
+                            loading="lazy"
+                            onError={(e) => {
+                              e.currentTarget.src =
+                                "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
+                            }}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#061226] via-black/30 to-transparent" />
 
                           <button
                             type="button"
                             onClick={() => openPlayer(podcast)}
-                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4B4]/15 hover:bg-[#00C4B4] text-[#00C4B4] hover:text-black font-semibold text-xs tracking-wide transition-all"
+                            className="absolute inset-0 flex items-center justify-center opacity-90 group-hover:opacity-100 transition-opacity"
                           >
-                            <span>Listen</span>
-                            <ArrowUpRight size={13} />
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white shadow-[0_0_20px_rgba(0,196,180,0.5)] group-hover:scale-110 transition-transform">
+                              <Play size={20} className="fill-white ml-0.5" />
+                            </div>
                           </button>
                         </div>
-                      </div>
-                    </motion.article>
-                  );
-                })}
+
+                        <div className="p-5 sm:p-6 flex flex-col flex-1">
+                          <div className="flex items-center gap-2 text-xs text-slate-400 mb-2">
+                            <Headphones size={13} className="text-[#00C4B4]" />
+                            <span className="font-mono">
+                              Executive Audio Dialogue
+                            </span>
+                          </div>
+
+                          <h4 className="heading-h4 font-['Playfair_Display',serif] text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
+                            {podcast.title}
+                          </h4>
+
+                          <div className="space-y-2 mb-6 flex-1">
+                            {podcast.description.slice(0, 2).map((item, i) => (
+                              <p
+                                key={i}
+                                className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                              >
+                                {item.replace(/^✅\s*/, "")}
+                              </p>
+                            ))}
+                          </div>
+
+                          <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
+                            <button
+                              type="button"
+                              onClick={() => setActiveEpisode(podcast)}
+                              className="text-xs text-slate-400 hover:text-white transition-colors"
+                            >
+                              Set as Focus
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => openPlayer(podcast)}
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4B4]/15 hover:bg-[#00C4B4] text-[#00C4B4] hover:text-black font-semibold text-xs tracking-wide transition-all"
+                            >
+                              <span>Listen</span>
+                              <ArrowUpRight size={13} />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.article>
+                    );
+                  })}
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" type="image/png" href="/lucidmind-icon.png" />
+        <link rel="icon" type="image/webp" href="/lucidmind-icon.webp" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -19,11 +19,11 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Caveat:wght@600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="font-jakarta" suppressHydrationWarning>
+      <body className="font-inter" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

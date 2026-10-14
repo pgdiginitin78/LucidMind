@@ -6,6 +6,73 @@ import { UploadCloud, Image as ImageIcon, X, RefreshCw, CheckCircle2, Link as Li
 import { API_BASE_URL } from "@/src/config/api";
 import { resolveImageUrl } from "@/lib/utils";
 
+const compressAndConvertToWebP = (file, maxWidth = 1920, maxHeight = 1920, quality = 0.85) => {
+  return new Promise((resolve) => {
+    if (file.type === "image/svg+xml" || file.name.endsWith(".svg")) {
+      resolve(file);
+      return;
+    }
+
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+
+      let { width, height } = img;
+
+      if (width > maxWidth || height > maxHeight) {
+        if (width / height > maxWidth / maxHeight) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        } else {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        resolve(file);
+        return;
+      }
+
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            resolve(file);
+            return;
+          }
+
+          const nameWithoutExt = file.name.substring(0, file.name.lastIndexOf(".")) || file.name;
+          const webpFilename = `${nameWithoutExt}.webp`;
+          const webpFile = new File([blob], webpFilename, {
+            type: "image/webp",
+            lastModified: Date.now(),
+          });
+
+          resolve(webpFile);
+        },
+        "image/webp",
+        quality
+      );
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      resolve(file);
+    };
+
+    img.src = objectUrl;
+  });
+};
+
 export default function ImageUploadField({
   name,
   label,
@@ -18,24 +85,28 @@ export default function ImageUploadField({
 }) {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
+  const [statusText, setStatusText] = useState("");
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [uploadError, setUploadError] = useState("");
 
   const handleFileUpload = async (file, onChange) => {
     if (!file) return;
 
-    // Validate size (e.g. max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      setUploadError("Image size must be less than 10MB");
+    if (file.size > 20 * 1024 * 1024) {
+      setUploadError("Image size must be less than 20MB");
       return;
     }
 
     setUploading(true);
+    setStatusText("Converting & compressing image...");
     setUploadError("");
 
     try {
+      const processedFile = await compressAndConvertToWebP(file);
+      setStatusText("Uploading WebP image...");
+
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", processedFile);
 
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
@@ -55,7 +126,7 @@ export default function ImageUploadField({
       reader.onload = () => {
         onChange(reader.result);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(processedFile);
     } catch (err) {
       console.warn("Upload endpoint unreachable, using base64 fallback:", err);
       const reader = new FileReader();
@@ -65,6 +136,7 @@ export default function ImageUploadField({
       reader.readAsDataURL(file);
     } finally {
       setUploading(false);
+      setStatusText("");
     }
   };
 
@@ -188,10 +260,10 @@ export default function ImageUploadField({
                     )}
                   </div>
                   <span className="text-xs font-semibold text-white/90 group-hover:text-white">
-                    {uploading ? "Uploading image..." : "Click or drag & drop to upload"}
+                    {uploading ? (statusText || "Uploading image...") : "Click or drag & drop to upload"}
                   </span>
                   <span className="text-[11px] text-white/40 mt-0.5">
-                    PNG, JPG, WEBP, SVG up to 10MB
+                    PNG, JPG, WEBP, SVG (Auto-converted to WebP)
                   </span>
                 </div>
               )}

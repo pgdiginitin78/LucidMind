@@ -89,7 +89,7 @@ function ShimmerButton({ children, type = "button", onClick, disabled = false })
         border: "1px solid rgba(0, 196, 255, 0.35)",
         boxShadow:
           "0 0 18px rgba(37,99,235,0.4), inset 0 1px 0 rgba(255,255,255,0.08)",
-        fontFamily: "var(--font-plus-jakarta, PlusJakartaSans, sans-serif)",
+        fontFamily: "var(--font-inter, Inter, sans-serif)",
         letterSpacing: "0.03em",
         transition: "box-shadow 0.3s ease, border-color 0.3s ease",
       }}
@@ -270,7 +270,7 @@ export default function LoginModal({ open, handleClose }) {
                     id="login-modal-title"
                     style={{
                       fontFamily:
-                        "var(--font-plus-jakarta, PlusJakartaSans, sans-serif)",
+                        "var(--font-playfair, 'Playfair Display', serif)",
                       fontWeight: 700,
                       fontSize: "clamp(1.15rem, 3.5vw, 1.45rem)",
                       color: "#ffffff",
@@ -325,7 +325,7 @@ export default function LoginModal({ open, handleClose }) {
                       },
                       "& .MuiInputLabel-root": {
                         color: "rgba(255,255,255,0.55)",
-                        fontFamily: "PlusJakartaSans, sans-serif",
+                        fontFamily: "Inter, sans-serif",
                         fontSize: "0.875rem",
                       },
                       "& .MuiInputLabel-root.Mui-focused": { color: "#00C4FF" },
@@ -379,7 +379,7 @@ export default function LoginModal({ open, handleClose }) {
                       },
                       "& .MuiInputLabel-root": {
                         color: "rgba(255,255,255,0.55)",
-                        fontFamily: "PlusJakartaSans, sans-serif",
+                        fontFamily: "Inter, sans-serif",
                         fontSize: "0.875rem",
                       },
                       "& .MuiInputLabel-root.Mui-focused": { color: "#00C4FF" },
