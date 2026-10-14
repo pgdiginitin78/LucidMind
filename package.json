@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run dev --prefix frontend",
-    "build": "npm run build --prefix frontend"
+    "install:frontend": "npm install --prefix frontend --include=dev",
+    "build": "npm run install:frontend && npm run build --prefix frontend && node -e \"const fs=require('fs');fs.rmSync('build',{recursive:true,force:true});fs.cpSync('frontend/dist','build',{recursive:true})\""
   }
 }
