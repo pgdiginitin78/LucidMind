@@ -65,6 +65,7 @@ export function createTransport() {
     secure: !starttls,
     requireTLS: starttls,
     auth: { user, pass: password.replace(/ /g, '') },
+    tls: { rejectUnauthorized: false },
   });
 }
 
