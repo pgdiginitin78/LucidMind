@@ -1,21 +1,26 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const distDir = path.join(__dirname, '../dist');
-const uploadsDir = path.join(distDir, 'uploads');
+const distDir = path.join(__dirname, "../dist");
+const rootDistDir = path.resolve(__dirname, "../../dist");
+const uploadsDir = path.join(distDir, "uploads");
 
 async function buildDist() {
-  console.log('Assembling final deployment dist folder...');
+  console.log("Assembling final deployment dist folder...");
 
-  // The API is now the standalone Node/Express app in /backend (deployed separately or serving
-  // this dist folder via SERVE_FRONTEND=true), so it is no longer copied into dist/api.
   await fs.mkdir(uploadsDir, { recursive: true });
+  try {
+    await fs.rm(rootDistDir, { recursive: true, force: true });
+    await fs.cp(distDir, rootDistDir, { recursive: true });
+  } catch (err) {
+    console.error("Warning: could not sync to root dist:", err.message);
+  }
 
-  console.log('Deployment dist successfully built!');
+  console.log("Deployment dist successfully built!");
 }
 
 buildDist().catch(console.error);
