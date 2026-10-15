@@ -25,7 +25,6 @@ backend/.env
 .env.*
 !.env.example
 !.env.*.example
-# Keep backend/uploads tracked so uploaded images persist in deployments
 .next
 out
 scratch
