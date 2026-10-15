@@ -5,11 +5,18 @@ import {
   Building2,
   ChevronRight,
   Globe2,
+  PhoneCall as Call,
   Rocket,
   ShieldCheck,
   Users,
 } from "lucide-react";
 import ConstellationField from "@/components/ui/constellation-field";
+import { useEffect } from "react";
+import { usePageReady } from "../../transitions/PageTransitionContext";
+import { Link } from "@/lib/navigation";
+import OurClients from "../ourClients/OurClients";
+
+
 const AdvisoryImg1 = "/assets/advisory/advisoryImg1.webp";
 
 export const TargetSvg = () => {
@@ -62,10 +69,7 @@ const operatingSteps = [
   { id: "05", label: "Learning & Adaptation" },
 ];
 
-import { useEffect } from "react";
-import { usePageReady } from "../../transitions/PageTransitionContext";
-import { Link } from "@/lib/navigation";
-import OurClients from "../ourClients/OurClients";
+
 
 export default function Advisory() {
   const { setReady } = usePageReady();
