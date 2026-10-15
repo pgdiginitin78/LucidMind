@@ -601,10 +601,9 @@
       "guest": "GCC Leaders",
       "description": "I've been in close conversations with GCC leaders, and something feels different.\n\nEarlier, the conversations were clearer, how fast we can scale, how efficiently we can deliver. Now, the questions are less straightforward. What are we really building toward?\n\nScale got GCCs a seat at the table. Capability will decide whether they stay there.\n\nThat's the shift I'm unpacking in this series, one many leaders are already navigating, even if it's not always articulated directly.\n\nWe'll get into:\n✅ Capacity vs Capability\n✅ Why this tension is growing now\n✅ What AI is actually changing\n✅ What leadership needs to rethink\n\nBecause the next phase of GCCs won't be defined by how fast they grow, but by how indispensable they become.",
       "tags": [
-        "video",
-        "podcast"
+        "video"
       ],
-      "media_type": "podcast",
+      "media_type": "video",
       "is_published": 1,
       "sort_order": 7,
       "created_at": "2026-09-23 16:28:23",
@@ -615,7 +614,7 @@
       "order": 7,
       "audioUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7455569461186641920?compact=1",
       "coverImage": "/assets/podcastThumbnails/Capacity vs Capability.webp",
-      "mediaType": "podcast"
+      "mediaType": "video"
     },
     {
       "id": "pod_2",
@@ -631,10 +630,9 @@
       "guest": "Global Capability Leaders",
       "description": "Five episodes. One consistent question.\n\nAre GCCs truly evolving or just getting better at the same thing?\n\nHaving been part of building one from the ground up, I know this isn't a single decision. It's a series of choices, made consistently, over time.\n\nIt starts with the work itself, moving from execution to ownership. It requires talent that thinks in context, not just process. It demands trust that is earned through credibility, not granted by mandate.\n\nAnd it requires redefining what success actually looks like.\n\nNot how much is delivered. But how much it matters.\n\nThe GCCs that define the next decade won't be the ones that grew the fastest. They'll be the ones trusted to shape outcomes, not just support them.\n\nThat's the difference between being part of the system and becoming critical to it.\n\nIf these are questions you're navigating in your own organisation I'd be glad to continue the conversation.",
       "tags": [
-        "video",
-        "podcast"
+        "video"
       ],
-      "media_type": "podcast",
+      "media_type": "video",
       "is_published": 1,
       "sort_order": 8,
       "created_at": "2026-09-23 16:28:23",
@@ -645,7 +643,7 @@
       "order": 8,
       "audioUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7450826841654927361?compact=1",
       "coverImage": "/assets/podcastThumbnails/Gcc.webp",
-      "mediaType": "podcast"
+      "mediaType": "video"
     },
     {
       "id": "pod_3",
@@ -690,10 +688,9 @@
       "guest": "Enterprise AI Leaders",
       "description": "In my conversations with GCC leaders, nobody's saying AI has reduced their workload. If anything, the pace has increased.\n\nBut the type of work that still needs a human in it — that's changing fast.\n\nThe rule-based, repetitive, effort-heavy work that GCCs have scaled brilliantly for years? AI is doing that faster. And often better.\n\nAnd as that layer shrinks, what becomes visible is the work that needs context, judgment, and genuine business understanding.\n\nThe real impact of AI isn't just about efficiency. It's exposure.\n\nIt exposes where value truly sits and where it doesn't.\n\nAI won't replace GCCs. But it will force them to decide.\n\nAre they built to handle work or to create value?",
       "tags": [
-        "video",
-        "podcast"
+        "video"
       ],
-      "media_type": "podcast",
+      "media_type": "video",
       "is_published": 1,
       "sort_order": 10,
       "created_at": "2026-09-23 16:28:23",
@@ -704,7 +701,7 @@
       "order": 10,
       "audioUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7457048215339782144?compact=1",
       "coverImage": "/assets/podcastThumbnails/AI Removing A Layer.webp",
-      "mediaType": "podcast"
+      "mediaType": "video"
     },
     {
       "id": "pod_5",
@@ -749,10 +746,9 @@
       "guest": "Strategy & Transformation Leaders",
       "description": "Growth in GCCs is no longer one-dimensional.\n\nFor years, success was simple to define — how fast we could scale, how many teams we could build, how much we could deliver.\n\nBut something is changing beneath the surface.\n\nSome GCCs are still growing volume. Others are growing influence.\n\nBoth look like progress. Both involve hiring, expansion, investment.\n\nBut they don't lead to the same place.\n\nNot every organisation sees it yet. But the gap is widening.\n\nWhen everything looks like growth, what's actually changing underneath?",
       "tags": [
-        "video",
-        "podcast"
+        "video"
       ],
-      "media_type": "podcast",
+      "media_type": "video",
       "is_published": 1,
       "sort_order": 12,
       "created_at": "2026-09-23 16:28:23",
@@ -763,7 +759,7 @@
       "order": 12,
       "audioUrl": "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7454499198260973570?compact=1",
       "coverImage": "/assets/podcastThumbnails/Execution To Influence.webp",
-      "mediaType": "podcast"
+      "mediaType": "video"
     }
   ]
 }
