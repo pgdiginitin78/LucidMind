@@ -12,7 +12,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "@/common/Image";
-import { Link } from "@/lib/navigation";
+import { Link, useLocation } from "@/lib/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { cn, resolveImageUrl, getEmbedUrl } from "@/lib/utils";
 import ArticleDetail from "./ArticleDetail";
@@ -32,47 +32,100 @@ export default function InsightsHub() {
   const [activePodcast, setActivePodcast] = useState(null);
   const [activeVideo, setActiveVideo] = useState(null);
   const [playingPodcastModal, setPlayingPodcastModal] = useState(null);
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("ALL");
 
-  const scrollToSection = (targetId) => {
+  const scrollToSection = (targetId = "insights-content") => {
     if (typeof window === "undefined") return;
     setTimeout(() => {
-      const el = document.getElementById(targetId);
+      const el =
+        document.getElementById(targetId) ||
+        document.getElementById("insights-content");
       if (!el) return;
       if (window.__lenis) {
         window.__lenis.scrollTo(el, {
-          offset: -90,
-          duration: 1.2,
+          offset: -100,
+          duration: 1.0,
         });
       } else {
-        const yOffset = -90;
+        const yOffset = -100;
         const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
       }
-    }, 80);
+    }, 100);
   };
 
-  const handleTabSelect = (tab, targetId) => {
+  const handleTabSelect = (tab, targetId, updateUrl = true) => {
     setActiveTab(tab);
+    if (updateUrl && typeof window !== "undefined") {
+      const newHash = tab === "ALL" ? "" : `#${tab.toLowerCase()}`;
+      if (window.location.hash !== newHash) {
+        window.history.replaceState(
+          null,
+          "",
+          `${window.location.pathname}${newHash}`,
+        );
+      }
+    }
     if (targetId) {
       scrollToSection(targetId);
     }
   };
 
   useEffect(() => {
-    const handleHash = () => {
-      if (typeof window !== "undefined" && window.location.hash) {
-        const hash = window.location.hash.substring(1);
-        if (hash === "blogs") handleTabSelect("BLOGS", "blogs");
-        else if (hash === "videos") handleTabSelect("VIDEOS", "videos");
-        else if (hash === "podcasts") handleTabSelect("PODCASTS", "podcasts");
+    const syncFromUrl = () => {
+      const hash = (
+        location.hash ||
+        (typeof window !== "undefined" ? window.location.hash : "") ||
+        ""
+      )
+        .replace(/^#/, "")
+        .toLowerCase();
+
+      const searchParams = new URLSearchParams(
+        location.search ||
+          (typeof window !== "undefined" ? window.location.search : ""),
+      );
+      const tabParam = (searchParams.get("tab") || "").toLowerCase();
+
+      const target = tabParam || hash;
+
+      if (target === "blogs" || target === "blog") {
+        setActiveTab("BLOGS");
+        scrollToSection("insights-content");
+      } else if (target === "videos" || target === "video") {
+        setActiveTab("VIDEOS");
+        scrollToSection("insights-content");
+      } else if (target === "podcasts" || target === "podcast") {
+        setActiveTab("PODCASTS");
+        scrollToSection("insights-content");
+      } else if (target === "all") {
+        setActiveTab("ALL");
+        scrollToSection("insights-content");
       }
     };
 
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
+    syncFromUrl();
+
+    const handleCustomTab = (e) => {
+      const { tab, sectionId } = e.detail || {};
+      if (tab) {
+        setActiveTab(tab);
+        scrollToSection(sectionId || "insights-content");
+      }
+    };
+
+    window.addEventListener("lucidmind_select_insights_tab", handleCustomTab);
+    window.addEventListener("hashchange", syncFromUrl);
+
+    return () => {
+      window.removeEventListener(
+        "lucidmind_select_insights_tab",
+        handleCustomTab,
+      );
+      window.removeEventListener("hashchange", syncFromUrl);
+    };
+  }, [location.hash, location.search, location.pathname]);
 
   useEffect(() => {
     let isMounted = true;
@@ -333,7 +386,7 @@ export default function InsightsHub() {
               </button>
               <button
                 type="button"
-                onClick={() => handleTabSelect("BLOGS", "blogs")}
+                onClick={() => handleTabSelect("BLOGS", "insights-content")}
                 className={cn(
                   "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
                   activeTab === "BLOGS"
@@ -346,7 +399,7 @@ export default function InsightsHub() {
               </button>
               <button
                 type="button"
-                onClick={() => handleTabSelect("VIDEOS", "videos")}
+                onClick={() => handleTabSelect("VIDEOS", "insights-content")}
                 className={cn(
                   "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
                   activeTab === "VIDEOS"
@@ -359,7 +412,7 @@ export default function InsightsHub() {
               </button>
               <button
                 type="button"
-                onClick={() => handleTabSelect("PODCASTS", "podcasts")}
+                onClick={() => handleTabSelect("PODCASTS", "insights-content")}
                 className={cn(
                   "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
                   activeTab === "PODCASTS"

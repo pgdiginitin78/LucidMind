@@ -25,6 +25,8 @@ export function useSearchParams() {
   return useRRSearchParams();
 }
 
+export { useLocation };
+
 export const Link = React.forwardRef(function Link({ href, to, children, ...props }, ref) {
   const target = to || href || "#";
 

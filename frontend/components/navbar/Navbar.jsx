@@ -33,11 +33,11 @@ const NAV_ITEMS = [
       {
         name: "Blogs",
         href: "/insights#blogs",
-        description: "Executive essays & frameworks",
+        description: "Leadership Perspectives",
       },
       {
         name: "Videos",
-        href: "/insights#podcasts",
+        href: "/insights#videos",
         description: "Podcasts & video conversations",
       },
     ],
@@ -143,18 +143,31 @@ export default function Navbar() {
     }, 200);
   };
 
-  const handleInsightsOptionClick = (href) => {
-    setInsightsDropdownOpen(false);
-    if (currentPath === "/insights") {
-      const hash = href.split("#")[1];
-      if (hash) {
-        const el = document.getElementById(hash);
-        if (el) {
-          el.scrollIntoView({ behavior: "smooth" });
-          return;
-        }
-      }
+  const handleInsightsOptionClick = (e, href) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
+    setInsightsDropdownOpen(false);
+
+    const hash = href.split("#")[1];
+    const targetTab =
+      hash === "blogs"
+        ? "BLOGS"
+        : hash === "videos"
+          ? "VIDEOS"
+          : hash === "podcasts"
+            ? "PODCASTS"
+            : "ALL";
+
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("lucidmind_select_insights_tab", {
+          detail: { tab: targetTab, sectionId: hash || "insights-content" },
+        }),
+      );
+    }
+
     router.push(href);
   };
 
@@ -307,6 +320,18 @@ export default function Navbar() {
                       href={item.href}
                       onClick={(e) => {
                         e.stopPropagation();
+                        if (item.href === "/insights") {
+                          if (typeof window !== "undefined") {
+                            window.dispatchEvent(
+                              new CustomEvent("lucidmind_select_insights_tab", {
+                                detail: {
+                                  tab: "ALL",
+                                  sectionId: "insights-content",
+                                },
+                              }),
+                            );
+                          }
+                        }
                       }}
                       className={cn(
                         "relative text-sm 2xl:text-xl font-medium transition-all duration-300 px-3.5 2xl:px-6 py-1.5 2xl:py-2.5 rounded-full flex items-center justify-center whitespace-nowrap gap-1",
@@ -354,8 +379,7 @@ export default function Navbar() {
                                   key={sub.name}
                                   href={sub.href}
                                   onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleInsightsOptionClick(sub.href);
+                                    handleInsightsOptionClick(e, sub.href);
                                   }}
                                   className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-white/90 hover:text-white hover:bg-white/[0.07] border border-transparent hover:border-[#00C4FF]/25 transition-all group/item"
                                 >
