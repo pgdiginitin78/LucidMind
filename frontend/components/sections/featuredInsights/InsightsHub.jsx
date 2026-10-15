@@ -378,13 +378,6 @@ export default function InsightsHub() {
           <section id="blogs" className="scroll-mt-28 space-y-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB]/15 border border-[#2563EB]/30 text-[#00C4FF] text-xs font-semibold mb-2">
-                  <BookOpen size={13} />
-                  <span>
-                    Executive Essays <span className="font-sans">&amp;</span>{" "}
-                    Frameworks
-                  </span>
-                </div>
                 <h2 className="heading-h3 md:heading-h2 text-white">
                   Thought Leadership <span className="font-sans">&amp;</span>{" "}
                   Blogs
