@@ -271,7 +271,7 @@ export default function ImageUploadField({
                     {uploading ? (statusText || "Uploading image...") : "Click or drag & drop to upload"}
                   </span>
                   <span className="text-[11px] text-white/40 mt-0.5">
-                    PNG, JPG, WEBP, SVG (Auto-converted to WebP)
+                    PNG, JPG, WEBP, SVG
                   </span>
                 </div>
               )}
