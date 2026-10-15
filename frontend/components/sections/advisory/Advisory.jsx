@@ -16,7 +16,6 @@ import { usePageReady } from "../../transitions/PageTransitionContext";
 import { Link } from "@/lib/navigation";
 import OurClients from "../ourClients/OurClients";
 
-
 const AdvisoryImg1 = "/assets/advisory/advisoryImg1.webp";
 
 export const TargetSvg = () => {
@@ -69,13 +68,13 @@ const operatingSteps = [
   { id: "05", label: "Learning & Adaptation" },
 ];
 
-
-
 export default function Advisory() {
   const { setReady } = usePageReady();
+
   useEffect(() => {
     setReady(true);
   }, [setReady]);
+
   return (
     <div className="relative w-full min-h-screen bg-[#040914] text-slate-100 font-inter selection:bg-[#00C4B4]/30 selection:text-white overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none z-0">

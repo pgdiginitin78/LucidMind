@@ -26,5 +26,9 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
     },
+    build: {
+      outDir: path.resolve(__dirname, '../dist'),
+      emptyOutDir: true,
+    },
   };
 });
