@@ -1,8 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import LogoutIcon from "@mui/icons-material/Logout";
-import PersonIcon from "@mui/icons-material/Person";
 import { Avatar, Divider, MenuItem, Menu as MuiMenu } from "@mui/material";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import {
@@ -10,8 +7,10 @@ import {
   Briefcase as BriefcaseIcon,
   ChevronDown,
   LayoutDashboard as DashboardIcon,
+  LogOut,
   Menu,
   Mic as MicIcon,
+  User,
   Video as VideoIcon,
 } from "lucide-react";
 import { Link, usePathname, useRouter } from "@/lib/navigation";
@@ -412,17 +411,17 @@ export default function Navbar() {
                       {user.username ? (
                         user.username.charAt(0).toUpperCase()
                       ) : (
-                        <PersonIcon sx={{ fontSize: 16 }} />
+                        <User size={16} />
                       )}
                     </Avatar>
                     <span className="text-white font-medium text-xs sm:text-sm 2xl:text-base capitalize tracking-wide hidden sm:inline-block">
                       {user.username || "Admin"}
                     </span>
-                    <KeyboardArrowDownIcon
-                      sx={{
-                        fontSize: 18,
+                    <ChevronDown
+                      size={18}
+                      className="transition-transform duration-200"
+                      style={{
                         color: "rgba(255, 255, 255, 0.65)",
-                        transition: "transform 0.2s ease",
                         transform: profileAnchorEl
                           ? "rotate(180deg)"
                           : "rotate(0deg)",
@@ -621,7 +620,7 @@ export default function Navbar() {
                         },
                       }}
                     >
-                      <LogoutIcon sx={{ fontSize: 18 }} />
+                      <LogOut size={18} />
                       <span>Sign Out</span>
                     </MenuItem>
                   </MuiMenu>

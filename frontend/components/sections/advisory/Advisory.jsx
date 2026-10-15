@@ -66,7 +66,6 @@ import { useEffect } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import { Link } from "@/lib/navigation";
 import OurClients from "../ourClients/OurClients";
-import { Call } from "@mui/icons-material";
 
 export default function Advisory() {
   const { setReady } = usePageReady();

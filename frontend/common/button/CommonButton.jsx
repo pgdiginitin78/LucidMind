@@ -1,7 +1,5 @@
 import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
-import AddIcon from "@mui/icons-material/Add";
+import { Search as SearchIcon, X as CancelPresentationIcon, Plus as AddIcon } from "lucide-react";
 
 const CommonButton = ({
   type,

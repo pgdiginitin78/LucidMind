@@ -19,7 +19,6 @@
     "@emotion/styled": "^11.14.1",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.5.7",
-    "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
     "@react-three/fiber": "^9.7.0",
     "@splinetool/react-spline": "^4.1.0",
