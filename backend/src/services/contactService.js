@@ -93,14 +93,24 @@ export async function sendContactEmail(fields) {
   }
 
   try {
-    await mailer.createTransport().sendMail({
-      from: { name: 'LucidMind Website', address: user },
-      to: validReceivers,
-      replyTo: { name: fields.name, address: fields.email },
-      subject: `New Contact Enquiry from ${fields.name}: ${fields.subject}`,
-      html: buildHtml(fields),
-      text: `New Contact Submission\n\nName: ${fields.name}\nEmail: ${fields.email}\nSubject: ${fields.subject}\n\nMessage:\n${fields.message}`,
-    });
+    const transport = mailer.createTransport();
+    const results = await Promise.allSettled(
+      validReceivers.map((to) =>
+        transport.sendMail({
+          from: { name: 'LucidMind Website', address: user },
+          to,
+          replyTo: { name: fields.name, address: fields.email },
+          subject: `New Contact Enquiry from ${fields.name}: ${fields.subject}`,
+          html: buildHtml(fields),
+          text: `New Contact Submission\n\nName: ${fields.name}\nEmail: ${fields.email}\nSubject: ${fields.subject}\n\nMessage:\n${fields.message}`,
+        })
+      )
+    );
+    const anySuccess = results.some((r) => r.status === 'fulfilled');
+    if (!anySuccess) {
+      const firstErr = results.find((r) => r.status === 'rejected')?.reason;
+      throw firstErr || new Error('All recipients failed to receive email');
+    }
   } catch (err) {
     logger.error('Contact mail send failed:', err.message);
     throw fail('Failed to send message. Please try again later.');
