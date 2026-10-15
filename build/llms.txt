@@ -1,7 +1,0 @@
-# LucidMind
-
-LucidMind helps organisations build leadership, operating models and AI capabilities needed for the Adaptive Future.
-
-## Website
-
-- https://lucid-mind-ten.vercel.app/
