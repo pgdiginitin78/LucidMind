@@ -14,10 +14,19 @@ export function validateContact(body) {
   const str = (v) => (typeof v === 'string' ? v.trim() : '');
   const name = str(body.name);
   const email = str(body.email);
+  const phone = str(body.phone);
+  const company = str(body.company);
   const subject = str(body.subject);
   const message = str(body.message);
+  const submittedAt = str(body.submittedAt);
 
-  if (/[\r\n]/.test(name) || /[\r\n]/.test(email) || /[\r\n]/.test(subject)) {
+  if (
+    /[\r\n]/.test(name) ||
+    /[\r\n]/.test(email) ||
+    /[\r\n]/.test(subject) ||
+    /[\r\n]/.test(phone) ||
+    /[\r\n]/.test(company)
+  ) {
     fail(400, 'Invalid characters detected.');
   }
   if (!name || !email || !subject || !message) {
@@ -25,5 +34,5 @@ export function validateContact(body) {
   }
   if (!isValidEmail(email)) fail(400, 'Please provide a valid email address.');
 
-  return { name, email, subject, message };
+  return { name, email, phone, company, subject, message, submittedAt };
 }

@@ -21,17 +21,26 @@ describe('contact', () => {
 
   test('sends mail to de-duplicated valid receivers, escapes HTML', async () => {
     configure();
-    let sent;
-    mailer.createTransport = () => ({ sendMail: async (o) => (sent = o) });
-    const res = await request(app).post('/api/contact').send(valid);
+    const sent = [];
+    mailer.createTransport = () => ({ sendMail: async (o) => { sent.push(o); return o; } });
+    const res = await request(app).post('/api/contact').send({
+      ...valid,
+      phone: '+91 98765 43210',
+      company: 'Acme Corp',
+    });
     assert.equal(res.status, 200);
     assert.deepEqual(res.body, { success: true, message: 'Message sent successfully.' });
-    assert.deepEqual(sent.to, ['a@x.com', 'b@x.com']);
-    assert.equal(sent.replyTo.address, 'jane@example.com');
-    assert.equal(sent.subject, 'New Contact Enquiry from Jane: Hi');
-    assert.ok(sent.html.includes('&lt;b&gt;there&lt;/b&gt;'));
-    assert.ok(sent.html.includes('<br />'));
-    assert.equal(sent.html.includes('<b>there</b>'), false);
+    assert.deepEqual(sent.map((s) => s.to), ['a@x.com', 'b@x.com']);
+    const first = sent[0];
+    assert.equal(first.replyTo.address, 'jane@example.com');
+    assert.equal(first.subject, 'New Contact Enquiry from Jane: Hi');
+    assert.ok(first.html.includes('&lt;b&gt;there&lt;/b&gt;'));
+    assert.ok(first.html.includes('<br />'));
+    assert.equal(first.html.includes('<b>there</b>'), false);
+    assert.ok(first.html.includes('Contact Details'));
+    assert.ok(first.html.includes('+91 98765 43210'));
+    assert.ok(first.html.includes('Acme Corp'));
+    assert.ok(first.html.includes('Message Details'));
   });
 
   test('validation errors', async () => {
@@ -40,6 +49,8 @@ describe('contact', () => {
       [{ ...valid, name: '' }, 'Name, email, subject and message are required.'],
       [{ ...valid, email: 'nope' }, 'Please provide a valid email address.'],
       [{ ...valid, subject: 'a\r\nBcc: x@y.z' }, 'Invalid characters detected.'],
+      [{ ...valid, phone: '123\r\nBcc: x@y.z' }, 'Invalid characters detected.'],
+      [{ ...valid, company: 'Acme\r\nBcc: x@y.z' }, 'Invalid characters detected.'],
     ];
     for (const [body, message] of cases) {
       const res = await request(app).post('/api/contact').send(body);
