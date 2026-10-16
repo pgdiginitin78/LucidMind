@@ -12,6 +12,9 @@ const escapeHtml = (s) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 
+const MAIL_ICON_PNG =
+  'iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB90lEQVR4nO1ZLWwCUQyGJhg0BovBYGYRkEkEBoWYQWBmMBgMJEuTmQnUxAxmZmZiemY50WRmZoiZiZnpmWXJkm28rOJGrr13P9xx2fuS5oV77dfvO4oppZKDg4ODg0MAAKkDSEtA8gBpnWN4rKMTRfwCkD425/cehdGzsBWft1gtZBM8Nvv25oO+ieBx4lmTCvOYf0nLUjLghbh/BqQj6x9TDBh+7qPp8KRizbU/TgCpnLLwMvPa9F/bGtAMXQFSMyXxTebTxje2gZVC/ABI/YTi+8wj9VglMsDPZ4D0KTR4B6RpTPFTrg/iNf1mmi5rA3w3AKRH5U1dAFLdUnid8yUu02dgo8vaAN+3AOlaaXwHSN0Q8V3OkzgMfyuKrkiJgFQBpFNFwCsgjQX+Md9LtYa3EkdXtMTf3BEgvShizgCpyrlV/izlGp6R0it9A5zfBqRbRdgNIB3wKeWY+nZIn90Y4JoaIJ0rAp+UO1NXs+ixOwO+2gkgvSli/WHyJhG4d2+A63uAdB8i3tz3IvJmY4A5GoB0KYg3zxsxOLMz4OOab+KLecw5T8CVvQHmOwSkY3Mm5MnHQFpwBvKGM5A3/pWBoK3EMHPFfzUNAzSJWwlpL5TnbjRIj7gXKvZmrlT03eiWiX37Juy201vjVMz/BxwcHBwcbPEDEHtzEb0VdBIAAAAASUVORK5CYII=';
+
 const fail = (message) => new HttpError(500, message, { success: false, message });
 
 export function formatIstDate(dateInput) {
@@ -152,11 +155,8 @@ export function buildHtml({ name, email, phone, company, subject, message, submi
                   <td width="52" style="vertical-align: top; padding-right: 16px;">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="width: 48px; height: 48px; background-color: #ebf5fe; border-radius: 12px;">
                       <tr>
-                        <td align="center" style="vertical-align: middle; text-align: center; font-size: 22px; line-height: 1; color: #0284c7;">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto;">
-                            <rect width="20" height="16" x="2" y="4" rx="2.5"></rect>
-                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                          </svg>
+                        <td align="center" style="vertical-align: middle; text-align: center; padding: 0;">
+                          <img src="cid:mailIcon" width="24" height="24" alt="✉" style="display: block; width: 24px; height: 24px; max-width: 24px; max-height: 24px; margin: 0 auto; border: 0;" />
                         </td>
                       </tr>
                     </table>
@@ -311,6 +311,14 @@ export async function sendContactEmail(fields) {
           subject: `New Contact Enquiry from ${fields.name}: ${fields.subject}`,
           html: buildHtml(fields),
           text: `New Contact Submission\n\nFull Name: ${fields.name}\nEmail: ${fields.email}\nPhone: ${fields.phone || 'Not provided'}\nCompany: ${fields.company || 'Not provided'}\nSubject: ${fields.subject}\n\nMessage:\n${fields.message}\n\nThis message was submitted from your website contact form.\nReceived on ${formatIstDate(fields.submittedAt)}`,
+          attachments: [
+            {
+              filename: 'mail-icon.png',
+              content: Buffer.from(MAIL_ICON_PNG, 'base64'),
+              cid: 'mailIcon',
+              contentType: 'image/png',
+            },
+          ],
         })
       )
     );
