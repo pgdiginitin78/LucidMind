@@ -1,75 +1,42 @@
-import React from 'react';
+import React from "react";
 
 export function AboutSkeleton() {
-  const INK = "#0B1220";
   return (
-    <div className="min-h-screen bg-[#F6F7FB] animate-pulse">
-      <section
-        className="relative overflow-hidden pt-28 sm:pt-36 pb-16 sm:pb-20"
-        style={{
-          background: `linear-gradient(160deg, ${INK} 0%, #101d38 45%, ${INK} 100%)`,
-        }}
-      >
-        <div className="relative w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 z-10">
-          <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-8 md:gap-12">
-            <div className="w-full md:w-[60%]">
-              <div className="h-3 w-24 bg-white/20 rounded-md mb-2"></div>
-              <div className="h-10 sm:h-12 w-64 bg-white/20 rounded-lg mt-1"></div>
-              <div className="mt-4 space-y-2 max-w-xl">
-                <div className="h-4 w-full bg-white/10 rounded-md"></div>
-                <div className="h-4 w-[80%] bg-white/10 rounded-md"></div>
-                <div className="h-4 w-[60%] bg-white/10 rounded-md"></div>
-              </div>
-              <div className="mt-5 flex gap-4">
-                <div className="h-6 w-32 bg-white/10 rounded-full"></div>
-                <div className="h-6 w-40 bg-white/10 rounded-full"></div>
-              </div>
-            </div>
+    <div className="min-h-screen bg-[#040814] text-slate-100 overflow-x-hidden animate-pulse">
+      <section className="relative w-full min-h-[85vh] sm:min-h-[90vh] xl:min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#040814] via-[#06142a] to-[#040814]">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#040814]/90 via-[#040814]/40 to-transparent pointer-events-none" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
 
-            <div className="relative shrink-0 grid place-items-center">
-              <div className="w-[180px] h-[180px] sm:w-[260px] sm:h-[260px] rounded-2xl bg-white/10 border border-white/20"></div>
+        <div className="relative z-10 w-full flex items-center justify-between px-5 sm:px-10 md:px-14 xl:px-20 py-24 sm:py-28 xl:py-32 min-h-[85vh] sm:min-h-[90vh] xl:min-h-screen">
+          <div className="w-full xl:max-w-3xl">
+            <div className="h-12 sm:h-16 md:h-20 w-full max-w-xl bg-white/20 rounded-xl" />
+            <div className="h-12 sm:h-16 md:h-20 w-3/4 max-w-lg bg-gradient-to-r from-white/20 to-[#00C4B4]/40 rounded-xl mt-3" />
+
+            <div className="mt-6 space-y-2.5 max-w-lg">
+              <div className="h-4 w-full max-w-md bg-white/15 rounded-md" />
+              <div className="h-4 w-3/4 max-w-sm bg-white/15 rounded-md" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Nav skeleton */}
-      <div className="sticky top-16 z-40 w-full border-y border-slate-200 bg-white/80">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-          <div className="flex items-center gap-6 h-12">
-            {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="h-3 w-16 bg-slate-200 rounded-md"></div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <section className="relative w-full bg-[#F1F6FB] overflow-hidden flex items-center py-12 sm:py-14 md:py-16 min-h-[220px] sm:min-h-[250px]">
+        <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8 lg:gap-12">
+          <div className="hidden xl:block w-[24%] h-28 rounded-xl bg-slate-300/40 shrink-0" />
 
-      {/* Content skeleton */}
-      <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 py-16">
-        <div className="flex gap-12">
-          <div className="w-full lg:w-2/3 space-y-6">
-            <div className="h-8 w-48 bg-slate-200 rounded-lg mb-8"></div>
-            <div className="space-y-3">
-              <div className="h-4 w-full bg-slate-200 rounded-md"></div>
-              <div className="h-4 w-[90%] bg-slate-200 rounded-md"></div>
-              <div className="h-4 w-full bg-slate-200 rounded-md"></div>
-              <div className="h-4 w-[75%] bg-slate-200 rounded-md"></div>
-            </div>
-            <div className="space-y-3 pt-6">
-              <div className="h-4 w-full bg-slate-200 rounded-md"></div>
-              <div className="h-4 w-[85%] bg-slate-200 rounded-md"></div>
-            </div>
+          <div className="w-full md:w-[40%] xl:w-[35%] shrink-0 space-y-2.5">
+            <div className="h-7 sm:h-8 w-full bg-slate-300/70 rounded-lg" />
+            <div className="h-7 sm:h-8 w-4/5 bg-slate-300/70 rounded-lg" />
+            <div className="h-7 sm:h-8 w-3/5 bg-slate-300/70 rounded-lg" />
           </div>
 
-          <div className="hidden lg:block w-1/3">
-            <div className="grid grid-cols-2 gap-4">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="h-28 bg-slate-200 rounded-2xl"></div>
-              ))}
-            </div>
+          <div className="w-full md:w-[50%] space-y-2">
+            <div className="h-4 w-full bg-slate-300/50 rounded-md" />
+            <div className="h-4 w-11/12 bg-slate-300/50 rounded-md" />
+            <div className="h-4 w-4/5 bg-slate-300/50 rounded-md" />
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

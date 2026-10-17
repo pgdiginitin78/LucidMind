@@ -4,6 +4,8 @@ import { Link } from "@/lib/navigation";
 import AiParticleDisplay from "./AiParticleDisplay";
 import DotField from "./DotField";
 import { usePageReady } from "../../transitions/PageTransitionContext";
+import {motion} from "framer-motion";
+
 function HeroSection() {
   const { setReady } = usePageReady();
 
@@ -47,26 +49,42 @@ function HeroSection() {
 
         <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col md:pt-20 lg:pt-10 items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
           <div className="flex flex-col items-center md:items-start w-full">
-            {/* <p className="body-text text-[#009A9A] font-light tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm md: mb-2">
-              Helping Leaders Build
-            </p> */}
-
-            <h1 className="heading-h2 lg:heading-h1 text-white w-full">
+            <motion.h1
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="heading-h1 text-white w-full"
+            >
               Built For The <br />
               <span className="text-[#009A9A]">Adaptive Future</span>
-            </h1>
-            <div className="w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"></div>
+            </motion.h1>
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+              className="origin-left w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"
+            />
           </div>
 
-          <p className="body-text-lg text-slate-400 font-medium text-sm sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mb-2">
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="body-text text-slate-400 font-medium max-w-xs sm:max-w-md md:max-w-lg mb-2"
+          >
             Helping leaders turn technology, transformation and organisational
             capability into measurable business impact.
-          </p>
+          </motion.p>
 
-          <Link
-            href="/contact"
-            className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white text-sm sm:text-base font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto"
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
           >
+            <Link
+              href="/contact"
+              className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white body-text font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto"
+            >
             <span>Schedule a Conversation</span>
 
             <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
@@ -86,6 +104,7 @@ function HeroSection() {
               </svg>
             </div>
           </Link>
+          </motion.div>
         </div>
       </div>
     </div>

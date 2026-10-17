@@ -62,17 +62,17 @@ export default function OurClients() {
         >
           <div className="flex items-center gap-2 mb-3">
             <div className="w-4 h-px bg-[#00C4B4]" />
-            <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+            <span className="heading-h6 font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
               WHO WE PARTNER WITH
             </span>
             <div className="w-4 h-px bg-[#00C4B4]" />
           </div>
 
-          <h2 className="heading-h3 md:heading-h2 text-white tracking-tight mb-3">
+          <h2 className="heading-h3 text-white tracking-tight mb-3">
             Client Leadership Across The Enterprise
           </h2>
 
-          <p className="max-w-2xl text-slate-300 text-xs sm:text-[13px] leading-relaxed font-normal">
+          <p className="body-text-sm max-w-2xl text-slate-300 leading-relaxed font-normal">
             We bring clarity and execution capability to leaders navigating
             complexity across every stage of maturity.
           </p>
@@ -106,7 +106,7 @@ export default function OurClients() {
 
                 <div className="mb-2.5">
                   <span
-                    className={`inline-block px-2.5 py-0.5 rounded-full text-[10.5px] sm:text-[11.5px] font-medium leading-tight ${item.badgeColor}`}
+                    className={`inline-block px-2.5 py-0.5 rounded-full heading-h6 font-medium leading-tight ${item.badgeColor}`}
                   >
                     {item.roles}
                   </span>

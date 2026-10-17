@@ -23,7 +23,7 @@ function renderContent(content) {
   if (!content) return null;
   if (typeof content === "string") {
     return content.split("\n\n").map((p, i) => (
-      <p key={i} className="text-[#CBD5E1] text-sm leading-relaxed mb-4">
+      <p key={i} className="body-text text-[#CBD5E1] leading-relaxed mb-4">
         {p}
       </p>
     ));
@@ -32,14 +32,14 @@ function renderContent(content) {
   return content.map((block, i) => {
     if (block.type === "paragraph") {
       return (
-        <p key={i} className="text-[#CBD5E1] text-sm leading-relaxed mb-4">
+        <p key={i} className="body-text text-[#CBD5E1] leading-relaxed mb-4">
           {block.text}
         </p>
       );
     }
     if (block.type === "heading") {
       return (
-        <h3 key={i} className="heading-h3 text-[#00C4B4] font-['Playfair_Display',serif] mb-2 mt-5">
+        <h3 key={i} className="heading-h3 text-[#00C4B4] mb-2 mt-5">
           {block.text}
         </h3>
       );
@@ -55,7 +55,7 @@ function renderContent(content) {
       return (
         <ul key={i} className="space-y-1.5 mb-4 ml-1">
           {block.items.map((item, j) => (
-            <li key={j} className="text-[#CBD5E1] text-sm leading-relaxed flex gap-2">
+            <li key={j} className="body-text text-[#CBD5E1] leading-relaxed flex gap-2">
               <span className="text-[#00C4B4] mt-1 shrink-0">•</span>
               <span>{item}</span>
             </li>
@@ -65,7 +65,7 @@ function renderContent(content) {
     }
     if (block.type === "quote") {
       return (
-        <blockquote key={i} className="border-l-2 border-[#00C4B4] pl-4 italic text-[#94A3B8] text-sm mb-4">
+        <blockquote key={i} className="body-text border-l-2 border-[#00C4B4] pl-4 italic text-[#94A3B8] mb-4">
           {block.text}
         </blockquote>
       );
@@ -171,21 +171,20 @@ export default function ArticleDetail({ article, onClose }) {
             }}
           >
             <div className="flex justify-end gap-3 mb-4">
-
-              <span className="text-[#64748B] text-xs">{article.date}</span>
+              <span className="body-text text-[#64748B]">{article.date}</span>
             </div>
 
-            <h2 className="heading-h2 font-['Playfair_Display',serif] text-white mb-2">
+            <h2 className="heading-h2 text-white mb-2">
               {article.title}
             </h2>
 
             <div className="flex items-center gap-3 mb-6 pb-5 border-b border-white/[0.07]">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white text-xs font-bold shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00C4B4] to-[#2563EB] flex items-center justify-center text-white body-text font-bold shrink-0">
                 RP
               </div>
               <div>
-                <p className="body-text-lg text-white text-xs 2xl: font-semibold">{article.author}</p>
-                <p className="text-[#64748B] text-[10px] 2xl:text-sm leading-tight">{article.authorRole}</p>
+                <p className="body-text text-white font-semibold">{article.author}</p>
+                <p className="body-text text-[#64748B] leading-tight">{article.authorRole}</p>
               </div>
             </div>
 

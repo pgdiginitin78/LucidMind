@@ -8,7 +8,6 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import Lenis from "lenis";
 import React, { useEffect, useRef, useState } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import AboutUsSecondSectionBanner from "./images/AboutUsSecondSectionBanner.webp";
@@ -99,7 +98,7 @@ const IconCareerReinvention = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    {/* Crown: MD & CEO */}
+    
     <path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z" />
     <path d="M4 20h16" />
   </svg>
@@ -148,7 +147,7 @@ const IconLeadershipPipeline = () => (
     strokeLinecap="round"
     strokeLinejoin="round"
   >
-    {/* Users: Leadership Pipeline */}
+    
     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
     <circle cx="9" cy="7" r="4" />
     <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -260,52 +259,52 @@ const IconArrowRight = () => (
 );
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 44 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.72,
+      duration: 0.7,
       delay: i * 0.1,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: [0.22, 1, 0.36, 1],
     },
   }),
 };
 
 const fadeLeft = {
-  hidden: { opacity: 0, x: -48 },
+  hidden: { opacity: 0, x: -24 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.76, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const fadeRight = {
-  hidden: { opacity: 0, x: 48 },
+  hidden: { opacity: 0, x: 24 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.76, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.86 },
+  hidden: { opacity: 0, scale: 0.92 },
   visible: (i = 0) => ({
     opacity: 1,
     scale: 1,
     transition: {
       duration: 0.6,
-      delay: i * 0.1,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      delay: i * 0.08,
+      ease: [0.22, 1, 0.36, 1],
     },
   }),
 };
 
 function Reveal({ children, className = "", variants = fadeUp, custom = 0 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-72px" });
+  const inView = useInView(ref, { once: true, amount: 0.15 });
   return (
     <motion.div
       ref={ref}
@@ -341,16 +340,6 @@ export default function AboutUs() {
 
   useEffect(() => {
     setReady(true);
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
   }, [setReady]);
 
   const valuePillars = [
@@ -503,12 +492,12 @@ export default function AboutUs() {
           style={{ opacity: heroOpacity }}
           className="relative z-10 w-full flex items-center justify-between px-5 sm:px-10 md:px-14 xl:px-20 py-24 sm:py-28 xl:py-32 min-h-[85vh] sm:min-h-[90vh] xl:min-h-screen"
         >
-          <div className="max-w-xs sm:max-w-md xl:max-w-3xl">
+          <div className="xl:max-w-3xl">
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 22 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.1 }}
-              className="text-2xl md:text-3xl xl:text-5xl font-bold tracking-tight text-white leading-[1.12] xl:leading-[1.08]"
+              transition={{ duration: 0.75, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="heading-h1 font-bold tracking-tight text-white leading-[1.12] xl:leading-[1.08]"
             >
               Born from experience.
               <br />
@@ -521,231 +510,23 @@ export default function AboutUs() {
               </span>
             </motion.h1>
 
-            <p className="text-sm md:body-text-lg font-['Inter',sans-serif] text-slate-400 font-medium sm:text-base md:text-lg lg:text-xl max-w-xs sm:max-w-md md:max-w-lg mt-5">
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="body-text text-slate-400 font-medium max-w-xs sm:max-w-md md:max-w-lg mt-5"
+            >
               LucidMind is built on a simple belief
               <br />
               better outcomes begin with better thinking.
-            </p>
-            {/* <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.22 }}
-            >
-              In a world where AI, automation and emerging technologies are
-              changing the way organisations operate, the challenge is no longer
-              access to technology.
-            </motion.p> */}
+            </motion.p>
           </div>
         </motion.div>
       </section>
 
-      {/* <section className="relative w-full bg-[#0A1A35] text-slate-900 py-12 sm:py-16 md:py-20 xl:py-28 px-4 sm:px-8 md:px-12 xl:px-20 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none select-none z-0">
-          <Image
-            src={AboutUsSecondSectionBanner}
-            alt="Strategic transformation background"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </div>
 
- <div className="max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-14 items-center relative z-10">
-          <Reveal className="lg:col-span-4 xl:col-span-5" variants={fadeLeft}>
-            <h2 className="heading-h2 text-[#1D63B8] leading-[1.12] tracking-tight">
-              Why We Exist
-            </h2>
-            <p className="mt-4 sm:mt-6 text-xs sm:text-sm xl:text-[15px] text-[#475569] leading-relaxed max-w-md">
-              LucidMind exists to help leaders answer these questions with
-              clarity and move confidently from{" "}
-              <span className="font-bold text-[#0B1528]">
-                insight to action, capability to outcomes, and today&apos;s
-                organisation to an Adaptive Future.
-              </span>
-            </p>
-          </Reveal>
 
-          <div className="lg:col-span-8 xl:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5 xl:gap-4 items-stretch">
-            {[
-              {
-                num: "01",
-                icon: <IconRefresh className="text-[#1D63B8]" />,
-                title: "What",
-                sub: "should we change?",
-                podBg:
-                  "bg-gradient-to-br from-[#2563EB]/25 via-[#3B82F6]/15 to-white/75",
-                podBorder: "border-[#3B82F6]/50 hover:border-[#2563EB]",
-                podShadow:
-                  "shadow-[0_6px_20px_rgba(37,99,235,0.28),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
-              },
-              {
-                num: "02",
-                icon: <IconLightbulb className="text-[#B45309]" />,
-                title: "Why",
-                sub: "should we change it?",
-                podBg:
-                  "bg-gradient-to-br from-[#F59E0B]/30 via-[#FBBF24]/18 to-white/75",
-                podBorder: "border-[#F59E0B]/60 hover:border-[#D97706]",
-                podShadow:
-                  "shadow-[0_6px_20px_rgba(245,158,11,0.32),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
-              },
-              {
-                num: "03",
-                icon: <IconCrosshair className="text-[#0F766E]" />,
-                title: "Where",
-                sub: "should we focus first?",
-                podBg:
-                  "bg-gradient-to-br from-[#00C4B4]/30 via-[#2DD4BF]/18 to-white/75",
-                podBorder: "border-[#00C4B4]/60 hover:border-[#0D9488]",
-                podShadow:
-                  "shadow-[0_6px_20px_rgba(13,148,136,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
-              },
-              {
-                num: "04",
-                icon: <IconBarChart className="text-[#6D28D9]" />,
-                title: "How",
-                sub: "Do we turn that intent into measurable business impact?",
-                podBg:
-                  "bg-gradient-to-br from-[#8B5CF6]/30 via-[#A78BFA]/18 to-white/75",
-                podBorder: "border-[#8B5CF6]/60 hover:border-[#7C3AED]",
-                podShadow:
-                  "shadow-[0_6px_20px_rgba(124,58,237,0.3),inset_0_1.5px_2px_rgba(255,255,255,0.95)]",
-              },
-            ].map((card, i) => (
-              <Reveal
-                key={card.num}
-                variants={scaleIn}
-                custom={i}
-                className="group relative overflow-hidden flex flex-col items-center text-center justify-between min-h-[220px] sm:min-h-[260px] md:min-h-[290px] xl:min-h-[320px] pt-5 pb-6 px-2.5 sm:pt-6 sm:pb-7 sm:px-3.5 xl:pt-7 xl:pb-8 xl:px-4 rounded-t-[48px] sm:rounded-t-[64px] xl:rounded-t-[84px] rounded-b-[48px] sm:rounded-b-[64px] xl:rounded-b-[84px] bg-gradient-to-b from-white/35 via-white/18 to-white/8 backdrop-blur-md border border-white/60 shadow-[0_8px_32px_0_rgba(10,35,80,0.12),inset_0_1.5px_2px_0_rgba(255,255,255,0.7),inset_0_-1px_2px_0_rgba(255,255,255,0.15)] hover:from-white/45 hover:via-white/25 hover:to-white/12 hover:border-white/90 hover:shadow-[0_16px_40px_0_rgba(15,45,105,0.2),inset_0_2px_3px_0_rgba(255,255,255,0.9)] hover:-translate-y-1.5 transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-white/35 via-white/5 to-transparent pointer-events-none rounded-[inherit]" />
 
-                <div className="w-full flex flex-col items-center relative z-10">
-                  <span className="text-xs sm:text-sm xl:text-[15px] font-bold text-[#0B1528] mb-2 sm:mb-3 xl:mb-3.5 select-none">
-                    {card.num}
-                  </span>
-                  <div
-                    className={`w-12 h-12 sm:w-14 sm:h-14 xl:w-[72px] xl:h-[72px] rounded-full ${card.podBg} backdrop-blur-md border ${card.podBorder} ${card.podShadow} flex items-center justify-center mb-3 sm:mb-4 xl:mb-5 shrink-0 select-none group-hover:scale-110 transition-all duration-300`}
-                  >
-                    {card.icon}
-                  </div>
-                </div>
-
-                <div className="w-full flex flex-col items-center justify-center flex-1 relative z-10">
-                  {card.title && (
-                    <h3 className="heading-h3 text-[#0B1528] mb-1 tracking-tight">
-                      {card.title}
-                    </h3>
-                  )}
-                  <p
-                    className={
-                      card.title
-                        ? "text-[11px] sm:text-xs xl:text-[13px] text-[#1E293B] font-medium leading-snug"
-                        : "text-[10.5px] sm:text-xs xl:text-[13.5px] text-[#0F172A] font-medium leading-snug max-w-[150px]"
-                    }
-                  >
-                    {card.sub}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* <section className="relative w-full min-h-[420px] sm:min-h-[460px] lg:min-h-[520px] xl:min-h-[550px] bg-[#050D1A] overflow-hidden flex items-center py-12 sm:py-14 md:py-16">
-        <div className="absolute top-0 bottom-0 left-0 w-full sm:w-[50%] lg:w-[38%] xl:w-[35%] pointer-events-none overflow-hidden z-0">
-          <Image
-            src={ExecutiveThinkingLeftImg}
-            alt="Executive perspective"
-            fill
-            priority
-            className="object-cover object-left opacity-10 md:opacity-15 xl:opacity-100"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050D1A]/90 via-[#050D1A]/75 to-[#050D1A] xl:from-transparent xl:via-[#050D1A]/30 xl:to-[#050D1A]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050D1A] via-transparent to-[#050D1A]/40" />
-        </div>
-
-        <div className="absolute top-0 bottom-0 right-0 w-full sm:w-[50%] lg:w-[42%] xl:w-[38%] pointer-events-none overflow-hidden z-0">
-          <Image
-            src={GlobeCurvedRightImg}
-            alt="Global enterprise perspective"
-            fill
-            priority
-            className="object-cover object-right opacity-15 md:opacity-20 xl:opacity-100"
-          />
-          <div className="absolute inset-0 bg-gradient-to-l from-[#050D1A]/85 via-[#050D1A]/60 to-[#050D1A] xl:from-transparent xl:via-[#050D1A]/10 xl:to-[#050D1A]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050D1A] via-transparent to-[#050D1A]/40" />
-        </div>
-
- <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div className="w-full lg:col-span-8">
-              <Reveal variants={fadeUp}>
-                <span className="text-[10px] sm:text-xs font-bold tracking-[0.26em] uppercase text-[#00C4FF] mb-2 sm:mb-2.5 block">
-                  Why LucidMind came into existence
-                </span>
-                <h2 className="heading-h2 lg:text-[34px] xl:text-[38px] text-white leading-[1.18] tracking-tight mb-4 sm:mb-5">
-                  Because transformation
-                  <br />
-                  looks different from the inside.
-                </h2>
-
-                <div className="space-y-3.5 sm:space-y-4 text-xs sm:text-sm xl:text-[14px] text-slate-200/90 leading-[1.7] max-w-2xl">
-                  <p>
-                    LucidMind was born from more than two decades of experience
-                    building businesses, leading technology organisations,
-                    scaling teams and navigating transformation across business
-                    and technology.
-                  </p>
-                  <p>
-                    Over{" "}
-                    <strong className="text-white font-bold">27+ years</strong>,
-                    founder{" "}
-                    <strong className="text-white font-bold">
-                      Ravishankar Pingali
-                    </strong>{" "}
-                    has worked across technology, business leadership and global
-                    enterprise environments — building organisations,
-                    transforming operations, scaling a GCC from{" "}
-                    <strong className="text-white font-bold">
-                      15 to 220+ people
-                    </strong>
-                    , working with global leadership teams and turning emerging
-                    technologies into business outcomes.
-                  </p>
-                  <p className="text-[#00C4FF] font-semibold text-xs sm:text-sm xl:text-[15px] pt-1">
-                    That journey revealed a recurring pattern.
-                  </p>
-                </div>
-              </Reveal>
-            </div>
-
-            <div className="w-full lg:col-span-4 flex justify-start lg:justify-end">
-              <Reveal
-                variants={fadeRight}
-                className="w-full max-w-sm p-6 sm:p-7 rounded-2xl bg-[#071326]/80 backdrop-blur-md border border-[#00C4FF]/30 shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_20px_rgba(0,196,255,0.06)] flex flex-col justify-between"
-              >
-                <div>
-                  <span className="text-3xl sm:text-4xl xl:text-5xl font-black text-[#00C4FF] leading-none tracking-tight block">
-                    27+ years
-                  </span>
-                  <div className="w-10 h-[2px] bg-[#00C4FF] my-3.5 rounded-full" />
-                  <span className="text-xl sm:text-2xl font-extrabold text-white tracking-tight block">
-                    15 to 220+ people
-                  </span>
-                </div>
-                <div className="mt-5 pt-4 border-t border-[#00C4FF]/20">
-                  <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
-                    That journey revealed a recurring pattern.
-                  </p>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       <section className="relative w-full bg-[#F1F6FB] overflow-hidden flex items-center py-12 sm:py-14 md:py-16 min-h-[220px] sm:min-h-[250px]">
         <div className="hidden xl:block absolute top-0 bottom-0 left-0 w-[30%] pointer-events-none overflow-hidden z-0">
@@ -787,7 +568,7 @@ export default function AboutUs() {
 
           <div className="w-full md:w-[40%] xl:w-[35%] shrink-0">
             <Reveal variants={fadeUp}>
-              <h2 className="heading-h3 lg:text-[26px] xl:text-[30px] text-[#0B2545] leading-[1.22] tracking-tight">
+              <h2 className="heading-h4 sm:heading-h3 lg:heading-h2 text-[#0B2545] leading-[1.22] tracking-tight">
                 The hardest part of
                 <br />
                 transformation is rarely
@@ -799,12 +580,12 @@ export default function AboutUs() {
 
           <div className="w-full md:w-[50%] xl:w-[38%]">
             <Reveal variants={fadeUp}>
-              <p className="text-xs sm:text-sm md:text-[13px] xl:text-[14px] text-[#3B4E68] leading-[1.7] font-normal">
+              <p className="body-text text-[#3B4E68] leading-[1.7] font-normal">
                 It is creating clarity around the problem, aligning people
                 around the opportunity, building the capability to execute and
                 maintaining the discipline to turn ideas into outcomes.
               </p>
-              <p className="mt-3 text-xs sm:text-sm md:text-[13px] xl:text-[14.5px] font-bold text-[#0B2545] leading-[1.7]">
+              <p className="body-text mt-3 font-bold text-[#0B2545] leading-[1.7]">
                 And that is where LucidMind begins.
               </p>
             </Reveal>
@@ -836,10 +617,10 @@ export default function AboutUs() {
         <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-4 xl:gap-6">
           <div className="w-full lg:w-[50%] xl:w-[47%] shrink-0">
             <Reveal variants={fadeLeft}>
-              <span className="text-[10px] sm:text-xs font-bold tracking-[0.24em] uppercase text-[#00C4FF] mb-2 sm:mb-2.5 block">
+              <span className="heading-h6 font-bold tracking-[0.24em] uppercase text-[#00C4FF] mb-2 sm:mb-2.5 block">
                 The LucidMind difference
               </span>
-              <h2 className="heading-h3 md:heading-h2 lg:text-[32px] xl:text-[36px] text-white leading-[1.14] tracking-tight mb-3 sm:mb-3.5">
+              <h2 className="heading-h3 md:heading-h2 text-white leading-[1.14] tracking-tight mb-3 sm:mb-3.5">
                 We don&apos;t start with technology.
                 <br className="hidden md:block" />
                 We{"  "}
@@ -847,17 +628,10 @@ export default function AboutUs() {
                   start <br className="md:hidden" /> with the question.
                 </span>
               </h2>
-              {/* <p className="text-xs sm:text-[13px] text-slate-300 leading-[1.6] mb-2.5 max-w-xl">
-                AI is accelerating change. New platforms, tools and technologies
-                are emerging every day.
-              </p>
-              <p className="text-xs sm:text-[13px] text-slate-300 leading-[1.6] mb-3 max-w-xl">
-                But technology adoption, by itself, does not create
-                transformation.
-              </p> */}
+              
               <div className="flex items-center gap-2.5 mb-3.5 mt-2">
                 <span className="w-2 h-2 rounded-full bg-[#00C4FF] animate-pulse shadow-[0_0_10px_#00C4FF] hidden lg:block" />
-                <h3 className="heading-h5 md:heading-h3 uppercase text-[#00C4FF]">
+                <h3 className="heading-h5 md:heading-h4 uppercase text-[#00C4FF]">
                   The strategic imperatives
                 </h3>
               </div>
@@ -886,18 +660,13 @@ export default function AboutUs() {
                         />
                       </svg>
                     </div>
-                    <span className="text-xs sm:text-[13.5px] xl:text-[14px] font-medium text-slate-100 leading-snug group-hover:text-white transition-colors">
+                    <span className="body-text font-medium text-slate-100 leading-snug group-hover:text-white transition-colors">
                       {q}
                     </span>
                   </div>
                 ))}
               </div>
-              {/* <p className="text-xs sm:text-[12px] text-slate-300/85 leading-[1.6] max-w-xl">
-                LucidMind brings a perspective shaped by having sat on both
-                sides of the transformation table: as a technology leader
-                responsible for making change happen and as a business leader
-                accountable for people, operations, stakeholders and the P&L.
-              </p> */}
+              
             </Reveal>
           </div>
 
@@ -923,12 +692,12 @@ export default function AboutUs() {
           >
             <div className="flex items-center justify-center gap-3 mb-3 sm:mb-4">
               <span className="w-8 sm:w-12 h-[1px] bg-slate-400/50" />
-              <span className="text-[10px] sm:text-xs font-bold tracking-[0.24em] text-slate-500 uppercase">
+              <span className="heading-h6 font-bold tracking-[0.24em] text-slate-500 uppercase">
                 OUR APPROACH
               </span>
               <span className="w-8 sm:w-12 h-[1px] bg-slate-400/50" />
             </div>
-            <h2 className="heading-h3 md:heading-h2 lg:text-[40px] text-[#0B182F] tracking-tight leading-[1.2]">
+            <h2 className="heading-h3 md:heading-h2 text-[#0B182F] tracking-tight leading-[1.2]">
               This allows us to connect three things
               <br />
               that are often{" "}
@@ -986,7 +755,7 @@ export default function AboutUs() {
                   <div className="relative z-20 flex flex-col items-start w-full text-left">
                     <div className="flex flex-col items-center shrink-0 w-12 sm:w-14">
                       <span
-                        className="font-playfair font-bold text-4xl sm:text-5xl lg:text-[44px] xl:text-[50px] leading-none tracking-tight block text-center h-[38px] sm:h-[44px] flex items-center justify-center"
+                        className="heading-h1 leading-none tracking-tight block text-center flex items-center justify-center"
                         style={{ color: step.numColor }}
                       >
                         {step.num}
@@ -1008,7 +777,7 @@ export default function AboutUs() {
                       </div>
                     </div>
 
-                    <h3 className="font-playfair font-black text-xl sm:text-[22px] xl:text-[24px] tracking-wider text-[#06142F] leading-none mt-3.5 sm:mt-4 mb-1.5 uppercase">
+                    <h3 className="heading-h5 md:heading-h4 tracking-wider text-[#06142F] leading-none mt-3.5 sm:mt-4 mb-1.5 uppercase">
                       {step.title}
                     </h3>
 
@@ -1082,11 +851,11 @@ export default function AboutUs() {
             custom={3}
             className="mt-14 sm:mt-18 lg:mt-20 text-center max-w-3xl mx-auto px-4"
           >
-            <p className="text-xs sm:text-sm md:text-[14.5px] font-semibold text-[#1E293B] leading-relaxed">
+            <p className="body-text font-semibold text-[#1E293B] leading-relaxed">
               Because strategy without execution remains an idea. And technology
               without direction remains a tool.
             </p>
-            <p className="body-text-lg mt-2 sm:text-xl md:text-2xl font-black text-[#007DFE] tracking-tight">
+            <p className="heading-h4 mt-2 font-black text-[#007DFE] tracking-tight">
               LucidMind works at the intersection.
             </p>
             <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-[#00C4FF] to-[#007DFE] rounded-full mx-auto mt-3.5" />
@@ -1094,46 +863,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* <section className="relative w-full min-h-[55vh] sm:min-h-[65vh] xl:min-h-[75vh] flex items-center overflow-hidden py-16 sm:py-20 xl:py-24">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={EarthHorizonImg}
-            alt="From insight to impact"
-            fill
-            className="object-cover object-bottom"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#040814]/95 via-[#040814]/80 to-[#040814]/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#040814] via-transparent to-[#040814]/50" />
-        </div>
 
- <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
-          <Reveal variants={fadeUp} className="max-w-3xl">
-            <h2 className="heading-h2 text-white tracking-tight mb-6 sm:mb-8">
-              From insight to impact
-            </h2>
-
-            <div className="space-y-4 sm:space-y-5 text-sm sm:text-base md:text-lg text-slate-200/95 leading-relaxed">
-              <p>
-                Our experience has shown us what becomes possible when the
-                pieces come together. A technology centre can evolve into a
-                strategic value creator.
-              </p>
-              <p>
-                An idea born in India can become a product adopted across global
-                businesses. AI, automation and low-code can move from
-                experiments to real business capabilities.
-              </p>
-              <p>
-                And transformation can become more than a technology programme.
-                It can become a way for an organisation to continuously adapt.
-              </p>
-              <p className="body-text-lg text-[#00C4FF] font-semibold text-base sm: md:text-xl pt-1">
-                That is the future LucidMind is built to enable.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section> */}
 
       <section
         ref={philosophyRef}
@@ -1175,10 +905,10 @@ export default function AboutUs() {
                     {pillar.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm sm:text-base text-white mb-1 tracking-tight">
+                    <h3 className="heading-h6 md:heading-h5 text-white mb-1 tracking-tight">
                       {pillar.title}
                     </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-300/85 leading-relaxed">
+                    <p className="body-text-sm text-slate-300/85 leading-relaxed">
                       {pillar.desc}
                     </p>
                   </div>
@@ -1200,7 +930,7 @@ export default function AboutUs() {
               </span>
             </h2>
             <div className="w-12 h-0.5 bg-[#00C4FF] rounded-full mx-auto my-2.5 shadow-[0_0_10px_#00c4ff]" />
-            <p className="text-xs sm:text-sm text-slate-300/90 font-medium max-w-xl mx-auto">
+            <p className="body-text text-slate-300/90 font-medium max-w-xl mx-auto">
               Our logo is a visual manifesto of the values we bring to every
               partnership.
             </p>
@@ -1208,7 +938,7 @@ export default function AboutUs() {
 
           <div className="relative">
             <div className="flex flex-col lg:flex-row items-center justify-center max-w-5xl mx-auto relative px-2 sm:px-4 lg:px-0 gap-20">
-              <div className="relative shrink-0 flex items-center justify-center mb-8 lg:mb-0">
+              <div className="relative shrink-0 flex items-center justify-center mb-4 lg:mb-0">
                 <div className="absolute -inset-10 sm:-inset-12 rounded-full bg-[radial-gradient(circle,_rgba(0,196,255,0.35)_0%,_rgba(0,120,255,0.12)_50%,_transparent_70%)] blur-2xl pointer-events-none" />
                 <div className="absolute -inset-4 sm:-inset-6 rounded-full border border-cyan-400/25 pointer-events-none transform -rotate-6 scale-x-105" />
                 <div className="relative w-60 h-60 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full border-2 border-cyan-400/80 bg-[#020b1c]/80 backdrop-blur-xl shadow-[0_0_35px_rgba(0,196,255,0.5),inset_0_0_25px_rgba(0,196,255,0.2)] flex flex-col items-center justify-center p-6 text-center group transition-all duration-300">
@@ -1224,7 +954,7 @@ export default function AboutUs() {
                     <img
                       src={LucidMindTransperentLogo}
                       alt="LucidMind Logo"
-                      className="w-36 sm:w-40 lg:w-60 h-auto object-contain filter drop-shadow-[0_0_20px_rgba(0,196,255,0.7)]"
+                      className="w-60 h-auto object-contain filter drop-shadow-[0_0_20px_rgba(0,196,255,0.7)]"
                     />
                   </motion.div>
                 </div>
@@ -1247,14 +977,14 @@ export default function AboutUs() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <h3 className="text-sm sm:text-base font-['Playfair_Display',serif] text-white">
+                        <h3 className="heading-h6 md:heading-h5 text-white">
                           Open Circle
                         </h3>
-                        <span className="text-sm sm:text-base font-['Playfair_Display',serif] text-white">
+                        <span className="heading-h6 md:heading-h5 text-white">
                           Continuous Learning
                         </span>
                       </div>
-                      <p className="text-[11px] sm:text-xs text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
+                      <p className="body-text-sm text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
                         We approach every challenge with a holistic perspective,
                         remaining endlessly open to new possibilities and the
                         clarity that comes from continuous learning.
@@ -1279,14 +1009,14 @@ export default function AboutUs() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <h3 className="text-sm sm:text-base font-['Playfair_Display',serif] text-white">
+                        <h3 className="heading-h6 md:heading-h5 text-white">
                           Hidden LM
                         </h3>
-                        <span className="text-sm sm:text-base font-['Playfair_Display',serif] text-white">
+                        <span className="heading-h6 md:heading-h5 text-white">
                           Core Clarity
                         </span>
                       </div>
-                      <p className="text-[11px] sm:text-xs text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
+                      <p className="body-text-sm text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
                         LucidMind sits at the center of the work we do. We cut
                         through complexity to shape better outcomes and bring
                         absolute clarity to your toughest business questions.
@@ -1311,14 +1041,14 @@ export default function AboutUs() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap items-center gap-2 mb-1">
-                        <h3 className="text-sm sm:text-base font-['Playfair_Display',serif] text-white">
+                        <h3 className="heading-h6 md:heading-h5 text-white">
                           Upward Path
                         </h3>
-                        <span className="text-sm sm:text-base font-['Playfair_Display',serif] text-white">
+                        <span className="heading-h6 md:heading-h5 text-white">
                           Measurable Impact
                         </span>
                       </div>
-                      <p className="text-[11px] sm:text-xs text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
+                      <p className="body-text-sm text-slate-300/90 leading-snug lg:line-clamp-2 font-normal">
                         We are built for progress. Our commitment is to take you
                         on a journey from strategic insight to tangible, lasting
                         enterprise impact.
@@ -1332,7 +1062,7 @@ export default function AboutUs() {
 
           <Reveal variants={fadeUp} custom={1}>
             <div className="mt-6 sm:mt-8 lg:mt-10 text-center w-full max-w-xl mx-auto p-3 sm:p-3.5 rounded-xl bg-[#030d22]/70 backdrop-blur-xl border border-cyan-500/25 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-              <p className="text-xs sm:text-[13px] font-medium text-slate-200 leading-relaxed px-2">
+              <p className="body-text font-medium text-slate-200 leading-relaxed px-2">
                 We help leaders move from clarity to capability, and from
                 strategy to lasting impact.
               </p>
@@ -1391,7 +1121,7 @@ export default function AboutUs() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Connect with Ravishankar Pingali on LinkedIn"
-                    className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#051C33]/90 hover:bg-[#00C4FF] text-white hover:text-[#040E1E] border border-[#00C4FF]/70 shadow-[0_0_15px_rgba(0,196,255,0.25)] hover:shadow-[0_0_25px_rgba(0,196,255,0.6)] font-semibold text-xs transition-all duration-300 group"
+                    className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#051C33]/90 hover:bg-[#00C4FF] text-white hover:text-[#040E1E] border border-[#00C4FF]/70 shadow-[0_0_15px_rgba(0,196,255,0.25)] hover:shadow-[0_0_25px_rgba(0,196,255,0.6)] font-semibold body-text transition-all duration-300 group"
                   >
                     <div className="w-5 h-5 rounded bg-[#0077B5] flex items-center justify-center text-white shrink-0">
                       <LinkedInIcon />
@@ -1404,7 +1134,7 @@ export default function AboutUs() {
 
               <Reveal variants={fadeRight} className="flex-1">
                 <div className="flex items-center gap-3">
-                  <span className="text-[10px] sm:text-xs font-bold tracking-[0.25em] uppercase text-[#00C4FF]">
+                  <span className="heading-h6 font-bold tracking-[0.25em] uppercase text-[#00C4FF]">
                     THE FOUNDER
                   </span>
                   <span className="w-8 sm:w-12 h-[1.5px] bg-[#00C4FF]/60" />
@@ -1415,10 +1145,10 @@ export default function AboutUs() {
                 <h3 className="heading-h5 md:heading-h3 text-[#00C4FF] mt-1.5 sm:mt-2">
                   GCC & Transformation Leader | Advisor | Independent Director
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-200 mt-1.5 sm:mt-2 font-normal leading-relaxed">
+                <p className="body-text text-slate-200 mt-1.5 sm:mt-2 font-normal leading-relaxed">
                   Adaptability, practised before it was advised.
                 </p>
-                <div className="space-y-3 sm:space-y-3.5 text-xs sm:text-[13px] xl:text-sm text-slate-300 leading-relaxed mt-4 sm:mt-5">
+                <div className="body-text-sm   space-y-3 sm:space-y-3.5 text-slate-300 leading-relaxed mt-4 sm:mt-5">
                   <p>
                     Ravishankar’s career has seen a series of purposeful
                     reinventions as a result of both technological and business
@@ -1503,12 +1233,12 @@ export default function AboutUs() {
                       {m.icon}
                     </div>
                     <h4
-                      className={`text-base sm:text-lg md:text-xl xl:text-xl font-extrabold leading-tight tracking-tight ${m.statClass}`}
+                      className={`heading-h4 leading-tight tracking-tight ${m.statClass}`}
                     >
                       {m.stat}
                     </h4>
                   </div>
-                  <p className="text-[10.5px] sm:text-xs xl:text-[13px] text-slate-300 leading-snug text-center">
+                  <p className="body-text text-slate-300 leading-snug text-center">
                     {m.label}
                   </p>
                 </div>
@@ -1543,14 +1273,14 @@ export default function AboutUs() {
               </div>
 
               <div className="relative z-10 max-w-3xl">
-                <h3 className="heading-h3 text-white tracking-tight">
+                <h3 className="heading-h4 sm:heading-h3 text-white tracking-tight">
                   The future belongs to adaptive organisations.
                 </h3>
-                <p className="mt-3 sm:mt-4 text-xs sm:text-[13px] xl:text-sm text-slate-300 leading-relaxed">
+                <p className="body-text mt-3 sm:mt-4 text-slate-300 leading-relaxed">
                   The organisations that thrive in the years ahead will not
                   necessarily be those that adopt every new technology first.
                 </p>
-                <p className="mt-2 text-xs sm:text-[13px] xl:text-sm text-slate-300 leading-relaxed">
+                <p className="body-text mt-2 text-slate-300 leading-relaxed">
                   They will be the ones that can{" "}
                   <strong className="text-white font-bold">
                     understand change, make better decisions, build the right
@@ -1558,35 +1288,16 @@ export default function AboutUs() {
                   </strong>
                   .
                 </p>
-                <p className="mt-2 text-xs sm:text-[13px] xl:text-sm text-slate-300 leading-relaxed">
+                <p className="body-text mt-2 text-slate-300 leading-relaxed">
                   LucidMind exists to help them do exactly that.
                 </p>
               </div>
 
               <div className="relative z-10 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-[#00C4FF]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-5">
-                <p className="body-text text-xs sm:text-sm xl: font-bold text-[#00C4FF]">
+                <p className="body-text font-bold text-[#00C4FF]">
                   THINK clearly. BUILD capability. DELIVER impact.
                 </p>
-                {/* <Link
-                  href="/contact"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-4 md:px-7 py-2.5 md:py-3 rounded-full bg-[#14E5D4] hover:bg-[#00E5FF] text-[#031326] font-extrabold text-xs tracking-wider uppercase shadow-[0_0_25px_rgba(20,229,212,0.5)] hover:shadow-[0_0_35px_rgba(0,229,255,0.8)] transition-all duration-300 shrink-0 group"
-                >
-                  <span>Welcome to LucidMind</span>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="transition-transform duration-300 group-hover:translate-x-1"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </Link> */}
+                
               </div>
             </div>
           </Reveal>

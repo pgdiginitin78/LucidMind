@@ -356,7 +356,7 @@ export default function InsightsHub() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="body-text text-slate-200 mt-4 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
+              className="body-text-sm text-slate-200 mt-4 max-w-xl drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]"
             >
               Explore executive essays, strategic frameworks, and in-depth video
               dialogues designed for leaders reinventing operating models.
@@ -376,7 +376,7 @@ export default function InsightsHub() {
                 type="button"
                 onClick={() => handleTabSelect("ALL", "insights-content")}
                 className={cn(
-                  "flex items-center justify-center px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  "flex items-center justify-center px-3 sm:px-5 py-2 rounded-xl sm:rounded-full body-text-sm font-semibold transition-all cursor-pointer text-center",
                   activeTab === "ALL"
                     ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
                     : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
@@ -388,7 +388,7 @@ export default function InsightsHub() {
                 type="button"
                 onClick={() => handleTabSelect("BLOGS", "insights-content")}
                 className={cn(
-                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full body-text-sm font-semibold transition-all cursor-pointer text-center",
                   activeTab === "BLOGS"
                     ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
                     : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
@@ -401,7 +401,7 @@ export default function InsightsHub() {
                 type="button"
                 onClick={() => handleTabSelect("VIDEOS", "insights-content")}
                 className={cn(
-                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full body-text-sm font-semibold transition-all cursor-pointer text-center",
                   activeTab === "VIDEOS"
                     ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
                     : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
@@ -414,7 +414,7 @@ export default function InsightsHub() {
                 type="button"
                 onClick={() => handleTabSelect("PODCASTS", "insights-content")}
                 className={cn(
-                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-xs font-semibold transition-all cursor-pointer text-center",
+                  "flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-xl sm:rounded-full body-text-sm font-semibold transition-all cursor-pointer text-center",
                   activeTab === "PODCASTS"
                     ? "bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white shadow-[0_0_16px_rgba(0,196,255,0.35)]"
                     : "text-slate-400 hover:text-white hover:bg-white/[0.05]",
@@ -429,23 +429,29 @@ export default function InsightsHub() {
 
         {(activeTab === "ALL" || activeTab === "BLOGS") && (
           <section id="blogs" className="scroll-mt-28 space-y-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]"
+            >
               <div>
-                <h2 className="heading-h3 md:heading-h2 text-white">
+                <h2 className="heading-h3 sm:heading-h2 text-white">
                   Thought Leadership <span className="font-sans">&amp;</span>{" "}
                   Blogs
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mt-2">
+                <p className="body-text-sm  text-slate-400 max-w-2xl mt-2">
                   Reflections on modern engineering, talent ecosystems, and
                   shifting from legacy execution to continuous making.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {loading ? (
               <div className="py-14 flex flex-col items-center justify-center">
                 <div className="w-10 h-10 border-2 border-[#00C4B4] border-t-transparent rounded-full animate-spin mb-4" />
-                <span className="text-xs text-slate-400 tracking-wider uppercase">
+                <span className="body-text-sm text-slate-400 tracking-wider uppercase">
                   Loading executive publications...
                 </span>
               </div>
@@ -454,10 +460,10 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Layers size={22} />
                 </div>
-                <h3 className="heading-h5 md:heading-h3 text-white mb-2">
+                <h3 className="heading-h5 md:heading-h4 text-white mb-2">
                   No matching insights
                 </h3>
-                <p className="text-xs text-slate-400 mb-5">
+                <p className="body-text-sm body-text-sm text-slate-400 mb-5">
                   No publications matched your current filter criteria.
                 </p>
                 <button
@@ -466,7 +472,7 @@ export default function InsightsHub() {
                     setSearchQuery("");
                     setSelectedCategory("ALL");
                   }}
-                  className="px-4 py-2 rounded-full bg-white/[0.08] hover:bg-white/[0.14] text-xs font-semibold text-white border border-white/15 transition-all"
+                  className="px-4 py-2 rounded-full bg-white/[0.08] hover:bg-white/[0.14] body-text-sm font-semibold text-white border border-white/15 transition-all"
                 >
                   Reset Filters
                 </button>
@@ -497,38 +503,38 @@ export default function InsightsHub() {
 
                     <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
                       <div>
-                        <div className="flex flex-wrap justify-end gap-3 text-xs text-slate-400 mb-4">
+                        <div className="flex flex-wrap justify-end gap-3 body-text-sm text-slate-400 mb-4">
                           {featuredArticle.date && (
                             <span>{featuredArticle.date}</span>
                           )}
                         </div>
 
-                        <h4 className="heading-h4 text-white mb-4 group-hover:text-[#00C4B4] transition-colors">
+                        <h4 className="heading-h4 md:heading-h3 text-white mb-4 group-hover:text-[#00C4B4] transition-colors">
                           {featuredArticle.title}
                         </h4>
 
-                        <p className="body-text text-slate-300 text-sm line-clamp-4 mb-6">
+                        <p className="body-text-sm  text-slate-300 line-clamp-4 mb-6">
                           {featuredArticle.description}
                         </p>
                       </div>
 
                       <div className="pt-6 border-t border-white/[0.08] gap-4">
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white text-sm shrink-0 shadow-[0_0_12px_rgba(0,196,180,0.3)]">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white body-text-sm shrink-0 shadow-[0_0_12px_rgba(0,196,180,0.3)]">
                             RP
                           </div>
                           <div className="min-w-0">
-                            <div className="text-xs 2xl:text-sm font-bold text-white truncate">
+                            <div className="body-text-sm font-bold text-white truncate">
                               {featuredArticle.author}
                             </div>
-                            <div className="text-[11px] 2xl:text-sm text-slate-400 truncate">
+                            <div className="body-text-sm text-slate-400 truncate">
                               {featuredArticle.authorRole}
                             </div>
                           </div>
                         </div>
 
                         <div className="flex justify-end">
-                          <div className="inline-flex items-center gap-1.5 px-4 mt-2 2xl:mt-4 py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold text-xs tracking-wide transition-all shrink-0">
+                          <div className="inline-flex items-center gap-1.5 px-4 mt-2 2xl:mt-4 py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold body-text-sm tracking-wide transition-all shrink-0">
                             <span>Read Essay</span>
                             <ArrowUpRight
                               size={14}
@@ -541,7 +547,7 @@ export default function InsightsHub() {
                   </motion.article>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
                   {listArticles.map((article, index) => (
                     <motion.article
                       key={article.id}
@@ -567,24 +573,24 @@ export default function InsightsHub() {
                       </div>
 
                       <div className="p-5 sm:p-6 flex flex-col flex-1">
-                        <div className="flex justify-end gap-3 text-xs 2xl:text-sm text-slate-400 mb-2.5">
+                        <div className="flex justify-end gap-3  text-slate-400 mb-2.5">
                           {article.date && <span>{article.date}</span>}
                         </div>
 
-                        <h5 className="heading-h5 text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
+                        <h5 className="heading-h5 md:heading-h5 text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
                           {article.title}
                         </h5>
 
-                        <p className="body-text-lg text-slate-300 text-xs sm:text-sm line-clamp-3 mb-6 flex-1">
+                        <p className="body-text-sm  text-slate-300 line-clamp-3 mb-6 flex-1">
                           {article.description}
                         </p>
 
                         <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3 mt-auto">
-                          <span className="text-[11px] 2xl:text-sm text-slate-400 truncate">
+                          <span className="body-text-sm text-slate-400 truncate">
                             {article.author}
                           </span>
 
-                          <span className="inline-flex items-center gap-1 text-xs 2xl:text-sm font-semibold text-[#00C4B4] group-hover:text-white transition-colors">
+                          <span className="inline-flex body-text-sm items-center gap-1  font-semibold text-[#00C4B4] group-hover:text-white transition-colors">
                             <span>Read Full Article</span>
                             <ArrowUpRight
                               size={13}
@@ -603,27 +609,33 @@ export default function InsightsHub() {
 
         {(activeTab === "ALL" || activeTab === "VIDEOS") && (
           <section id="videos" className="scroll-mt-28 space-y-10">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]"
+            >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00C4FF]/15 border border-[#00C4FF]/30 text-[#00C4FF] text-xs font-semibold mb-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00C4FF]/15 border border-[#00C4FF]/30 text-[#00C4FF] body-text-sm font-semibold mb-2">
                   <Video size={13} />
                   <span>Executive Videos</span>
                 </div>
-                <h2 className="heading-h3 md:heading-h2 text-white">
+                <h2 className="heading-h3 sm:heading-h2 text-white">
                   Video Discussions <span className="font-sans">&amp;</span>{" "}
                   Masterclasses
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
+                <p className="body-text-sm  text-slate-400 max-w-xl mt-2">
                   Watch executive video discussions and dialogues on enterprise
                   scale, GCC evolution, and generative AI.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {podcastLoading ? (
               <div className="py-14 flex flex-col items-center justify-center">
                 <div className="w-10 h-10 border-2 border-[#00C4FF] border-t-transparent rounded-full animate-spin mb-4" />
-                <span className="text-xs text-slate-400 tracking-wider uppercase">
+                <span className="body-text-sm text-slate-400 tracking-wider uppercase">
                   Loading video discussions...
                 </span>
               </div>
@@ -632,10 +644,10 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Video size={22} />
                 </div>
-                <h3 className="heading-h5 md:heading-h3 text-white mb-2">
+                <h3 className="heading-h5 md:heading-h4 text-white mb-2">
                   No videos available
                 </h3>
-                <p className="text-xs text-slate-400 mb-4">
+                <p className="body-text-sm body-text-sm text-slate-400 mb-4">
                   Video discussions are currently being prepared for broadcast.
                 </p>
               </div>
@@ -676,18 +688,18 @@ export default function InsightsHub() {
                       </div>
                       <div className="lg:col-span-7 flex flex-col justify-between">
                         <div>
-                          <h4 className="heading-h4 text-white mb-4">
+                          <h4 className="heading-h4 md:heading-h3 text-white mb-4">
                             {currentActiveVideo.title}
                           </h4>
 
-                          <div className="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                          <div className="space-y-2.5 mb-6  text-slate-300 leading-relaxed">
                             {currentActiveVideo.description.map((line, idx) => (
                               <p
                                 key={idx}
                                 className={
                                   line.startsWith("✅")
-                                    ? "text-[#00C4FF] font-medium"
-                                    : "line-clamp-2"
+                                    ? "body-text-sm text-[#00C4FF] font-medium"
+                                    : "body-text-sm line-clamp-2"
                                 }
                               >
                                 {line}
@@ -698,11 +710,11 @@ export default function InsightsHub() {
 
                         <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4FF] to-[#2563EB] flex items-center justify-center font-bold text-white text-xs shadow-[0_0_12px_rgba(0,196,255,0.3)]">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4FF] to-[#2563EB] flex items-center justify-center font-bold text-white body-text-sm shadow-[0_0_12px_rgba(0,196,255,0.3)]">
                               RP
                             </div>
                             <div>
-                              <div className="text-xs sm:text-sm font-bold text-white">
+                              <div className=" font-bold text-white">
                                 {currentActiveVideo.host}
                               </div>
                               <div className="text-[11px] text-slate-400">
@@ -719,7 +731,7 @@ export default function InsightsHub() {
                               onClick={() =>
                                 openPodcastPlayer(currentActiveVideo)
                               }
-                              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white font-bold text-xs sm:text-sm shadow-[0_0_20px_rgba(0,196,255,0.4)] hover:brightness-110 transition-all cursor-pointer"
+                              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white font-bold  shadow-[0_0_20px_rgba(0,196,255,0.4)] hover:brightness-110 transition-all cursor-pointer"
                             >
                               <Play size={14} className="fill-white" />
                               <span>Watch Video</span>
@@ -731,7 +743,7 @@ export default function InsightsHub() {
                   </motion.div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
                   {videoList
                     .filter((video) => video.id !== currentActiveVideo?.id)
                     .map((video, index) => {
@@ -786,7 +798,7 @@ export default function InsightsHub() {
                               </span>
                             </div>
 
-                            <h5 className="heading-h5 text-white mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
+                            <h5 className="heading-h5 md:heading-h5 text-white mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
                               {video.title}
                             </h5>
 
@@ -794,7 +806,7 @@ export default function InsightsHub() {
                               {video.description.slice(0, 2).map((item, i) => (
                                 <p
                                   key={i}
-                                  className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                                  className="body-text-sm text-slate-300 line-clamp-2 leading-relaxed"
                                 >
                                   {item.replace(/^✅\s*/, "")}
                                 </p>
@@ -808,7 +820,7 @@ export default function InsightsHub() {
                                   setActiveVideo(video);
                                   scrollToSection("videos");
                                 }}
-                                className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+                                className="body-text-sm text-slate-400 hover:text-white transition-colors cursor-pointer"
                               >
                                 Set as Focus
                               </button> */}
@@ -816,7 +828,7 @@ export default function InsightsHub() {
                               <button
                                 type="button"
                                 onClick={() => openPodcastPlayer(video)}
-                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold body-text-sm tracking-wide transition-all cursor-pointer"
                               >
                                 <span>Watch Video</span>
                                 <ArrowUpRight size={13} />
@@ -834,27 +846,33 @@ export default function InsightsHub() {
 
         {(activeTab === "ALL" || activeTab === "PODCASTS") && (
           <section id="podcasts" className="scroll-mt-28 space-y-10">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]"
+            >
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00C4FF]/15 border border-[#00C4FF]/30 text-[#00C4FF] text-xs font-semibold mb-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00C4FF]/15 border border-[#00C4FF]/30 text-[#00C4FF] body-text-sm font-semibold mb-2">
                   <Mic size={13} />
                   <span>Executive Podcasts</span>
                 </div>
-                <h2 className="heading-h3 md:heading-h2 text-white">
+                <h2 className="heading-h3 sm:heading-h2 text-white">
                   Podcasts <span className="font-sans">&amp;</span> Audio
                   Broadcasts
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-400 max-w-xl mt-2">
+                <p className="body-text-sm  text-slate-400 max-w-xl mt-2">
                   Listen to in-depth discussions unpacking capacity vs.
                   capability and modern engineering leadership.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {podcastLoading ? (
               <div className="py-14 flex flex-col items-center justify-center">
                 <div className="w-10 h-10 border-2 border-[#00C4FF] border-t-transparent rounded-full animate-spin mb-4" />
-                <span className="text-xs text-slate-400 tracking-wider uppercase">
+                <span className="body-text-sm text-slate-400 tracking-wider uppercase">
                   Loading podcast episodes...
                 </span>
               </div>
@@ -863,10 +881,10 @@ export default function InsightsHub() {
                 <div className="w-12 h-12 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-slate-400 mx-auto mb-3">
                   <Headphones size={22} />
                 </div>
-                <h3 className="heading-h5 md:heading-h3 text-white mb-2">
+                <h3 className="heading-h5 md:heading-h4 text-white mb-2">
                   No podcast episodes available
                 </h3>
-                <p className="text-xs text-slate-400 mb-4">
+                <p className="body-text-sm body-text-sm text-slate-400 mb-4">
                   Podcast episodes are currently being prepared for broadcast.
                 </p>
               </div>
@@ -909,11 +927,11 @@ export default function InsightsHub() {
                       </div>
                       <div className="lg:col-span-7 flex flex-col justify-between">
                         <div>
-                          <h4 className="heading-h4 text-white mb-4">
+                          <h4 className="heading-h4 md:heading-h3 text-white mb-4">
                             {currentActivePodcast.title}
                           </h4>
 
-                          <div className="space-y-2.5 mb-6 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                          <div className="space-y-2.5 mb-6  text-slate-300 leading-relaxed">
                             {currentActivePodcast.description
                               .slice(0, 4)
                               .map((line, idx) => (
@@ -921,8 +939,8 @@ export default function InsightsHub() {
                                   key={idx}
                                   className={
                                     line.startsWith("✅")
-                                      ? "text-[#00C4FF] font-medium"
-                                      : "line-clamp-2"
+                                      ? "body-text-sm text-[#00C4FF] font-medium"
+                                      : "body-text-sm line-clamp-2"
                                   }
                                 >
                                   {line}
@@ -933,11 +951,11 @@ export default function InsightsHub() {
 
                         <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4FF] to-[#2563EB] flex items-center justify-center font-bold text-white text-xs shadow-[0_0_12px_rgba(0,196,255,0.3)]">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4FF] to-[#2563EB] flex items-center justify-center font-bold text-white body-text-sm shadow-[0_0_12px_rgba(0,196,255,0.3)]">
                               RP
                             </div>
                             <div>
-                              <div className="text-xs sm:text-sm font-bold text-white">
+                              <div className=" font-bold text-white">
                                 {currentActivePodcast.host}
                               </div>
                               <div className="text-[11px] text-slate-400">
@@ -954,7 +972,7 @@ export default function InsightsHub() {
                               onClick={() =>
                                 openPodcastPlayer(currentActivePodcast)
                               }
-                              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white font-bold text-xs sm:text-sm shadow-[0_0_20px_rgba(0,196,255,0.4)] hover:brightness-110 transition-all cursor-pointer"
+                              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white font-bold  shadow-[0_0_20px_rgba(0,196,255,0.4)] hover:brightness-110 transition-all cursor-pointer"
                             >
                               <Play size={14} className="fill-white" />
                               <span>Watch Episode Video</span>
@@ -966,7 +984,7 @@ export default function InsightsHub() {
                   </motion.div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
                   {podcastList
                     .filter(
                       (podcast) => podcast.id !== currentActivePodcast?.id,
@@ -1017,7 +1035,7 @@ export default function InsightsHub() {
                           </div>
 
                           <div className="p-5 sm:p-6 flex flex-col flex-1">
-                            <h5 className="heading-h5 text-white mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
+                            <h5 className="heading-h5 md:heading-h4 text-white mb-3 group-hover:text-[#00C4FF] transition-colors line-clamp-2">
                               {podcast.title}
                             </h5>
 
@@ -1027,7 +1045,7 @@ export default function InsightsHub() {
                                 .map((item, i) => (
                                   <p
                                     key={i}
-                                    className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                                    className="body-text-sm text-slate-300 line-clamp-2 leading-relaxed"
                                   >
                                     {item.replace(/^✅\s*/, "")}
                                   </p>
@@ -1041,7 +1059,7 @@ export default function InsightsHub() {
                                   setActivePodcast(podcast);
                                   scrollToSection("podcasts");
                                 }}
-                                className="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+                                className="body-text-sm text-slate-400 hover:text-white transition-colors cursor-pointer"
                               >
                                 Set as Focus
                               </button> */}
@@ -1049,7 +1067,7 @@ export default function InsightsHub() {
                               <button
                                 type="button"
                                 onClick={() => openPodcastPlayer(podcast)}
-                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold text-xs tracking-wide transition-all cursor-pointer"
+                                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4FF]/15 hover:bg-[#00C4FF] text-[#00C4FF] hover:text-black font-semibold body-text-sm tracking-wide transition-all cursor-pointer"
                               >
                                 <span>Listen / Watch</span>
                                 <ArrowUpRight size={13} />
@@ -1104,10 +1122,10 @@ export default function InsightsHub() {
                     )}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs font-mono text-[#00C4FF] font-bold">
+                    <div className="body-text-sm font-mono text-[#00C4FF] font-bold">
                       {playingPodcastModal.episode}
                     </div>
-                    <div className="text-sm font-bold text-white truncate max-w-sm sm:max-w-md">
+                    <div className="body-text-sm font-bold text-white truncate max-w-sm sm:max-w-md">
                       {playingPodcastModal.title}
                     </div>
                   </div>
@@ -1132,7 +1150,7 @@ export default function InsightsHub() {
                   />
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 body-text-sm text-slate-400">
                   <span>Host: {playingPodcastModal.host}</span>
                   {playingPodcastModal.src && (
                     <a

@@ -72,7 +72,6 @@ export default function Podcasts() {
           const videos = normalized.filter(p => p.mediaType === "video");
           const podcasts = normalized.filter(p => p.mediaType === "podcast");
 
-          // Show the first three videos; only backfill with podcasts if fewer than 3 videos exist
           const mixed = videos.slice(0, 3);
           if (mixed.length < 3) {
             mixed.push(...podcasts.slice(0, 3 - mixed.length));
@@ -82,7 +81,6 @@ export default function Podcasts() {
         }
       })
       .catch(() => {
-        // use DEFAULT_PODCASTS on fetch failure
       });
     return () => {
       isMounted = false;
@@ -103,7 +101,6 @@ export default function Podcasts() {
 
   return (
     <div className="w-full relative bg-[#040C1A] overflow-hidden">
-      {/* Background Banner Image */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
           src={PodcastBannerImg}
@@ -131,28 +128,28 @@ export default function Podcasts() {
           <div className="grid lg:grid-cols-2 gap-5">
             <div className="w-full">
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="mb-6 sm:mb-8 text-center lg:text-left"
               >
                 <div className="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-full bg-[#00C4B4]/10 border border-[#00C4B4]/25">
                   <WaveformIcon />
-                  <p className="text-[#00C4B4] font-semibold tracking-[0.2em] uppercase text-[10px] sm:text-xs">
+                  <p className="heading-h6 text-[#00C4B4] font-semibold tracking-[0.2em] uppercase">
                     Video/Podcasts
                   </p>
                 </div>
                 <Heading
                   level={2}
-                  className="font-['Playfair_Display',serif] font-semibold text-[1.4rem] sm:text-[1.7rem] md:text-[2rem] lg:text-[2.3rem] leading-[1.15] tracking-tight text-white mt-2 mb-2"
+                  className="heading-h2 leading-[1.15] tracking-tight text-white mt-2 mb-2"
                 >
                   Conversations that{" "}
                   <span className="bg-[linear-gradient(135deg,#00C4B4,#4B9AF5)] bg-clip-text text-transparent">
                     Inspire.
                   </span>
                 </Heading>
-                <p className="text-white/50 text-xs sm:text-sm max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="body-text text-white/60 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                   Candid insights from Ravishankar Pingali on leadership, AI,
                   and the future of Global Capability Centres.
                 </p>
@@ -188,25 +185,17 @@ export default function Podcasts() {
                               : "bg-white/[0.06]"
                           }`}
                         >
-                          {/* {isActive ? (
-                          <WaveformIcon active />
-                        ) : (
-                          <span className="text-[10px] font-bold text-[#00C4B4] leading-none px-0.5 ">
-                            {podcast.episode}
-                          </span>
-                        )} */}
                           <Play className="w-4 h-4 sm:w-4 sm:h-4 text-white fill-white ml-0.5" />
                         </div>
                         <div className="text-left flex-1 min-w-0">
                           <p
-                            className={`text-xs 2xl:text-base font-semibold leading-snug line-clamp-2 transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white/85"}`}
+                            className={`body-text font-semibold leading-snug line-clamp-2 transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white/85"}`}
                           >
                             {podcast.title}
                           </p>
-                          <p className="text-[10px] 2xl:text-sm text-white/30 mt-0.5 flex items-center gap-1.5 uppercase">
+                          <p className="body-text text-white/30 mt-0.5 flex items-center gap-1.5 uppercase">
                             <span className="font-semibold text-[#00C4B4]">{podcast.mediaType === "video" ? "VIDEO" : "PODCAST"}</span>
                             <span className="text-white/20">&bull;</span>
-                            {/* <span>{podcast.episode}</span> */}
                           </p>
                         </div>
                         {isActive && (
@@ -260,7 +249,7 @@ export default function Podcasts() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
                       >
-                        <h3 className="text-xl font-['Playfair_Display',serif] text-white">
+                        <h3 className="heading-h5 md:heading-h4 text-white">
                           {current.title}
                         </h3>
                       </motion.div>
@@ -274,7 +263,7 @@ export default function Podcasts() {
           <div className="w-full flex justify-center mt-10">
             <Link
               href={`/insights#${current.mediaType === "video" ? "videos" : "podcasts"}`}
-              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white text-xs sm:text-sm font-semibold tracking-wide shadow-[0_0_24px_rgba(0,196,180,0.35)] hover:shadow-[0_0_36px_rgba(0,196,180,0.55)] hover:scale-[1.03] transition-all duration-300 group cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-7 py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white body-text font-semibold tracking-wide shadow-[0_0_24px_rgba(0,196,180,0.35)] hover:shadow-[0_0_36px_rgba(0,196,180,0.55)] hover:scale-[1.03] transition-all duration-300 group cursor-pointer"
             >
               <span>View All Episodes</span>
               <svg
@@ -309,6 +298,7 @@ export default function Podcasts() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
+              data-lenis-prevent="true"
               className="relative w-full max-w-4xl bg-[#07162e] border border-[#00C4FF]/30 rounded-3xl overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.8)]"
             >
               <div className="p-4 sm:p-5 flex items-center justify-between border-b border-white/[0.08] bg-[#051124]">
@@ -321,10 +311,7 @@ export default function Podcasts() {
                     )}
                   </div>
                   <div className="min-w-0">
-                    {/* <div className="text-xs font-mono text-[#00C4FF] font-bold">
-                      {playingPodcastModal.episode}
-                    </div> */}
-                    <div className="text-sm font-bold text-white truncate max-w-sm sm:max-w-md">
+                    <div className="body-text font-bold text-white truncate max-w-sm sm:max-w-md">
                       {playingPodcastModal.title}
                     </div>
                   </div>
@@ -349,7 +336,7 @@ export default function Podcasts() {
                   />
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 body-text text-slate-400">
                   <span>Host: {playingPodcastModal.host || "Ravishankar Pingali"}</span>
                   {playingPodcastModal.src && (
                     <a

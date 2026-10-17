@@ -247,7 +247,7 @@ export default function HighlightCard({
 
   return (
     <div
-      className={`group relative flex flex-col items-center justify-between text-center w-full h-full min-h-[420px] sm:min-h-[345px] p-6 sm:p-8 pt-8 pb-7 rounded-[28px] sm:rounded-[32px] bg-white/70 backdrop-blur-xl border border-white/85 shadow-[0_16px_36px_-8px_rgba(50,90,160,0.12),0_4px_12px_rgba(0,0,0,0.02),inset_0_1.5px_2px_rgba(255,255,255,0.95)] hover:shadow-[0_24px_48px_-6px_rgba(50,90,160,0.18)] hover:-translate-y-1 transition-all duration-300 overflow-hidden select-none ${current.hoverBorder}`}
+      className={`group relative flex flex-col items-center justify-between text-center w-full h-full min-h-[320px] md:min-h-[345px] p-6 sm:p-8 pt-8 pb-7 rounded-[28px] sm:rounded-[32px] bg-white/70 backdrop-blur-xl border border-white/85 shadow-[0_16px_36px_-8px_rgba(50,90,160,0.12),0_4px_12px_rgba(0,0,0,0.02),inset_0_1.5px_2px_rgba(255,255,255,0.95)] hover:shadow-[0_24px_48px_-6px_rgba(50,90,160,0.18)] hover:-translate-y-1 transition-all duration-300 overflow-hidden select-none ${current.hoverBorder}`}
     >
       {current.wave}
 
@@ -262,7 +262,7 @@ export default function HighlightCard({
         </div>
 
         <h3
-          className={`font-bold text-[19px] sm:text-[21px] leading-[1.25] tracking-tight mb-2.5 max-w-[250px] ${current.titleColor}`}
+          className={`heading-h4 leading-[1.25] tracking-tight mb-2.5 max-w-[250px] ${current.titleColor}`}
         >
           {title}
         </h3>
@@ -272,13 +272,13 @@ export default function HighlightCard({
             description.map((line, idx) => (
               <p
                 key={idx}
-                className="text-[#4A5870] text-[13px] sm:text-[14px] leading-[1.55] font-semibold"
+                className="body-text text-[#4A5870] leading-[1.55] font-semibold"
               >
                 {line}
               </p>
             ))
           ) : (
-            <p className="text-[#4A5870] text-[13px] sm:text-[16px] leading-[1.55] font-bold">
+            <p className="body-text text-[#4A5870] leading-[1.55] font-bold">
               {description}
             </p>
           )}

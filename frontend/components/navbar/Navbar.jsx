@@ -334,7 +334,7 @@ export default function Navbar() {
                         }
                       }}
                       className={cn(
-                        "relative text-sm 2xl:text-xl font-medium transition-all duration-300 px-3.5 2xl:px-6 py-1.5 2xl:py-2.5 rounded-full flex items-center justify-center whitespace-nowrap gap-1",
+                        "relative body-text font-medium transition-all duration-300 px-3.5 2xl:px-6 py-1.5 2xl:py-2.5 rounded-full flex items-center justify-center whitespace-nowrap gap-1",
                         isActive
                           ? "text-[#00C4FF] font-semibold bg-[#2563EB]/25 border border-[#00C4FF]/40 shadow-[0_0_12px_rgba(0,196,255,0.2)]"
                           : "text-white/80 hover:text-[#00C4FF] hover:bg-white/[0.06]",
@@ -371,6 +371,7 @@ export default function Navbar() {
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 6, scale: 0.96 }}
                             transition={{ duration: 0.18, ease: "easeOut" }}
+                            data-lenis-prevent="true"
                             className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 z-[100] min-w-[220px]"
                           >
                             <div className="rounded-2xl bg-[#071328]/95 border border-[#00C4FF]/30 backdrop-blur-2xl p-1.5 shadow-[0_20px_48px_rgba(0,0,0,0.85),0_0_20px_rgba(0,196,255,0.18)] flex flex-col gap-1">
@@ -381,7 +382,7 @@ export default function Navbar() {
                                   onClick={(e) => {
                                     handleInsightsOptionClick(e, sub.href);
                                   }}
-                                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-white/90 hover:text-white hover:bg-white/[0.07] border border-transparent hover:border-[#00C4FF]/25 transition-all group/item"
+                                  className="flex items-center gap-3 px-3 py-2 rounded-xl body-text font-semibold text-white/90 hover:text-white hover:bg-white/[0.07] border border-transparent hover:border-[#00C4FF]/25 transition-all group/item"
                                 >
                                   <div className="w-7 h-7 rounded-lg bg-[#2563EB]/20 border border-[#00C4FF]/30 flex items-center justify-center text-[#00C4FF] group-hover/item:scale-105 group-hover/item:shadow-[0_0_10px_rgba(0,196,255,0.4)] transition-all">
                                     {sub.name === "Blogs" ? (
@@ -391,7 +392,7 @@ export default function Navbar() {
                                     )}
                                   </div>
                                   <div className="flex flex-col text-left">
-                                    <span className="text-xs font-bold leading-tight group-hover/item:text-[#00C4FF] transition-colors">
+                                    <span className="body-text font-bold leading-tight group-hover/item:text-[#00C4FF] transition-colors">
                                       {sub.name}
                                     </span>
                                     <span className="text-[10px] text-white/50 font-normal leading-tight mt-0.5">
@@ -438,7 +439,7 @@ export default function Navbar() {
                         <User size={16} />
                       )}
                     </Avatar>
-                    <span className="text-white font-medium text-xs sm:text-sm 2xl:text-base capitalize tracking-wide hidden sm:inline-block">
+                    <span className="text-white font-medium body-text capitalize tracking-wide hidden sm:inline-block">
                       {user.username || "Admin"}
                     </span>
                     <ChevronDown

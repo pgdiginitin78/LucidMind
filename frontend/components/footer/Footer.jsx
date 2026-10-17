@@ -162,7 +162,7 @@ export default function Footer() {
 
             <div className="mb-5 h-[2px] w-14 bg-[#00c4b4]" />
 
-            <p className="mb-7 max-w-[370px] text-[14px] font-light leading-[1.75] text-white">
+            <p className="body-text mb-7 max-w-[370px] font-light leading-[1.75] text-white">
               Navigating complexity and building organisations ready for the
               Adaptive Future.
             </p>
@@ -200,7 +200,7 @@ export default function Footer() {
             custom={1}
             className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:px-8 xl:px-10"
           >
-            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+            <h3 className="heading-h6 md:heading-h5 leading-none text-white">
               Quick Links
             </h3>
 
@@ -228,7 +228,7 @@ export default function Footer() {
             custom={2}
             className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:px-8 xl:px-10"
           >
-            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+            <h3 className="heading-h6 md:heading-h5 leading-none text-white">
               Featured
             </h3>
 
@@ -284,7 +284,7 @@ export default function Footer() {
             custom={4}
             className="border-t border-white/[0.09] py-10 sm:py-12  lg:border-t-0 lg:pl-8 xl:pl-10 col-span-2 md:col-span-1"
           >
-            <h3 className="font-['Playfair_Display',_serif] text-[20px] font-semibold leading-none text-white">
+            <h3 className="heading-h6 md:heading-h5 leading-none text-white">
              Get in Touch
             </h3>
 
@@ -307,7 +307,7 @@ export default function Footer() {
               </div>
 
               <div className="flex flex-col items-start">
-                <p className="mb-4 text-[14px] font-light leading-[1.7] text-white">
+                <p className="body-text mb-4 font-light leading-[1.7] text-white">
                   Have a question or want to
                   <br />
                   work together?
@@ -317,7 +317,7 @@ export default function Footer() {
 
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-3 rounded-full border border-[#00c4b4]/70 px-6 py-2.5 text-[13px] font-medium text-white transition-all duration-300 hover:bg-[#00c4b4]/10"
+                  className="inline-flex items-center gap-3 rounded-full border border-[#00c4b4]/70 px-6 py-2.5 body-text font-medium text-white transition-all duration-300 hover:bg-[#00c4b4]/10"
                 >
                   Contact Us
                   <span className="text-[#00c4b4]">→</span>
@@ -328,7 +328,7 @@ export default function Footer() {
         </div>
 
         <div className="relative z-40 flex flex-col gap-3 border-t border-white/10 py-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[12px] font-light text-white/50">
+          <p className="body-text text-[12px] font-light text-white/50">
             © {currentYear} Lucidmind. All rights reserved.
           </p>
           {/* 

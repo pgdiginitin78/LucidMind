@@ -181,7 +181,7 @@ function FullScreenLoader({ isVisible }) {
               className="animate-spin"
               style={{ color: TEAL }}
             />
-            <p className="text-sm tracking-widest text-white/70 uppercase">
+            <p className="body-text tracking-widest text-white/70 uppercase">
               Sending Message...
             </p>
           </div>
@@ -359,7 +359,7 @@ export default function ContactUs() {
               delay: 0.1,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="heading-h1 text-white"
+            className="heading-h2 sm:heading-h1 text-white"
           >
             Let's Start a{" "}
             <span
@@ -377,7 +377,7 @@ export default function ContactUs() {
             initial={{ opacity: 0, y: 14 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.18 }}
-            className="body-text mx-auto mt-3 max-w-xs sm:max-w-lg text-white/45"
+            className="body-text mx-auto mt-3 max-w-xs sm:max-w-lg text-white/60"
           >
             Whether you're navigating an AI transformation, building a GCC, or
             looking for strategic advisory — let's connect.
@@ -453,7 +453,7 @@ export default function ContactUs() {
                   >
                     Send a Message
                   </p>
-                  <h2 className="heading-h2 text-white">
+                  <h2 className="heading-h3 sm:heading-h2 text-white">
                     We'd love to hear from you
                   </h2>
                 </div>
@@ -520,7 +520,7 @@ export default function ContactUs() {
                   disabled={status === "loading"}
                   whileHover={{ scale: status === "loading" ? 1 : 1.015 }}
                   whileTap={{ scale: status === "loading" ? 1 : 0.985 }}
-                  className="flex w-full items-center justify-center gap-2.5 rounded-xl py-3.5 text-sm font-semibold text-white"
+                  className="flex w-full items-center justify-center gap-2.5 rounded-xl py-3.5 body-text font-semibold text-white"
                   style={{
                     background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`,
                     opacity: status === "loading" ? 0.75 : 1,
@@ -569,6 +569,7 @@ export default function ContactUs() {
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", stiffness: 350, damping: 25 }}
               onClick={(e) => e.stopPropagation()}
+              data-lenis-prevent="true"
               className="relative w-full max-w-md overflow-hidden rounded-2xl p-6 sm:p-8 text-center shadow-2xl"
               style={{
                 background: "linear-gradient(160deg, #0a1329 0%, #050b18 100%)",
@@ -582,7 +583,6 @@ export default function ContactUs() {
                     : "0 20px 50px -10px rgba(239, 68, 68, 0.3)",
               }}
             >
-              {/* Close Button */}
               <button
                 type="button"
                 onClick={() =>
@@ -594,7 +594,6 @@ export default function ContactUs() {
                 <X size={20} />
               </button>
 
-              {/* Status Icon */}
               <div
                 className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full"
                 style={{
@@ -615,18 +614,16 @@ export default function ContactUs() {
                 )}
               </div>
 
-              {/* Title */}
               <h3 className="heading-h3 mb-2 text-white text-center">
                 {modalConfig.message}
               </h3>
 
-              {/* Action Button */}
               <button
                 type="button"
                 onClick={() =>
                   setModalConfig((prev) => ({ ...prev, isOpen: false }))
                 }
-                className="w-full rounded-xl py-3 px-6 cursor-pointer text-sm font-semibold text-white transition-all hover:opacity-90 active:scale-98"
+                className="w-full rounded-xl py-3 px-6 cursor-pointer body-text font-semibold text-white transition-all hover:opacity-90 active:scale-98"
                 style={{
                   background:
                     modalConfig.type === "success"

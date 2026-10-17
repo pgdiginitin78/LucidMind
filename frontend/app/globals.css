@@ -147,6 +147,21 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", Georgia, serif;
 }
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
 
 p, span, a, li, input, button, textarea, label {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -184,50 +199,54 @@ nav, footer, nav *, footer * {
 @utility heading-h1 {
   font-family: var(--font-playfair), "Playfair Display", serif;
   font-weight: 700;
-  line-height: 1.12;
-  font-size: 3rem;
+  line-height: 1.15;
+  font-size: clamp(2rem, 3.5vw + 1rem, 3.25rem);
 }
 @utility heading-h2 {
   font-family: var(--font-playfair), "Playfair Display", serif;
   font-weight: 700;
-  line-height: 1.18;
-  font-size: 2.125rem;
+  line-height: 1.2;
+  font-size: clamp(1.5rem, 2.2vw + 0.8rem, 2.25rem);
 }
 @utility heading-h3 {
   font-family: var(--font-playfair), "Playfair Display", serif;
   font-weight: 700;
   line-height: 1.25;
-  font-size: 1.625rem;
+  font-size: clamp(1.25rem, 1.5vw + 0.75rem, 1.75rem);
 }
 @utility heading-h4 {
   font-family: var(--font-playfair), "Playfair Display", serif;
   font-weight: 600;
   line-height: 1.3;
-  font-size: 1.375rem;
+  font-size: clamp(1.125rem, 1vw + 0.75rem, 1.375rem);
 }
 @utility heading-h5 {
   font-family: var(--font-playfair), "Playfair Display", serif;
   font-weight: 600;
   line-height: 1.35;
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 0.6vw + 0.75rem, 1.15rem);
 }
 @utility heading-h6 {
   font-family: var(--font-playfair), "Playfair Display", serif;
   font-weight: 600;
   line-height: 1.4;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 0.4vw + 0.72rem, 1rem);
 }
 @utility body-text {
-  font-size: 1rem;
-  line-height: 1.625;
+  font-size: clamp(0.9375rem, 0.25vw + 0.85rem, 1.0625rem);
+  line-height: 1.65;
+}
+@utility body-text-sm {
+  font-size: clamp(0.8125rem, 0.15vw + 0.75rem, 0.875rem);
+  line-height: 1.5;
 }
 @utility body-text-lg {
-  font-size: 1.125rem;
-  line-height: 1.625;
+  font-size: clamp(1.0625rem, 0.35vw + 0.95rem, 1.25rem);
+  line-height: 1.6;
 }
 @utility hero-description {
-  font-size: 1.125rem;
-  line-height: 1.625;
+  font-size: clamp(1rem, 0.4vw + 0.9rem, 1.25rem);
+  line-height: 1.65;
 }
 
 .no-scrollbar::-webkit-scrollbar {

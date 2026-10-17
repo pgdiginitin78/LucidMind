@@ -93,7 +93,7 @@ export default function AdminDashboard() {
             <h1 className="heading-h2 md:heading-h1 tracking-tight text-white">
               Welcome back, Administrator
             </h1>
-            <p className="text-sm text-white/60 max-w-xl leading-relaxed">
+            <p className="body-text text-sm md:text-base text-white/60 max-w-xl leading-relaxed">
               Manage and publish your platform’s core Advisory Services,
               Executive Articles, and Podcast episodes with direct
               synchronization to the live website.
@@ -133,7 +133,7 @@ export default function AdminDashboard() {
                   <h3 className="heading-h4 md:heading-h3 text-white group-hover:text-[#00C4FF] transition-colors">
                     {sec.title}
                   </h3>
-                  <p className="text-xs text-white/50 mt-1.5 leading-relaxed">
+                  <p className="body-text text-xs text-white/50 mt-1.5 leading-relaxed">
                     {sec.description}
                   </p>
                 </div>

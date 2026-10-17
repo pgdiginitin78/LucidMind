@@ -115,7 +115,7 @@ export default function PodcastsHub() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl  font-extrabold font-['Playfair_Display',serif] tracking-tight text-white leading-[1.1] mb-4"
+              className="heading-h1 font-extrabold tracking-tight text-white leading-[1.1] mb-4"
             >
               Conversations on{" "}
               <span className="bg-gradient-to-r from-[#00E5FF] via-[#00C4B4] to-[#38BDF8] bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(0,196,180,0.4)]">
@@ -127,7 +127,7 @@ export default function PodcastsHub() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-slate-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl font-normal"
+              className="body-text text-slate-300 leading-relaxed max-w-2xl font-normal"
             >
               Strategic, unscripted reflections from Ravishankar Pingali on how
               global capability centres and enterprise leaders navigate the
@@ -141,7 +141,7 @@ export default function PodcastsHub() {
         {loading ? (
           <div className="py-24 flex flex-col items-center justify-center">
             <div className="w-10 h-10 border-2 border-[#00C4B4] border-t-transparent rounded-full animate-spin mb-4" />
-            <span className="text-xs text-slate-400 tracking-wider uppercase">
+            <span className="body-text text-slate-400 tracking-wider uppercase">
               Loading podcast library...
             </span>
           </div>
@@ -167,7 +167,6 @@ export default function PodcastsHub() {
                         }}
                         className="w-full h-full inset-0 rounded object-contain group-hover:scale-105 transition-transform duration-700"
                       />
-                      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" /> */}
                       <div
                         onClick={() => openPlayer(activeEpisode)}
                         className="absolute inset-0 flex items-center justify-center"
@@ -181,7 +180,7 @@ export default function PodcastsHub() {
 
                   <div className="lg:col-span-7 flex flex-col justify-between">
                     <div>
-                      <h2 className="heading-h2 font-['Playfair_Display',serif] text-white mb-2">
+                      <h2 className="heading-h3 sm:heading-h2 lg:heading-h1 text-white mb-2">
                         {activeEpisode.title}
                       </h2>
 
@@ -191,7 +190,7 @@ export default function PodcastsHub() {
                           .map((line, idx) => (
                             <div
                               key={idx}
-                              className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed"
+                              className="body-text flex items-start gap-2.5  text-slate-300 leading-relaxed"
                             >
                               <span className="text-[#00C4B4] mt-1 shrink-0 font-bold">
                                 •
@@ -204,11 +203,11 @@ export default function PodcastsHub() {
 
                     <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white text-xs shadow-[0_0_12px_rgba(0,196,180,0.3)]">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white body-text shadow-[0_0_12px_rgba(0,196,180,0.3)]">
                           RP
                         </div>
                         <div>
-                          <div className="text-xs font-bold text-white">
+                          <div className="body-text font-bold text-white">
                             Ravishankar Pingali
                           </div>
                           <div className="text-[11px] text-slate-400">
@@ -220,7 +219,7 @@ export default function PodcastsHub() {
                       <button
                         type="button"
                         onClick={() => openPlayer(activeEpisode)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white font-semibold text-xs sm:text-sm shadow-[0_0_20px_rgba(0,196,180,0.4)] hover:shadow-[0_0_30px_rgba(0,196,180,0.6)] hover:scale-[1.02] transition-all"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white font-semibold  shadow-[0_0_20px_rgba(0,196,180,0.4)] hover:shadow-[0_0_30px_rgba(0,196,180,0.6)] hover:scale-[1.02] transition-all"
                       >
                         <Play size={14} className="fill-white" />
                         <span>Play Full Episode</span>
@@ -233,17 +232,23 @@ export default function PodcastsHub() {
             )}
 
             <div>
-              <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]">
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="flex items-center justify-between mb-8 pb-4 border-b border-white/[0.08]"
+              >
                 <div className="flex items-center gap-2.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#00C4B4] shadow-[0_0_8px_#00C4B4]" />
-                  <h3 className="heading-h3 font-['Playfair_Display',serif] text-white">
+                  <h3 className="heading-h4 md:heading-h3 text-white">
                     All Studio Episodes ({podcasts.length})
                   </h3>
                 </div>
-                <div className="text-xs text-slate-400 font-mono">
+                <div className="body-text text-slate-400 font-mono">
                   Full Series Archive
                 </div>
-              </div>
+              </motion.div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
                 {podcasts
@@ -291,14 +296,14 @@ export default function PodcastsHub() {
                         </div>
 
                         <div className="p-5 sm:p-6 flex flex-col flex-1">
-                          <div className="flex items-center gap-2 text-xs text-slate-400 mb-2">
+                          <div className="flex items-center gap-2 body-text text-slate-400 mb-2">
                             <Headphones size={13} className="text-[#00C4B4]" />
                             <span className="font-mono">
                               Executive Audio Dialogue
                             </span>
                           </div>
 
-                          <h4 className="heading-h4 font-['Playfair_Display',serif] text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
+                          <h4 className="heading-h5 md:heading-h4 text-white mb-3 group-hover:text-[#00C4B4] transition-colors line-clamp-2">
                             {podcast.title}
                           </h4>
 
@@ -306,7 +311,7 @@ export default function PodcastsHub() {
                             {podcast.description.slice(0, 2).map((item, i) => (
                               <p
                                 key={i}
-                                className="text-xs text-slate-300 line-clamp-2 leading-relaxed"
+                                className="body-text text-slate-300 line-clamp-2 leading-relaxed"
                               >
                                 {item.replace(/^✅\s*/, "")}
                               </p>
@@ -317,7 +322,7 @@ export default function PodcastsHub() {
                             <button
                               type="button"
                               onClick={() => setActiveEpisode(podcast)}
-                              className="text-xs text-slate-400 hover:text-white transition-colors"
+                              className="body-text text-slate-400 hover:text-white transition-colors"
                             >
                               Set as Focus
                             </button>
@@ -325,7 +330,7 @@ export default function PodcastsHub() {
                             <button
                               type="button"
                               onClick={() => openPlayer(podcast)}
-                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4B4]/15 hover:bg-[#00C4B4] text-[#00C4B4] hover:text-black font-semibold text-xs tracking-wide transition-all"
+                              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#00C4B4]/15 hover:bg-[#00C4B4] text-[#00C4B4] hover:text-black font-semibold body-text tracking-wide transition-all"
                             >
                               <span>Listen</span>
                               <ArrowUpRight size={13} />
@@ -366,10 +371,10 @@ export default function PodcastsHub() {
                     <Mic size={16} />
                   </div>
                   <div>
-                    <div className="text-xs font-mono text-[#00C4B4] font-bold">
+                    <div className="body-text font-mono text-[#00C4B4] font-bold">
                       {playingModal.episode}
                     </div>
-                    <div className="text-sm font-bold text-white truncate max-w-sm sm:max-w-md">
+                    <div className="body-text font-bold text-white truncate max-w-sm sm:max-w-md">
                       {playingModal.title}
                     </div>
                   </div>
@@ -394,7 +399,7 @@ export default function PodcastsHub() {
                   />
                 </div>
 
-                <div className="mt-4 flex items-center justify-between gap-3 text-xs text-slate-400">
+                <div className="mt-4 flex items-center justify-between gap-3 body-text text-slate-400">
                   <span>Host: Ravishankar Pingali</span>
                   <a
                     href={playingModal.src}

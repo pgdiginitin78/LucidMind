@@ -112,40 +112,42 @@ export default function AdvisoryPhilosophy() {
 
  <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-12 md:mb-14 gap-5"
         >
           <div>
-            <div className="w-12 h-1 bg-[#1D4ED8] rounded-full mb-3" />
-            <h2 className="heading-h2 lg:text-[42px] text-[#0B1528] tracking-tight">
+            <motion.h2
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="heading-h2 text-[#0B1528] tracking-tight"
+            >
               Our <span className="text-[#2563EB]">Philosophy</span>  
-            </h2>
-            <p className="body-text-lg text-[#526484] text-base sm: font-normal mt-1.5">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="body-text text-[#526484] font-normal mt-1.5"
+            >
             From strategic thinking to tangible business impact.
-            </p>
+            </motion.p>
           </div>
-
-          {/* <div className="flex items-center gap-3.5 pb-1 self-start sm:self-auto">
-            <div className="w-[1.5px] h-10 bg-blue-300/70" />
-            <div className="text-[11px] font-bold tracking-[0.22em] text-[#8392A5] uppercase leading-[1.35] flex flex-col items-start select-none">
-              <span>IDEAS</span>
-              <span>PEOPLE</span>
-              <span>REAL IMPACT</span>
-            </div>
-          </div> */}
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 items-stretch 2xl:px-8">
           {philosophies.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, delay: idx * 0.12, ease: "easeOut" }}
+              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="h-full flex"
             >
               <HighlightCard

@@ -119,7 +119,7 @@ export default function Advisory() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="heading-h2 md:heading-h1 text-white tracking-tight mb-2"
+            className="heading-h1 text-white tracking-tight mb-2"
           >
             Advisory Built for the
             <br />{" "}
@@ -130,20 +130,6 @@ export default function Advisory() {
               Adaptive Future
             </span>
           </motion.h1>
-
-          {/* <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="max-w-xl text-slate-300 text-xs sm:text-sm leading-relaxed"
-          >
-            <p>
-              We don't offer a services menu. We help leaders reframe the real
-              problem, build the capability to solve it, and execute with
-              clarity.
-            </p>
-          </motion.div> */}
         </section>
 
         <motion.section
@@ -165,7 +151,7 @@ export default function Advisory() {
               className="flex items-center gap-2 mb-3"
             >
               <div className="w-4 h-px bg-[#00C4B4]" />
-              <span className="text-[8px] md:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+              <span className="heading-h6 font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
                 HOW WE THINK ABOUT TRANSFORMATION
               </span>
               <div className="w-4 h-px bg-[#00C4B4]" />
@@ -186,7 +172,7 @@ export default function Advisory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="max-w-3xl text-center text-xs sm:text-[13px] text-slate-300 leading-relaxed mb-10"
+              className="max-w-3xl text-center body-text text-slate-300 leading-relaxed mb-10"
             >
               Technology rarely fails; organizational adaptation does. Most
               companies don't need more tools, they need clarity on where AI
@@ -213,13 +199,13 @@ export default function Advisory() {
                               bg-gradient-to-b from-[#2563EB] via-[#12397B] to-[#040D1E] border-2 border-[#2563EB]/80 shadow-[0_0_14px_rgba(37,99,235,0.35)] group-hover:border-[#00C4B4] group-hover:scale-105
                           `}
                           >
-                            <span className="text-white font-semibold text-base sm:text-lg tracking-wider">
+                            <span className="text-white font-semibold heading-h5 tracking-wider">
                               {item.id}
                             </span>
                           </div>
                         </div>
 
-                        <span className="text-xs sm:text-[13px] text-slate-200 font-normal text-center leading-snug tracking-wide group-hover:text-white transition-colors">
+                        <span className="body-text text-slate-200 font-normal text-center leading-snug tracking-wide group-hover:text-white transition-colors">
                           {item.label}
                         </span>
                       </div>
@@ -235,10 +221,16 @@ export default function Advisory() {
               </div>
             </div>
           </section>
-          <div className="grid grid-cols-1 justify-items-center text-center mb-10 sm:mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="grid grid-cols-1 justify-items-center text-center mb-10 sm:mb-14"
+          >
             <div className="flex items-center gap-2 mb-3">
               <div className="w-4 h-px bg-[#00C4B4]" />
-              <span className="text-[10px] sm:text-sm font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
+              <span className="heading-h6 font-semibold uppercase tracking-[0.25em] text-[#00C4B4]">
                 EXECUTION ROADMAP
               </span>
               <div className="w-4 h-px bg-[#00C4B4]" />
@@ -246,7 +238,7 @@ export default function Advisory() {
             <h2 className="heading-h2 text-white tracking-tight">
               How We Execute
             </h2>
-          </div>
+          </motion.div>
           <motion.section
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -255,14 +247,14 @@ export default function Advisory() {
             className="mb-10 md:mb-18 border border-[#2563EB]/40 p-3 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
           >
             <div className="flex flex-wrap items-center gap-2.5 mb-2">
-              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white body-text font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
                 Phase 1
               </span>
-              <h3 className="heading-h4 text-white">
+              <h3 className="heading-h5 sm:heading-h4 md:heading-h3 text-white">
                 If You&apos;re Getting Started
               </h3>
             </div>
-            <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
+            <p className="body-text  text-slate-300 max-w-2xl mb-6 leading-relaxed">
               Building the Foundation
             </p>
 
@@ -272,38 +264,38 @@ export default function Advisory() {
                   <div className="w-10 h-10 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)] shrink-0">
                     <Rocket className="w-5 h-5" />
                   </div>
-                  <h4 className="heading-h6 lg:heading-h5 text-white">
+                  <h4 className="heading-h5 md:heading-h4 text-white">
                     Operating Model Foundation{" "}
                     <span className="font-sans">&amp;</span> Speed
                   </h4>
                 </div>
 
                 <div>
-                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                  <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                     The Bottleneck
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Slow approval cycles, siloed functions, and defaulting to
                     caution.
                   </p>
                 </div>
 
                 <div>
-                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                  <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                     The Intervention
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Assess operating model readiness. Redesign decision rights,
                     approval flows, and accountability. Reshape incentives to
                     reward learning over certainty.
                   </p>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                <div className="pt-4 mt-3 border-t border-[#142A4A]/60">
+                  <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                     What Success Looks Like
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Decision cycles shrink from six months to four weeks. Pilots
                     launch in 6–8 weeks. Failure is treated as information, not
                     blame.
@@ -330,14 +322,14 @@ export default function Advisory() {
             className="mb-10 md:mb-18 border border-[#2563EB]/40 p-3 md:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
           >
             <div className="flex flex-wrap items-center gap-2.5 mb-2">
-              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white body-text font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
                 Phase 2
               </span>
-              <h3 className="heading-h4 text-white">
+              <h3 className="heading-h5 sm:heading-h4 md:heading-h3 text-white">
                 If You&apos;re Ready To Learn
               </h3>
             </div>
-            <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
+            <p className="body-text text-slate-300 max-w-2xl mb-6 leading-relaxed">
               Focused Pilots <span className="font-sans">&amp;</span> Leadership
               Judgment
             </p>
@@ -350,7 +342,7 @@ export default function Advisory() {
                       <BrainCircuit className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="heading-h5 text-white">
+                      <h4 className="heading-h5 md:heading-h4 text-white">
                         AI Strategy <span className="font-sans">&amp;</span>{" "}
                         Adoption
                       </h4>
@@ -358,31 +350,31 @@ export default function Advisory() {
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                       The Bottleneck
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       AI is treated as a tech problem, not an operating model
                       problem, causing investment to stall.
                     </p>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                       The Intervention
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Map real use cases. Design outcome-driven pilot models.
                       Build internal confidence.
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                <div className="pt-4 mt-3 border-t border-[#142A4A]/60">
+                  <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                     What Success Looks Like
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Leadership aligns on value. Pilots move from 18-month
                     evaluation cycles to 6–8 week learning cycles.
                   </p>
@@ -396,7 +388,7 @@ export default function Advisory() {
                       <Users className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="heading-h5 text-white">
+                      <h4 className="heading-h5 md:heading-h4 text-white">
                         Leadership Capability{" "}
                         <span className="font-sans">&amp;</span> Mindset
                       </h4>
@@ -404,20 +396,20 @@ export default function Advisory() {
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-[#4B9AF5] mb-1 uppercase tracking-wide">
                       The Bottleneck
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Leaders trained for a predictable world lack the judgment
                       to navigate ambiguity.
                     </p>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-[#4B9AF5] mb-1 uppercase tracking-wide">
                       The Intervention
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Develop AI judgment for non-technical leaders. Build
                       decision-making under uncertainty and systems thinking.
                       Identify catalyst hires.
@@ -425,11 +417,11 @@ export default function Advisory() {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                  <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                <div className="pt-4 mt-3 border-t border-[#142A4A]/60">
+                  <h5 className="heading-h6 text-[#4B9AF5] mb-1 uppercase tracking-wide">
                     What Success Looks Like
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Leaders ask business-impact questions. Disagreement is
                     expected, and learning happens in real-time.
                   </p>
@@ -446,12 +438,12 @@ export default function Advisory() {
             className="mb-10 md:mb-24 border border-[#2563EB]/40 p-3 md:p-4 lg:p-8 rounded-2xl bg-[#040D1E]/40 backdrop-blur-md"
           >
             <div className="flex flex-wrap items-center gap-2.5 mb-2">
-              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white text-sm font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-gradient-to-r from-[#00C4B4] to-[#2563EB] text-white body-text font-semibold tracking-wide shadow-[0_0_12px_rgba(0,196,180,0.4)]">
                 Phase 3
               </span>
-              <h3 className="heading-h4 text-white">If You&apos;re Evolving</h3>
+              <h3 className="heading-h5 sm:heading-h4 md:heading-h3 text-white">If You&apos;re Evolving</h3>
             </div>
-            <p className="text-xs sm:text-[13px] text-slate-300 max-w-2xl mb-6 leading-relaxed">
+            <p className="body-text text-slate-300 max-w-2xl mb-6 leading-relaxed">
               Understanding What Works <span className="font-sans">&amp;</span>{" "}
               Build Relevant Capability
             </p>
@@ -463,38 +455,38 @@ export default function Advisory() {
                     <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
                       <Globe2 className="w-5 h-5" />
                     </div>
-                    <h4 className="heading-h6 lg:heading-h5 text-white">
+                    <h4 className="heading-h5 md:heading-h4 text-white">
                       Business Transformation{" "}
                       <span className="font-sans">&amp;</span> Change Enablement
                     </h4>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                       The Bottleneck
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Old habits die hard; new initiatives fade back into old
                       ways of working.
                     </p>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                       The Intervention
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Design change strategies grounded in reality. Mobilize
                       internal champions. Measure adoption continuously.
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                <div className="pt-4 mt-3 border-t border-[#142A4A]/60">
+                  <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                     What Success Looks Like
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Adoption rates jump from 7% to 40-60%. New ways of working
                     become the default
                   </p>
@@ -507,26 +499,26 @@ export default function Advisory() {
                     <div className="w-10 h-10 shrink-0 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_12px_rgba(37,99,235,0.2)]">
                       <Building2 className="w-5 h-5" />
                     </div>
-                    <h4 className="heading-h6 lg:heading-h5 text-white">
+                    <h4 className="heading-h5 md:heading-h4 text-white">
                       GCC Evolution <span className="font-sans">&amp;</span>{" "}
                       Optimization
                     </h4>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-[#4B9AF5] mb-1 uppercase tracking-wide">
                       The Bottleneck
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       GCCs are built for cost arbitrage, not innovation.
                     </p>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-[#4B9AF5] mb-1 uppercase tracking-wide">
                       The Intervention
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Redesign for autonomy and accountability. Build an AI-era
                       talent strategy. Create global governance without
                       friction.
@@ -534,11 +526,11 @@ export default function Advisory() {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                  <h5 className="text-sm text-[#4B9AF5] mb-1 uppercase tracking-wide">
+                <div className="pt-4 mt-3 border-t border-[#142A4A]/60">
+                  <h5 className="heading-h6 text-[#4B9AF5] mb-1 uppercase tracking-wide">
                     What Success Looks Like
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     The GCC becomes a talent magnet. Decision-making
                     distributes, and initiative cycles accelerate.
                   </p>
@@ -551,27 +543,27 @@ export default function Advisory() {
                     <div className="w-10 h-10 shrink-0 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_12px_rgba(0,196,180,0.2)]">
                       <ShieldCheck className="w-5 h-5" />
                     </div>
-                    <h4 className="heading-h6 lg:heading-h5 text-white">
+                    <h4 className="heading-h5 md:heading-h4 text-white">
                       ESG <span className="font-sans">&amp;</span> Responsible
                       Business Transformation
                     </h4>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                       The Bottleneck
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       ESG is treated as a compliance checkbox rather than an
                       operating model question.
                     </p>
                   </div>
 
                   <div>
-                    <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                    <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                       The Intervention
                     </h5>
-                    <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                    <p className="body-text-sm text-slate-300 leading-relaxed">
                       Embed ESG directly into decision-making. Design governance
                       that equates impact with profit. Build metrics that
                       matter.
@@ -579,11 +571,11 @@ export default function Advisory() {
                   </div>
                 </div>
 
-                <div className="pt-4 mt-6 border-t border-[#142A4A]/60">
-                  <h5 className="text-sm text-brand-teal mb-1 uppercase tracking-wide">
+                <div className="pt-4 mt-3 border-t border-[#142A4A]/60">
+                  <h5 className="heading-h6 text-brand-teal mb-1 uppercase tracking-wide">
                     What Success Looks Like
                   </h5>
-                  <p className="text-xs sm:text-[13px] font-serif text-slate-300 leading-relaxed">
+                  <p className="body-text-sm text-slate-300 leading-relaxed">
                     Sustainability is integrated into business decisions. Boards
                     discuss ESG with the same rigor as financials.
                   </p>
@@ -599,11 +591,11 @@ export default function Advisory() {
             transition={{ duration: 0.7 }}
             className="mb-20 sm:mb-24 p-6 sm:p-8 rounded-2xl border border-[#142A4A] bg-[#040D1E]/75 grid grid-cols-1 justify-items-center"
           >
-            <h2 className="heading-h4 md:heading-h2 text-white text-center mb-3 tracking-tight">
+            <h2 className="heading-h3 md:heading-h2 text-white text-center mb-3 tracking-tight">
               How We Work
             </h2>
 
-            <p className="text-sm md:body-text max-w-2xl text-center text-slate-300 mb-8">
+            <p className="body-text max-w-2xl text-center text-slate-300 mb-8">
               We don't hand off a hundred-page strategy. We start with a
               conversation, diagnose what's actually happening, and stay engaged
               as a thinking partner — not an execution team.
@@ -614,8 +606,8 @@ export default function Advisory() {
                 <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
                   <TargetSvg className="w-4 h-4" />
                 </div>
-                <h4 className="heading-h5 text-white mb-1.5">Discovery</h4>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <h4 className="heading-h6 md:heading-h5 text-white mb-1.5">Discovery</h4>
+                <p className="body-text-sm text-slate-400 leading-relaxed">
                   A real conversation. What's actually happening, not what the
                   strategy document says.
                 </p>
@@ -625,8 +617,8 @@ export default function Advisory() {
                 <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
                   <AssesmentSvg className="w-4 h-4" />
                 </div>
-                <h4 className="heading-h5 text-white mb-1.5">Assessment</h4>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <h4 className="heading-h6 md:heading-h5 text-white mb-1.5">Assessment</h4>
+                <p className="body-text-sm text-slate-400 leading-relaxed">
                   Two to four weeks of diagnosis. Where you're winning, where
                   you're stuck, what's really blocking you.
                 </p>
@@ -636,8 +628,8 @@ export default function Advisory() {
                 <div className="w-9 h-9 rounded-full border border-[#00C4B4]/40 bg-[#00C4B4]/10 flex items-center justify-center text-[#00C4B4] shadow-[0_0_10px_rgba(0,196,180,0.2)] mb-3">
                   <Rocket className="w-4 h-4" />
                 </div>
-                <h4 className="heading-h5 text-white mb-1.5">Roadmap</h4>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <h4 className="heading-h6 md:heading-h5 text-white mb-1.5">Roadmap</h4>
+                <p className="body-text-sm text-slate-400 leading-relaxed">
                   Clarity on the three to five things that matter most. The
                   sequence. The checkpoints.
                 </p>
@@ -647,8 +639,8 @@ export default function Advisory() {
                 <div className="w-9 h-9 rounded-full border border-[#2563EB]/40 bg-[#2563EB]/10 flex items-center justify-center text-[#4B9AF5] shadow-[0_0_10px_rgba(37,99,235,0.2)] mb-3">
                   <Users className="w-4 h-4" />
                 </div>
-                <h4 className="heading-h5 text-white mb-1.5">Partnership</h4>
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <h4 className="heading-h6 md:heading-h5 text-white mb-1.5">Partnership</h4>
+                <p className="body-text-sm text-slate-400 leading-relaxed">
                   We stay engaged as you move — pushing back when you're about
                   to settle for good enough.
                 </p>
@@ -691,16 +683,16 @@ export default function Advisory() {
             <div className="absolute top-0 right-0 w-80 h-80 bg-[#00C4B4]/10 blur-[100px] rounded-full pointer-events-none z-0" />
 
             <div className="relative z-10 max-w-full md:max-w-[85%] lg:max-w-[58%] my-4">
-              <span className="text-4xl sm:text-5xl font-serif text-[#00C4B4] block mb-1 leading-none">
+              <span className="heading-h1 font-serif text-[#00C4B4] block mb-1 leading-none">
                 “
               </span>
-              <blockquote className="text-sm md:text-xl italic text-slate-100 leading-relaxed mb-4 font-light">
+              <blockquote className="body-text italic text-slate-100 leading-relaxed mb-4 font-light">
                 "The organisations that win won't be the ones with perfect
                 strategy. They'll be the ones that can learn, adapt, and move
                 faster than their competitors. That happens when the operating
                 model enables it."
               </blockquote>
-              <p className="text-xs text-slate-400 font-sans tracking-wide">
+              <p className="body-text text-slate-400 font-sans tracking-wide">
                 Ravishankar Pingali, Founder, LucidMind Consulting
               </p>
             </div>
@@ -720,7 +712,7 @@ export default function Advisory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="heading-h4 md:heading-h2 text-white mb-3 tracking-tight"
+              className="heading-h3 md:heading-h2 text-white mb-3 tracking-tight"
             >
               Ready to stop experimenting and start transforming?
             </motion.h2>
@@ -730,7 +722,7 @@ export default function Advisory() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="max-w-md text-xs text-slate-300 leading-relaxed mb-6"
+              className="body-text max-w-md text-slate-300 leading-relaxed mb-6"
             >
               Let's discuss the operating model gaps holding your AI investments
               back.
@@ -744,7 +736,7 @@ export default function Advisory() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white text-xs sm:text-sm font-medium tracking-wide shadow-[0_0_25px_rgba(0,196,180,0.4)] hover:shadow-[0_0_35px_rgba(0,196,180,0.6)] transition-shadow duration-300"
+                className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white body-text font-medium tracking-wide shadow-[0_0_25px_rgba(0,196,180,0.4)] hover:shadow-[0_0_35px_rgba(0,196,180,0.6)] transition-shadow duration-300"
               >
                 <Call className="w-4 h-4" />
                 <span>Book a Discovery Call</span>

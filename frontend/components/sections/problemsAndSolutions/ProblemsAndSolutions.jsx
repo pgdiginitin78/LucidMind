@@ -28,28 +28,6 @@ const problems = [
 ];
 
 const solutions = [
-  // {
-  //   title: "Operating Model Transformation",
-  //   desc: "Foundation / starting point",
-  //   icon: (
-  //     <svg
-  //       className="w-5 h-5 text-blue-200"
-  //       fill="none"
-  //       viewBox="0 0 24 24"
-  //       stroke="currentColor"
-  //       strokeWidth={1.5}
-  //     >
-  //       <rect x="3" y="4" width="7" height="5" rx="1" />
-  //       <rect x="14" y="4" width="7" height="5" rx="1" />
-  //       <rect x="8.5" y="15" width="7" height="5" rx="1" />
-  //       <path
-  //         strokeLinecap="round"
-  //         strokeLinejoin="round"
-  //         d="M6.5 9v2a2 2 0 002 2h7a2 2 0 002-2V9M12 13v2"
-  //       />
-  //     </svg>
-  //   ),
-  // },
   {
     title: "AI Strategy & Adoption",
     desc: "From AI strategy to measurable value",
@@ -199,21 +177,21 @@ export default function ProblemsAndSolutions() {
 
       <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="flex-1 w-full md:w-1/1"
         >
           <div className="flex flex-col items-start w-full">
-            <p className="text-brand-blue font-bold tracking-[0.25em] uppercase text-xs sm:text-sm mb-3">
+            <p className="heading-h6 text-brand-blue font-bold tracking-[0.25em] uppercase mb-3">
               Challenges
             </p>
             <div className="w-12 h-[2px] bg-brand-blue mb-6"></div>
 
             <Heading
               level={2}
-              className="text-2xl sm:text-3xl lg:text-[2.5rem] text-[#0B192C] leading-[1.1] mb-8"
+              className="heading-h2 text-[#0B192C] leading-[1.1] mb-8"
             >
               What Problems Enterprises Face{" "}
               <span className="text-brand-blue">Today?</span>
@@ -226,16 +204,16 @@ export default function ProblemsAndSolutions() {
             className="relative grid grid-cols-1 items-stretch gap-y-6 md:grid-cols-2 md:gap-x-5 lg:gap-x-14"
           >
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-20 flex flex-col justify-center rounded-[1.5rem] border border-[#009A9A]/15 bg-white/70 p-6 shadow-[0_20px_50px_rgba(11,25,44,0.08)] backdrop-blur-sm sm:p-8"
             >
-              <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-[#007070] uppercase sm:text-sm">
+              <p className="heading-h6 mb-1 font-semibold tracking-[0.3em] text-[#007070] uppercase">
                 What`s
               </p>
-              <h3 className="heading-h4 lg:heading-h3 mb-5 text-[#0B192C]">
+              <h3 className="heading-h3 mb-5 text-[#0B192C]">
                 Slowing Enterprises down
               </h3>
 
@@ -256,7 +234,7 @@ export default function ProblemsAndSolutions() {
                       <div className="mr-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#E0EBF5] shadow-sm transition-colors duration-300 group-hover:bg-[#009A9A]">
                         <ChevronRightIcon className="text-[#007070] transition-colors duration-300 group-hover:text-white" />
                       </div>
-                      <span className="text-sm lg:text-base font-medium text-[#1c2e4a] transition-colors duration-300 group-hover:text-[#009A9A]">
+                      <span className="body-text font-medium text-[#1c2e4a] transition-colors duration-300 group-hover:text-[#009A9A]">
                         {item}
                       </span>
                     </div>
@@ -269,10 +247,10 @@ export default function ProblemsAndSolutions() {
               </motion.ul>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="relative z-20 flex"
             >
               <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] bg-[#040914] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
@@ -287,12 +265,12 @@ export default function ProblemsAndSolutions() {
                 </div>
 
                 <div className="relative z-10 mb-4">
-                  <p className="mb-1 text-xs font-semibold tracking-[0.3em] text-white uppercase sm:text-sm">
+                  <p className="heading-h6 mb-1 font-semibold tracking-[0.3em] text-white uppercase">
                     How
                   </p>
                   <Heading
                     level={2}
-                    className="text-xl lg:text-3xl leading-tight tracking-wide text-white sm:text-[1.75rem]"
+                    className="heading-h2 leading-tight tracking-wide text-white"
                   >
                     <span className="bg-gradient-to-r from-[#00C4B4] to-[#00E5FF] bg-clip-text font-bold text-transparent">
                       LucidMind
@@ -326,11 +304,11 @@ export default function ProblemsAndSolutions() {
                       <div className="flex-1 pr-4">
                         <Heading
                           level={3}
-                          className="text-sm lg:text-base text-white"
+                          className="heading-h5 text-white"
                         >
                           {item.title}
                         </Heading>
-                        <p className="mt-1 text-[10px] lg:text-xs leading-snug whitespace-pre-line text-blue-100/60">
+                        <p className="body-text mt-1 leading-snug whitespace-pre-line text-blue-100/60">
                           {item.desc}
                         </p>
                       </div>
