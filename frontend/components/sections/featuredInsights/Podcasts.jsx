@@ -120,7 +120,7 @@ export default function Podcasts() {
       <div className="w-full h-[1.5px] bg-[linear-gradient(90deg,transparent_0%,#00C4B4_35%,#0EA5E9_65%,transparent_100%)] relative z-[1]" />
       <section
         ref={sectionRef}
-        className={`w-full ${isStandalone ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-20"} relative font-inter`}
+        className={`w-full ${isStandalone ? "pt-28 sm:pt-36 pb-12 sm:pb-16" : "py-12 sm:py-16 md:py-10"} relative font-inter`}
       >
         <WebGLParticleCanvas variant="podcast" />
 
@@ -132,11 +132,11 @@ export default function Podcasts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="mb-6 sm:mb-8 text-center lg:text-left"
+                className="mb-6 sm:mb-6 text-center lg:text-left"
               >
                 <div className="inline-flex items-center gap-1.5 mb-3 px-2.5 py-1 rounded-full bg-[#00C4B4]/10 border border-[#00C4B4]/25">
                   <WaveformIcon />
-                  <p className="heading-h6 text-[#00C4B4] font-semibold tracking-[0.2em] uppercase">
+                  <p className="body-text-sm text-[#00C4B4] font-semibold tracking-[0.2em] uppercase">
                     Video/Podcasts
                   </p>
                 </div>
@@ -149,7 +149,7 @@ export default function Podcasts() {
                     Inspire.
                   </span>
                 </Heading>
-                <p className="body-text text-white/60 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                <p className="body-text-sm text-white/60 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                   Candid insights from Ravishankar Pingali on leadership, AI,
                   and the future of Global Capability Centres.
                 </p>
@@ -214,7 +214,7 @@ export default function Podcasts() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="flex-1 w-full lg:sticky lg:top-24 min-w-0"
+                className="flex-1 w-full lg:sticky lg:top-30 min-w-0"
               >
                 <AnimatePresence mode="wait">
                   <motion.div
