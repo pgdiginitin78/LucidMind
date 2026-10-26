@@ -25,6 +25,10 @@ export default defineConfig(({ mode }) => {
     },
     server: {
       port: 3000,
+      proxy: {
+        '/api': 'http://localhost:5000',
+        '/uploads': 'http://localhost:5000',
+      },
     },
     build: {
       outDir: path.resolve(__dirname, '../dist'),

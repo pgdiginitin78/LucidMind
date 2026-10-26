@@ -4,7 +4,7 @@ import { Link } from "@/lib/navigation";
 import AiParticleDisplay from "./AiParticleDisplay";
 import DotField from "./DotField";
 import { usePageReady } from "../../transitions/PageTransitionContext";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 function HeroSection() {
   const { setReady } = usePageReady();
@@ -69,7 +69,11 @@ function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.25,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="body-text text-slate-400 font-medium max-w-xs sm:max-w-md md:max-w-lg mb-2"
           >
             Helping leaders turn technology, transformation and organisational
@@ -79,31 +83,35 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.38,
+              ease: [0.22, 1, 0.36, 1],
+            }}
           >
             <Link
               href="/contact"
               className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white body-text font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto"
             >
-            <span>Schedule a Conversation</span>
+              <span>Schedule a Conversation</span>
 
-            <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-3.5 w-3.5 sm:h-4 sm:w-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75"
-                />
-              </svg>
-            </div>
-          </Link>
+              <div className="flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 backdrop-blur-sm transition-transform duration-300 group-hover:translate-x-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="h-3.5 w-3.5 sm:h-4 sm:w-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75"
+                  />
+                </svg>
+              </div>
+            </Link>
           </motion.div>
         </div>
       </div>
