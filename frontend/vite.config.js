@@ -9,7 +9,9 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-
+  // Local dev talks to the local backend by default. To view LIVE data locally, create
+  // frontend/.env.local with: DEV_API_TARGET=https://lucidmind.co.in
+  const apiTarget = env.DEV_API_TARGET || 'http://localhost:5000';
   return {
     base: '/',
     plugins: [react(), tailwindcss()],
@@ -26,8 +28,8 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       proxy: {
-        '/api': 'http://localhost:5000',
-        '/uploads': 'http://localhost:5000',
+        '/api': { target: apiTarget, changeOrigin: true },
+        '/uploads': { target: apiTarget, changeOrigin: true },
       },
     },
     build: {

@@ -18,6 +18,7 @@ import AdminDashboard from "@/app/admin/page";
 import AdminBlogsPage from "@/app/admin/blogs/page";
 import AdminPodcastsPage from "@/app/admin/podcasts/page";
 import AdminServicesPage from "@/app/admin/services/page";
+import AdminLoginRoute from "@/app/admin/login/page";
 
 export default function App() {
   return (
@@ -32,6 +33,10 @@ export default function App() {
           <Route path="/hero" element={<HeroPage />} />
           <Route path="/insights" element={<InsightsPage />} />
           <Route path="/podcasts" element={<PodcastsPage />} />
+
+          {/* Admin Login */}
+          <Route path="/login" element={<AdminLoginRoute />} />
+          <Route path="/admin/login" element={<AdminLoginRoute />} />
 
           {/* Admin Protected Routes */}
           <Route

@@ -28,7 +28,8 @@ export function createApp() {
         if (
           !origin ||
           config.allowedOrigins.includes(origin) ||
-          /\.hostingersite\.com$/i.test(origin)
+          /\.hostingersite\.com$/i.test(origin) ||
+          (!config.isProduction && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin))
         )
           return cb(null, true);
         return cb(new Error('CORS_NOT_ALLOWED'));
