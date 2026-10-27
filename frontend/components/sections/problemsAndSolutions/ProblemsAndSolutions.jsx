@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import Heading from "../../ui/Heading";
 import LucidMindHELPSImg from "./images/LucidMindHELPS.webp";
@@ -169,51 +169,52 @@ export default function ProblemsAndSolutions() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] py-12 sm:py-16 md:py-20">
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#e8f1f8] to-[#d3e1ef] py-10 sm:py-12 md:py-16 min-[2560px]:py-24">
       <div className="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
         <div className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-white/60 blur-[100px]" />
         <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto ">
+      <div className="relative z-10 mx-auto w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 min-[1920px]:max-w-[1800px] min-[2560px]:max-w-[2200px] min-[3840px]:max-w-[3000px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="flex-1 w-full md:w-1/1"
+          className="w-full flex-1"
         >
-          <div className="flex flex-col items-start w-full">
-            <p className="heading-h6 text-brand-blue font-bold tracking-[0.25em] uppercase mb-3">
+          <div className="flex w-full flex-col items-start">
+            <p className="heading-h6 mb-3 font-bold tracking-[0.25em] text-brand-blue uppercase">
               Challenges
             </p>
-            <div className="w-12 h-[2px] bg-brand-blue mb-6"></div>
+            <div className="mb-6 h-[2px] w-12 bg-brand-blue"></div>
 
             <Heading
               level={2}
-              className="heading-h2 text-[#0B192C] leading-[1.1] mb-8"
+              className="heading-h2 mb-6 leading-[1.1] text-[#0B192C] md:mb-8"
             >
               What Problems Enterprises Face{" "}
               <span className="text-brand-blue">Today?</span>
             </Heading>
           </div>
         </motion.div>
-        <div className="w-full mx-auto">
+
+        <div className="mx-auto w-full">
           <div
             ref={gridRef}
-            className="relative grid grid-cols-1 items-stretch gap-y-6 md:grid-cols-2 md:gap-x-5 lg:gap-x-14"
+            className="relative grid grid-cols-1 items-stretch gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-8 xl:gap-12 min-[2560px]:gap-16"
           >
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-20 flex flex-col justify-center rounded-[1.5rem] border border-[#009A9A]/15 bg-white/70 p-6 shadow-[0_20px_50px_rgba(11,25,44,0.08)] backdrop-blur-sm sm:p-8"
+              className="relative z-20 flex w-full flex-col justify-center rounded-[1.5rem] border border-[#009A9A]/15 bg-white/70 p-5 shadow-[0_20px_50px_rgba(11,25,44,0.08)] backdrop-blur-sm sm:p-8 min-[2560px]:p-12"
             >
               <p className="heading-h6 mb-1 font-semibold tracking-[0.3em] text-[#007070] uppercase">
                 What`s
               </p>
-              <h3 className="heading-h3 mb-5 text-[#0B192C]">
+              <h3 className="heading-h3 mb-4 text-[#0B192C] sm:mb-5">
                 Slowing Enterprises down
               </h3>
 
@@ -228,39 +229,44 @@ export default function ProblemsAndSolutions() {
                   <motion.li
                     variants={itemVariant}
                     key={idx}
-                    className="group flex h-16 cursor-default items-center justify-between border-b border-gray-300/60 last:border-0"
+                    className="group flex min-h-[3.5rem] cursor-default items-center justify-between gap-3 border-b border-gray-300/60 py-3 last:border-0 sm:min-h-[4rem] min-[2560px]:min-h-[5.5rem] min-[2560px]:py-5"
                   >
-                    <div className="flex items-center">
-                      <div className="mr-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#E0EBF5] shadow-sm transition-colors duration-300 group-hover:bg-[#009A9A]">
+                    <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#E0EBF5] shadow-sm transition-colors duration-300 group-hover:bg-[#009A9A] min-[2560px]:h-10 min-[2560px]:w-10">
                         <ChevronRightIcon className="text-[#007070] transition-colors duration-300 group-hover:text-white" />
                       </div>
-                      <span className="body-text font-medium text-[#1c2e4a] transition-colors duration-300 group-hover:text-[#009A9A]">
+                      <span className="body-text min-w-0 break-words font-medium leading-snug text-[#1c2e4a] transition-colors duration-300 group-hover:text-[#009A9A]">
                         {item}
                       </span>
                     </div>
                     <span
                       ref={(el) => (problemRefs.current[idx] = el)}
-                      className="ml-3 h-2 w-2 flex-shrink-0 rounded-full bg-[#009A9A] shadow-[0_0_8px_1px_rgba(0,154,154,0.6)]"
+                      className="h-2 w-2 shrink-0 rounded-full bg-[#009A9A] shadow-[0_0_8px_1px_rgba(0,154,154,0.6)]"
                     />
                   </motion.li>
                 ))}
               </motion.ul>
             </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-20 flex"
+              transition={{
+                duration: 0.7,
+                delay: 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="relative z-20 flex w-full"
             >
-              <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] bg-[#040914] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8">
+              <TiltCard className="relative flex w-full flex-col justify-center overflow-hidden rounded-[1.5rem] bg-[#040914] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.3)] sm:p-8 min-[2560px]:p-12">
                 <div className="pointer-events-none absolute inset-0 z-0">
                   <img
                     src={LucidMindHELPSImg.src || LucidMindHELPSImg}
                     alt="LucidMind HELPS Background"
                     className="h-full w-full object-cover object-center"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#040914]/85 via-[#040914]/60 to-[#040914]/25" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#040914]/90 via-[#040914]/70 to-[#040914]/35" />
                   <div className="absolute inset-0 bg-[#040914]/20" />
                 </div>
 
@@ -278,42 +284,43 @@ export default function ProblemsAndSolutions() {
                     HELPS
                   </Heading>
                 </div>
+
                 <motion.ul
                   variants={listVariant}
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true, amount: 0.15 }}
-                  className="relative z-10"
+                  className="relative z-10 w-full"
                 >
                   {solutions.map((item, idx) => (
                     <motion.li
                       variants={itemVariantRight}
                       key={idx}
-                      className="group flex h-16 cursor-pointer items-center border-b border-white/10 last:border-0"
+                      className="group flex min-h-[4.5rem] cursor-pointer items-center gap-3 border-b border-white/10 py-3 last:border-0 sm:gap-4 md:min-h-[5rem] min-[2560px]:min-h-[6.5rem] min-[2560px]:py-5"
                     >
                       <span
                         ref={(el) => (solutionRefs.current[idx] = el)}
-                        className="mr-3 h-2 w-2 flex-shrink-0 rounded-full bg-[#00E5FF] shadow-[0_0_8px_1px_rgba(0,229,255,0.7)]"
+                        className="h-2 w-2 shrink-0 rounded-full bg-[#00E5FF] shadow-[0_0_8px_1px_rgba(0,229,255,0.7)]"
                       />
 
-                      <div className="relative mr-4 flex h-8 w-8 md:h-10 md:w-10 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#112240] shadow-[0_0_15px_rgba(0,196,180,0.1)] transition-colors duration-300 group-hover:bg-[#1a365d]">
+                      <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#112240] shadow-[0_0_15px_rgba(0,196,180,0.1)] transition-colors duration-300 group-hover:bg-[#1a365d] md:h-10 md:w-10 min-[2560px]:h-14 min-[2560px]:w-14">
                         <div className="absolute inset-0 rounded-full bg-[#00A3FF] opacity-20 blur-md transition-opacity duration-300 group-hover:opacity-40" />
                         <div className="relative z-10">{item.icon}</div>
                       </div>
 
-                      <div className="flex-1 pr-4">
+                      <div className="min-w-0 flex-1">
                         <Heading
                           level={3}
-                          className="heading-h5 text-white"
+                          className="heading-h6 md:heading-h5 break-words leading-snug text-white"
                         >
                           {item.title}
                         </Heading>
-                        <p className="body-text mt-1 leading-snug whitespace-pre-line text-blue-100/60">
+                        <p className="mt-1 break-words text-xs leading-snug text-blue-100/70 md:body-text">
                           {item.desc}
                         </p>
                       </div>
 
-                      <div className="flex-shrink-0 text-blue-400/40 transition-colors group-hover:text-[#00C4B4]">
+                      <div className="shrink-0 text-blue-400/40 transition-colors group-hover:text-[#00C4B4]">
                         <ChevronRightIcon />
                       </div>
                     </motion.li>
