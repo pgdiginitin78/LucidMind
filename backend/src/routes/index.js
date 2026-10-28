@@ -18,10 +18,18 @@ router.get(
   '/health/db',
   asyncHandler(async (req, res) => {
     try {
-      await db.ping();
-      res.json({ status: 'ok', database: 'connected' });
-    } catch (err) {
-      res.status(503).json({ status: 'error', database: 'unavailable', message: 'Database connection failed' });
+      const info = await db.ping();
+      res.json({
+        status: 'ok',
+        database: info?.client === 'mysql' ? 'connected' : 'fallback',
+        client: info?.client || 'mysql',
+      });
+    } catch {
+      res.status(503).json({
+        status: 'error',
+        database: 'unavailable',
+        message: 'Database connection failed',
+      });
     }
   }),
 );

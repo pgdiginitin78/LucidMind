@@ -9,9 +9,19 @@ const backendRoot = path.resolve(__dirname, "../..");
 //   real process env (Hostinger panel)  >  .env.<NODE_ENV>  >  .env
 //   local dev  -> backend/.env.development      Hostinger -> panel variables or backend/.env.production
 const envName = process.env.NODE_ENV || "development";
-dotenv.config({ path: path.join(backendRoot, `.env.${envName}`), quiet: true });
-dotenv.config({ path: path.join(backendRoot, ".env"), quiet: true });
-dotenv.config({ path: path.resolve(backendRoot, "../.env"), quiet: true });
+const candidateEnvPaths = [
+  path.join(backendRoot, `.env.${envName}`),
+  path.join(backendRoot, ".env"),
+  path.resolve(backendRoot, "../.env"),
+  "/home4/lucidmindco/.env",
+  "/home4/lucidmindco/public_html/.env",
+  "/home4/lucidmindco/public_html/api/.env",
+  "/home/lucidmindco/.env",
+  "/home/lucidmindco/public_html/.env",
+];
+for (const p of candidateEnvPaths) {
+  dotenv.config({ path: p, quiet: true });
+}
 
 const pick = (...names) => {
   for (const n of names) {
@@ -51,14 +61,13 @@ const config = {
 
   db: {
     // DATABASE_* are the documented names; DB_* are accepted because the PHP backend used them.
-    // 'auto' probes MySQL first; if unreachable (or before user adds DB credentials in Hostinger),
-    // it falls back to built-in SQLite so the site never 500 crashes.
+    // 'auto' probes MySQL first; if unreachable, falls back gracefully to built-in SQLite so the site never 500 crashes.
     client: pick("DB_CLIENT") || "auto",
     host: pick("DATABASE_HOST", "DB_HOST") || "localhost",
     port: Number(pick("DATABASE_PORT", "DB_PORT")) || 3306,
-    database: pick("DATABASE_NAME", "DB_NAME") || "lucidmind",
-    user: pick("DATABASE_USER", "DB_USER") || "root",
-    password: pick("DATABASE_PASSWORD", "DB_PASSWORD"),
+    database: pick("DATABASE_NAME", "DB_NAME") || "lucidmin_lucidmindco_usr",
+    user: pick("DATABASE_USER", "DB_USER") || "lucidmin_lucidmindco",
+    password: pick("DATABASE_PASSWORD", "DB_PASSWORD") || "lucidmindco_usr",
     connectionLimit: Number(pick("DATABASE_POOL_SIZE")) || 10,
   },
 
