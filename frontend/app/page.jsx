@@ -1,14 +1,23 @@
+import { lazy, Suspense } from "react";
 import { PageTransition } from "@/components/transitions/PageTransition";
 import { HomeSkeleton } from "@/components/skeletons/HomeSkeleton";
 import HeroSection from "@/components/sections/heroSection/HeroSection";
-import ProblemsAndSolutions from "@/components/sections/problemsAndSolutions/ProblemsAndSolutions";
-import AdvisoryPhilosophy from "@/components/sections/advisoryPhilosophy/AdvisoryPhilosophy";
-import Articles from "@/components/sections/featuredInsights/Articles";
-import Podcasts from "@/components/sections/featuredInsights/Podcasts";
-import { Suspense } from "react";
-
 import SEOHead from "@/components/seo/SEOHead";
 import { organizationSchema } from "@/lib/schemaData";
+
+// Genuinely lazy-load below-the-fold components to reduce initial JavaScript execution
+const ProblemsAndSolutions = lazy(() =>
+  import("@/components/sections/problemsAndSolutions/ProblemsAndSolutions")
+);
+const AdvisoryPhilosophy = lazy(() =>
+  import("@/components/sections/advisoryPhilosophy/AdvisoryPhilosophy")
+);
+const Articles = lazy(() =>
+  import("@/components/sections/featuredInsights/Articles")
+);
+const Podcasts = lazy(() =>
+  import("@/components/sections/featuredInsights/Podcasts")
+);
 
 const SectionFallback = () => (
   <div style={{ minHeight: "80px" }} aria-hidden="true" />

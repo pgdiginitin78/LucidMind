@@ -1,6 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Avatar, Divider, MenuItem, Menu as MuiMenu } from "@mui/material";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import {
   BookOpen as BookOpenIcon,

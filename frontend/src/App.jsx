@@ -1,25 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PageTransitionProvider } from "@/components/transitions/PageTransitionContext";
 import ClientLayout from "@/components/providers/ClientLayout";
 import { initGA } from "@/lib/analytics";
 
-// Client Pages
+// Client Pages - Home is eagerly loaded for instant initial render
 import Home from "@/app/page";
-import AboutPage from "@/app/about/page";
-import AdvisoryPage from "@/app/advisory/page";
-import ContactPage from "@/app/contact/page";
-import HeroPage from "@/app/hero/page";
-import InsightsPage from "@/app/insights/page";
-import PodcastsPage from "@/app/podcasts/page";
+const AboutPage = lazy(() => import("@/app/about/page"));
+const AdvisoryPage = lazy(() => import("@/app/advisory/page"));
+const ContactPage = lazy(() => import("@/app/contact/page"));
+const HeroPage = lazy(() => import("@/app/hero/page"));
+const InsightsPage = lazy(() => import("@/app/insights/page"));
+const PodcastsPage = lazy(() => import("@/app/podcasts/page"));
 
-// Admin Pages & Layout
-import AdminLayout from "@/app/admin/layout";
-import AdminDashboard from "@/app/admin/page";
-import AdminBlogsPage from "@/app/admin/blogs/page";
-import AdminPodcastsPage from "@/app/admin/podcasts/page";
-import AdminServicesPage from "@/app/admin/services/page";
-import AdminLoginRoute from "@/app/admin/login/page";
+// Admin Pages & Layout - Lazy loaded to eliminate heavy admin libraries from public bundle
+const AdminLayout = lazy(() => import("@/app/admin/layout"));
+const AdminDashboard = lazy(() => import("@/app/admin/page"));
+const AdminBlogsPage = lazy(() => import("@/app/admin/blogs/page"));
+const AdminPodcastsPage = lazy(() => import("@/app/admin/podcasts/page"));
+const AdminServicesPage = lazy(() => import("@/app/admin/services/page"));
+const AdminLoginRoute = lazy(() => import("@/app/admin/login/page"));
 
 export default function App() {
   useEffect(() => {
@@ -29,7 +29,8 @@ export default function App() {
   return (
     <PageTransitionProvider>
       <ClientLayout>
-        <Routes>
+        <Suspense fallback={<div className="min-h-screen bg-[#040914]" />}>
+          <Routes>
           {/* Public Website Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
@@ -80,6 +81,7 @@ export default function App() {
           {/* Fallback route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </Suspense>
       </ClientLayout>
     </PageTransitionProvider>
   );

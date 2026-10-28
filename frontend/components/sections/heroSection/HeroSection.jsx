@@ -50,36 +50,17 @@ function HeroSection() {
 
         <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col md:pt-20 lg:pt-10 items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
           <div className="flex flex-col items-center md:items-start w-full">
-            <motion.h1
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="heading-h1 text-white w-full"
-            >
+            <h1 className="heading-h1 text-white w-full">
               Built For The <br />
               <span className="text-[#009A9A]">Adaptive Future</span>
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-              className="origin-left w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2"
-            />
+            </h1>
+            <div className="origin-left w-10 sm:w-12 md:w-16 h-[3px] bg-[#009A9A] mt-4 sm:mt-6 mb-2" />
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.25,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="body-text text-slate-400 font-medium max-w-xs sm:max-w-md md:max-w-lg mb-2"
-          >
+          <p className="body-text text-slate-400 font-medium max-w-xs sm:max-w-md md:max-w-lg mb-2">
             Helping leaders turn technology, transformation and organisational
             capability into measurable business impact.
-          </motion.p>
+          </p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}

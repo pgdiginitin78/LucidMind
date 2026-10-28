@@ -63,7 +63,7 @@ function AiParticleDisplay() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       const baseSpacing = isMobile
-        ? Math.max(12, Math.floor(width / 45))
+        ? Math.max(16, Math.floor(width / 26))
         : Math.max(8, Math.floor(width / 65));
       dotSpacing = baseSpacing;
       cols = Math.floor(width / dotSpacing);
@@ -103,7 +103,7 @@ function AiParticleDisplay() {
     window.addEventListener("resize", onResize);
 
     const bucketCoords = Array.from({ length: COLOR_BUCKETS }, () => []);
-    const radius = 1.6;
+    const radius = isMobile ? 1.4 : 1.6;
 
     function render() {
       if (!canvas || !isVisible || !isIntersecting) {
