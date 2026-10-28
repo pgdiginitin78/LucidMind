@@ -16,6 +16,7 @@ import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
+import { Avatar } from "@mui/material";
 
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 const LucidMindTransperentLogoPng = "/assets/logo/LucidMind logo 2.svg";
