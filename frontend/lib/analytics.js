@@ -37,16 +37,22 @@ function sanitizeParams(params = {}) {
 }
 
 /**
- * Safe gtag dispatch wrapper
+ * Safe gtag dispatch wrapper.
+ * index.html sets window.gtag directly before the React bundle loads,
+ * so we check for window.gtag first, then fall back to dataLayer push.
  */
 function gtagWrapper(...args) {
   if (typeof window === "undefined") return;
-  if (window.dataLayer && typeof window.gtag === "function") {
-    window.gtag(...args);
-  } else if (window.dataLayer) {
-    window.dataLayer.push(args);
-  } else if (IS_DEV) {
-    console.debug("[Analytics GA4 (dev)]", ...args);
+  try {
+    if (typeof window.gtag === "function") {
+      window.gtag(...args);
+    } else if (Array.isArray(window.dataLayer)) {
+      window.dataLayer.push(args);
+    } else if (IS_DEV) {
+      console.debug("[Analytics GA4 (dev)]", ...args);
+    }
+  } catch (e) {
+    if (IS_DEV) console.warn("[Analytics] gtagWrapper error:", e);
   }
 }
 
@@ -155,20 +161,43 @@ export function trackEvent(eventName, params = {}) {
 
 /**
  * Business Conversion Event: Contact Form Submission
- * ONLY fires after confirmed successful submission (HTTP 200 + success: true)
+ *
+ * ONLY fires after the backend returns { success: true } (HTTP 200).
+ * This means the SMTP email has already been dispatched successfully.
+ * Never fires on validation errors, API failures, network errors, or
+ * repeated button clicks that do not complete a successful round-trip.
+ *
+ * No PII is sent: name, email, phone, and message content are never
+ * included in these event parameters.
  */
 export function trackContactFormSuccess(params = {}) {
-  const safePayload = {
-    form_name: "contact_form",
-    form_destination: params.source || "contact-us-page",
-    subject_category: sanitizeValue(params.subject || "general_inquiry"),
-  };
+  try {
+    // Companion event for funnel analysis (optional, non-GA4-standard)
+    const safePayload = {
+      form_name: "contact_form",
+      form_destination: params.source || "contact-us-page",
+      subject_category: sanitizeValue(params.subject || "general_inquiry"),
+      page_location: typeof window !== "undefined" ? window.location.href : "",
+    };
+    trackEvent("contact_form_submit", safePayload);
 
-  trackEvent("contact_form_submit", safePayload);
-  trackEvent("generate_lead", {
-    lead_type: "advisory_inquiry",
-    lead_source: params.source || "contact-us-page",
-  });
+    // Primary GA4 conversion event — appears in Reports > Conversions
+    trackEvent("generate_lead", {
+      lead_type: "advisory_inquiry",
+      lead_source: params.source || "contact-us-page",
+      page_location: typeof window !== "undefined" ? window.location.href : "",
+    });
+
+    if (IS_DEV) {
+      console.debug(
+        "[Analytics] generate_lead fired — confirmed backend success.",
+        { source: params.source, subject: params.subject },
+      );
+    }
+  } catch (analyticsError) {
+    // Analytics errors must never surface to the user or affect form submission.
+    console.warn("[Analytics] trackContactFormSuccess failed silently:", analyticsError);
+  }
 }
 
 /**
