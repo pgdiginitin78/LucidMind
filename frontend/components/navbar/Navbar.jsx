@@ -16,7 +16,7 @@ import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RandomLetterSwap } from "../ui/random-letter-swap";
 import { Component as KineticMobileNav } from "../ui/sterling-gate-kinetic-navigation";
-import { Avatar, Divider, MenuItem } from "@mui/material";
+import { Avatar, Divider, Menu as MuiMenu, MenuItem } from "@mui/material";
 
 const LucidMindTransperentLogo = "/assets/logo/LucidMind logo 2.svg";
 const LucidMindTransperentLogoPng = "/assets/logo/LucidMind logo 2.svg";
@@ -454,7 +454,7 @@ export default function Navbar() {
                     />
                   </button>
 
-                  <Menu
+                  <MuiMenu
                     anchorEl={profileAnchorEl}
                     open={Boolean(profileAnchorEl)}
                     onClose={() => setProfileAnchorEl(null)}
@@ -648,7 +648,7 @@ export default function Navbar() {
                       <LogOut size={18} />
                       <span>Sign Out</span>
                     </MenuItem>
-                  </Menu>
+                  </MuiMenu>
                 </div>
               ) : null}
             </motion.div>
