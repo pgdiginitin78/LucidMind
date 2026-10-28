@@ -454,7 +454,7 @@ export default function Navbar() {
                     />
                   </button>
 
-                  <MuiMenu
+                  <Menu
                     anchorEl={profileAnchorEl}
                     open={Boolean(profileAnchorEl)}
                     onClose={() => setProfileAnchorEl(null)}
@@ -648,7 +648,7 @@ export default function Navbar() {
                       <LogOut size={18} />
                       <span>Sign Out</span>
                     </MenuItem>
-                  </MuiMenu>
+                  </Menu>
                 </div>
               ) : null}
             </motion.div>
