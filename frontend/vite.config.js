@@ -35,6 +35,75 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: path.resolve(__dirname, '../dist'),
       emptyOutDir: true,
+      target: 'es2015',
+      cssCodeSplit: true,
+      chunkSizeWarningLimit: 600,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            // React core - highest priority, smallest chunk
+            if (
+              id.includes('node_modules/react/') ||
+              id.includes('node_modules/react-dom/') ||
+              id.includes('node_modules/scheduler/')
+            ) {
+              return 'react-core';
+            }
+            // React Router
+            if (
+              id.includes('node_modules/react-router') ||
+              id.includes('node_modules/@remix-run')
+            ) {
+              return 'router';
+            }
+            // Framer Motion - large animation library
+            if (id.includes('node_modules/framer-motion')) {
+              return 'framer-motion';
+            }
+            // GSAP ecosystem
+            if (id.includes('node_modules/gsap') || id.includes('node_modules/@gsap')) {
+              return 'gsap';
+            }
+            // Lenis smooth scroll
+            if (id.includes('node_modules/lenis')) {
+              return 'lenis';
+            }
+            // lucide-react icons
+            if (id.includes('node_modules/lucide-react')) {
+              return 'lucide';
+            }
+            // Form libraries
+            if (
+              id.includes('node_modules/react-hook-form') ||
+              id.includes('node_modules/@hookform') ||
+              id.includes('node_modules/yup')
+            ) {
+              return 'forms';
+            }
+            // SweetAlert2
+            if (id.includes('node_modules/sweetalert2')) {
+              return 'sweetalert';
+            }
+            // MUI - admin only, should stay in lazy chunks
+            if (id.includes('node_modules/@mui') || id.includes('node_modules/@emotion')) {
+              return 'mui-admin';
+            }
+            // Spline 3D - used only in contact page (lazy)
+            if (id.includes('node_modules/@splinetool')) {
+              return 'spline-3d';
+            }
+            // Three.js ecosystem - not used currently but installed
+            if (
+              id.includes('node_modules/three') ||
+              id.includes('node_modules/@react-three') ||
+              id.includes('node_modules/ogl') ||
+              id.includes('node_modules/webgl-fluid')
+            ) {
+              return 'three-webgl';
+            }
+          },
+        },
+      },
     },
   };
 });

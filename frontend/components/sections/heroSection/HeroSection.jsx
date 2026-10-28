@@ -3,9 +3,12 @@ import { useEffect } from "react";
 import { Link } from "@/lib/navigation";
 import { trackPrimaryCTA } from "@/lib/analytics";
 import AiParticleDisplay from "./AiParticleDisplay";
-import DotField from "./DotField";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import { motion } from "framer-motion";
+
+// DotField is desktop-only — lazy load it to avoid bundling the canvas code on mobile
+import { lazy, Suspense } from "react";
+const DotField = lazy(() => import("./DotField"));
 
 function HeroSection() {
   const { setReady } = usePageReady();
@@ -14,27 +17,39 @@ function HeroSection() {
     setReady(true);
   }, [setReady]);
 
-  return (
-    <div className="relative w-full min-h-screen md:min-h-[90dvh]  lg:min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <DotField
-          dotRadius={1.5}
-          dotSpacing={16}
-          bulgeStrength={67}
-          glowRadius={160}
-          sparkle={false}
-          waveAmplitude={0}
-          cursorRadius={500}
-          cursorForce={0.1}
-          bulgeOnly
-          gradientFrom="#00C4B4"
-          gradientTo="#2563EB"
-          glowColor="#00C4B4"
-        />
-      </div>
+  // Detect mobile on render for conditional DotField rendering
+  const isMobile =
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: coarse)").matches;
 
+  return (
+    <div className="relative w-full min-h-screen md:min-h-[90dvh] lg:min-h-screen flex items-center justify-center overflow-hidden py-16 sm:py-20 md:py-0 bg-gradient-to-r from-[#4B9AF5] to-[#040914]">
+      {/* DotField canvas — desktop only to prevent TBT on mobile */}
+      {!isMobile && (
+        <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+          <Suspense fallback={null}>
+            <DotField
+              dotRadius={1.5}
+              dotSpacing={16}
+              bulgeStrength={67}
+              glowRadius={160}
+              sparkle={false}
+              waveAmplitude={0}
+              cursorRadius={500}
+              cursorForce={0.1}
+              bulgeOnly
+              gradientFrom="#00C4B4"
+              gradientTo="#2563EB"
+              glowColor="#00C4B4"
+            />
+          </Suspense>
+        </div>
+      )}
+
+      {/* Gradient overlay */}
       <div className="absolute inset-0 md:inset-y-0 md:left-0 md:right-auto w-full md:w-[70%] lg:w-[60%] pointer-events-none z-10 bg-gradient-to-b md:bg-gradient-to-r from-[#040914]/95 via-[#040914]/70 md:via-[#040914]/60 to-[#040914]/60 md:to-transparent" />
 
+      {/* Glow orb */}
       <div
         className="absolute top-1/3 sm:top-1/2 -left-16 sm:-left-20 -translate-y-1/2 w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] lg:w-[650px] lg:h-[650px] pointer-events-none z-10 opacity-60 sm:opacity-70 blur-[60px] sm:blur-[90px] rounded-full"
         style={{
@@ -44,10 +59,12 @@ function HeroSection() {
       />
 
       <div className="relative z-20 w-full max-w-[1680px] px-4 sm:px-6 md:px-8 lg:px-12 2xl:px-16 mx-auto flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-10 md:gap-8 lg:gap-8">
+        {/* AI Particle / Static AI display */}
         <div className="w-full md:w-[48%] lg:w-[50%] flex items-center justify-center order-first md:order-last scale-95 sm:scale-100 md:scale-100 -mb-6 sm:-mb-4 md:mb-0">
           <AiParticleDisplay />
         </div>
 
+        {/* Hero text content */}
         <div className="w-full md:w-[52%] lg:w-[50%] flex flex-col md:pt-20 lg:pt-10 items-center md:items-start gap-4 text-center md:text-left font-['Inter',sans-serif]">
           <div className="flex flex-col items-center md:items-start w-full">
             <h1 className="heading-h1 text-white w-full">
@@ -73,7 +90,9 @@ function HeroSection() {
           >
             <Link
               href="/contact"
-              onClick={() => trackPrimaryCTA("schedule_conversation", "hero_section", "/contact")}
+              onClick={() =>
+                trackPrimaryCTA("schedule_conversation", "hero_section", "/contact")
+              }
               className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white body-text font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto"
             >
               <span>Schedule a Conversation</span>

@@ -31,6 +31,16 @@ function AiParticleDisplay() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+
+    // On mobile: show a static CSS-rendered "AI" text instead of animated canvas
+    // This eliminates TBT from continuous rAF on low-end mobile CPUs
+    if (isMobile) {
+      canvas.style.display = "none";
+      return;
+    }
+
     const ctx = canvas.getContext("2d", {
       alpha: true,
       willReadFrequently: false,
@@ -39,8 +49,11 @@ function AiParticleDisplay() {
     let time = 0;
     let isVisible = true;
     let isIntersecting = true;
+    // Throttle to ~30fps on desktop to reduce CPU load while keeping visuals smooth
+    let lastFrameTime = 0;
+    const TARGET_FPS = 30;
+    const FRAME_INTERVAL = 1000 / TARGET_FPS;
 
-    const isMobile = window.matchMedia("(pointer: coarse)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     let dotSpacing = 0,
@@ -62,9 +75,7 @@ function AiParticleDisplay() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const baseSpacing = isMobile
-        ? Math.max(16, Math.floor(width / 26))
-        : Math.max(8, Math.floor(width / 65));
+      const baseSpacing = Math.max(8, Math.floor(width / 65));
       dotSpacing = baseSpacing;
       cols = Math.floor(width / dotSpacing);
       rows = Math.floor((height + 180) / dotSpacing);
@@ -75,7 +86,7 @@ function AiParticleDisplay() {
 
     const checkAndRender = () => {
       if (isVisible && isIntersecting && !animationFrameId) {
-        render();
+        render(performance.now());
       }
     };
 
@@ -103,14 +114,19 @@ function AiParticleDisplay() {
     window.addEventListener("resize", onResize);
 
     const bucketCoords = Array.from({ length: COLOR_BUCKETS }, () => []);
-    const radius = isMobile ? 1.4 : 1.6;
+    const radius = 1.6;
 
-    function render() {
+    function render(timestamp) {
       if (!canvas || !isVisible || !isIntersecting) {
         animationFrameId = null;
         return;
       }
       animationFrameId = requestAnimationFrame(render);
+
+      // Throttle to target FPS to reduce CPU load
+      const elapsed = timestamp - lastFrameTime;
+      if (elapsed < FRAME_INTERVAL) return;
+      lastFrameTime = timestamp - (elapsed % FRAME_INTERVAL);
 
       const width = canvas.width / dpr;
       const height = canvas.height / dpr;
@@ -178,12 +194,31 @@ function AiParticleDisplay() {
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center font-inter">
+      {/* Canvas for desktop — hidden on mobile via JS */}
       <div className="relative w-full h-[220px] md:h-[400px] lg:h-[440px] xl:h-[440px] 2xl:h-[550px] flex items-center justify-center">
         <canvas
           ref={canvasRef}
           style={{ willChange: "transform" }}
           className="w-full h-full block pointer-events-none drop-shadow-[0_0_20px_rgba(0,245,240,0.35)] drop-shadow-[0_0_35px_rgba(105,150,255,0.25)]"
         />
+        {/* Static "AI" text for mobile — replaces canvas animation */}
+        <div
+          aria-hidden="true"
+          className="md:hidden absolute inset-0 flex items-center justify-center select-none pointer-events-none"
+          style={{
+            background: "linear-gradient(135deg, #69B4FF 0%, #00F5F0 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            fontSize: "clamp(7rem, 40vw, 14rem)",
+            fontWeight: 900,
+            fontFamily: '"Inter", sans-serif',
+            lineHeight: 1,
+            filter: "drop-shadow(0 0 20px rgba(0,245,240,0.35))",
+          }}
+        >
+          AI
+        </div>
       </div>
     </div>
   );

@@ -32,8 +32,13 @@ const DotField = memo(({
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d', { alpha: true });
+
+    // Skip canvas animation on mobile/touch devices — massive TBT reduction
+    // Mobile gets a pure CSS gradient background instead
     const isMobile = window.matchMedia('(pointer: coarse)').matches;
+    if (isMobile) return;
+
+    const ctx = canvas.getContext('2d', { alpha: true });
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     let resizeTimer;
 
@@ -63,8 +68,7 @@ const DotField = memo(({
 
     function buildDots(w, h) {
       const p = propsRef.current;
-      const effectiveSpacing = isMobile ? Math.max(22, p.dotSpacing * 1.5) : p.dotSpacing;
-      const step = p.dotRadius + effectiveSpacing;
+      const step = p.dotRadius + p.dotSpacing;
       const cols = Math.floor(w / step);
       const rows = Math.floor(h / step);
       const padX = (w % step) / 2;

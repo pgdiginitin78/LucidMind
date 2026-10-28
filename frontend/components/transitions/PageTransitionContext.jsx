@@ -19,9 +19,10 @@ export const PageTransitionProvider = ({ children }) => {
 
   useEffect(() => {
     setIsReady(false);
+    // Reduced from 1500ms to 400ms — 1500ms was causing FCP/LCP delays on mobile
     const timer = setTimeout(() => {
       setIsReady(true);
-    }, 1500);
+    }, 400);
     return () => clearTimeout(timer);
   }, [pathname]);
 
@@ -37,4 +38,3 @@ export const PageTransitionProvider = ({ children }) => {
 };
 
 export const usePageReady = () => useContext(PageTransitionContext);
-
