@@ -1,27 +1,54 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/webp" href="/lucidmind-icon.webp">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LucidMind</title>
-    <meta
-      name="description"
-      content="LucidMind helps organisations build the leadership, operating models and AI capabilities needed for the Adaptive Future. Expert advisory services for enterprise transformation."
-    >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin="anonymous"
-    >
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Caveat:wght@600;700&display=swap"
-      rel="stylesheet"
-    >
-  </head>
-  <body class="font-inter">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LucidMind</title>
+
+  <meta
+    name="description"
+    content="LucidMind helps organisations build the leadership, operating models and AI capabilities needed for the Adaptive Future. Expert advisory services for enterprise transformation."
+  >
+
+  <meta name="theme-color" content="#071A4D">
+
+  <link rel="icon" type="image/webp" href="/lucidmind-icon.webp">
+
+  <!-- Font Optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Caveat:wght@600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-08RTQ1WC0C"></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+
+    window.gtag = gtag;
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-08RTQ1WC0C', {
+      send_page_view: true
+    });
+  </script>
+</head>
+
+<body class="font-inter">
+  <div id="root"></div>
+
+  <!-- React + Vite Entry Point -->
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
