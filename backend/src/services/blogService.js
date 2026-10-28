@@ -34,20 +34,84 @@ const dbError = (err) => {
   return err;
 };
 
-export async function listBlogs() {
-  const rows = await db.query('SELECT * FROM blogs ORDER BY sort_order ASC, created_at DESC');
+export async function listBlogs(options = {}) {
+  const { isAdmin = false, category, tag, search, isPublished, page, limit } = options;
+
+  const conditions = [];
+  const params = [];
+
+  // Public callers only see published blogs
+  if (!isAdmin) {
+    conditions.push('is_published = 1');
+  } else if (isPublished !== undefined && isPublished !== null && String(isPublished).trim() !== '') {
+    conditions.push('is_published = ?');
+    params.push(toInt(isPublished));
+  }
+
+  if (category && String(category).trim()) {
+    conditions.push('category = ?');
+    params.push(String(category).trim());
+  }
+
+  if (tag && String(tag).trim()) {
+    conditions.push('tag = ?');
+    params.push(String(tag).trim());
+  }
+
+  if (search && String(search).trim()) {
+    const q = `%${String(search).trim()}%`;
+    conditions.push('(title LIKE ? OR excerpt LIKE ? OR description LIKE ? OR content LIKE ?)');
+    params.push(q, q, q, q);
+  }
+
+  const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+
+  if (page && limit) {
+    const pageNum = Math.max(1, parseInt(page, 10));
+    const limitNum = Math.max(1, parseInt(limit, 10));
+    const offset = (pageNum - 1) * limitNum;
+
+    const countSql = `SELECT COUNT(*) as total FROM blogs ${whereClause}`;
+    const countRows = await db.query(countSql, params);
+    const total = countRows[0]?.total || 0;
+
+    const dataSql = `SELECT * FROM blogs ${whereClause} ORDER BY sort_order ASC, created_at DESC LIMIT ? OFFSET ?`;
+    const rows = await db.query(dataSql, [...params, limitNum, offset]);
+
+    return {
+      blogs: rows.map(mapBlog),
+      pagination: {
+        total,
+        page: pageNum,
+        limit: limitNum,
+        totalPages: Math.ceil(total / limitNum) || 1,
+      },
+    };
+  }
+
+  const rows = await db.query(`SELECT * FROM blogs ${whereClause} ORDER BY sort_order ASC, created_at DESC`, params);
   return rows.map(mapBlog);
 }
 
-export async function getBlog(idOrSlug) {
+export async function getBlog(idOrSlug, options = {}) {
+  const { isAdmin = false } = options;
   const rows = await db.query('SELECT * FROM blogs WHERE id = ? OR slug = ?', [idOrSlug, idOrSlug]);
   if (!rows[0]) throw new HttpError(404, 'Blog not found');
-  return mapBlog(rows[0]);
+  const blog = mapBlog(rows[0]);
+  if (!isAdmin && !blog.isPublished) {
+    throw new HttpError(404, 'Blog not found');
+  }
+  return blog;
 }
 
 export async function createBlog(data) {
+  const title = (data.title || '').trim();
+  if (!title) throw new HttpError(400, 'Title is required');
+
   const id = uniqueId('blog_');
-  const slug = data.slug ? data.slug : slugify(data.title);
+  let slug = data.slug ? slugify(data.slug) : slugify(title);
+  if (!slug) slug = id;
+
   const tag = coalesce(data.tag, 'MINDSET');
   const category = coalesce(data.category, tag);
   const author = coalesce(data.author, 'Ravishankar Pingali');
@@ -65,26 +129,55 @@ export async function createBlog(data) {
   const content = coalesce(data.content, '');
   const image = coalesce(data.image, data.coverImage, '');
   const coverImage = coalesce(data.coverImage, image);
-  const isPublished = isset(data.isPublished) ? toInt(data.isPublished) : 1;
+  const isPublished = isset(data.isPublished) ? toInt(data.isPublished) : (isset(data.isActive) ? toInt(data.isActive) : 1);
   const tags = JSON.stringify(Array.isArray(data.tags) ? data.tags : []);
 
   try {
+    // If slug collision check in DB:
+    if (!data.slug) {
+      const existing = await db.query('SELECT id FROM blogs WHERE slug = ?', [slug]);
+      if (existing && existing.length > 0) {
+        let suffix = 2;
+        let candidate = `${slug}-${suffix}`;
+        while (true) {
+          const check = await db.query('SELECT id FROM blogs WHERE slug = ?', [candidate]);
+          if (!check || check.length === 0) {
+            slug = candidate;
+            break;
+          }
+          suffix += 1;
+          candidate = `${slug}-${suffix}`;
+        }
+      }
+    }
+
     await db.query(
       `INSERT INTO blogs (id, title, slug, tag, category, author, author_role, read_time, date, excerpt,
         description, content, image, cover_image, is_published, tags)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [id, data.title, slug, tag, category, author, authorRole, readTime, date, excerpt, description,
+      [id, title, slug, tag, category, author, authorRole, readTime, date, excerpt, description,
         content, image, coverImage, isPublished, tags].map((v) => (v === undefined ? null : v)),
     );
   } catch (err) {
     throw dbError(err);
   }
-  return { ...data, _id: id };
+
+  let saved;
+  try {
+    saved = await getBlog(id, { isAdmin: true });
+  } catch {
+    saved = null;
+  }
+  return { ...data, ...saved, _id: id, id };
 }
 
 export async function updateBlog(id, input) {
   const data = { ...input };
-  if (isset(data.title) && !isset(data.slug)) data.slug = slugify(data.title);
+  if (isset(data.title) && !isset(data.slug)) {
+    data.slug = slugify(data.title);
+  } else if (isset(data.slug)) {
+    data.slug = slugify(data.slug);
+  }
 
   const fields = [];
   const values = [];
@@ -97,6 +190,9 @@ export async function updateBlog(id, input) {
   if (isset(data.isPublished)) {
     fields.push('is_published = ?');
     values.push(toInt(data.isPublished));
+  } else if (isset(data.isActive)) {
+    fields.push('is_published = ?');
+    values.push(toInt(data.isActive));
   }
   if (Array.isArray(data.tags)) {
     fields.push('tags = ?');
@@ -110,9 +206,8 @@ export async function updateBlog(id, input) {
   } catch (err) {
     throw dbError(err);
   }
-  // affectedRows = matched rows, so an unchanged save is not misreported as "not found"
   if (!result.affectedRows) throw new HttpError(404, 'Blog not found or no changes made');
-  return getBlog(id);
+  return getBlog(id, { isAdmin: true });
 }
 
 export async function deleteBlog(id) {
@@ -123,7 +218,7 @@ export async function deleteBlog(id) {
 export async function setBlogPublished(id, isPublished) {
   const result = await db.query('UPDATE blogs SET is_published = ? WHERE id = ?', [toInt(isPublished), id]);
   if (!result.affectedRows) throw new HttpError(404, 'Blog not found');
-  return getBlog(id);
+  return getBlog(id, { isAdmin: true });
 }
 
 export async function reorderBlogs(orderedIds) {
@@ -132,5 +227,5 @@ export async function reorderBlogs(orderedIds) {
       await conn.execute('UPDATE blogs SET sort_order = ? WHERE id = ?', [index + 1, id ?? null]);
     }
   });
-  return listBlogs();
+  return listBlogs({ isAdmin: true });
 }

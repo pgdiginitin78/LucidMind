@@ -21,3 +21,15 @@ export function authenticate(req, res, next) {
     return res.status(401).json({ message: 'Invalid token.' });
   }
 }
+
+/** Optionally checks for JWT without rejecting unauthenticated requests. Sets req.user if valid. */
+export function optionalAuthenticate(req, res, next) {
+  const token = getBearerToken(req);
+  if (!token) return next();
+  try {
+    req.user = jwt.verify(token, config.jwt.secret, { algorithms: ['HS256'] });
+  } catch {
+    // Malformed or expired token on public route is safely ignored
+  }
+  return next();
+}

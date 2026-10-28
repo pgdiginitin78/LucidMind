@@ -28,8 +28,32 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       proxy: {
-        '/api': { target: apiTarget, changeOrigin: true },
-        '/uploads': { target: apiTarget, changeOrigin: true },
+        '/api': {
+          target: apiTarget,
+          changeOrigin: true,
+          secure: false,
+          configure: (proxy) => {
+            if (!apiTarget.startsWith('http://localhost') && !apiTarget.startsWith('http://127.0.0.1')) {
+              proxy.on('proxyReq', (proxyReq) => {
+                proxyReq.setHeader('Origin', apiTarget);
+                proxyReq.setHeader('Referer', apiTarget);
+              });
+            }
+          },
+        },
+        '/uploads': {
+          target: apiTarget,
+          changeOrigin: true,
+          secure: false,
+          configure: (proxy) => {
+            if (!apiTarget.startsWith('http://localhost') && !apiTarget.startsWith('http://127.0.0.1')) {
+              proxy.on('proxyReq', (proxyReq) => {
+                proxyReq.setHeader('Origin', apiTarget);
+                proxyReq.setHeader('Referer', apiTarget);
+              });
+            }
+          },
+        },
       },
     },
     build: {

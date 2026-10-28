@@ -21,14 +21,16 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("lucidmind_token") : "";
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
         const [srvRes, blogRes, podRes] = await Promise.all([
-          fetch(`${API_BASE_URL}/services`)
+          fetch(`${API_BASE_URL}/services`, { headers })
             .then((r) => r.json())
             .catch(() => null),
-          fetch(`${API_BASE_URL}/blogs`)
+          fetch(`${API_BASE_URL}/blogs?all=true`, { headers })
             .then((r) => r.json())
             .catch(() => null),
-          fetch(`${API_BASE_URL}/podcasts`)
+          fetch(`${API_BASE_URL}/podcasts`, { headers })
             .then((r) => r.json())
             .catch(() => null),
         ]);

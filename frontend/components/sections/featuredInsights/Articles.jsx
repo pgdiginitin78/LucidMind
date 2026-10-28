@@ -63,8 +63,8 @@ export default function Articles() {
           setArticlesList(normalized);
         }
       })
-      .catch(() => {
-        setArticlesList([]);
+      .catch((err) => {
+        console.warn("[Articles] Network error:", err);
       });
     return () => {
       isMounted = false;

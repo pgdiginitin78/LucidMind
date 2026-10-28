@@ -36,11 +36,6 @@ function sanitizeParams(params = {}) {
   return sanitized;
 }
 
-/**
- * Safe gtag dispatch wrapper.
- * index.html sets window.gtag directly before the React bundle loads,
- * so we check for window.gtag first, then fall back to dataLayer push.
- */
 function gtagWrapper(...args) {
   if (typeof window === "undefined") return;
   try {
@@ -56,11 +51,7 @@ function gtagWrapper(...args) {
   }
 }
 
-/**
- * Initialize Google Analytics 4
- * If already loaded via index.html, seamlessly hooks into existing window.gtag.
- * Otherwise, loads gtag.js dynamically.
- */
+
 export function initGA() {
   if (typeof window === "undefined") return false;
 
@@ -159,20 +150,9 @@ export function trackEvent(eventName, params = {}) {
   }
 }
 
-/**
- * Business Conversion Event: Contact Form Submission
- *
- * ONLY fires after the backend returns { success: true } (HTTP 200).
- * This means the SMTP email has already been dispatched successfully.
- * Never fires on validation errors, API failures, network errors, or
- * repeated button clicks that do not complete a successful round-trip.
- *
- * No PII is sent: name, email, phone, and message content are never
- * included in these event parameters.
- */
+
 export function trackContactFormSuccess(params = {}) {
   try {
-    // Companion event for funnel analysis (optional, non-GA4-standard)
     const safePayload = {
       form_name: "contact_form",
       form_destination: params.source || "contact-us-page",
@@ -181,7 +161,6 @@ export function trackContactFormSuccess(params = {}) {
     };
     trackEvent("contact_form_submit", safePayload);
 
-    // Primary GA4 conversion event — appears in Reports > Conversions
     trackEvent("generate_lead", {
       lead_type: "advisory_inquiry",
       lead_source: params.source || "contact-us-page",
@@ -195,14 +174,11 @@ export function trackContactFormSuccess(params = {}) {
       );
     }
   } catch (analyticsError) {
-    // Analytics errors must never surface to the user or affect form submission.
     console.warn("[Analytics] trackContactFormSuccess failed silently:", analyticsError);
   }
 }
 
-/**
- * Business Conversion Event: Consultation Request
- */
+
 export function trackConsultationRequest(params = {}) {
   trackEvent("consultation_request", {
     request_type: params.type || "discovery_call",

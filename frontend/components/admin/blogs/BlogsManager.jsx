@@ -199,12 +199,16 @@ export default function BlogsManager() {
 
   const fetchBlogs = useCallback(async () => {
     setLoading(true);
+    setApiError("");
     try {
-      const res = await fetch(`${API_BASE_URL}/blogs`);
+      const res = await fetch(`${API_BASE_URL}/blogs?all=true&_t=${Date.now()}`, {
+        headers: getHeaders(),
+      });
+      if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       const data = await res.json();
-      if (data.blogs) setBlogs(data.blogs);
+      if (Array.isArray(data.blogs)) setBlogs(data.blogs);
     } catch {
-      // ignore
+      setApiError("Unable to load blogs from server. Please check database connection.");
     } finally {
       setLoading(false);
     }
@@ -354,16 +358,22 @@ export default function BlogsManager() {
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
+    const target = deleteTarget;
     setConfirmOpen(false);
     try {
-      const id = deleteTarget._id || deleteTarget.id;
-      await fetch(`${API_BASE_URL}/blogs/${id}`, {
+      const id = target._id || target.id;
+      const res = await fetch(`${API_BASE_URL}/blogs/${id}`, {
         method: "DELETE",
         headers: getHeaders(),
       });
-      fetchBlogs();
+      if (res.ok) {
+        fetchBlogs();
+      } else {
+        const err = await res.json().catch(() => ({}));
+        setApiError(err.message || "Failed to delete blog.");
+      }
     } catch {
-      // ignore
+      setApiError("Cannot connect to server to delete blog.");
     }
     setDeleteTarget(null);
   };

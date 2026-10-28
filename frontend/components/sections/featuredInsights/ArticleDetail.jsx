@@ -147,10 +147,7 @@ export default function ArticleDetail({ article, onClose }) {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#09172B]" />
-            <div className="absolute inset-x-4 top-4 flex items-center justify-between">
-              <span className="bg-[#09172B]/85 backdrop-blur-md border border-[#00C4B4]/40 text-[#00C4B4] text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">
-                {article.tag}
-              </span>
+            <div className="absolute inset-x-4 top-4 flex items-center justify-end">
               <button
                 onClick={onClose}
                 className="w-8 h-8 cursor-pointer rounded-full bg-[#09172B]/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:border-white/30 transition-colors"
@@ -174,7 +171,7 @@ export default function ArticleDetail({ article, onClose }) {
               <span className="body-text text-[#64748B]">{article.date}</span>
             </div>
 
-            <h2 className="heading-h2 text-white mb-2">
+            <h2 className="heading-h3 text-white mb-2">
               {article.title}
             </h2>
 

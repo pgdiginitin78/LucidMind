@@ -14,7 +14,8 @@
     "seed:admin": "node --import ./scripts/devEnv.js scripts/seed-admin.js",
     "setup:db": "node --import ./scripts/devEnv.js scripts/setup-db.js",
     "seed:admin:prod": "node scripts/seed-admin.js",
-    "setup:db:prod": "node scripts/setup-db.js"
+    "setup:db:prod": "node scripts/setup-db.js",
+    "migrate:mysql": "node scripts/migrate-to-mysql.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

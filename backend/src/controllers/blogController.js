@@ -3,11 +3,29 @@ import * as blogs from '../services/blogService.js';
 import { extractOrderedIds, validateTitleRequired } from '../validators/content.js';
 
 export const list = asyncHandler(async (req, res) => {
-  res.json({ blogs: await blogs.listBlogs() });
+  const isAdmin = Boolean(req.user);
+  const { category, tag, search, isPublished, page, limit } = req.query;
+
+  const result = await blogs.listBlogs({
+    isAdmin,
+    category,
+    tag,
+    search,
+    isPublished,
+    page: page ? parseInt(page, 10) : undefined,
+    limit: limit ? parseInt(limit, 10) : undefined,
+  });
+
+  if (result && typeof result === 'object' && !Array.isArray(result) && 'pagination' in result) {
+    res.json(result);
+  } else {
+    res.json({ blogs: result });
+  }
 });
 
 export const get = asyncHandler(async (req, res) => {
-  res.json({ blog: await blogs.getBlog(req.params.id) });
+  const isAdmin = Boolean(req.user);
+  res.json({ blog: await blogs.getBlog(req.params.id, { isAdmin }) });
 });
 
 export const create = asyncHandler(async (req, res) => {

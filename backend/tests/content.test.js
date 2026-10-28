@@ -150,6 +150,63 @@ describe('blogs', () => {
     assert.equal(res.status, 500);
     assert.deepEqual(res.body, { message: 'Internal server error' });
   });
+
+  test('GET list for public filters out drafts and unpublished posts', async () => {
+    m = mockDb((sql) => {
+      assert.ok(sql.includes('is_published = 1'));
+      return [blogRow];
+    });
+    const res = await request(app).get('/api/blogs');
+    assert.equal(res.status, 200);
+    assert.equal(res.body.blogs.length, 1);
+  });
+
+  test('GET list for admin includes all posts (drafts + published)', async () => {
+    m = mockDb((sql) => {
+      assert.ok(!sql.includes('is_published = 1'));
+      return [blogRow, { ...blogRow, id: 'blog_draft', is_published: 0 }];
+    });
+    const res = await request(app).get('/api/blogs').set(authHeader());
+    assert.equal(res.status, 200);
+    assert.equal(res.body.blogs.length, 2);
+  });
+
+  test('GET single draft blog: 404 for public, 200 for authenticated admin', async () => {
+    const draftRow = { ...blogRow, id: 'blog_draft', slug: 'my-draft', is_published: 0 };
+    m = mockDb(() => [draftRow]);
+    const pubRes = await request(app).get('/api/blogs/my-draft');
+    assert.equal(pubRes.status, 404);
+
+    const adminRes = await request(app).get('/api/blogs/my-draft').set(authHeader());
+    assert.equal(adminRes.status, 200);
+    assert.equal(adminRes.body.blog.slug, 'my-draft');
+    assert.equal(adminRes.body.blog.isPublished, false);
+  });
+
+  test('GET list supports filtering by category, tag, and search', async () => {
+    m = mockDb((sql, params) => {
+      assert.ok(sql.includes('category = ?'));
+      assert.ok(sql.includes('tag = ?'));
+      assert.ok(sql.includes('LIKE ?'));
+      assert.deepEqual(params, ['CatA', 'TagB', '%searchterm%', '%searchterm%', '%searchterm%', '%searchterm%']);
+      return [blogRow];
+    });
+    const res = await request(app).get('/api/blogs?category=CatA&tag=TagB&search=searchterm').set(authHeader());
+    assert.equal(res.status, 200);
+  });
+
+  test('GET list supports pagination (page, limit)', async () => {
+    m = mockDb((sql) => {
+      if (sql.includes('COUNT(*)')) return [{ total: 25 }];
+      return [blogRow];
+    });
+    const res = await request(app).get('/api/blogs?page=2&limit=10').set(authHeader());
+    assert.equal(res.status, 200);
+    assert.equal(res.body.pagination.total, 25);
+    assert.equal(res.body.pagination.page, 2);
+    assert.equal(res.body.pagination.limit, 10);
+    assert.equal(res.body.pagination.totalPages, 3);
+  });
 });
 
 describe('podcasts', () => {

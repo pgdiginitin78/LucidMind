@@ -28,10 +28,14 @@ export function createApp() {
         if (
           !origin ||
           config.allowedOrigins.includes(origin) ||
+          config.allowedOrigins.includes(origin.replace(/\/$/, '')) ||
           /\.hostingersite\.com$/i.test(origin) ||
-          (!config.isProduction && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin))
-        )
+          /\.vercel\.app$/i.test(origin) ||
+          /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)
+        ) {
           return cb(null, true);
+        }
+        logger.warn(`CORS rejected origin: ${origin}`);
         return cb(new Error('CORS_NOT_ALLOWED'));
       },
       credentials: true,

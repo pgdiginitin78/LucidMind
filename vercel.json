@@ -2,7 +2,6 @@
   "buildCommand": "npm run build --prefix frontend",
   "outputDirectory": "dist",
   "framework": null,
-  "installCommand": "npm install --prefix frontend",
   "headers": [
     {
       "source": "/sitemap.xml",
@@ -32,6 +31,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/api",
+      "destination": "/api/index.js"
+    },
     {
       "source": "/((?!api/|uploads/|robots\\.txt|sitemap\\.xml|.*\\..*).*)",
       "destination": "/index.html"

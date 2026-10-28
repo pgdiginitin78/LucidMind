@@ -6,6 +6,9 @@ import db from '../config/database.js';
 let syncTimeout = null;
 
 export function triggerDbSyncToJson() {
+  if (config.isProduction || Boolean(process.env.VERCEL)) {
+    return; // Production must strictly use persistent database, never server filesystem
+  }
   if (syncTimeout) clearTimeout(syncTimeout);
   syncTimeout = setTimeout(async () => {
     try {

@@ -20,8 +20,8 @@ router.get(
     try {
       await db.ping();
       res.json({ status: 'ok', database: 'connected' });
-    } catch {
-      res.status(503).json({ status: 'error', database: 'unavailable' });
+    } catch (err) {
+      res.status(503).json({ status: 'error', database: 'unavailable', message: 'Database connection failed' });
     }
   }),
 );
