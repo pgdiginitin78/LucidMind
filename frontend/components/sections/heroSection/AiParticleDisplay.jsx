@@ -49,9 +49,9 @@ function AiParticleDisplay() {
     let time = 0;
     let isVisible = true;
     let isIntersecting = true;
-    // Throttle to ~30fps on desktop to reduce CPU load while keeping visuals smooth
+    // Throttle to ~24fps on desktop to minimize CPU load while remaining visually smooth
     let lastFrameTime = 0;
-    const TARGET_FPS = 30;
+    const TARGET_FPS = 24;
     const FRAME_INTERVAL = 1000 / TARGET_FPS;
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2);

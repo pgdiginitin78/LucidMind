@@ -3,6 +3,7 @@ import path from 'node:path';
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import compression from 'compression';
 import config from './config/env.js';
 import logger from './utils/logger.js';
 import routes from './routes/index.js';
@@ -13,6 +14,17 @@ export function createApp() {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', /^\d+$/.test(config.trustProxy) ? Number(config.trustProxy) : config.trustProxy);
+
+  // Gzip/deflate compression — reduces response sizes by 60-80%
+  app.use(compression({
+    level: 6,
+    threshold: 1024, // Only compress responses > 1KB
+    filter: (req, res) => {
+      // Don't compress already-compressed image/video formats
+      if (req.headers['x-no-compression']) return false;
+      return compression.filter(req, res);
+    },
+  }));
 
   app.use(
     helmet({
@@ -82,7 +94,14 @@ export function createApp() {
   const matchedDist = distCandidates.find((d) => fs.existsSync(path.join(d, 'index.html')));
 
   if ((config.serveFrontend || config.isProduction) && matchedDist) {
-    app.use(express.static(matchedDist, { index: false, maxAge: '1h' }));
+    // Hashed assets (JS/CSS bundles) get 1 year cache — Vite adds content hashes to filenames
+    app.use('/assets', express.static(path.join(matchedDist, 'assets'), {
+      index: false,
+      maxAge: '1y',
+      immutable: true,
+    }));
+    // Other static files (index.html, robots.txt, etc.) get short cache
+    app.use(express.static(matchedDist, { index: false, maxAge: '10m' }));
 
     // Explicit SEO endpoints with correct MIME types
     app.get('/robots.txt', (req, res) => {

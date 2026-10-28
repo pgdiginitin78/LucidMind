@@ -59,11 +59,18 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: path.resolve(__dirname, '../dist'),
       emptyOutDir: true,
-      target: 'es2015',
+      target: 'es2020',
       cssCodeSplit: true,
       chunkSizeWarningLimit: 600,
+      minify: 'esbuild',
+      sourcemap: false,
+      reportCompressedSize: false, // Speeds up build
       rollupOptions: {
         output: {
+          // Use content-hash naming for long-term caching
+          entryFileNames: 'assets/[name]-[hash].js',
+          chunkFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
           manualChunks(id) {
             // React core - highest priority, smallest chunk
             if (

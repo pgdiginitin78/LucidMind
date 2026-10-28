@@ -174,7 +174,7 @@ export default function InsightsHub() {
 
   useEffect(() => {
     let isMounted = true;
-    fetch(`${API_BASE_URL}/podcasts?_t=${Date.now()}`, { cache: "no-store" })
+    fetch(`${API_BASE_URL}/podcasts`)
       .then((res) => {
         if (!res.ok) throw new Error("Network error");
         return res.json();

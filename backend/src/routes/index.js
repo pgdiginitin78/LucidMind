@@ -13,6 +13,15 @@ import serviceRoutes from './serviceRoutes.js';
 
 const router = Router();
 
+// Cache-Control for public read-only GET routes (blogs, podcasts, services).
+// Browsers and CDNs may cache these for 60s; stale responses served for up to 10min while revalidating.
+const publicCacheHeaders = (req, res, next) => {
+  if (req.method === 'GET') {
+    res.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=600');
+  }
+  next();
+};
+
 router.get('/health', (req, res) => res.json({ status: 'ok', message: 'LucidMind API is running' }));
 router.get(
   '/health/db',
@@ -31,9 +40,9 @@ router.get(
 );
 
 router.use('/auth', authRoutes);
-router.use('/blogs', blogRoutes);
-router.use('/podcasts', podcastRoutes);
-router.use('/services', serviceRoutes);
+router.use('/blogs', publicCacheHeaders, blogRoutes);
+router.use('/podcasts', publicCacheHeaders, podcastRoutes);
+router.use('/services', publicCacheHeaders, serviceRoutes);
 router.post('/contact', contactLimiter, contact.send);
 // The PHP upload endpoint was unauthenticated; it now requires the admin JWT (frontend sends it).
 router.post('/upload', authenticate, uploadSingle, uploads.upload);

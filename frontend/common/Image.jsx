@@ -34,7 +34,8 @@ export default function Image({
       className={className}
       style={mergedStyle}
       loading={priority ? "eager" : "lazy"}
-      decoding="async"
+      fetchpriority={priority ? "high" : "low"}
+      decoding={priority ? "sync" : "async"}
       {...props}
     />
   );

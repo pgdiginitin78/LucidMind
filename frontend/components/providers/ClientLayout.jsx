@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, lazy, Suspense } from "react";
 import { usePathname } from "@/lib/navigation";
-import { motion } from "framer-motion";
 
 // Lazy-load Navbar and Footer to prevent them from blocking the initial JS parse.
 // They are UI chrome, not critical to LCP content.
@@ -123,14 +122,12 @@ export default function ClientLayout({ children }) {
         </Suspense>
       )}
 
-      <motion.div
+      <div
         key={pathname}
-        initial={false}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="page-fade-in"
       >
         {children}
-      </motion.div>
+      </div>
 
       {!isAdminRoute && (
         <Suspense fallback={null}>
