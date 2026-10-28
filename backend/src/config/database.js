@@ -3,11 +3,8 @@ import path from 'node:path';
 import mysql from 'mysql2/promise';
 import config from './env.js';
 import logger from '../utils/logger.js';
-import sqliteAdapter from './sqliteAdapter.js';
 
 let pool = null;
-let activeClient = null; // 'mysql' | 'sqlite'
-let lastMysqlError = null;
 let effectiveHost = config.db.host;
 
 export function getPool(overrideHost = null) {
@@ -42,7 +39,9 @@ export function getPool(overrideHost = null) {
   return pool;
 }
 
+let schemaEnsured = false;
 async function ensureMysqlSchema(conn) {
+  if (schemaEnsured) return;
   try {
     const schemaPath = path.join(config.backendRoot, 'database', 'schema.sql');
     if (fs.existsSync(schemaPath)) {
@@ -55,83 +54,114 @@ async function ensureMysqlSchema(conn) {
         await conn.query(stmt).catch(() => {});
       }
     }
+
+    // If blogs table is empty, auto-seed master content from recovered_db.json into MySQL
+    const [rows] = await conn.query('SELECT COUNT(*) as cnt FROM blogs');
+    const blogCount = rows?.[0]?.cnt || 0;
+    if (blogCount === 0) {
+      const recoveredPath = path.join(config.backendRoot, 'data', 'recovered_db.json');
+      if (fs.existsSync(recoveredPath)) {
+        const data = JSON.parse(fs.readFileSync(recoveredPath, 'utf8'));
+        if (Array.isArray(data.blogs)) {
+          for (const b of data.blogs) {
+            await conn.query(
+              `INSERT IGNORE INTO blogs (id, title, slug, tag, category, author, author_role, read_time, date, excerpt, description, content, image, cover_image, tags, is_published, published_at, sort_order)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
+                b.id || b._id,
+                b.title || '',
+                b.slug || b.id,
+                b.tag || 'MINDSET',
+                b.category || b.tag || 'Thought Leadership',
+                b.author || 'Ravishankar Pingali',
+                b.authorRole || b.author_role || '',
+                b.readTime || b.read_time || '3 MIN READ',
+                b.date || '',
+                b.excerpt || b.description || '',
+                b.description || b.excerpt || '',
+                b.content || '',
+                b.image || b.coverImage || '',
+                b.coverImage || b.image || '',
+                JSON.stringify(Array.isArray(b.tags) ? b.tags : []),
+                b.isPublished !== false && b.is_published !== 0 ? 1 : 0,
+                b.publishedAt || b.published_at || new Date().toISOString(),
+                b.sortOrder || b.sort_order || 0,
+              ],
+            ).catch(() => {});
+          }
+          logger.info(`Seeded ${data.blogs.length} blogs into MySQL.`);
+        }
+        if (Array.isArray(data.podcasts)) {
+          for (const p of data.podcasts) {
+            await conn.query(
+              `INSERT IGNORE INTO podcasts (id, title, slug, episode, src, audio_url, thumbnail, cover_image, duration, host, guest, description, tags, media_type, is_published, sort_order)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
+                p.id || p._id,
+                p.title || '',
+                p.slug || p.id,
+                p.episode || 'Ep. 01',
+                p.src || '',
+                p.audioUrl || p.audio_url || '',
+                p.thumbnail || p.coverImage || '',
+                p.coverImage || p.thumbnail || '',
+                p.duration || '15 mins',
+                p.host || 'Ravishankar Pingali',
+                p.guest || '',
+                p.description || '',
+                JSON.stringify(Array.isArray(p.tags) ? p.tags : []),
+                p.mediaType || p.media_type || 'podcast',
+                p.isPublished !== false && p.is_published !== 0 ? 1 : 0,
+                p.sortOrder || p.sort_order || 0,
+              ],
+            ).catch(() => {});
+          }
+          logger.info(`Seeded ${data.podcasts.length} podcasts into MySQL.`);
+        }
+      }
+    }
+
+    schemaEnsured = true;
   } catch (err) {
     logger.warn('Schema check warning:', err.message);
   }
 }
 
-async function resolveClient() {
-  if (activeClient) return activeClient;
-
-  if (config.db.client === 'sqlite') {
-    activeClient = 'sqlite';
-    return activeClient;
-  }
-
-  // 1. Try MySQL on primary host
+async function getConnectionWithRetry() {
   try {
     const p = getPool(config.db.host);
     const conn = await p.getConnection();
     await ensureMysqlSchema(conn);
-    conn.release();
-    activeClient = 'mysql';
-    lastMysqlError = null;
-    logger.info(`Connected to MySQL database on ${effectiveHost}`);
-    return activeClient;
+    return conn;
   } catch (err) {
-    lastMysqlError = err;
-    logger.warn(`MySQL connection to ${config.db.host} failed (${err.code || err.message}).`);
-
-    // 2. If host was 'localhost', try 127.0.0.1 (or vice versa for Linux IPv4/IPv6 socket resolution)
+    // If primary host was 'localhost' and gave ECONNREFUSED on Linux, try 127.0.0.1
     const alternateHost = config.db.host === 'localhost' ? '127.0.0.1' : (config.db.host === '127.0.0.1' ? 'localhost' : null);
     if (alternateHost) {
       try {
         const altPool = getPool(alternateHost);
         const conn = await altPool.getConnection();
         await ensureMysqlSchema(conn);
-        conn.release();
-        activeClient = 'mysql';
-        lastMysqlError = null;
-        logger.info(`Connected to MySQL database on alternate host ${effectiveHost}`);
-        return activeClient;
-      } catch (altErr) {
-        lastMysqlError = altErr;
-        logger.warn(`Alternate MySQL connection to ${alternateHost} also failed (${altErr.code || altErr.message}).`);
-      }
+        return conn;
+      } catch {}
     }
+    throw err;
   }
-
-  // 3. Fallback to SQLite so the website NEVER throws 500 Internal Server Error
-  activeClient = 'sqlite';
-  logger.warn(
-    `MySQL not available (${lastMysqlError?.code || lastMysqlError?.message}). Gracefully using built-in SQLite so the site remains online.`
-  );
-  return activeClient;
 }
 
 /**
- * Database facade. Automatically routes to MySQL on Hostinger/production
- * or built-in SQLite when local/remote MySQL is temporarily unreachable.
+ * Pure MySQL Database Facade.
+ * 100% persistent MySQL. Zero SQLite.
  */
 const db = {
-  /** Run a parameterised query and return the rows (or the result header for writes). */
+  /** Run a parameterised query against MySQL */
   async query(sql, params = []) {
-    const client = await resolveClient();
-    if (client === 'sqlite') {
-      return sqliteAdapter.query(sql, params);
-    }
     const [result] = await getPool().execute(sql, params);
     return result;
   },
 
-  /** Run `fn(connection)` inside a transaction; always commits/rolls back and releases. */
+  /** Run inside a MySQL transaction */
   async withTransaction(fn) {
-    const client = await resolveClient();
-    if (client === 'sqlite') {
-      return sqliteAdapter.withTransaction(fn);
-    }
-
-    const conn = await getPool().getConnection();
+    const conn = await getConnectionWithRetry();
     try {
       await conn.beginTransaction();
       const result = await fn(conn);
@@ -150,12 +180,7 @@ const db = {
   },
 
   async ping() {
-    const client = await resolveClient();
-    if (client === 'sqlite') {
-      await sqliteAdapter.ping();
-      return { client: 'sqlite', mysqlError: lastMysqlError?.message || lastMysqlError?.code };
-    }
-    const conn = await getPool().getConnection();
+    const conn = await getConnectionWithRetry();
     try {
       await conn.query('SELECT 1');
       return { client: 'mysql' };
@@ -170,8 +195,6 @@ const db = {
       pool = null;
       await p.end();
     }
-    await sqliteAdapter.close();
-    activeClient = null;
   },
 };
 

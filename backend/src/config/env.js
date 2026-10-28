@@ -60,9 +60,8 @@ const config = {
   allowedOrigins: [...new Set([...defaultOrigins, ...extraOrigins])],
 
   db: {
-    // DATABASE_* are the documented names; DB_* are accepted because the PHP backend used them.
-    // 'auto' probes MySQL first; if unreachable, falls back gracefully to built-in SQLite so the site never 500 crashes.
-    client: pick("DB_CLIENT") || "auto",
+    // 100% persistent MySQL. Zero SQLite.
+    client: "mysql",
     host: pick("DATABASE_HOST", "DB_HOST") || "localhost",
     port: Number(pick("DATABASE_PORT", "DB_PORT")) || 3306,
     database: pick("DATABASE_NAME", "DB_NAME") || "lucidmin_lucidmindco_usr",
