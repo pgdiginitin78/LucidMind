@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "@/lib/navigation";
 import AdminLoginPage from "@/components/admin/AdminLoginPage";
+import SEOHead from "@/components/seo/SEOHead";
 
 export default function AdminLoginPageWrapper() {
   const router = useRouter();
@@ -21,10 +22,13 @@ export default function AdminLoginPageWrapper() {
   }, [router]);
 
   return (
-    <AdminLoginPage
-      onLoginSuccess={() => {
-        router.replace("/admin");
-      }}
-    />
+    <>
+      <SEOHead title="Admin Login | LucidMind" noIndex={true} />
+      <AdminLoginPage
+        onLoginSuccess={() => {
+          router.replace("/admin");
+        }}
+      />
+    </>
   );
 }

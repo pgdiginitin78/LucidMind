@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "@/lib/navigation";
+import { trackPrimaryCTA } from "@/lib/analytics";
 import { motion } from "framer-motion";
 import FooterBg from "./image/FooterBg.webp";
 
@@ -317,6 +318,7 @@ export default function Footer() {
 
                 <Link
                   href="/contact"
+                  onClick={() => trackPrimaryCTA("contact_us_footer", "footer", "/contact")}
                   className="inline-flex items-center gap-3 rounded-full border border-[#00c4b4]/70 px-6 py-2.5 body-text font-medium text-white transition-all duration-300 hover:bg-[#00c4b4]/10"
                 >
                   Contact Us

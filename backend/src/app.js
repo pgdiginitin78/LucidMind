@@ -79,6 +79,15 @@ export function createApp() {
 
   if ((config.serveFrontend || config.isProduction) && matchedDist) {
     app.use(express.static(matchedDist, { index: false, maxAge: '1h' }));
+
+    // Explicit SEO endpoints with correct MIME types
+    app.get('/robots.txt', (req, res) => {
+      res.type('text/plain').sendFile(path.join(matchedDist, 'robots.txt'));
+    });
+    app.get('/sitemap.xml', (req, res) => {
+      res.type('application/xml').sendFile(path.join(matchedDist, 'sitemap.xml'));
+    });
+
     app.get(/^\/(?!api\/|uploads\/).*/, (req, res) => {
       res.sendFile(path.join(matchedDist, 'index.html'));
     });

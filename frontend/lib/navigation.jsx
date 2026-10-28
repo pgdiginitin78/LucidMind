@@ -27,20 +27,60 @@ export function useSearchParams() {
 
 export { useLocation };
 
-export const Link = React.forwardRef(function Link({ href, to, children, ...props }, ref) {
+import {
+  trackOutboundLink,
+  trackEmailClick,
+  trackPhoneClick,
+  trackFileDownload,
+} from "@/lib/analytics";
+
+export const Link = React.forwardRef(function Link({ href, to, children, onClick, ...props }, ref) {
   const target = to || href || "#";
 
+  const handleClick = (e) => {
+    if (typeof target === "string") {
+      if (target.startsWith("mailto:")) {
+        trackEmailClick(target.replace(/^mailto:/i, ""));
+      } else if (target.startsWith("tel:")) {
+        trackPhoneClick(target.replace(/^tel:/i, ""));
+      } else if (target.startsWith("http://") || target.startsWith("https://")) {
+        try {
+          const urlObj = new URL(target);
+          if (!urlObj.hostname.includes("lucidmind.co.in")) {
+            const label = typeof children === "string" ? children : urlObj.hostname;
+            trackOutboundLink(target, label);
+          }
+        } catch {}
+      }
+
+      // Check for file download
+      if (/\.(pdf|docx?|xlsx?|zip|csv|pptx?)$/i.test(target)) {
+        trackFileDownload(target);
+      }
+    }
+
+    if (typeof onClick === "function") {
+      onClick(e);
+    }
+  };
+
   // External links
-  if (typeof target === "string" && (target.startsWith("http://") || target.startsWith("https://") || target.startsWith("mailto:") || target.startsWith("tel:"))) {
+  if (
+    typeof target === "string" &&
+    (target.startsWith("http://") ||
+      target.startsWith("https://") ||
+      target.startsWith("mailto:") ||
+      target.startsWith("tel:"))
+  ) {
     return (
-      <a href={target} ref={ref} {...props}>
+      <a href={target} ref={ref} onClick={handleClick} {...props}>
         {children}
       </a>
     );
   }
 
   return (
-    <RouterLink to={target} ref={ref} {...props}>
+    <RouterLink to={target} ref={ref} onClick={handleClick} {...props}>
       {children}
     </RouterLink>
   );

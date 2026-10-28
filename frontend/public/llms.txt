@@ -1,7 +1,11 @@
 # LucidMind
 
-LucidMind helps organisations build leadership, operating models and AI capabilities needed for the Adaptive Future.
+LucidMind is an executive advisory firm helping organizations build leadership, operating models, and AI capabilities needed for the Adaptive Future.
 
 ## Website
+- https://lucidmind.co.in/
 
-- https://lucid-mind-ten.vercel.app/
+## Core Advisory Services
+- Enterprise AI Transformation: Operating model redesign, capability architecture, and value realization.
+- Global Capability Centres (GCC) Advisory: Evolution from delivery hubs to strategic value engines.
+- Leadership & Executive Coaching: Guidance by Ravishankar Pingali for CEOs, CIOs, and GCC leaders.

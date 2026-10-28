@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { Link } from "@/lib/navigation";
+import { trackPrimaryCTA } from "@/lib/analytics";
 import AiParticleDisplay from "./AiParticleDisplay";
 import DotField from "./DotField";
 import { usePageReady } from "../../transitions/PageTransitionContext";
@@ -91,6 +92,7 @@ function HeroSection() {
           >
             <Link
               href="/contact"
+              onClick={() => trackPrimaryCTA("schedule_conversation", "hero_section", "/contact")}
               className="group cursor-pointer flex items-center justify-center gap-3 sm:gap-4 rounded-full bg-gradient-to-r from-[#00B8B8] via-[#009A9A] to-[#006D77] px-5 py-2.5 sm:px-7 sm:py-3 text-white body-text font-medium shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.03] hover:shadow-cyan-500/40 mt-2 w-full sm:w-auto"
             >
               <span>Schedule a Conversation</span>

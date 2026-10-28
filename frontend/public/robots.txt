@@ -1,4 +1,12 @@
+# robots.txt for https://lucidmind.co.in/
 User-agent: *
 Allow: /
 
-Sitemap: https://lucid-mind-ten.vercel.app/sitemap.xml
+# Disallow private and administrative routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://lucidmind.co.in/sitemap.xml

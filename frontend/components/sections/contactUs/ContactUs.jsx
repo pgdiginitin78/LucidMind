@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { API_BASE_URL } from "@/src/config/api";
 import { usePageReady } from "../../transitions/PageTransitionContext";
+import { trackContactFormSuccess } from "@/lib/analytics";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -252,6 +253,12 @@ export default function ContactUs() {
       setStatus("idle");
 
       if (result.success) {
+        // Track verified conversion events in GA4 (without PII)
+        trackContactFormSuccess({
+          source: "contact-us-page",
+          subject: data.subject || "general",
+        });
+
         reset({
           name: "",
           email: "",

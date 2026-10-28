@@ -10,6 +10,7 @@
     "dev:backend": "npm run dev --prefix ../backend",
     "start": "node app.js",
     "build": "vite build",
+    "sitemap": "node scripts/generate-sitemap.js",
     "preview": "vite preview",
     "lint": "eslint ."
   },

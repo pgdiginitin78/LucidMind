@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PageTransitionProvider } from "@/components/transitions/PageTransitionContext";
 import ClientLayout from "@/components/providers/ClientLayout";
+import { initGA } from "@/lib/analytics";
 
 // Client Pages
 import Home from "@/app/page";
@@ -21,6 +22,10 @@ import AdminServicesPage from "@/app/admin/services/page";
 import AdminLoginRoute from "@/app/admin/login/page";
 
 export default function App() {
+  useEffect(() => {
+    initGA();
+  }, []);
+
   return (
     <PageTransitionProvider>
       <ClientLayout>

@@ -14,6 +14,7 @@ import ConstellationField from "@/components/ui/constellation-field";
 import { useEffect } from "react";
 import { usePageReady } from "../../transitions/PageTransitionContext";
 import { Link } from "@/lib/navigation";
+import { trackPrimaryCTA, trackConsultationRequest } from "@/lib/analytics";
 import OurClients from "../ourClients/OurClients";
 
 const AdvisoryImg1 = "/assets/advisory/advisoryImg1.webp";
@@ -736,6 +737,10 @@ export default function Advisory() {
             >
               <Link
                 href="/contact"
+                onClick={() => {
+                  trackPrimaryCTA("book_discovery_call", "advisory_bottom", "/contact");
+                  trackConsultationRequest({ type: "discovery_call", location: "advisory_page" });
+                }}
                 className="inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#00C4B4] via-[#009A9A] to-[#2563EB] text-white body-text font-medium tracking-wide shadow-[0_0_25px_rgba(0,196,180,0.4)] hover:shadow-[0_0_35px_rgba(0,196,180,0.6)] transition-shadow duration-300"
               >
                 <Call className="w-4 h-4" />
