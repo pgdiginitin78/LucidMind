@@ -535,7 +535,7 @@ export default function InsightsHub() {
 
                         <div className="flex justify-end">
                           <div className="inline-flex items-center gap-1.5 px-4 mt-2 2xl:mt-4 py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold body-text-sm tracking-wide transition-all shrink-0">
-                            <span>Read Essay</span>
+                            <span>Read Article</span>
                             <ArrowUpRight
                               size={14}
                               className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -591,7 +591,7 @@ export default function InsightsHub() {
                           </span>
 
                           <span className="inline-flex body-text-sm items-center gap-1  font-semibold text-[#00C4B4] group-hover:text-white transition-colors">
-                            <span>Read Full Article</span>
+                            <span>Read Article</span>
                             <ArrowUpRight
                               size={13}
                               className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
