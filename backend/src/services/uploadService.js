@@ -53,6 +53,7 @@ export const uploadSingle = multer({
 }).single("file");
 
 let uploadTableEnsured = false;
+
 async function ensureUploadedFilesTable() {
   if (uploadTableEnsured) return;
   await db.query(
@@ -68,6 +69,7 @@ async function ensureUploadedFilesTable() {
 
 export function resetUploadTableCache() {
   uploadTableEnsured = false;
+  
 }
 
 const canUseDbPersistence = () =>
