@@ -6,6 +6,9 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+export const DEFAULT_ARTICLE_IMAGE =
+  "/assets/articles/The%20Mindset%20Shift.webp";
+
 export function resolveImageUrl(src) {
   if (!src || typeof src !== "string") return "";
   const trimmed = src.trim();
@@ -24,6 +27,19 @@ export function resolveImageUrl(src) {
   return trimmed;
 }
 
+export function resolveSafeImageUrl(src, fallback = DEFAULT_ARTICLE_IMAGE) {
+  const resolved = resolveImageUrl(src);
+  if (!resolved) return fallback;
+  if (resolved.startsWith("data:") || resolved.startsWith("blob:")) {
+    return resolved;
+  }
+  try {
+    return encodeURI(decodeURI(resolved));
+  } catch {
+    return resolved;
+  }
+}
+
 export function getEmbedUrl(url) {
   if (!url || typeof url !== "string") return "";
   const trimmed = url.trim();
@@ -35,13 +51,17 @@ export function getEmbedUrl(url) {
   }
 
   // YouTube watch?v=<id> or shorts/<id> or embed/<id>
-  const youtubeMatch = trimmed.match(/(?:youtube\.com\/(?:watch\?.*v=|shorts\/|embed\/))([a-zA-Z0-9_-]+)/i);
+  const youtubeMatch = trimmed.match(
+    /(?:youtube\.com\/(?:watch\?.*v=|shorts\/|embed\/))([a-zA-Z0-9_-]+)/i,
+  );
   if (youtubeMatch && youtubeMatch[1]) {
     return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
   }
 
   // Vimeo vimeo.com/<id>
-  const vimeoMatch = trimmed.match(/vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(?:\d+)\/video\/|video\/|)(\d+)/i);
+  const vimeoMatch = trimmed.match(
+    /vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(?:\d+)\/video\/|video\/|)(\d+)/i,
+  );
   if (vimeoMatch && vimeoMatch[1]) {
     return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
   }

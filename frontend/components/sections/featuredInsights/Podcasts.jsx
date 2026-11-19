@@ -8,7 +8,7 @@ import WebGLParticleCanvas from "./WebGLParticleCanvas";
 import Image from "@/common/Image";
 import PodcastBannerImg from "./images/PodcastBanner.webp";
 import { API_BASE_URL } from "@/src/config/api";
-import { resolveImageUrl, getEmbedUrl } from "@/lib/utils";
+import { resolveSafeImageUrl, getEmbedUrl } from "@/lib/utils";
 
 function WaveformIcon({ active = false }) {
   return (
@@ -60,7 +60,10 @@ export default function Podcasts() {
               episode: p.episode || `Ep. 0${idx + 1}`,
               src: p.src || p.audioUrl || "",
               mediaType: isVid ? "video" : "podcast",
-              thumbnail: resolveImageUrl(p.thumbnail || p.coverImage || p.image || ""),
+              thumbnail: resolveSafeImageUrl(
+                p.thumbnail || p.coverImage || p.image || "",
+                "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp",
+              ),
               description: Array.isArray(p.description)
                 ? p.description
                 : p.description
@@ -227,14 +230,24 @@ export default function Podcasts() {
                   >
                     <div
                       onClick={() => handlePlayClick(current)}
-                      className="relative w-full pt-[52%] lg:pt-[42%] xl:pt-[50%] cursor-pointer group/thumb"
+                      className="relative w-full overflow-hidden cursor-pointer group/thumb"
                     >
                       <img
-                        src={current.thumbnail}
+                        src={
+                          current.thumbnail ||
+                          "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp"
+                        }
                         alt={current.title}
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover"
+                        onError={(e) => {
+                          if (!e.currentTarget.dataset.fallbackApplied) {
+                            e.currentTarget.dataset.fallbackApplied = "true";
+                            e.currentTarget.src =
+                              "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
+                          }
+                        }}
+                        className="w-full h-auto block"
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover/thumb:bg-black/10 transition-colors duration-300" />
                       <div className="absolute inset-0 flex items-center justify-center opacity-90 group-hover/thumb:opacity-100 transition-opacity duration-300">

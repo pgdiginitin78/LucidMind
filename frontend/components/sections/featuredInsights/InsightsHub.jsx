@@ -487,60 +487,61 @@ export default function InsightsHub() {
                     onClick={() => setSelectedArticle(featuredArticle)}
                     className="group cursor-pointer rounded-3xl bg-[#08152b]/90 border border-white/[0.12] hover:border-[#00C4B4]/60 overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.4)] hover:shadow-[0_20px_60px_rgba(0,196,180,0.18)] transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 items-stretch"
                   >
-                    <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
+                    <div className="lg:col-span-7 relative w-full overflow-hidden">
                       <img
                         src={featuredArticle.image}
                         alt={featuredArticle.title}
                         loading="lazy"
                         onError={(e) => {
-                          e.currentTarget.src =
-                            "/assets/articles/The%20Mindset%20Shift.webp";
+                          if (!e.currentTarget.dataset.fallbackApplied) {
+                            e.currentTarget.dataset.fallbackApplied = "true";
+                            e.currentTarget.src =
+                              "/assets/articles/The%20Mindset%20Shift.webp";
+                          }
                         }}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        className="w-full h-auto block group-hover:scale-105 transition-transform duration-700 ease-out"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-transparent to-transparent lg:hidden" />
+                      <div className="lg:hidden absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#08152b]/90 to-transparent pointer-events-none" />
                     </div>
 
-                    <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                    <div className="lg:col-span-5 p-5 sm:p-6 lg:p-5 xl:p-7 flex flex-col justify-between">
                       <div>
-                        <div className="flex flex-wrap justify-end gap-3 body-text-sm text-slate-400 mb-4">
+                        <div className="flex flex-wrap justify-end gap-3 text-xs xl:body-text-sm text-slate-400 mb-2 xl:mb-3">
                           {featuredArticle.date && (
                             <span>{featuredArticle.date}</span>
                           )}
                         </div>
 
-                        <h4 className="heading-h4 md:heading-h3 text-white mb-4 group-hover:text-[#00C4B4] transition-colors">
+                        <h4 className="heading-h5 sm:heading-h4 lg:heading-h5 xl:heading-h4 text-white mb-2 xl:mb-3 line-clamp-2 group-hover:text-[#00C4B4] transition-colors">
                           {featuredArticle.title}
                         </h4>
 
-                        <p className="body-text-sm  text-slate-300 line-clamp-4 mb-6">
+                        <p className="body-text-sm text-slate-300 line-clamp-3 lg:line-clamp-2 xl:line-clamp-3 mb-4 lg:mb-3 xl:mb-5">
                           {featuredArticle.description}
                         </p>
                       </div>
 
-                      <div className="pt-6 border-t border-white/[0.08] gap-4">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white body-text-sm shrink-0 shadow-[0_0_12px_rgba(0,196,180,0.3)]">
+                      <div className="pt-3 xl:pt-4 border-t border-white/[0.08] flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                        <div className="flex items-center gap-2.5 xl:gap-3 min-w-0 flex-1">
+                          <div className="w-8 h-8 xl:w-10 xl:h-10 rounded-full bg-gradient-to-tr from-[#00C4B4] to-[#2563EB] flex items-center justify-center font-bold text-white text-xs xl:body-text-sm shrink-0 shadow-[0_0_12px_rgba(0,196,180,0.3)]">
                             RP
                           </div>
                           <div className="min-w-0">
                             <div className="body-text-sm font-bold text-white truncate">
                               {featuredArticle.author}
                             </div>
-                            <div className="body-text-sm text-slate-400 truncate">
+                            <div className="text-xs xl:body-text-sm text-slate-400 truncate">
                               {featuredArticle.authorRole}
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex justify-end">
-                          <div className="inline-flex items-center gap-1.5 px-4 mt-2 2xl:mt-4 py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold body-text-sm tracking-wide transition-all shrink-0">
-                            <span>Read Article</span>
-                            <ArrowUpRight
-                              size={14}
-                              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-                            />
-                          </div>
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 xl:px-4 xl:py-2 rounded-full bg-[#00C4B4]/15 group-hover:bg-[#00C4B4] text-[#00C4B4] group-hover:text-black font-semibold text-xs xl:body-text-sm tracking-wide transition-all shrink-0">
+                          <span>Read Article</span>
+                          <ArrowUpRight
+                            size={14}
+                            className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                          />
                         </div>
                       </div>
                     </div>
@@ -558,18 +559,21 @@ export default function InsightsHub() {
                       onClick={() => setSelectedArticle(article)}
                       className="group cursor-pointer rounded-2xl bg-[#08152b]/85 border border-white/[0.09] hover:border-[#00C4B4]/50 overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,196,180,0.16)] transition-all duration-300 flex flex-col h-full"
                     >
-                      <div className="relative h-52 sm:h-56 overflow-hidden shrink-0">
+                      <div className="relative w-full overflow-hidden shrink-0">
                         <img
                           src={article.image}
                           alt={article.title}
                           loading="lazy"
                           onError={(e) => {
-                            e.currentTarget.src =
-                              "/assets/articles/The%20Mindset%20Shift.webp";
+                            if (!e.currentTarget.dataset.fallbackApplied) {
+                              e.currentTarget.dataset.fallbackApplied = "true";
+                              e.currentTarget.src =
+                                "/assets/articles/The%20Mindset%20Shift.webp";
+                            }
                           }}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                          className="w-full h-auto block group-hover:scale-105 transition-transform duration-500 ease-out"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/30 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent pointer-events-none" />
                       </div>
 
                       <div className="p-5 sm:p-6 flex flex-col flex-1">
@@ -659,65 +663,73 @@ export default function InsightsHub() {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="relative rounded-3xl bg-[#08152b]/95 border border-[#00C4FF]/25 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] p-6 sm:p-8 lg:p-10"
+                    className="relative rounded-3xl bg-[#08152b]/95 border border-[#00C4FF]/25 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
                   >
                     <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#00C4FF]/10 via-transparent to-transparent pointer-events-none rounded-full blur-3xl" />
 
-                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                      <div className="lg:col-span-5 flex flex-col items-center">
-                        <div
-                          onClick={() => openPodcastPlayer(currentActiveVideo)}
-                          className="relative group cursor-pointer w-full aspect-video rounded-2xl overflow-hidden border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.6)] bg-black"
-                        >
-                          <img
-                            src={encodeURI(currentActiveVideo.thumbnail)}
-                            alt={currentActiveVideo.title}
-                            onError={(e) => {
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 items-stretch">
+                      <div
+                        onClick={() => openPodcastPlayer(currentActiveVideo)}
+                        className="lg:col-span-7 relative group cursor-pointer w-full overflow-hidden"
+                      >
+                        <img
+                          src={encodeURI(currentActiveVideo.thumbnail)}
+                          alt={currentActiveVideo.title}
+                          onError={(e) => {
+                            if (!e.currentTarget.dataset.fallbackApplied) {
+                              e.currentTarget.dataset.fallbackApplied = "true";
                               e.currentTarget.src =
                                 "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
-                            }}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
-                          />
+                            }
+                          }}
+                          className="w-full h-auto block group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
 
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/25 group-hover:bg-black/10 transition-colors">
-                            <div className="w-16 h-16 rounded-full bg-black/45 backdrop-blur-md backdrop-saturate-150 border border-white/10 flex items-center justify-center text-white shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] group-hover:bg-black/60 group-hover:scale-110 transition-all duration-300">
-                              <Play size={24} className="fill-white ml-1" />
-                            </div>
+                        <div className="lg:hidden absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#08152b]/90 to-transparent pointer-events-none" />
+
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                          <div className="w-12 h-12 sm:w-14 sm:h-14 xl:w-16 xl:h-16 rounded-full bg-black/45 backdrop-blur-md backdrop-saturate-150 border border-white/10 flex items-center justify-center text-white shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)] group-hover:bg-black/60 group-hover:scale-110 transition-all duration-300">
+                            <Play size={22} className="fill-white ml-1" />
                           </div>
                         </div>
                       </div>
-                      <div className="lg:col-span-7 flex flex-col justify-between">
+
+                      <div className="lg:col-span-5 p-5 sm:p-6 lg:p-4 xl:p-6 2xl:p-8 flex flex-col justify-between">
                         <div>
-                          <h4 className="heading-h4 md:heading-h3 text-white mb-4">
+                          <h4 className="heading-h5 sm:heading-h4 lg:heading-h5 xl:heading-h4 text-white mb-2 xl:mb-2.5 line-clamp-2">
                             {currentActiveVideo.title}
                           </h4>
 
-                          <div className="space-y-2.5 mb-6  text-slate-300 leading-relaxed">
-                            {currentActiveVideo.description.map((line, idx) => (
-                              <p
-                                key={idx}
-                                className={
-                                  line.startsWith("✅")
-                                    ? "body-text-sm text-[#00C4FF] font-medium"
-                                    : "body-text-sm line-clamp-2"
-                                }
-                              >
-                                {line}
-                              </p>
-                            ))}
+                          <div className="space-y-1.5 xl:space-y-2 mb-4 lg:mb-3 xl:mb-4 text-slate-300 leading-snug xl:leading-relaxed">
+                            {currentActiveVideo.description
+                              .slice(0, 4)
+                              .map((line, idx) => (
+                                <p
+                                  key={idx}
+                                  className={cn(
+                                    idx === 2 && "hidden xl:block",
+                                    idx === 3 && "hidden 2xl:block",
+                                    line.startsWith("✅")
+                                      ? "text-xs xl:body-text-sm text-[#00C4FF] font-medium line-clamp-1 xl:line-clamp-2"
+                                      : "text-xs xl:body-text-sm line-clamp-2",
+                                  )}
+                                >
+                                  {line}
+                                </p>
+                              ))}
                           </div>
                         </div>
 
-                        <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00C4FF] to-[#2563EB] flex items-center justify-center font-bold text-white body-text-sm shadow-[0_0_12px_rgba(0,196,255,0.3)]">
+                        <div className="pt-3 xl:pt-3.5 border-t border-white/[0.08] flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
+                          <div className="flex items-center gap-2.5 xl:gap-3 min-w-0 flex-1">
+                            <div className="w-8 h-8 xl:w-10 xl:h-10 rounded-full bg-gradient-to-tr from-[#00C4FF] to-[#2563EB] flex items-center justify-center font-bold text-white text-xs xl:body-text-sm shrink-0 shadow-[0_0_12px_rgba(0,196,255,0.3)]">
                               RP
                             </div>
-                            <div>
-                              <div className=" font-bold text-white">
+                            <div className="min-w-0">
+                              <div className="body-text-sm font-bold text-white truncate">
                                 {currentActiveVideo.host}
                               </div>
-                              <div className="text-[11px] text-slate-400">
+                              <div className="text-[11px] xl:body-text-sm text-slate-400 truncate">
                                 Board Advisor{" "}
                                 <span className="font-sans">&amp;</span> GCC
                                 Leader
@@ -725,18 +737,16 @@ export default function InsightsHub() {
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-3">
-                            <button
-                              type="button"
-                              onClick={() =>
-                                openPodcastPlayer(currentActiveVideo)
-                              }
-                              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white font-bold  shadow-[0_0_20px_rgba(0,196,255,0.4)] hover:brightness-110 transition-all cursor-pointer"
-                            >
-                              <Play size={14} className="fill-white" />
-                              <span>Watch Video</span>
-                            </button>
-                          </div>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              openPodcastPlayer(currentActiveVideo)
+                            }
+                            className="inline-flex items-center gap-1.5 xl:gap-2 px-4 py-2 xl:px-5 xl:py-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#00C4FF] text-white text-xs xl:body-text-sm font-bold shadow-[0_0_20px_rgba(0,196,255,0.4)] hover:brightness-110 transition-all cursor-pointer shrink-0"
+                          >
+                            <Play size={14} className="fill-white" />
+                            <span>Watch Video</span>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -765,18 +775,22 @@ export default function InsightsHub() {
                               : "border-white/[0.09] hover:border-[#00C4FF]/50 hover:shadow-[0_16px_48px_rgba(0,196,255,0.15)]",
                           )}
                         >
-                          <div className="relative aspect-video overflow-hidden bg-black shrink-0">
+                          <div className="relative w-full overflow-hidden shrink-0">
                             <img
                               src={encodeURI(video.thumbnail)}
                               alt={video.title}
                               loading="lazy"
                               onError={(e) => {
-                                e.currentTarget.src =
-                                  "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
+                                if (!e.currentTarget.dataset.fallbackApplied) {
+                                  e.currentTarget.dataset.fallbackApplied =
+                                    "true";
+                                  e.currentTarget.src =
+                                    "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
+                                }
                               }}
-                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                              className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent" />
+                            <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent pointer-events-none" />
 
                             <button
                               type="button"
@@ -1009,18 +1023,22 @@ export default function InsightsHub() {
                               : "border-white/[0.09] hover:border-[#00C4FF]/50 hover:shadow-[0_16px_48px_rgba(0,196,255,0.15)]",
                           )}
                         >
-                          <div className="relative aspect-video overflow-hidden bg-black shrink-0">
+                          <div className="relative w-full overflow-hidden shrink-0">
                             <img
                               src={encodeURI(podcast.thumbnail)}
                               alt={podcast.title}
                               loading="lazy"
                               onError={(e) => {
-                                e.currentTarget.src =
-                                  "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
+                                if (!e.currentTarget.dataset.fallbackApplied) {
+                                  e.currentTarget.dataset.fallbackApplied =
+                                    "true";
+                                  e.currentTarget.src =
+                                    "/assets/podcastThumbnails/Capacity%20vs%20Capability.webp";
+                                }
                               }}
-                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                              className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent" />
+                            <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#08152b] via-black/20 to-transparent pointer-events-none" />
 
                             <button
                               type="button"

@@ -157,15 +157,18 @@ export default function PodcastsHub() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-[#00C4B4]/15 via-transparent to-transparent pointer-events-none rounded-full blur-3xl" />
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-5 flex flex-col items-center sm:flex-row lg:flex-col gap-6">
-                    <div className="relative group cursor-pointer w-full max-w-[640px] aspect-video rounded lg:aspect-[4/3]  overflow-hidden ">
+                    <div className="relative group cursor-pointer w-full max-w-[640px] rounded overflow-hidden">
                       <img
                         src={encodeURI(activeEpisode.thumbnail)}
                         alt={activeEpisode.title}
                         onError={(e) => {
-                          e.currentTarget.src =
-                            "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
+                          if (!e.currentTarget.dataset.fallbackApplied) {
+                            e.currentTarget.dataset.fallbackApplied = "true";
+                            e.currentTarget.src =
+                              "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
+                          }
                         }}
-                        className="w-full h-full inset-0 rounded object-contain group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-auto block rounded group-hover:scale-105 transition-transform duration-700"
                       />
                       <div
                         onClick={() => openPlayer(activeEpisode)}
@@ -271,18 +274,22 @@ export default function PodcastsHub() {
                             : "border-white/[0.09] hover:border-[#00C4B4]/50 hover:shadow-[0_16px_40px_rgba(0,196,180,0.15)]"
                         }`}
                       >
-                        <div className="relative aspect-video overflow-hidden shrink-0">
+                        <div className="relative w-full overflow-hidden shrink-0">
                           <img
                             src={encodeURI(podcast.thumbnail)}
                             alt={podcast.title}
                             loading="lazy"
                             onError={(e) => {
-                              e.currentTarget.src =
-                                "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
+                              if (!e.currentTarget.dataset.fallbackApplied) {
+                                e.currentTarget.dataset.fallbackApplied =
+                                  "true";
+                                e.currentTarget.src =
+                                  "/assets/podcastThumbnails/Capacity%20vs%20Capability.min.webp";
+                              }
                             }}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            className="w-full h-auto block group-hover:scale-105 transition-transform duration-500"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#061226] via-black/30 to-transparent" />
+                          <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#061226] via-black/30 to-transparent pointer-events-none" />
 
                           <button
                             type="button"
