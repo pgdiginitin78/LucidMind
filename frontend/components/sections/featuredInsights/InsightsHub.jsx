@@ -14,7 +14,12 @@ import {
 import Image from "@/common/Image";
 import { Link, useLocation } from "@/lib/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { cn, resolveImageUrl, getEmbedUrl } from "@/lib/utils";
+import {
+  cn,
+  DEFAULT_ARTICLE_IMAGE,
+  resolveImageUrl,
+  getEmbedUrl,
+} from "@/lib/utils";
 import ArticleDetail from "./ArticleDetail";
 import InsightsAllBannerImage from "./images/InsightsAllBannerImage.webp";
 import InsightsAllMobileBanner from "./images/InsightsAllMobileBanner.webp";
@@ -495,8 +500,7 @@ export default function InsightsHub() {
                         onError={(e) => {
                           if (!e.currentTarget.dataset.fallbackApplied) {
                             e.currentTarget.dataset.fallbackApplied = "true";
-                            e.currentTarget.src =
-                              "/assets/articles/The%20Mindset%20Shift.webp";
+                            e.currentTarget.src = DEFAULT_ARTICLE_IMAGE;
                           }
                         }}
                         className="w-full h-auto block group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -567,8 +571,7 @@ export default function InsightsHub() {
                           onError={(e) => {
                             if (!e.currentTarget.dataset.fallbackApplied) {
                               e.currentTarget.dataset.fallbackApplied = "true";
-                              e.currentTarget.src =
-                                "/assets/articles/The%20Mindset%20Shift.webp";
+                              e.currentTarget.src = DEFAULT_ARTICLE_IMAGE;
                             }
                           }}
                           className="w-full h-auto block group-hover:scale-105 transition-transform duration-500 ease-out"

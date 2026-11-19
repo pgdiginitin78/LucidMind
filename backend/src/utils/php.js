@@ -59,3 +59,32 @@ export const uniqueId = (prefix) => {
   const usec = ((ms % 1000) * 1000 + Math.floor(Math.random() * 1000)).toString(16).padStart(5, '0');
   return `${prefix}${sec}${usec}`;
 };
+
+const MOJIBAKE_REPAIRS = [
+  ['ΓÇö', '—'],
+  ['ΓÇô', '–'],
+  ['ΓÇó', '•'],
+  ['ΓÇª', '…'],
+  ['ΓÇÖ', '’'],
+  ['ΓÇÿ', '‘'],
+  ['ΓÇ£', '“'],
+  ['ΓÇ¥', '”'],
+  ['â€”', '—'],
+  ['â€“', '–'],
+  ['â€™', '’'],
+  ['â€˜', '‘'],
+  ['â€œ', '“'],
+  ['â€\x9d', '”'],
+  ['â€¢', '•'],
+  ['â€¦', '…'],
+];
+
+/** Repair common UTF-8 punctuation mojibake stored in legacy records. */
+export const repairMojibake = (value) => {
+  if (typeof value !== 'string' || !value) return value;
+  let out = value;
+  for (const [bad, good] of MOJIBAKE_REPAIRS) {
+    if (out.includes(bad)) out = out.split(bad).join(good);
+  }
+  return out;
+};

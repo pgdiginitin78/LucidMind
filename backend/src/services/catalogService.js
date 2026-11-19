@@ -1,14 +1,17 @@
 import db from '../config/database.js';
 import { HttpError } from '../utils/http.js';
-import { coalesce, isset, parseJsonArray, slugify, toInt, uniqueId } from '../utils/php.js';
+import { coalesce, isset, parseJsonArray, repairMojibake, slugify, toInt, uniqueId } from '../utils/php.js';
 
 export const mapService = (row) => ({
   ...row,
+  title: repairMojibake(row.title),
+  subtitle: repairMojibake(row.subtitle),
+  description: repairMojibake(row.description),
   _id: row.id,
-  features: parseJsonArray(row.features),
+  features: parseJsonArray(row.features).map((f) => repairMojibake(f)),
   isActive: Boolean(row.is_active),
-  realProblem: row.real_problem,
-  successLooksLike: row.success_looks_like,
+  realProblem: repairMojibake(row.real_problem),
+  successLooksLike: repairMojibake(row.success_looks_like),
 });
 
 const UPDATE_MAPPING = {
@@ -45,7 +48,7 @@ export async function listServices() {
 
 export async function createService(data) {
   const id = uniqueId('srv_');
-  const slug = data.slug ? data.slug : slugify(data.title);
+  const slug = (data.slug ? slugify(data.slug) : slugify(data.title)) || id;
   const features = normaliseFeatures(data.features ?? []);
 
   try {

@@ -1,6 +1,6 @@
 import db from '../config/database.js';
 import { HttpError } from '../utils/http.js';
-import { coalesce, isset, parseJsonArray, slugify, toInt, uniqueId } from '../utils/php.js';
+import { coalesce, isset, parseJsonArray, repairMojibake, slugify, toInt, uniqueId } from '../utils/php.js';
 import { triggerDbSyncToJson } from '../utils/syncJson.js';
 
 // The PHP controller lazily added/widened columns on first request. This runs once per process,
@@ -36,6 +36,10 @@ export const mapPodcast = (row) => {
   const hasVideoTag = tags.includes('video') || /^v\d+/i.test(String(row.episode ?? '').trim());
   return {
     ...row,
+    title: repairMojibake(row.title),
+    description: repairMojibake(row.description),
+    host: repairMojibake(row.host),
+    guest: repairMojibake(row.guest),
     _id: row.id,
     tags,
     isPublished: Boolean(row.is_published),
@@ -82,7 +86,7 @@ export async function createPodcast(data) {
   const hasMediaTypeCol = await ensureSchema();
 
   const id = uniqueId('pod_');
-  const slug = data.slug ? data.slug : slugify(data.title);
+  const slug = (data.slug ? slugify(data.slug) : slugify(data.title)) || id;
   const episode = coalesce(data.episode, 'Ep. 01');
   const finalSrc = coalesce(data.src, data.audioUrl, '');
   const thumbnail = coalesce(data.thumbnail, data.coverImage, '');

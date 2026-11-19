@@ -40,6 +40,10 @@
       "destination": "/api/index.js"
     },
     {
+      "source": "/uploads/(.*)",
+      "destination": "/api/index.js"
+    },
+    {
       "source": "/((?!api/|uploads/|robots\\.txt|sitemap\\.xml|.*\\..*).*)",
       "destination": "/index.html"
     }

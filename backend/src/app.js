@@ -7,6 +7,7 @@ import compression from 'compression';
 import config from './config/env.js';
 import logger from './utils/logger.js';
 import routes from './routes/index.js';
+import { findUploadedFileInDb } from './services/uploadService.js';
 import { apiLimiter } from './middleware/rateLimit.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
@@ -69,16 +70,75 @@ export function createApp() {
   app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
   // Uploaded files. Served sandboxed so an uploaded SVG cannot run script.
-  const serveUploads = express.static(config.uploads.dir, {
+  const uploadStaticOptions = {
     index: false,
     dotfiles: 'deny',
     setHeaders(res) {
       res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; sandbox");
       res.setHeader('X-Content-Type-Options', 'nosniff');
     },
+  };
+  const bundledUploadsDir = path.join(config.backendRoot, 'uploads');
+  const publicUploadsDir = path.resolve(config.backendRoot, '../frontend/public/uploads');
+
+  // Recover any files uploaded into earlier Hostinger hbuilds/<uuid> versions into persistent storage.
+  const hbuildsMarker = `${path.sep}hbuilds${path.sep}`;
+  const hbuildsIdx = config.backendRoot.indexOf(hbuildsMarker);
+  if (hbuildsIdx !== -1 && config.uploads.dir !== bundledUploadsDir) {
+    const hbuildsRoot = config.backendRoot.slice(0, hbuildsIdx + hbuildsMarker.length);
+    try {
+      fs.mkdirSync(config.uploads.dir, { recursive: true });
+      for (const entry of fs.readdirSync(hbuildsRoot, { withFileTypes: true })) {
+        if (!entry.isDirectory() || entry.name === 'current') continue;
+        for (const rel of ['nodejs/backend/uploads', 'nodejs/frontend/public/uploads']) {
+          const legacyDir = path.join(hbuildsRoot, entry.name, rel);
+          if (!fs.existsSync(legacyDir)) continue;
+          for (const file of fs.readdirSync(legacyDir)) {
+            const src = path.join(legacyDir, file);
+            const dest = path.join(config.uploads.dir, file);
+            if (!fs.existsSync(dest) && fs.statSync(src).isFile()) {
+              fs.copyFileSync(src, dest);
+            }
+          }
+        }
+      }
+    } catch (err) {
+      logger.warn('Legacy upload migration check skipped:', err.message);
+    }
+  }
+
+  for (const dir of [...new Set([config.uploads.dir, bundledUploadsDir, publicUploadsDir])]) {
+    const serveUploads = express.static(dir, uploadStaticOptions);
+    app.use('/uploads', serveUploads);
+    app.use('/api/uploads', serveUploads);
+  }
+
+  // Fallback to MySQL uploaded_files when a file was deployed cleanly or runs on stateless serverless (Vercel).
+  app.get(['/uploads/:filename', '/api/uploads/:filename'], async (req, res, next) => {
+    try {
+      const fileName = path.basename(String(req.params.filename || ''));
+      if (!fileName || fileName !== req.params.filename || !/^[a-zA-Z0-9._-]+$/.test(fileName)) {
+        return next();
+      }
+      const record = await findUploadedFileInDb(fileName);
+      if (!record) return next();
+
+      try {
+        fs.mkdirSync(config.uploads.dir, { recursive: true });
+        fs.writeFileSync(path.join(config.uploads.dir, fileName), record.data);
+      } catch {
+        // Read-only filesystem (e.g. Vercel serverless) — serve straight from buffer.
+      }
+
+      res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; sandbox");
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      if (record.mimeType) res.type(record.mimeType);
+      return res.send(record.data);
+    } catch (err) {
+      return next(err);
+    }
   });
-  app.use('/uploads', serveUploads);
-  app.use('/api/uploads', serveUploads);
 
   app.use('/api', apiLimiter, routes);
   app.use('/api', notFound);

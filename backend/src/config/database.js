@@ -55,6 +55,23 @@ async function ensureMysqlSchema(conn) {
       }
     }
 
+    // Ensure existing tables accept 4-byte emojis and all Unicode symbols (utf8mb4).
+    const [tableRows] = await conn.query(
+      `SELECT TABLE_NAME, TABLE_COLLATION
+       FROM INFORMATION_SCHEMA.TABLES
+       WHERE TABLE_SCHEMA = DATABASE()
+         AND TABLE_NAME IN ('users', 'blogs', 'podcasts', 'services', 'uploaded_files')`,
+    ).catch(() => [[]]);
+    for (const t of tableRows || []) {
+      const tableName = t.TABLE_NAME;
+      const collation = String(t.TABLE_COLLATION || '');
+      if (tableName && !collation.startsWith('utf8mb4_')) {
+        await conn
+          .query(`ALTER TABLE \`${tableName}\` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`)
+          .catch(() => {});
+      }
+    }
+
     // If blogs table is empty, auto-seed master content from recovered_db.json into MySQL
     const [rows] = await conn.query('SELECT COUNT(*) as cnt FROM blogs');
     const blogCount = rows?.[0]?.cnt || 0;

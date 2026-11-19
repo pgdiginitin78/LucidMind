@@ -1,13 +1,18 @@
 import db from '../config/database.js';
 import { HttpError } from '../utils/http.js';
-import { coalesce, isset, parseJsonArray, slugify, toInt, uniqueId } from '../utils/php.js';
+import { coalesce, isset, parseJsonArray, repairMojibake, slugify, toInt, uniqueId } from '../utils/php.js';
 
 export const mapBlog = (row) => ({
   ...row,
+  title: repairMojibake(row.title),
+  excerpt: repairMojibake(row.excerpt),
+  description: repairMojibake(row.description),
+  content: repairMojibake(row.content),
+  author: repairMojibake(row.author),
+  authorRole: repairMojibake(row.author_role),
   _id: row.id,
   tags: parseJsonArray(row.tags),
   isPublished: Boolean(row.is_published),
-  authorRole: row.author_role,
   readTime: row.read_time,
   coverImage: row.cover_image,
 });
@@ -174,9 +179,9 @@ export async function createBlog(data) {
 export async function updateBlog(id, input) {
   const data = { ...input };
   if (isset(data.title) && !isset(data.slug)) {
-    data.slug = slugify(data.title);
+    data.slug = slugify(data.title) || id;
   } else if (isset(data.slug)) {
-    data.slug = slugify(data.slug);
+    data.slug = slugify(data.slug) || id;
   }
 
   const fields = [];

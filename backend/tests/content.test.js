@@ -303,3 +303,59 @@ describe('services', () => {
     assert.equal((await request(app).patch('/api/services/srv_1/publish').set(authHeader())).status, 404);
   });
 });
+
+describe('symbols and encoding support', () => {
+  let m;
+  afterEach(() => m?.restore());
+
+  test('blogs, podcasts, and services preserve symbols/emojis and repair legacy mojibake', async () => {
+    m = mockDb((sql) => {
+      if (sql.startsWith('SHOW COLUMNS')) return [{ Field: 'x', Type: 'longtext' }];
+      if (/^SELECT \* FROM blogs/.test(sql)) {
+        return [{
+          ...blogRow,
+          title: 'AI & Leadership \u2014 Growth \uD83D\uDE80',
+          excerpt: 'managing \u0393\u00C7\u00F6 aligning \u0393\u00C7\u00F4 fast \u0393\u00C7\u00AA',
+          content: 'bullets \u0393\u00C7\u00F3 done \u2705',
+        }];
+      }
+      if (/^SELECT \* FROM podcasts/.test(sql)) {
+        return [{
+          ...podRow,
+          title: 'Scale & AI \uD83C\uDFAF',
+          description: 'point \u0393\u00C7\u00F3 range 6\u0393\u00C7\u00F48 weeks',
+        }];
+      }
+      if (/^SELECT \* FROM services/.test(sql)) {
+        return [{
+          ...srvRow,
+          title: 'Advisory & Ops \u2728',
+          real_problem: 'cycles \u0393\u00C7\u00F6 slow',
+          features: JSON.stringify(['one \u0393\u00C7\u00F4 two']),
+        }];
+      }
+      return { affectedRows: 1 };
+    });
+
+    const bRes = await request(app).get('/api/blogs');
+    assert.equal(bRes.status, 200);
+    assert.equal(bRes.body.blogs[0].title, 'AI & Leadership \u2014 Growth \uD83D\uDE80');
+    assert.equal(bRes.body.blogs[0].excerpt, 'managing \u2014 aligning \u2013 fast \u2026');
+    assert.equal(bRes.body.blogs[0].content, 'bullets \u2022 done \u2705');
+
+    const pRes = await request(app).get('/api/podcasts');
+    assert.equal(pRes.status, 200);
+    assert.equal(pRes.body.podcasts[0].title, 'Scale & AI \uD83C\uDFAF');
+    assert.equal(pRes.body.podcasts[0].description, 'point \u2022 range 6\u20138 weeks');
+
+    const sRes = await request(app).get('/api/services');
+    assert.equal(sRes.status, 200);
+    assert.equal(sRes.body.services[0].realProblem, 'cycles \u2014 slow');
+    assert.deepEqual(sRes.body.services[0].features, ['one \u2013 two']);
+
+    const created = await request(app).post('/api/blogs').set(authHeader()).send({ title: '\uD83D\uDE80\u2728' });
+    assert.equal(created.status, 201);
+    const ins = m.calls.find((c) => c.sql.startsWith('INSERT INTO blogs'));
+    assert.match(ins.params[2], /^blog_[0-9a-f]{13}$/);
+  });
+});

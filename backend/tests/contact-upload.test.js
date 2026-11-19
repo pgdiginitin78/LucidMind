@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import request from "supertest";
-import { app, authHeader, config } from "./helpers.js";
+import { app, authHeader, config, mockDb } from "./helpers.js";
 import { mailer } from "../src/services/contactService.js";
 
 describe("contact", () => {
@@ -204,5 +204,42 @@ describe("upload", () => {
     assert.equal(res.status, 200);
     assert.equal(res.body.filename.includes("/"), false);
     assert.ok(fs.existsSync(path.join(config.uploads.dir, res.body.filename)));
+  });
+
+  test("persists upload in MySQL uploaded_files and serves from DB when disk file is absent", async () => {
+    const store = new Map();
+    const dbMock = mockDb((sql, params) => {
+      if (sql.includes("INSERT INTO uploaded_files")) {
+        store.set(params[0], { mime_type: params[1], data: params[2] });
+        return { affectedRows: 1 };
+      }
+      if (sql.includes("SELECT mime_type, data FROM uploaded_files")) {
+        const hit = store.get(params[0]);
+        return hit ? [hit] : [];
+      }
+      return [];
+    });
+
+    try {
+      const res = await request(app)
+        .post("/api/upload")
+        .set(authHeader())
+        .attach("file", png, {
+          filename: "persistent.png",
+          contentType: "image/png",
+        });
+      assert.equal(res.status, 200);
+      assert.ok(store.has(res.body.filename));
+
+      fs.unlinkSync(path.join(config.uploads.dir, res.body.filename));
+      assert.equal(fs.existsSync(path.join(config.uploads.dir, res.body.filename)), false);
+
+      const get = await request(app).get(res.body.url);
+      assert.equal(get.status, 200);
+      assert.match(get.headers["content-security-policy"], /sandbox/);
+      assert.deepEqual(get.body, png);
+    } finally {
+      dbMock.restore();
+    }
   });
 });

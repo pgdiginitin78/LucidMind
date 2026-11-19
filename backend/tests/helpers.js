@@ -14,6 +14,7 @@ const { default: db } = await import('../src/config/database.js');
 const { createApp } = await import('../src/app.js');
 const { default: config } = await import('../src/config/env.js');
 const { resetSchemaCache } = await import('../src/services/podcastService.js');
+const { resetUploadTableCache } = await import('../src/services/uploadService.js');
 const { default: jwt } = await import('jsonwebtoken');
 
 export { db, config };
@@ -47,10 +48,14 @@ export function mockDb(handler) {
     return r;
   };
   db.ping = async () => true;
+  db._isMock = true;
   resetSchemaCache();
+  resetUploadTableCache();
   return {
     calls,
     restore() {
+      delete db._isMock;
+      resetUploadTableCache();
       Object.assign(db, orig);
     },
   };

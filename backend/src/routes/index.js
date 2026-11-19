@@ -45,6 +45,6 @@ router.use('/podcasts', publicCacheHeaders, podcastRoutes);
 router.use('/services', publicCacheHeaders, serviceRoutes);
 router.post('/contact', contactLimiter, contact.send);
 // The PHP upload endpoint was unauthenticated; it now requires the admin JWT (frontend sends it).
-router.post('/upload', authenticate, uploadSingle, uploads.upload);
+router.post('/upload', authenticate, uploadSingle, asyncHandler(uploads.upload));
 
 export default router;

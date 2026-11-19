@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import dotenv from "dotenv";
@@ -52,6 +53,24 @@ const extraOrigins = pick("FRONTEND_URL")
   .map((o) => o.trim().replace(/\/$/, ""))
   .filter(Boolean);
 
+const resolveUploadsDir = () => {
+  const explicit = pick("UPLOAD_DIR");
+  if (explicit) return path.resolve(backendRoot, explicit);
+  const hbuildsMarker = `${path.sep}hbuilds${path.sep}`;
+  const markerIdx = backendRoot.indexOf(hbuildsMarker);
+  if (markerIdx !== -1) {
+    // Store Hostinger uploads outside versioned hbuilds/<uuid> folders so redeploys preserve them.
+    const persistentDir = path.join(backendRoot.slice(0, markerIdx), "uploads");
+    try {
+      fs.mkdirSync(persistentDir, { recursive: true });
+      return persistentDir;
+    } catch {
+      // Fall back to local backend/uploads if outside directory is not writable.
+    }
+  }
+  return path.resolve(backendRoot, "uploads");
+};
+
 const config = {
   nodeEnv,
   isProduction,
@@ -92,7 +111,7 @@ const config = {
   },
 
   uploads: {
-    dir: path.resolve(backendRoot, pick("UPLOAD_DIR") || "uploads"),
+    dir: resolveUploadsDir(),
     maxBytes: (Number(pick("MAX_UPLOAD_SIZE_MB")) || 50) * 1024 * 1024,
   },
 
